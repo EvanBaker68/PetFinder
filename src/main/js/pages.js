@@ -5,20 +5,25 @@ import {HashRouter, Link, Route} from 'react-router-dom';
 import { connect } from 'react-redux';
 import * as Users from 'js/users';
 import * as Login from 'js/login';
+import * as Example from 'js/axiosExample';
+import axios from 'axios';
 
 export class Home extends React.Component {
 	render() {
+		let message = '';
+        {axios.get('/api/exampleAxios').then(res => {
+            message = '';
+        });}
 		return (
 			<div className="container padded">
 				This is the home page.
-
+				{message}
 				<ul>
 					<li><Link to="/register">Register</Link></li>
 					<li><Link to="/login">Login</Link></li>
 					<li><Link to="/page-1">Page 1</Link></li>
 					<li><Link to="/sitterDash">Sitters</Link></li>
 					<li><Link to="/ownerDash">Owners</Link></li>
-					<li><Link to="/search">Search</Link></li>
 				</ul>
 			</div>
 		);
@@ -128,6 +133,7 @@ class ownerDash extends React.Component {
 					<li><Link to="/sitterDash">Go to sitter view</Link></li>
 					<li><Link to="/ownerPets">Your Pets</Link></li>
 					<li><Link to="/ownerProfile">Your Profile</Link></li>
+					<li><Link to="/search">Search</Link></li>
 				</ul>
 			</div>
 		);
@@ -174,13 +180,55 @@ export class pets extends React.Component {
 
 }
 
-export class search extends React.Component {
+export class searchForSitters extends React.Component {
     render() {
         return (
             <div className={"container padded"}>
                 This is where you can search for a sitter
+
+				<li><Link to='/otherSitterProfile'>Sitter</Link></li>
             </div>
         );
     }
 
 }
+
+export class otherSitterProfile extends React.Component {
+    render() {
+        return (
+            <div className={"container padded"}>
+                Welcome to [Name]'s Profile
+
+				<li><Link to="/bookSitter">Book this sitter</Link></li>
+            </div>
+        );
+    }
+
+}
+
+export class bookSitter extends React.Component {
+    render() {
+        return (
+            <div className={"container padded"}>
+                Select the day(s) and pet(s) you would like to request a sitter for.
+
+				<li><Link to="/bookingConfirmation">Confirm the booking</Link></li>
+            </div>
+        );
+    }
+
+}
+
+export class confirmation extends React.Component {
+    render() {
+        return (
+            <div className={"container padded"}>
+                Your request has be sent to [Name]
+
+				<li><Link to="/">Home</Link></li>
+            </div>
+        );
+    }
+
+}
+
