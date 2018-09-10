@@ -18,6 +18,7 @@ export class Home extends React.Component {
 					<li><Link to="/page-1">Page 1</Link></li>
 					<li><Link to="/page-2">Page 2</Link></li>
 					<li><Link to="/page-3">Page 3</Link></li>
+        			<li><Link to="/test">Test page</Link></li>
 				</ul>
 			</div>
 		);
@@ -101,4 +102,36 @@ export class Page3 extends React.Component {
 			</div>
 		);
 	}
+}
+
+
+export class TestPage extends React.Component {
+
+    constructor(props) {
+        super(props);
+        this.state = {testMessage: 'default value'};
+    }
+
+
+    componentDidMount() {
+        fetch('http://localhost:8080/test/')
+            .then(
+            (response) => response.text()
+        ).then((responseText) => {
+            // noinspection JSAnnotator
+            this.setState({
+                testMessage: responseText
+            });
+        }).catch((error) => {
+            alert(error);
+        });
+    }
+
+	render() {
+        return (
+            <div className="container padded">
+			{this.state.testMessage}
+        	</div>
+    );
+    }
 }
