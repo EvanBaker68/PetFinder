@@ -114,7 +114,7 @@ export class TestPage extends React.Component {
 
 
     componentDidMount() {
-        fetch('https://temperature-groupone.herokuapp.com/#//test/')
+        fetch('https://temperature-groupone.herokuapp.com/#/test/')
             .then(
             (response) => response.text()
         ).then((responseText) => {
