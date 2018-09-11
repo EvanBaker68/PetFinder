@@ -13,12 +13,11 @@ export class Home extends React.Component {
 				This is the home page.
 
 				<ul>
-					<li><Link to="/register">Register</Link></li>
-					<li><Link to="/login">Login</Link></li>
-					<li><Link to="/page-1">Page 1</Link></li>
-					<li><Link to="/page-2">Page 2</Link></li>
-					<li><Link to="/page-3">Page 3</Link></li>
-        			<li><Link to="/test">Test page</Link></li>
+                    <li><Link to="/register">Register</Link></li>
+                    <li><Link to="/login">Login</Link></li>
+                    <li><Link to="/sitterDash">Sitters</Link></li>
+                    <li><Link to="/ownerDash">Owners</Link></li>
+					<li><Link to="/test">Test page</Link></li>
 				</ul>
 			</div>
 		);
@@ -56,54 +55,148 @@ export class LoginPage extends React.Component {
 		);
 	}
 }
+class sitterDash extends React.Component {
+    render() {
+        return (
+            <div className="container padded">
+                Welcome to sitter dashboard
 
-class Page1 extends React.Component {
-	render() {
-		return (
-			<div className="container padded">
-				This is page 1.
+                { _.isDefined(this.props.user) &&
+                <div>User: {this.props.user.principal}!</div>
+                }
 
-				{ _.isDefined(this.props.authentication) &&
-				<div>{this.props.authentication['access_token']}</div>
-				}
-
-				{ _.isDefined(this.props.user) &&
-				<div>Welcome, {this.props.user.principal}!</div>
-				}
-			</div>
-		);
-	}
+                <ul>
+                    <li><Link to="/ownerDash">Go to owner view</Link></li>
+                    <li><Link to="/sitterProfile">Your Profile</Link></li>
+                </ul>
+            </div>
+        );
+    }
 }
 
-Page1 = connect(
-	state => ({
-		authentication: Users.State.getAuthentication(state),
-		user: Users.State.getUser(state)
-	})
-)(Page1);
+sitterDash = connect(
+    state => ({
+        authentication: Users.State.getAuthentication(state),
+        user: Users.State.getUser(state)
+    })
+)(sitterDash);
 
-export { Page1 };
+export { sitterDash };
 
-export class Page2 extends React.Component {
-	render() {
-		return (
-			<div className="container padded">
-				This is page 2.
-			</div>
-		);
-	}
+class ownerDash extends React.Component {
+    render() {
+        return (
+            <div className="container padded">
+                Welcome to the owner Dashboard!
+
+
+                { _.isDefined(this.props.user) &&
+                <div>User: {this.props.user.principal}!</div>
+                }
+
+
+                <ul>
+                    <li><Link to="/sitterDash">Go to sitter view</Link></li>
+                    <li><Link to="/ownerPets">Your Pets</Link></li>
+                    <li><Link to="/ownerProfile">Your Profile</Link></li>
+                    <li><Link to="/search">Search</Link></li>
+                </ul>
+            </div>
+        );
+    }
 }
 
-export class Page3 extends React.Component {
-	render() {
-		return (
-			<div className="container padded">
-				This is page 3.
-			</div>
-		);
-	}
+ownerDash = connect(
+    state => ({
+        authentication: Users.State.getAuthentication(state),
+        user: Users.State.getUser(state)
+    })
+)(ownerDash);
+
+export { ownerDash };
+
+export class ownerProfile extends React.Component {
+    render() {
+        return (
+            <div className="container padded">
+                Here is your owner Profile:
+            </div>
+        );
+    }
 }
 
+export class sitterProfile extends React.Component {
+    render() {
+        return (
+            <div className="container padded">
+                Here is your sitter Profile:
+            </div>
+        );
+    }
+}
+
+export class pets extends React.Component {
+    render() {
+        return (
+            <div className={"container padded"}>
+                Here are your pets:
+            </div>
+        );
+    }
+
+}
+
+export class searchForSitters extends React.Component {
+    render() {
+        return (
+            <div className={"container padded"}>
+                This is where you can search for a sitter
+
+                <li><Link to='/otherSitterProfile'>Sitter</Link></li>
+            </div>
+        );
+    }
+
+}
+
+export class otherSitterProfile extends React.Component {
+    render() {
+        return (
+            <div className={"container padded"}>
+                Welcome to [Name]'s Profile
+
+                <li><Link to="/bookSitter">Book this sitter</Link></li>
+            </div>
+        );
+    }
+
+}
+
+export class bookSitter extends React.Component {
+    render() {
+        return (
+            <div className={"container padded"}>
+                Select the day(s) and pet(s) you would like to request a sitter for.
+
+                <li><Link to="/bookingConfirmation">Confirm the booking</Link></li>
+            </div>
+        );
+    }
+
+}
+
+export class confirmation extends React.Component {
+    render() {
+        return (
+            <div className={"container padded"}>
+                Your request has be sent to [Name]
+
+                <li><Link to="/">Home</Link></li>
+            </div>
+        );
+    }
+
+}
 
 export class TestPage extends React.Component {
 
