@@ -130,7 +130,7 @@ export class TestPage extends React.Component {
 	render() {
         return (
             <div className="container padded">
-			{this.state.testMessage}
+			    <label>{this.state.testMessage}</label>
         	</div>
     );
     }
