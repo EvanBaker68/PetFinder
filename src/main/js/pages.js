@@ -138,7 +138,7 @@ export class sitterProfile extends React.Component {
 export class pets extends React.Component {
 	render() {
 		return (
-			<div className={"container padded"}>
+			<div className="container padded">
 				Here are your pets:
 			</div>
 		);
@@ -149,7 +149,7 @@ export class pets extends React.Component {
 export class searchForSitters extends React.Component {
 	render() {
 		return (
-			<div className={"container padded"}>
+			<div className="container padded">
 				This is where you can search for a sitter
 
 				<li><Link to='/otherSitterProfile'>Sitter</Link></li>
@@ -162,7 +162,7 @@ export class searchForSitters extends React.Component {
 export class otherSitterProfile extends React.Component {
 	render() {
 		return (
-			<div className={"container padded"}>
+			<div className="container padded">
 				Welcome to [Name]'s Profile
 
 				<li><Link to="/bookSitter">Book this sitter</Link></li>
@@ -175,7 +175,7 @@ export class otherSitterProfile extends React.Component {
 export class bookSitter extends React.Component {
 	render() {
 		return (
-			<div className={"container padded"}>
+			<div className="container padded">
 				Select the day(s) and pet(s) you would like to request a sitter for.
 
 				<li><Link to="/bookingConfirmation">Confirm the booking</Link></li>
@@ -188,7 +188,7 @@ export class bookSitter extends React.Component {
 export class confirmation extends React.Component {
 	render() {
 		return (
-			<div className={"container padded"}>
+			<div className="container padded">
 				Your request has be sent to [Name]
 
 				<li><Link to="/">Home</Link></li>
