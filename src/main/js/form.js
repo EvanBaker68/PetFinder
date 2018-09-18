@@ -30,42 +30,46 @@ client.indices.create({
 
 
 export default class Form extends React.Component {
-    state = {
-        petId: '',
-        petName: '',
-        petType: '',
-    }
+    // state = {
+    //     petId: '',
+    //     petName: '',
+    //     petType: '',
+    // };
 
-    change = (e) => {
+    handleChangeName = (e) => {
         this.setState({
-            [e.target.name]: e.target.value
+            petName: e.target.value
         });
     };
 
+    handleChangeId = (e) => {
+        this.setState({
+            petId: e.target.value
+        });
+    };
 
+    handleChangeType = (e) => {
+        this.setState({
+            petType: e.target.value
+        });
+    };
 
     onHandle = (e) => {
         e.preventDefault();
 
-        fetch('/api/pets',{
-            method: 'POST',
-            headers: {
-                Accept: 'application/json',
-                'Content-Type' : 'application/json',
-            },
-            body: JSON.stringify({
-                id : this.state.petId,
-                name: this.state.petName,
-                type: this.state.petType,
-            }),
-        }).then(
-            (response) => response.json()
-        ).catch((error) => {
-            console.log(error);
-        });
+        const pet = {
+            id: this.state.id,
+            name: this.state.name,
+            type: this.state.type,
+        };
 
 
-    }
+        axios.post('/api/pets', {pet}).then(
+            res => {
+              console.log(res);
+              console.log(res.data);
+            )};
+    };
 
     render() {
         return (
@@ -74,20 +78,18 @@ export default class Form extends React.Component {
                 name='petId'
                 placeholder='petId pwease'
                 value={this.state.petId}
-                onChange={e => this.change(e)}/>
+                onChange={e => this.handleChangeId(e)}/>
 
                 <input
                 name='petName'
                 placeholder='petName pwease'
                 value={this.state.petName}
-                onChange={e => this.change(e)}/>
+                onChange={e => this.handleChangeName(e)}/>
 
                 <input
                 name='petType'
                 placeholder='petType pwease'
-                onChange={e => this.change(e)}/>
-                >
-
+                onChange={e => this.handleChangeType(e)}/>
                 <br />
                 <button onClick={e => this.onHandle(e)}>Submit</button>
             </form>
