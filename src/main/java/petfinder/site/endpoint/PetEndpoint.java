@@ -34,8 +34,8 @@ public class PetEndpoint {
 
 	@PostMapping(produces = "application/json")
 	public PetDto savePet(@RequestBody PetDto pet) {
-		Logger log = (Logger) LoggerFactory.getLogger(getClass());
-		log.info("heyyo");
+		//Logger log = (Logger) LoggerFactory.getLogger(getClass());
+		//log.info("heyyo");
 		petService.save(pet);
 		return pet;
 	}
