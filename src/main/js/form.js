@@ -53,6 +53,18 @@ export default class Form extends React.Component {
         e.preventDefault();
         console.log(this.state);
 
+        const pet = {
+            id: this.state.id,
+            name: this.state.name,
+            type: this.state.type,
+        };
+
+        axios.post('/api/pets', { pet })
+            .then(res => {
+                console.log(res);
+                console.long(res.data);
+            });
+
 
     }
 
@@ -74,7 +86,7 @@ export default class Form extends React.Component {
                 <input
                 name='type'
                 placeholder='petType pwease'
-                value={this.state.name}
+                value={this.state.type}
                 onChange={e => this.change(e)}/>
                 >
 
