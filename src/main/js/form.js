@@ -1,6 +1,6 @@
 import React from 'react';
 import elasticsearch from 'elasticsearch';
-
+import axios from 'axios';
 /*
 var client = new elasticsearch.Client({
     hosts: ['000.0.0.0:9200']
@@ -28,34 +28,30 @@ client.indices.create({
  });
 */
 
+export function authenticate(pet){
+    return axios.post('/api/pets');
+}
+
 
 export default class Form extends React.Component {
-    // state = {
-    //     petId: '',
-    //     petName: '',
-    //     petType: '',
-    // };
+    state = {
+        id: '',
+        name: '',
+        type: '',
+    }
 
-    handleChangeName = (e) => {
+    change = (e) => {
         this.setState({
-            petName: e.target.value
+            [e.target.name]: e.target.value,
         });
     };
 
-    handleChangeId = (e) => {
-        this.setState({
-            petId: e.target.value
-        });
-    };
 
-    handleChangeType = (e) => {
-        this.setState({
-            petType: e.target.value
-        });
-    };
 
-    onHandle = (e) => {
+
+    onSubmit = (e) => {
         e.preventDefault();
+        console.log(this.state);
 
         const pet = {
             id: this.state.id,
@@ -63,35 +59,39 @@ export default class Form extends React.Component {
             type: this.state.type,
         };
 
+        axios.post('/api/pets', { pet })
+            .then(res => {
+                console.log(res);
+                console.long(res.data);
+            });
 
-        axios.post('/api/pets', {pet}).then(
-            res => {
-              console.log(res);
-              console.log(res.data);
-            )};
-    };
+
+    }
 
     render() {
         return (
-            <form onSubmit={this.onHandle}>
+            <form>
                 <input
-                name='petId'
+                name='id'
                 placeholder='petId pwease'
-                value={this.state.petId}
-                onChange={e => this.handleChangeId(e)}/>
+                value={this.state.id}
+                onChange={e => this.change(e)}/>
 
                 <input
-                name='petName'
+                name='name'
                 placeholder='petName pwease'
-                value={this.state.petName}
-                onChange={e => this.handleChangeName(e)}/>
+                value={this.state.name}
+                onChange={e => this.change(e)}/>
 
                 <input
-                name='petType'
+                name='type'
                 placeholder='petType pwease'
-                onChange={e => this.handleChangeType(e)}/>
+                value={this.state.type}
+                onChange={e => this.change(e)}/>
+                >
+
                 <br />
-                <button onClick={e => this.onHandle(e)}>Submit</button>
+                <button onClick={e => this.onSubmit(e)}>Submit</button>
             </form>
         );
     }
