@@ -26,8 +26,8 @@ class OutlinedTextFields extends React.Component {
     state = {
         fistname: '',
         lastname: '',
-        multiline: 'Controlled',
-        currency: 'EUR',
+        address: '',
+        city: ''
     };
 
     handleChange = name => event => {
@@ -56,6 +56,24 @@ class OutlinedTextFields extends React.Component {
                     className={classes.textField}
                     value={this.state.name}
                     onChange={this.handleChange('lastname')}
+                    margin="normal"
+                    variant="standard"
+                />
+                <TextField
+                    id="outlined-name"
+                    label="Address"
+                    className={classes.textField}
+                    value={this.state.name}
+                    onChange={this.handleChange('address')}
+                    margin="normal"
+                    variant="standard"
+                />
+                <TextField
+                    id="outlined-name"
+                    label="City"
+                    className={classes.textField}
+                    value={this.state.name}
+                    onChange={this.handleChange('city')}
                     margin="normal"
                     variant="standard"
                 />

@@ -132,7 +132,7 @@ class Dashboard extends React.Component {
                                 <MenuIcon />
                             </IconButton>
                             <Typography variant="title" color="inherit" noWrap className={classes.title}>
-                                Dashboard
+                                Owner Dashboard
                             </Typography>
                             <IconButton color="inherit">
                                 <Badge badgeContent={4} color="secondary">
@@ -155,24 +155,18 @@ class Dashboard extends React.Component {
                         </div>
                         <Divider />
                         <List>{mainListItems}</List>
-                        <Divider />
-                        <List>{secondaryListItems}</List>
                     </Drawer>
                     <main className={classes.content}>
                         <div className={classes.appBarSpacer} />
                         <Typography
-                            variant="headline"
+                            variant="display1"
                             gutterBottom
                             align='center'>
                             Enter your city to begin matching with a sitter
                         </Typography>
                         <div className={classes.search}>
-                            <div className={classes.searchIcon}>
-                                <SearchIcon />
-                            </div>
                             <Input
                                 placeholder="Search…"
-                                align='center'
                                 classes={{
                                     root: classes.inputRoot,
                                     input: classes.inputInput,

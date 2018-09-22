@@ -8,21 +8,13 @@ import * as Login from 'js/login';
 import Dashboard from 'js/components/OwnerDash';
 import SignIn from 'js/components/signUp/register';
 import CompleteRegistration from 'js/components/signUp/completeRegistration';
+import HomePage from 'js/components/home';
 
 export class Home extends React.Component {
 	render() {
 		return (
-			<div className="container padded">
-				This is the home page.
-
-				<ul>
-					<li><Link to="/register">Register</Link></li>
-					<li><Link to="/newRegister">new register</Link></li>
-					<li><Link to="/login">Login</Link></li>
-					<li><Link to="/sitterDash">Sitters</Link></li>
-					<li><Link to="/ownerDash">Owners</Link></li>
-					<li><Link to="/test">Test page</Link></li>
-				</ul>
+			<div>
+				<HomePage />
 			</div>
 		);
 	}
@@ -109,17 +101,9 @@ export { sitterDash };
 class ownerDash extends React.Component {
 	render() {
 		return (
-			<div className="container padded">
-				Welcome to the owner Dashboard!
-
-
-				<ul>
-					<li><Link to="/sitterDash">Go to sitter view</Link></li>
-					<li><Link to="/ownerPets">Your Pets</Link></li>
-					<li><Link to="/ownerProfile">Your Profile</Link></li>
-					<li><Link to="/search">Search</Link></li>
-				</ul>
-			</div>
+            <div>
+                <Dashboard />
+            </div>
 		);
 	}
 }

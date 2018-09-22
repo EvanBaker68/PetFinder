@@ -9,6 +9,7 @@ import Button from '@material-ui/core/Button';
 import Paper from '@material-ui/core/Paper';
 import Typography from '@material-ui/core/Typography';
 import OutlinedTextFields from 'js/components/signUp/ownerRegistrationForms';
+import {Link} from 'react-router-dom';
 
 const styles = theme => ({
     root: {
@@ -27,7 +28,9 @@ const styles = theme => ({
 });
 
 function getSteps() {
-    return ['Basic Information', 'Create an ad group', 'Create an ad'];
+    return [<Typography variant="display1">Basic Information</Typography>,
+        <Typography variant="display1">Preferences</Typography>,
+        <Typography variant="display1">Profile Picture</Typography>];
 }
 
 function getStepContent(step) {
@@ -35,17 +38,32 @@ function getStepContent(step) {
         case 0:
             return (
                 <div>
-                    <Typography className="display-1">Please Enter some basic information</Typography>
                     <OutlinedTextFields/>
                 </div>
             );
         case 1:
-            return 'An ad group contains one or more ads which target a shared set of keywords.';
+            return (
+                <div>
+                    <OutlinedTextFields/>
+                </div>
+            );
         case 2:
-            return `Try out different ad text to see what brings in the most customers,
-              and learn how to enhance your ads using features like ad extensions.
-              If you run into any problems with your ads, find out how to tell if
-              they're running and how to resolve approval issues.`;
+            return (
+                <div>
+                    <Typography variant="caption">Optional: upload a profile picture from your computer</Typography>
+                    <input
+                        accept="image/*"
+                        id="flat-button-file"
+                        multiple
+                        type="file"
+                    />
+                    <label htmlFor="flat-button-file">
+                        <Button component="span">
+                            Upload
+                        </Button>
+                    </label>
+                </div>
+            );
         default:
             return 'Unknown step';
     }
@@ -115,9 +133,11 @@ class VerticalLinearStepper extends React.Component {
                 {activeStep === steps.length && (
                     <Paper square elevation={0} className={classes.resetContainer}>
                         <Typography>All steps completed - you&quot;re finished</Typography>
-                        <Button onClick={this.handleReset} className={classes.button}>
-                            Reset
-                        </Button>
+                        <Link to="/ownerDash">
+                            <Button className={classes.button}>
+                                Continue to Dashboard
+                            </Button>
+                        </Link>
                     </Paper>
                 )}
             </div>
