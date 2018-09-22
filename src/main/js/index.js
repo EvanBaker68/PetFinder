@@ -10,6 +10,8 @@ export default class Index extends React.Component {
 				<div>
                     <Route exact path="/" component={Pages.Home} />
                     <Route exact path="/register" component={Pages.RegisterPage} />
+                    <Route exact path="/newRegister" component={Pages.NewRegisterPage}/>
+                    <Route exact path="/completeRegistration" component={Pages.CompleteRegisterPage}/>
                     <Route exact path="/login" component={Pages.LoginPage} />
                     <Route exact path="/sitterDash" component={Pages.sitterDash} />
                     <Route exact path="/ownerDash" component={Pages.ownerDash} />
@@ -21,6 +23,7 @@ export default class Index extends React.Component {
                     <Route exact path="/bookSitter" component={Pages.bookSitter} />
                     <Route exact path="/bookingConfirmation" component={Pages.confirmation} />
 					<Route exact path="/test" component={Pages.TestPage} />
+
 				</div>
 			</HashRouter>
 		);

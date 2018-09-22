@@ -5,6 +5,9 @@ import { Link } from 'react-router-dom';
 import { connect } from 'react-redux';
 import * as Users from 'js/users';
 import * as Login from 'js/login';
+import Dashboard from 'js/components/OwnerDash';
+import SignIn from 'js/components/signUp/register';
+import CompleteRegistration from 'js/components/signUp/completeRegistration';
 
 export class Home extends React.Component {
 	render() {
@@ -14,6 +17,7 @@ export class Home extends React.Component {
 
 				<ul>
 					<li><Link to="/register">Register</Link></li>
+					<li><Link to="/newRegister">new register</Link></li>
 					<li><Link to="/login">Login</Link></li>
 					<li><Link to="/sitterDash">Sitters</Link></li>
 					<li><Link to="/ownerDash">Owners</Link></li>
@@ -38,6 +42,25 @@ export class RegisterPage extends React.Component {
 			</div>
 		);
 	}
+}
+export class NewRegisterPage extends React.Component {
+	render() {
+		return (
+			<div>
+				<SignIn/>
+			</div>
+		);
+	}
+}
+
+export class CompleteRegisterPage extends React.Component {
+    render() {
+        return (
+            <div>
+                <CompleteRegistration/>
+            </div>
+        );
+    }
 }
 
 export class LoginPage extends React.Component {
@@ -90,11 +113,6 @@ class ownerDash extends React.Component {
 				Welcome to the owner Dashboard!
 
 
-				{ _.isDefined(this.props.user) &&
-				<div>User: {this.props.user.principal}!</div>
-				}
-
-
 				<ul>
 					<li><Link to="/sitterDash">Go to sitter view</Link></li>
 					<li><Link to="/ownerPets">Your Pets</Link></li>
@@ -118,8 +136,8 @@ export { ownerDash };
 export class ownerProfile extends React.Component {
 	render() {
 		return (
-			<div className="container padded">
-				Here is your owner Profile:
+			<div>
+				<Dashboard />
 			</div>
 		);
 	}
