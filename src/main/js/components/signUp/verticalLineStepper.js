@@ -12,72 +12,72 @@ import OutlinedTextFields from 'js/components/signUp/ownerRegistrationForms';
 import {Link} from 'react-router-dom';
 
 const styles = theme => ({
-    root: {
-        width: '90%',
-    },
-    button: {
-        marginTop: theme.spacing.unit,
-        marginRight: theme.spacing.unit,
-    },
-    actionsContainer: {
-        marginBottom: theme.spacing.unit * 2,
-    },
-    resetContainer: {
-        padding: theme.spacing.unit * 3,
-    },
+	root: {
+		width: '90%',
+	},
+	button: {
+		marginTop: theme.spacing.unit,
+		marginRight: theme.spacing.unit,
+	},
+	actionsContainer: {
+		marginBottom: theme.spacing.unit * 2,
+	},
+	resetContainer: {
+		padding: theme.spacing.unit * 3,
+	},
 });
 
 function getSteps() {
-    return [<Typography variant="display1">Basic Information</Typography>,
-        <Typography variant="display1">Preferences</Typography>,
-        <Typography variant="display1">Profile Picture</Typography>];
+	return [<Typography variant="display1">Basic Information</Typography>,
+		<Typography variant="display1">Preferences</Typography>,
+		<Typography variant="display1">Profile Picture</Typography>];
 }
 
 function getStepContent(step) {
-    switch (step) {
-        case 0:
-            return (
-                <div>
-                    <OutlinedTextFields/>
-                </div>
-            );
-        case 1:
-            return (
-                <div>
-                    <OutlinedTextFields/>
-                </div>
-            );
-        case 2:
-            return (
-                <div>
-                    <Typography variant="caption">Optional: upload a profile picture from your computer</Typography>
-                    <input
-                        accept="image/*"
-                        id="flat-button-file"
-                        multiple
-                        type="file"
-                    />
-                    <label htmlFor="flat-button-file">
-                        <Button component="span">
-                            Upload
-                        </Button>
-                    </label>
-                </div>
-            );
-        default:
-            return 'Unknown step';
-    }
+	switch (step) {
+		case 0:
+			return (
+				<div>
+					<OutlinedTextFields/>
+				</div>
+			);
+		case 1:
+			return (
+				<div>
+					<OutlinedTextFields/>
+				</div>
+			);
+		case 2:
+			return (
+				<div>
+					<Typography variant="caption">Optional: upload a profile picture from your computer</Typography>
+					<input
+						accept="image/*"
+						id="flat-button-file"
+						multiple
+						type="file"
+					/>
+					<label htmlFor="flat-button-file">
+						<Button component="span">
+							Upload
+						</Button>
+					</label>
+				</div>
+			);
+		default:
+			return 'Unknown step';
+	}
 }
 
 class VerticalLinearStepper extends React.Component {
-    state = {
-        activeStep: 0,
-    };
+	state = {
+		activeStep: 0,
+	};
 
-    handleNext = () => {
-        this.setState(state => ({
-            activeStep: state.activeStep + 1,
-        }));
+	handleNext = () => {
+		this.setState(state => ({
+			activeStep: state.activeStep + 1,
+	    }));
     };
 
     handleBack = () => {

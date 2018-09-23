@@ -161,8 +161,8 @@ export class Field extends React.Component {
 		let props = this.getReifiedProps();
 
 		return <ReduxForm.Field name={ props.name }
-		              component={ this.renderField }
-		              validate={ props.validators.map(validator => buildReduxValidator(validator, props)) } />;
+					  component={ this.renderField }
+					  validate={ props.validators.map(validator => buildReduxValidator(validator, props)) } />;
 	}
 }
 

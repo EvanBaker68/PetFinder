@@ -54,7 +54,8 @@ function SimpleTable(props) {
                                 <TableCell>{n.pets}</TableCell>
                                 <TableCell>
                                     <Button
-                                        color='primary'>
+                                        variant="contained"
+                                        color='secondary'>
                                         Book
                                     </Button>
                                 </TableCell>

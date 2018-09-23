@@ -15,9 +15,7 @@ import MenuIcon from '@material-ui/icons/Menu';
 import ChevronLeftIcon from '@material-ui/icons/ChevronLeft';
 import NotificationsIcon from '@material-ui/icons/Notifications';
 import { mainListItems, secondaryListItems } from 'js/components/dashboard/listItems';
-import SimpleTable from 'js/components/dashboard/SimpleTable';
-import Input from '@material-ui/core/Input';
-import SearchIcon from '@material-ui/icons/Search';
+import PetCard from 'js/components/pets/petCard';
 
 const drawerWidth = 240;
 
@@ -95,7 +93,7 @@ const styles = theme => ({
     },
 });
 
-class Dashboard extends React.Component {
+class PetPage extends React.Component {
     state = {
         open: true,
     };
@@ -132,7 +130,7 @@ class Dashboard extends React.Component {
                                 <MenuIcon />
                             </IconButton>
                             <Typography variant="display2" color="inherit" noWrap className={classes.title}>
-                                Owner Dashboard
+                                My Pets
                             </Typography>
                             <IconButton color="inherit">
                                 <Badge badgeContent={4} color="secondary">
@@ -157,28 +155,7 @@ class Dashboard extends React.Component {
                         <List>{mainListItems}</List>
                     </Drawer>
                     <main className={classes.content}>
-                        <div className={classes.appBarSpacer} />
-                        <Typography
-                            variant="display1"
-                            gutterBottom
-                            align='center'>
-                            Enter your city to begin matching with a sitter
-                        </Typography>
-                        <div className={classes.search}>
-                            <Input
-                                placeholder="Search…"
-                                classes={{
-                                    root: classes.inputRoot,
-                                    input: classes.inputInput,
-                                }}
-                            />
-                        </div>
-                        <Typography variant="display1" gutterBottom>
-                            Previous Sitters
-                        </Typography>
-                        <div className={classes.tableContainer}>
-                            <SimpleTable />
-                        </div>
+                        <PetCard/>
                     </main>
                 </div>
             </React.Fragment>
@@ -186,8 +163,8 @@ class Dashboard extends React.Component {
     }
 }
 
-Dashboard.propTypes = {
+PetPage.propTypes = {
     classes: PropTypes.object.isRequired,
 };
 
-export default withStyles(styles)(Dashboard);
+export default withStyles(styles)(PetPage);

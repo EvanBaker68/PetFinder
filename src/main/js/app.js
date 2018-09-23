@@ -42,7 +42,7 @@ axios.interceptors.response.use(response => response.data, error => Promise.reje
 const mountNode = document.querySelector('#main');
 ReactDOM.render(
 		<Provider store={store}>
-            <MuiThemeProvider theme={theme}>
+			<MuiThemeProvider theme={theme}>
 			<Index />
 			</MuiThemeProvider>
 		</Provider>, mountNode);

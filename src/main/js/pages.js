@@ -9,6 +9,7 @@ import Dashboard from 'js/components/OwnerDash';
 import SignIn from 'js/components/signUp/register';
 import CompleteRegistration from 'js/components/signUp/completeRegistration';
 import HomePage from 'js/components/home';
+import PetPage from 'js/components/pets/petPage';
 
 export class Home extends React.Component {
 	render() {
@@ -46,13 +47,13 @@ export class NewRegisterPage extends React.Component {
 }
 
 export class CompleteRegisterPage extends React.Component {
-    render() {
-        return (
-            <div>
-                <CompleteRegistration/>
-            </div>
-        );
-    }
+	render() {
+		return (
+			<div>
+				<CompleteRegistration/>
+			</div>
+		);
+	}
 }
 
 export class LoginPage extends React.Component {
@@ -101,19 +102,12 @@ export { sitterDash };
 class ownerDash extends React.Component {
 	render() {
 		return (
-            <div>
-                <Dashboard />
-            </div>
+			<div>
+				<Dashboard />
+			</div>
 		);
 	}
 }
-
-ownerDash = connect(
-	state => ({
-		authentication: Users.State.getAuthentication(state),
-		user: Users.State.getUser(state)
-	})
-)(ownerDash);
 
 export { ownerDash };
 
@@ -121,7 +115,7 @@ export class ownerProfile extends React.Component {
 	render() {
 		return (
 			<div>
-				<Dashboard />
+				Profile
 			</div>
 		);
 	}
@@ -140,8 +134,8 @@ export class sitterProfile extends React.Component {
 export class pets extends React.Component {
 	render() {
 		return (
-			<div className="container padded">
-				Here are your pets:
+			<div>
+				<PetPage/>
 			</div>
 		);
 	}

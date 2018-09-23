@@ -23,9 +23,9 @@ function NavBar(props) {
     const { classes } = props;
     return (
         <div className={classes.root}>
-            <AppBar position="static">
+            <AppBar position="static" style={{ background: 'transparent', boxShadow: 'none'}}>
                 <Toolbar>
-                    <Typography variant="title" color="inherit" className={classes.grow}>
+                    <Typography variant="display1" color="inherit" className={classes.grow}>
                         Pet.ty
                     </Typography>
                     <Link to="/newRegister">

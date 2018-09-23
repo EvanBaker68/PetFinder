@@ -1,11 +1,11 @@
 security:
   oauth2:
-    resource:
-      id: oauth2_id
+	resource:
+	  id: oauth2_id
 
 management:
   security:
-    roles: ADMIN
+	roles: ADMIN
 
 ---
 spring:
@@ -13,7 +13,7 @@ spring:
 
 web:
   statics:
-    js-bundle-location: http://localhost:3000/petfinder-site.js
+	js-bundle-location: http://localhost:3000/petfinder-site.js
 
 elastic-search:
   host: localhost
@@ -27,8 +27,8 @@ spring:
 
 web:
   statics:
-    js-bundle-location: /statics/petfinder-site.js
-    css-bundle-location: /statics/petfinder-site.css
+	js-bundle-location: /statics/petfinder-site.js
+	css-bundle-location: /statics/petfinder-site.css
 
 elastic-search:
   host: localhost

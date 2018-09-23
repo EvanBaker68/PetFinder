@@ -8,20 +8,20 @@ export default class Index extends React.Component {
 		return (
 			<HashRouter>
 				<div>
-                    <Route exact path="/" component={Pages.Home} />
-                    <Route exact path="/register" component={Pages.RegisterPage} />
-                    <Route exact path="/newRegister" component={Pages.NewRegisterPage}/>
-                    <Route exact path="/completeRegistration" component={Pages.CompleteRegisterPage}/>
-                    <Route exact path="/login" component={Pages.LoginPage} />
-                    <Route exact path="/sitterDash" component={Pages.sitterDash} />
-                    <Route exact path="/ownerDash" component={Pages.ownerDash} />
-                    <Route exact path="/ownerPets" component={Pages.pets} />
-                    <Route exact path="/ownerProfile" component={Pages.ownerProfile} />
-                    <Route exact path="/sitterProfile" component={Pages.sitterProfile} />
-                    <Route exact path="/search" component={Pages.searchForSitters} />
-                    <Route exact path="/otherSitterProfile" component={Pages.otherSitterProfile} />
-                    <Route exact path="/bookSitter" component={Pages.bookSitter} />
-                    <Route exact path="/bookingConfirmation" component={Pages.confirmation} />
+					<Route exact path="/" component={Pages.Home} />
+					<Route exact path="/register" component={Pages.RegisterPage} />
+					<Route exact path="/newRegister" component={Pages.NewRegisterPage}/>
+					<Route exact path="/completeRegistration" component={Pages.CompleteRegisterPage}/>
+					<Route exact path="/login" component={Pages.LoginPage} />
+					<Route exact path="/sitterDash" component={Pages.sitterDash} />
+					<Route exact path="/ownerDash" component={Pages.ownerDash} />
+					<Route exact path="/ownerPets" component={Pages.pets} />
+					<Route exact path="/ownerProfile" component={Pages.ownerProfile} />
+					<Route exact path="/sitterProfile" component={Pages.sitterProfile} />
+					<Route exact path="/search" component={Pages.searchForSitters} />
+					<Route exact path="/otherSitterProfile" component={Pages.otherSitterProfile} />
+					<Route exact path="/bookSitter" component={Pages.bookSitter} />
+					<Route exact path="/bookingConfirmation" component={Pages.confirmation} />
 					<Route exact path="/test" component={Pages.TestPage} />
 
 				</div>

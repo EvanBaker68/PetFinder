@@ -42,13 +42,13 @@ public final class Either<L, R> {
 
 	// This should be marked as a false positive in Sonar
 	public static <L, R> boolean equals(Either<L, R> first, Either<L, R> second,
-	                                    SymmetricEqualitor<L> leftEquality, SymmetricEqualitor<R> rightEquality) {
+										SymmetricEqualitor<L> leftEquality, SymmetricEqualitor<R> rightEquality) {
 		return Either.reduce(first, second, leftEquality, rightEquality, () -> false);
 	}
 
 	public static <L, R, T> T reduce(Either<L, R> first, Either<L, R> second,
-	                                 BiFunction<L, L, T> leftReducer, BiFunction<R, R, T> rightReducer,
-	                                 Supplier<T> defaultSupplier) {
+									 BiFunction<L, L, T> leftReducer, BiFunction<R, R, T> rightReducer,
+									 Supplier<T> defaultSupplier) {
 
 		Either<T, ?> mergedResult = merge(first, second,
 				(val1, val2) -> Either.left(leftReducer.apply(val1, val2)),
@@ -61,7 +61,7 @@ public final class Either<L, R> {
 	}
 
 	public static <L, R, NL, NR> Either<NL, NR> merge(Either<L, R> first, Either<L, R> second,
-	                                                  BiFunction<L, L, Either<NL, NR>> leftHandler, BiFunction<R, R, Either<NL, NR>> rightHandler, BiFunction<L, R, Either<NL, NR>> mismatchHandler) {
+													  BiFunction<L, L, Either<NL, NR>> leftHandler, BiFunction<R, R, Either<NL, NR>> rightHandler, BiFunction<L, R, Either<NL, NR>> mismatchHandler) {
 		return first.either(
 				left ->
 						second.either(
