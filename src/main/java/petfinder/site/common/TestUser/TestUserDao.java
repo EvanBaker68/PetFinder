@@ -11,13 +11,14 @@ import petfinder.site.elasticsearch.UserElasticSearchRepository;
 
 import java.util.Optional;
 
+
 @Repository
 public class TestUserDao {
 
     @Autowired
     private TestUserElasticsearchRepository repository;
 
-    public Optional<TestUserDto> findUserByPrincipal(String email) {
+    public Optional<TestUserDto> findUserByEmail(String email) {
         SearchSourceBuilder searchSourceBuilder = new SearchSourceBuilder();
 
         String queryString = String.format("user.email=\"%s\"", email.replace("\"", ""));

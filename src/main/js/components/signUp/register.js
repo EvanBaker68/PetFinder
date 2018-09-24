@@ -50,69 +50,107 @@ const styles = theme => ({
     },
 });
 
-function Register(props) {
-    const { classes } = props;
+class Register extends React.Component{
 
-    return (
-        <React.Fragment>
-            <CssBaseline />
-            <main className={classes.layout}>
-                <Paper className={classes.paper}>
-                    <Typography variant="display1">Register</Typography>
-                    <form className={classes.form}>
-                        <FormControl margin="normal" required fullWidth>
-                            <InputLabel htmlFor="email">Email Address</InputLabel>
-                            <Input id="email" name="email" autoComplete="email" autoFocus />
-                        </FormControl>
-                        <FormControl margin="normal" required fullWidth>
-                            <InputLabel htmlFor="password">Password</InputLabel>
-                            <Input
-                                name="password"
-                                type="password"
-                                id="password"
-                                autoComplete="current-password"
-                            />
-                        </FormControl>
-                        <FormControl margin="normal" required fullWidth>
-                            <InputLabel htmlFor="password">Re-Type Password</InputLabel>
-                            <Input
-                                name="password"
-                                type="password"
-                                id="password"
-                                autoComplete="current-password"
-                            />
-                        </FormControl>
-                        <Link to="/completeRegistration">
-                            <Button
-                                type="submit"
-                                fullWidth
-                                variant="raised"
-                                color="secondary"
-                                className={classes.submit}
-                            >
-                                Continue as Pet Sitter
-                            </Button>
-                        </Link>
-                        <Link to="/completeRegistration">
-                            <Button
-                                type="submit"
-                                fullWidth
-                                variant="raised"
-                                color="primary"
-                                className={classes.submit}
-                            >
-                                Continue as Pet Owner
-                            </Button>
-                        </Link>
-                        <Typography align="center" variant="caption">
-                            You can always register as both a sitter and owner
-                            but just pick one for now!
-                        </Typography>
-                    </form>
-                </Paper>
-            </main>
-        </React.Fragment>
-    );
+
+    constructor(props){
+
+        super(props);
+
+        this.state = {
+            email: '',
+            password: '',
+        };
+
+        this.handleUserEmailChange = this.handleUserEmailChange.bind(this);
+        this.handlePasswordChange = this.handlePasswordChange().bind(this);
+    }
+
+
+
+    handleSubmit = event => {
+        event.preventDefault();
+
+        axios.post('/stuff/TestUser/register',
+            { email: this.state.email, password: this.state.password },)
+            .then(res => {
+                console.log(res);
+                console.log(res.data);
+            })
+    }
+
+    handleUserEmailChange = event => {this.setState({ email: event.target.value })}
+    handlePasswordChange= event => {this.setState({ password: event.target.value })}
+
+
+    render() {
+
+        const { classes } = this.props;
+
+
+        return (
+            <React.Fragment>
+                <CssBaseline/>
+                <main className={classes.layout}>
+                    <Paper className={classes.paper}>
+                        <Typography variant="display1">Register</Typography>
+                        <form className={classes.form}>
+                            <FormControl margin="normal" required fullWidth>
+                                <InputLabel htmlFor="email">Email Address</InputLabel>
+                                <Input id="email" name="email" autoComplete="email" autoFocus/>
+                            </FormControl>
+                            <FormControl margin="normal" required fullWidth>
+                                <InputLabel htmlFor="password">Password</InputLabel>
+                                <Input
+                                    name="password"
+                                    type="password"
+                                    id="password"
+                                    onChange={handlePasswordChange}
+                                    autoComplete="current-password"
+                                />
+                            </FormControl>
+                            <FormControl margin="normal" required fullWidth>
+                                <InputLabel htmlFor="password">Re-Type Password</InputLabel>
+                                <Input
+                                    name="password"
+                                    type="password"
+                                    id="password"
+                                    autoComplete="current-password"
+                                />
+                            </FormControl>
+                            <Link to="/completeRegistration">
+                                <Button
+                                    type="submit"
+                                    fullWidth
+                                    variant="raised"
+                                    color="secondary"
+                                    onSubmit={handleSubmit}
+                                    className={classes.submit}
+                                >
+                                    Continue as Pet Sitter
+                                </Button>
+                            </Link>
+                            <Link to="/completeRegistration">
+                                <Button
+                                    type="submit"
+                                    fullWidth
+                                    variant="raised"
+                                    color="primary"
+                                    className={classes.submit}
+                                >
+                                    Continue as Pet Owner
+                                </Button>
+                            </Link>
+                            <Typography align="center" variant="caption">
+                                You can always register as both a sitter and owner
+                                but just pick one for now!
+                            </Typography>
+                        </form>
+                    </Paper>
+                </main>
+            </React.Fragment>
+        );
+    }
 }
 
 Register.propTypes = {

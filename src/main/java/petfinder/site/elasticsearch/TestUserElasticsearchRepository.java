@@ -13,9 +13,10 @@ import petfinder.site.common.TestUser.TestUserDto;
 import petfinder.site.common.user.UserAuthenticationDto;
 
 
+@Service
 public class TestUserElasticsearchRepository extends ElasticSearchJsonRepository<TestUserDto, String> {
     @Autowired
     public TestUserElasticsearchRepository(ElasticSearchClientProvider provider) {
-        super(new ElasticSearchIndex(provider, "petfinder-users"), TestUserDto.class);
+        super(new ElasticSearchIndex(provider, "petfinder-testusers"), TestUserDto.class);
     }
 }
