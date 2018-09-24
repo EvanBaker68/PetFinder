@@ -63,7 +63,7 @@ class Register extends React.Component{
         };
 
         this.handleUserEmailChange = this.handleUserEmailChange.bind(this);
-        this.handlePasswordChange = this.handlePasswordChange().bind(this);
+        this.handlePasswordChange = this.handlePasswordChange.bind(this);
     }
 
 
@@ -97,7 +97,7 @@ class Register extends React.Component{
                         <form className={classes.form}>
                             <FormControl margin="normal" required fullWidth>
                                 <InputLabel htmlFor="email">Email Address</InputLabel>
-                                <Input id="email" name="email" autoComplete="email" autoFocus/>
+                                <Input id="email" name="email" onChange={this.handleUserEmailChange} autoComplete="email" autoFocus/>
                             </FormControl>
                             <FormControl margin="normal" required fullWidth>
                                 <InputLabel htmlFor="password">Password</InputLabel>
@@ -105,7 +105,7 @@ class Register extends React.Component{
                                     name="password"
                                     type="password"
                                     id="password"
-                                    onChange={handlePasswordChange}
+                                    onChange={this.handlePasswordChange}
                                     autoComplete="current-password"
                                 />
                             </FormControl>
@@ -124,7 +124,7 @@ class Register extends React.Component{
                                     fullWidth
                                     variant="raised"
                                     color="secondary"
-                                    onSubmit={handleSubmit}
+
                                     className={classes.submit}
                                 >
                                     Continue as Pet Sitter
