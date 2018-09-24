@@ -13,6 +13,7 @@ import withStyles from '@material-ui/core/styles/withStyles';
 import { Link } from 'react-router-dom';
 import blue from '@material-ui/core/colors/blueGrey';
 import red from '@material-ui/core/colors/red';
+import axios from 'axios';
 
 const styles = theme => ({
     palette: {
@@ -76,11 +77,11 @@ class Register extends React.Component{
             .then(res => {
                 console.log(res);
                 console.log(res.data);
-            })
-    }
+            });
+    };
 
-    handleUserEmailChange = event => {this.setState({ email: event.target.value })}
-    handlePasswordChange= event => {this.setState({ password: event.target.value })}
+    handleUserEmailChange = event => {this.setState({ email: event.target.value });};
+    handlePasswordChange = event => {this.setState({ password: event.target.value });};
 
 
     render() {
@@ -124,7 +125,11 @@ class Register extends React.Component{
                                     fullWidth
                                     variant="raised"
                                     color="secondary"
+<<<<<<< HEAD
 
+=======
+                                    onSubmit={this.handleSubmit}
+>>>>>>> 977d20f0c642c48e85a5c38f965fc6716cca5509
                                     className={classes.submit}
                                 >
                                     Continue as Pet Sitter
