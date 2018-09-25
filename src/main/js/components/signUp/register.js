@@ -119,23 +119,18 @@ class Register extends React.Component{
                                     autoComplete="current-password"
                                 />
                             </FormControl>
-                            <Link to="/completeRegistration">
+
                                 <Button
                                     type="submit"
                                     fullWidth
                                     variant="raised"
                                     color="secondary"
-<<<<<<< HEAD
-
-=======
                                     onSubmit={this.handleSubmit}
->>>>>>> 977d20f0c642c48e85a5c38f965fc6716cca5509
                                     className={classes.submit}
                                 >
                                     Continue as Pet Sitter
                                 </Button>
-                            </Link>
-                            <Link to="/completeRegistration">
+
                                 <Button
                                     type="submit"
                                     fullWidth
@@ -145,7 +140,7 @@ class Register extends React.Component{
                                 >
                                     Continue as Pet Owner
                                 </Button>
-                            </Link>
+
                             <Typography align="center" variant="caption">
                                 You can always register as both a sitter and owner
                                 but just pick one for now!
