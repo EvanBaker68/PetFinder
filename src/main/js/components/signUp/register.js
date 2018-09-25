@@ -115,7 +115,7 @@ class Register extends React.Component{
                                 <Input
                                     name="password"
                                     type="password"
-                                    id="password"
+                                    id="confirmpassword"
                                     autoComplete="current-password"
                                 />
                             </FormControl>
