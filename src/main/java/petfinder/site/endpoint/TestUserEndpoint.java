@@ -20,26 +20,21 @@ import petfinder.site.common.user.UserService.RegistrationRequest;
 
 
 
-
-
+@RestController
+@RequestMapping(value = "/stuff/TestUser")
 public class TestUserEndpoint {
+    @Autowired
+    private TestUserService testUserService;
 
-    @RestController
-    @RequestMapping(value = "/stuff/TestUser")
-    public class UserEndpoint {
-        @Autowired
-        private TestUserService testUserService;
+    @GetMapping(value = "", produces = "application/json")
+    public Optional<TestUserDto> getUserDetails() {
+        String principal = SecurityContextHolder.getContext().getAuthentication().getName();
+        return testUserService.findUserByEmail(principal);
+    }
 
-        @GetMapping(value = "", produces = "application/json")
-        public Optional<TestUserDto> getUserDetails() {
-            String principal = SecurityContextHolder.getContext().getAuthentication().getName();
-            return testUserService.findUserByEmail(principal);
-        }
-
-        @PostMapping(value = "/register")
-        public void register(@RequestBody TestUserDto testuser) {
-            testUserService.register(testuser);
-        }
+    @PostMapping(value = "/register")
+    public void register(@RequestBody TestUserDto testuser) {
+        testUserService.register(testuser);
     }
 
 }

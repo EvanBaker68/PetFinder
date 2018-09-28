@@ -71,9 +71,11 @@ class Register extends React.Component{
 
     handleSubmit = event => {
         event.preventDefault();
+        console.log('click');
 
-        axios.post('/stuff/TestUser/register',
-            { email: this.state.email, password: this.state.password },)
+        axios.post('/api/user/register',
+            {principal: this.state.email, password: this.state.password
+            })
             .then(res => {
                 console.log(res);
                 console.log(res.data);
@@ -125,7 +127,7 @@ class Register extends React.Component{
                                     fullWidth
                                     variant="raised"
                                     color="secondary"
-                                    onSubmit={this.handleSubmit}
+                                    onClick={this.handleSubmit}
                                     className={classes.submit}
                                 >
                                     Continue as Pet Sitter
