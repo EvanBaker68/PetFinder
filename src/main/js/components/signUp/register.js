@@ -14,6 +14,7 @@ import { Link } from 'react-router-dom';
 import blue from '@material-ui/core/colors/blueGrey';
 import red from '@material-ui/core/colors/red';
 import axios from 'axios';
+import Utils from 'js/alloy/utils/validation';
 
 const styles = theme => ({
     palette: {
@@ -59,35 +60,39 @@ class Register extends React.Component{
         super(props);
 
         this.state = {
-            email: '',
+            principal: '',
             password: '',
         };
 
-        this.handleUserEmailChange = this.handleUserEmailChange.bind(this);
+        this.handleUserprincipalChange = this.handleUserprincipalChange.bind(this);
         this.handlePasswordChange = this.handlePasswordChange.bind(this);
+        this.handleSubmit = this.handleSubmit.bind(this);
     }
 
 
 
     handleSubmit = event => {
         event.preventDefault();
-
+        console.log('made it to submit');
         axios.post('/stuff/TestUser/register',
-            { email: this.state.email, password: this.state.password },)
+            { principal: this.state.principal, password: this.state.password },)
             .then(res => {
                 console.log(res);
                 console.log(res.data);
+            }).then(err => {
+                console.log(err);
+                console.log(err.data);
             });
     };
 
-    handleUserEmailChange = event => {this.setState({ email: event.target.value });};
+    handleUserprincipalChange = event => {this.setState({ principal: event.target.value });};
     handlePasswordChange = event => {this.setState({ password: event.target.value });};
 
 
     render() {
 
         const { classes } = this.props;
-
+        console.log('hey there');
 
         return (
             <React.Fragment>
@@ -97,8 +102,8 @@ class Register extends React.Component{
                         <Typography variant="display1">Register</Typography>
                         <form className={classes.form}>
                             <FormControl margin="normal" required fullWidth>
-                                <InputLabel htmlFor="email">Email Address</InputLabel>
-                                <Input id="email" name="email" onChange={this.handleUserEmailChange} autoComplete="email" autoFocus/>
+                                <InputLabel htmlFor="principal">Email Address</InputLabel>
+                                <Input id="principal" name="principal" onChange={this.handleUserprincipalChange} autoComplete="principal" autoFocus/>
                             </FormControl>
                             <FormControl margin="normal" required fullWidth>
                                 <InputLabel htmlFor="password">Password</InputLabel>
@@ -125,7 +130,7 @@ class Register extends React.Component{
                                     fullWidth
                                     variant="raised"
                                     color="secondary"
-                                    onSubmit={this.handleSubmit}
+                                    onClick={this.handleSubmit}
                                     className={classes.submit}
                                 >
                                     Continue as Pet Sitter
@@ -136,6 +141,7 @@ class Register extends React.Component{
                                     fullWidth
                                     variant="raised"
                                     color="primary"
+                                    onClick={this.handleSubmit}
                                     className={classes.submit}
                                 >
                                     Continue as Pet Owner
