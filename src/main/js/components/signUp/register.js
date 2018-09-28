@@ -14,6 +14,9 @@ import { Link } from 'react-router-dom';
 import blue from '@material-ui/core/colors/blueGrey';
 import red from '@material-ui/core/colors/red';
 import axios from 'axios';
+import * as Users from "js/users";
+import {connect} from "react-redux";
+import * as ReduxForm from "redux-form";
 
 const styles = theme => ({
     palette: {
