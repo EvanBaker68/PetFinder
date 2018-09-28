@@ -14,7 +14,10 @@ import { Link } from 'react-router-dom';
 import blue from '@material-ui/core/colors/blueGrey';
 import red from '@material-ui/core/colors/red';
 import axios from 'axios';
-import Utils from 'js/alloy/utils/validation';
+import * as Users from 'js/users';
+import {connect} from 'react-redux';
+import * as ReduxForm from 'redux-form';
+import * as Validation from 'js/alloy/utils/validation';
 
 const styles = theme => ({
     palette: {
@@ -52,47 +55,22 @@ const styles = theme => ({
     },
 });
 
-class Register extends React.Component{
+class RegisterForm extends React.Component{
 
 
-    constructor(props){
-
-        super(props);
-
-        this.state = {
-            principal: '',
-            password: '',
-        };
-
-        this.handleUserprincipalChange = this.handleUserprincipalChange.bind(this);
-        this.handlePasswordChange = this.handlePasswordChange.bind(this);
-        this.handleSubmit = this.handleSubmit.bind(this);
-    }
-
-
-
-    handleSubmit = event => {
-        event.preventDefault();
-        console.log('made it to submit');
-        axios.post('/stuff/TestUser/register',
-            { principal: this.state.principal, password: this.state.password },)
-            .then(res => {
-                console.log(res);
-                console.log(res.data);
-            }).then(err => {
-                console.log(err);
-                console.log(err.data);
-            });
+    handleSubmit = user => {
+        return this.props.register(user);
     };
 
-    handleUserprincipalChange = event => {this.setState({ principal: event.target.value });};
+    handleUserEmailChange = event => {this.setState({ email: event.target.value });};
     handlePasswordChange = event => {this.setState({ password: event.target.value });};
 
 
     render() {
 
         const { classes } = this.props;
-        console.log('hey there');
+        let { handleSubmit, submitting } = this.props;
+
 
         return (
             <React.Fragment>
@@ -102,8 +80,9 @@ class Register extends React.Component{
                         <Typography variant="display1">Register</Typography>
                         <form className={classes.form}>
                             <FormControl margin="normal" required fullWidth>
-                                <InputLabel htmlFor="principal">Email Address</InputLabel>
-                                <Input id="principal" name="principal" onChange={this.handleUserprincipalChange} autoComplete="principal" autoFocus/>
+                                <InputLabel htmlFor="email">Email Address</InputLabel>
+                                <Input id="email" name="email" onChange={this.handleUserEmailChange}
+                                       validators={[Validation.requiredValidator, Validation.emailValidator]} autoComplete="email" autoFocus/>
                             </FormControl>
                             <FormControl margin="normal" required fullWidth>
                                 <InputLabel htmlFor="password">Password</InputLabel>
@@ -111,6 +90,8 @@ class Register extends React.Component{
                                     name="password"
                                     type="password"
                                     id="password"
+                                    validators={[Validation.requiredValidator, Validation.passwordValidator]}
+                                    field={<input className="form-control" type="password" />}
                                     onChange={this.handlePasswordChange}
                                     autoComplete="current-password"
                                 />
@@ -125,27 +106,27 @@ class Register extends React.Component{
                                 />
                             </FormControl>
 
-                                <Button
-                                    type="submit"
-                                    fullWidth
-                                    variant="raised"
-                                    color="secondary"
-                                    onClick={this.handleSubmit}
-                                    className={classes.submit}
-                                >
-                                    Continue as Pet Sitter
-                                </Button>
+                            <Button
+                                type="submit"
+                                loading={submitting}
+                                fullWidth
+                                variant="raised"
+                                color="secondary"
+                                onClick={this.handleSubmit}
+                                className={classes.submit}
+                            >
+                                Continue as Pet Sitter
+                            </Button>
 
-                                <Button
-                                    type="submit"
-                                    fullWidth
-                                    variant="raised"
-                                    color="primary"
-                                    onClick={this.handleSubmit}
-                                    className={classes.submit}
-                                >
-                                    Continue as Pet Owner
-                                </Button>
+                            <Button
+                                type="submit"
+                                fullWidth
+                                variant="raised"
+                                color="primary"
+                                className={classes.submit}
+                            >
+                                Continue as Pet Owner
+                            </Button>
 
                             <Typography align="center" variant="caption">
                                 You can always register as both a sitter and owner
@@ -159,8 +140,19 @@ class Register extends React.Component{
     }
 }
 
-Register.propTypes = {
+RegisterForm = ReduxForm.reduxForm({form: 'register'})(RegisterForm);
+
+RegisterForm = connect(
+    state => ({
+
+    }),
+    dispatch => ({
+        register: user => dispatch(Users.Actions.register(user))
+    })
+)(RegisterForm);
+
+RegisterForm.propTypes = {
     classes: PropTypes.object.isRequired,
 };
 
-export default withStyles(styles)(Register);
+export default withStyles(styles)(RegisterForm);
