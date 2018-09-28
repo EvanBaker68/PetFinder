@@ -4,4 +4,4 @@ build
 node_modules
 out
 .gitlab-ci.yml
-
+.eslintrc
