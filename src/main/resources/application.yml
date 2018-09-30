@@ -23,7 +23,7 @@ elastic-search:
     password:
 ---
 spring:
-    profiles: elasticsearch
+    profiles: qa
 
 web:
     statics:

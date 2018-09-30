@@ -1,6 +1,5 @@
 package petfinder.site.endpoint;
 
-import java.util.Map;
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -13,12 +12,6 @@ import org.springframework.web.bind.annotation.RestController;
 
 import petfinder.site.common.TestUser.TestUserDto;
 import petfinder.site.common.TestUser.TestUserService;
-import petfinder.site.common.user.UserDao;
-import petfinder.site.common.user.UserDto;
-import petfinder.site.common.user.UserService;
-import petfinder.site.common.user.UserService.RegistrationRequest;
-
-
 
 
 @RestController
@@ -26,17 +19,16 @@ import petfinder.site.common.user.UserService.RegistrationRequest;
 public class TestUserEndpoint {
 
         @Autowired
-        private UserService userService;
+        private TestUserService testUserService;
 
         @GetMapping(value = "", produces = "application/json")
-        public Optional<UserDto> getUserDetails() {
+        public Optional<TestUserDto> getUserDetails() {
             String principal = SecurityContextHolder.getContext().getAuthentication().getName();
-            return userService.findUserByPrincipal(principal);
+            return testUserService.findUserByEmail(principal);
         }
 
         @PostMapping(value = "/register")
-        public UserDto register(@RequestBody RegistrationRequest request) {
-            return userService.register(request);
+        public void register(@RequestBody TestUserDto testUser) { testUserService.save(testUser);
         }
     }
 
