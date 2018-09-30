@@ -13,6 +13,11 @@ import withStyles from '@material-ui/core/styles/withStyles';
 import { Link } from 'react-router-dom';
 import blue from '@material-ui/core/colors/blueGrey';
 import red from '@material-ui/core/colors/red';
+import axios from 'axios';
+import * as Users from 'js/users';
+import {connect} from 'react-redux';
+import * as ReduxForm from 'redux-form';
+import * as Validation from 'js/alloy/utils/validation';
 
 const styles = theme => ({
     palette: {
@@ -50,41 +55,50 @@ const styles = theme => ({
     },
 });
 
-function Register(props) {
-    const { classes } = props;
+class RegisterForm extends React.Component{
 
-    return (
-        <React.Fragment>
-            <CssBaseline />
-            <main className={classes.layout}>
-                <Paper className={classes.paper}>
-                    <Typography variant="display1">Register</Typography>
-                    <form className={classes.form}>
-                        <FormControl margin="normal" required fullWidth>
-                            <InputLabel htmlFor="email">Email Address</InputLabel>
-                            <Input id="email" name="email" autoComplete="email" autoFocus />
-                        </FormControl>
-                        <FormControl margin="normal" required fullWidth>
-                            <InputLabel htmlFor="password">Password</InputLabel>
-                            <Input
-                                name="password"
-                                type="password"
-                                id="password"
-                                autoComplete="current-password"
-                            />
-                        </FormControl>
-                        <FormControl margin="normal" required fullWidth>
-                            <InputLabel htmlFor="password">Re-Type Password</InputLabel>
-                            <Input
-                                name="password"
-                                type="password"
-                                id="password"
-                                autoComplete="current-password"
-                            />
-                        </FormControl>
-                        <Link to="/completeRegistration">
+
+    onSubmit = user => {
+        return this.props.register(user);
+    };
+
+    // handleUserEmailChange = event => {this.setState({ email: event.target.value });};
+    // handlePasswordChange = event => {this.setState({ password: event.target.value });};
+
+
+    render() {
+
+        const { classes } = this.props;
+        let { handleSubmit, submitting } = this.props;
+
+
+        return (
+            <React.Fragment>
+                <CssBaseline/>
+                <main className={classes.layout}>
+                    <Paper className={classes.paper}>
+                        <Typography variant="display1">Register</Typography>
+                        <form className={classes.form}
+							  onSubmit={handleSubmit(form => this.onSubmit(form))}>
+                            <FormControl margin="normal" required fullWidth>
+                                <InputLabel htmlFor="email">Email Address</InputLabel>
+                                <Input id="email" name="principal"
+                                       validators={[Validation.requiredValidator, Validation.emailValidator]} autoComplete="email" autoFocus/>
+                            </FormControl>
+                            <FormControl margin="normal" required fullWidth>
+                                <InputLabel htmlFor="password">Password</InputLabel>
+                                <Input
+                                    name="password"
+                                    type="password"
+                                    id="password"
+                                    validators={[Validation.requiredValidator, Validation.passwordValidator]}
+                                    // field={<input className="form-control" type="password" />}
+                                    autoComplete="current-password"
+                                />
+                            </FormControl>
                             <Button
                                 type="submit"
+                                loading="submitting"
                                 fullWidth
                                 variant="raised"
                                 color="secondary"
@@ -92,8 +106,7 @@ function Register(props) {
                             >
                                 Continue as Pet Sitter
                             </Button>
-                        </Link>
-                        <Link to="/completeRegistration">
+
                             <Button
                                 type="submit"
                                 fullWidth
@@ -103,20 +116,32 @@ function Register(props) {
                             >
                                 Continue as Pet Owner
                             </Button>
-                        </Link>
-                        <Typography align="center" variant="caption">
-                            You can always register as both a sitter and owner
-                            but just pick one for now!
-                        </Typography>
-                    </form>
-                </Paper>
-            </main>
-        </React.Fragment>
-    );
+
+                            <Typography align="center" variant="caption">
+                                You can always register as both a sitter and owner
+                                but just pick one for now!
+                            </Typography>
+                        </form>
+                    </Paper>
+                </main>
+            </React.Fragment>
+        );
+    }
 }
 
-Register.propTypes = {
+RegisterForm = ReduxForm.reduxForm({form: 'register'})(RegisterForm);
+
+RegisterForm = connect(
+    state => ({
+
+    }),
+    dispatch => ({
+        register: user => dispatch(Users.Actions.register(user))
+    })
+)(RegisterForm);
+
+RegisterForm.propTypes = {
     classes: PropTypes.object.isRequired,
 };
 
-export default withStyles(styles)(Register);
+export default withStyles(styles)(RegisterForm);
