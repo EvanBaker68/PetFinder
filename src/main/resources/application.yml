@@ -21,6 +21,7 @@ elastic-search:
     scheme: http
     user-name:
     password:
+
 ---
 spring:
     profiles: qa
