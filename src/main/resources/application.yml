@@ -23,7 +23,7 @@ elastic-search:
     password:
 ---
 spring:
-    profiles: qa
+    profiles: elasticsearch
 
 web:
     statics:
@@ -31,8 +31,8 @@ web:
     css-bundle-location: /statics/petfinder-site.css
 
 elastic-search:
-    host: localhost
-    port: 9200
+    host: pet-ty-1855779769
+    port: 443
     scheme: http
-    user-name:
-    password:
+    user-name: run3fmjd9u
+    password: x7cjd0tlk5

@@ -58,12 +58,12 @@ const styles = theme => ({
 class RegisterForm extends React.Component{
 
 
-    handleSubmit = user => {
+    onSubmit = user => {
         return this.props.register(user);
     };
 
-    handleUserEmailChange = event => {this.setState({ email: event.target.value });};
-    handlePasswordChange = event => {this.setState({ password: event.target.value });};
+    // handleUserEmailChange = event => {this.setState({ email: event.target.value });};
+    // handlePasswordChange = event => {this.setState({ password: event.target.value });};
 
 
     render() {
@@ -78,10 +78,11 @@ class RegisterForm extends React.Component{
                 <main className={classes.layout}>
                     <Paper className={classes.paper}>
                         <Typography variant="display1">Register</Typography>
-                        <form className={classes.form}>
+                        <form className={classes.form}
+							  onSubmit={handleSubmit(form => this.onSubmit(form))}>
                             <FormControl margin="normal" required fullWidth>
                                 <InputLabel htmlFor="email">Email Address</InputLabel>
-                                <Input id="email" name="email" onChange={this.handleUserEmailChange}
+                                <Input id="email" name="principal"
                                        validators={[Validation.requiredValidator, Validation.emailValidator]} autoComplete="email" autoFocus/>
                             </FormControl>
                             <FormControl margin="normal" required fullWidth>
@@ -91,28 +92,16 @@ class RegisterForm extends React.Component{
                                     type="password"
                                     id="password"
                                     validators={[Validation.requiredValidator, Validation.passwordValidator]}
-                                    field={<input className="form-control" type="password" />}
-                                    onChange={this.handlePasswordChange}
+                                    // field={<input className="form-control" type="password" />}
                                     autoComplete="current-password"
                                 />
                             </FormControl>
-                            <FormControl margin="normal" required fullWidth>
-                                <InputLabel htmlFor="password">Re-Type Password</InputLabel>
-                                <Input
-                                    name="password"
-                                    type="password"
-                                    id="confirmpassword"
-                                    autoComplete="current-password"
-                                />
-                            </FormControl>
-
                             <Button
                                 type="submit"
-                                loading={submitting}
+                                loading="submitting"
                                 fullWidth
                                 variant="raised"
                                 color="secondary"
-                                onClick={this.handleSubmit}
                                 className={classes.submit}
                             >
                                 Continue as Pet Sitter
