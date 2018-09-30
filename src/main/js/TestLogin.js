@@ -28,7 +28,7 @@ function NavBar(props) {
                     <Typography variant="display1" color="inherit" className={classes.grow}>
                         Pet.ty
                     </Typography>
-                    <Link to="/register">
+                    <Link to="/newRegister">
                         <Button
                             variant="contained"
                             color="secondary"

@@ -18,6 +18,7 @@ import * as Users from 'js/users';
 import {connect} from 'react-redux';
 import * as ReduxForm from 'redux-form';
 import * as Validation from 'js/alloy/utils/validation';
+import * as Bessemer from 'js/alloy/bessemer/components';
 
 const styles = theme => ({
     palette: {
@@ -57,10 +58,10 @@ const styles = theme => ({
 
 class RegisterForm extends React.Component{
 
+	onSubmit = user => {
+		return this.props.register(user);
+	};
 
-    onSubmit = user => {
-        return this.props.register(user);
-    };
 
     // handleUserEmailChange = event => {this.setState({ email: event.target.value });};
     // handlePasswordChange = event => {this.setState({ password: event.target.value });};
@@ -81,18 +82,16 @@ class RegisterForm extends React.Component{
                         <form className={classes.form}
 							  onSubmit={handleSubmit(form => this.onSubmit(form))}>
                             <FormControl margin="normal" required fullWidth>
-                                <InputLabel htmlFor="email">Email Address</InputLabel>
-                                <Input id="email" name="principal"
+								<Bessemer.Field friendlyName="email" name="principal"
                                        validators={[Validation.requiredValidator, Validation.emailValidator]} autoComplete="email" autoFocus/>
                             </FormControl>
                             <FormControl margin="normal" required fullWidth>
-                                <InputLabel htmlFor="password">Password</InputLabel>
-                                <Input
+								<Bessemer.Field
                                     name="password"
                                     type="password"
-                                    id="password"
+                                    friendlyName="password"
                                     validators={[Validation.requiredValidator, Validation.passwordValidator]}
-                                    // field={<input className="form-control" type="password" />}
+                                    field={<input className="form-control" type="password" />}
                                     autoComplete="current-password"
                                 />
                             </FormControl>

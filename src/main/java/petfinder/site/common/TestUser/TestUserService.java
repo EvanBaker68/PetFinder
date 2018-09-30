@@ -23,7 +23,7 @@ public class TestUserService {
 
 
 
-    public void register(TestUserDto testuser) {
+    public void save(TestUserDto testuser) {
         testUserDao.save(testuser);
     }
 
