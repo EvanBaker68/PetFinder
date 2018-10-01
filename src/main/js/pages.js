@@ -16,7 +16,9 @@ export class Home extends React.Component {
 		return (
 			<div>
 				<HomePage />
+
 			</div>
+
 		);
 	}
 }
@@ -203,7 +205,7 @@ export class TestPage extends React.Component {
 
 
 	componentDidMount() {
-		fetch('https://temperature-groupone.herokuapp.com/test/')
+		fetch('/test/')
 			.then(
 			(response) => response.text()
 		).then((responseText) => {

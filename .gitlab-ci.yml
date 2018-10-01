@@ -10,4 +10,4 @@ deploy:
     - dpl --provider=heroku --app=temperature-groupone --api-key=737fc97f-2945-47da-ad3a-0529ad8e009e
   only:
     - master
-    
+
