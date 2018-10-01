@@ -5,22 +5,17 @@ import { Link } from 'react-router-dom';
 import { connect } from 'react-redux';
 import * as Users from 'js/users';
 import * as Login from 'js/login';
-import Form from './form';
+import Dashboard from 'js/components/OwnerDash';
+import SignIn from 'js/components/signUp/register';
+import CompleteRegistration from 'js/components/signUp/completeRegistration';
+import HomePage from 'js/components/home';
+import PetPage from 'js/components/pets/petPage';
+
 export class Home extends React.Component {
 	render() {
 		return (
-			<div className="container padded">
-				This is the home page.
-
-				<ul>
-					<li><Link to="/register">Register</Link></li>
-					<li><Link to="/login">Login</Link></li>
-					<li><Link to="/sitterDash">Sitters</Link></li>
-					<li><Link to="/ownerDash">Owners</Link></li>
-					<li><Link to="/test">Test page</Link></li>
-				</ul>
-
-				<Form />
+			<div>
+				<HomePage />
 			</div>
 
 		);
@@ -38,6 +33,25 @@ export class RegisterPage extends React.Component {
 						<Login.RegistrationForm />
 					</div>
 				</div>
+			</div>
+		);
+	}
+}
+export class NewRegisterPage extends React.Component {
+	render() {
+		return (
+			<div>
+				<SignIn/>
+			</div>
+		);
+	}
+}
+
+export class CompleteRegisterPage extends React.Component {
+	render() {
+		return (
+			<div>
+				<CompleteRegistration/>
 			</div>
 		);
 	}
@@ -89,40 +103,20 @@ export { sitterDash };
 class ownerDash extends React.Component {
 	render() {
 		return (
-			<div className="container padded">
-				Welcome to the owner Dashboard!
-
-
-				{ _.isDefined(this.props.user) &&
-				<div>User: {this.props.user.principal}!</div>
-				}
-
-
-				<ul>
-					<li><Link to="/sitterDash">Go to sitter view</Link></li>
-					<li><Link to="/ownerPets">Your Pets</Link></li>
-					<li><Link to="/ownerProfile">Your Profile</Link></li>
-					<li><Link to="/search">Search</Link></li>
-				</ul>
+			<div>
+				<Dashboard />
 			</div>
 		);
 	}
 }
-
-ownerDash = connect(
-	state => ({
-		authentication: Users.State.getAuthentication(state),
-		user: Users.State.getUser(state)
-	})
-)(ownerDash);
 
 export { ownerDash };
 
 export class ownerProfile extends React.Component {
 	render() {
 		return (
-			<div className="container padded">
-				Here is your owner Profile:
+			<div>
+				Profile
 			</div>
 		);
 	}
@@ -141,8 +135,8 @@ export class sitterProfile extends React.Component {
 export class pets extends React.Component {
 	render() {
 		return (
-			<div className="container padded">
-				Here are your pets:
+			<div>
+				<PetPage/>
 			</div>
 		);
 	}

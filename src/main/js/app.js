@@ -12,6 +12,9 @@ import Index from 'js/index';
 import * as Users from 'js/users';
 import * as Utils from 'js/alloy/utils/core-utils';
 
+import MuiThemeProvider from '@material-ui/core/styles/MuiThemeProvider';
+import theme from 'js/theme/muiTheme';
+
 import 'styles/main.scss';
 
 const reducers = [
@@ -37,4 +40,9 @@ axios.interceptors.request.use(request => {
 axios.interceptors.response.use(response => response.data, error => Promise.reject(error));
 
 const mountNode = document.querySelector('#main');
-ReactDOM.render(<Provider store={store}><Index /></Provider>, mountNode);
+ReactDOM.render(
+		<Provider store={store}>
+			<MuiThemeProvider theme={theme}>
+			<Index />
+			</MuiThemeProvider>
+		</Provider>, mountNode);
