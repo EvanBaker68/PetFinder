@@ -7,7 +7,7 @@ deploy:
     - apt-get update -qy
     - apt-get install -y ruby-dev
     - gem install dpl
-    - dpl --provider=heroku --app=$APP_NAME --api-key=$API_KEY
+    - dpl --provider=heroku --app=temperature-groupone --api-key=737fc97f-2945-47da-ad3a-0529ad8e009e
   only:
     - master
     
