@@ -24,7 +24,7 @@ elastic-search:
 
 ---
 spring:
-    profiles: qa
+    profiles: elasticsearch
 
 web:
     statics:
@@ -32,9 +32,8 @@ web:
         css-bundle-location: /statics/petfinder-site.css
 
 elastic-search:
-    host: pet-ty-1855779769
+    host: pet-ty-1855779769.us-east-1.bonsaisearch.net
     port: 443
     scheme: https
     user-name: run3fmjd9u
     password: x7cjd0tlk5
-
