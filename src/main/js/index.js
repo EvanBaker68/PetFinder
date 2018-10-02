@@ -1,9 +1,18 @@
 import React from 'react';
 import { HashRouter, Route } from 'react-router-dom';
-
+import Cookies from 'universal-cookie';
 import * as Pages from 'js/pages';
 
 export default class Index extends React.Component {
+
+	constructor(props){
+		super(props);
+		const cookies = new Cookies();
+		cookies.set('loggedIn', 'false', { path: '/' });
+
+	}
+
+
 	render() {
 		return (
 			<HashRouter>
