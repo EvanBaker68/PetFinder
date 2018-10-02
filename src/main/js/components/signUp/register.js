@@ -62,11 +62,6 @@ class RegisterForm extends React.Component{
 		return this.props.register(user);
 	};
 
-
-    // handleUserEmailChange = event => {this.setState({ email: event.target.value });};
-    // handlePasswordChange = event => {this.setState({ password: event.target.value });};
-
-
     render() {
 
         const { classes } = this.props;
@@ -115,7 +110,6 @@ class RegisterForm extends React.Component{
                             >
                                 Continue as Pet Owner
                             </Button>
-
                             <Typography align="center" variant="caption">
                                 You can always register as both a sitter and owner
                                 but just pick one for now!

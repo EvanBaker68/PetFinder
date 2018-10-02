@@ -24,7 +24,7 @@ elastic-search:
 
 ---
 spring:
-    profiles: qa
+    profiles: elasticsearch
 
 web:
     statics:
@@ -37,4 +37,3 @@ elastic-search:
     scheme: https
     user-name: run3fmjd9u
     password: x7cjd0tlk5
-
