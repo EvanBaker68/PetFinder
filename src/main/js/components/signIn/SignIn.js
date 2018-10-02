@@ -10,23 +10,16 @@ import LockIcon from '@material-ui/icons/LockOutlined';
 import Paper from '@material-ui/core/Paper';
 import Typography from '@material-ui/core/Typography';
 import withStyles from '@material-ui/core/styles/withStyles';
-import { Link } from 'react-router-dom';
+import { Redirect } from 'react-router-dom';
 import blue from '@material-ui/core/colors/blueGrey';
-import red from '@material-ui/core/colors/red';
-import axios from 'axios';
-import * as Users from 'js/users';
-import {connect} from 'react-redux';
 import * as ReduxForm from 'redux-form';
 import * as Validation from 'js/alloy/utils/validation';
 import * as Bessemer from 'js/alloy/bessemer/components';
-import  { Redirect } from 'react-router-dom';
+import Image from '../../images/homeDog.jpg';
 
 const styles = theme => ({
-    palette: {
-        primary: blue,
-        secondary: red,
-    },
     layout: {
+        backgroundImage: `url(${Image})`,
         width: 'auto',
         display: 'block',
         marginLeft: theme.spacing.unit * 3,
@@ -57,11 +50,11 @@ const styles = theme => ({
     },
 });
 
-class RegisterForm extends React.Component{
+class SignInForm extends React.Component{
 
-	onSubmit = user => {
-		return this.props.register(user);
-	};
+    onSubmit = user => {
+        //return this.props.SignIn(user);
+    };
 
     // handleUserEmailChange = event => {this.setState({ email: event.target.value });};
     // handlePasswordChange = event => {this.setState({ password: event.target.value });};
@@ -74,19 +67,17 @@ class RegisterForm extends React.Component{
 
 
         return (
-            <React.Fragment>
-                <CssBaseline/>
                 <main className={classes.layout}>
                     <Paper className={classes.paper}>
-                        <Typography variant="display1">Register</Typography>
+                        <Typography variant="display1">SignIn</Typography>
                         <form className={classes.form}
-							  onSubmit={handleSubmit(form => this.onSubmit(form))}>
+                              onSubmit={handleSubmit(form => this.onSubmit(form))}>
                             <FormControl margin="normal" required fullWidth>
-								<Bessemer.Field friendlyName="email" name="principal"
-                                       validators={[Validation.requiredValidator, Validation.emailValidator]} autoComplete="email" autoFocus/>
+                                <Bessemer.Field friendlyName="email" name="principal"
+                                                validators={[Validation.requiredValidator, Validation.emailValidator]} autoComplete="email" autoFocus/>
                             </FormControl>
                             <FormControl margin="normal" required fullWidth>
-								<Bessemer.Field
+                                <Bessemer.Field
                                     name="password"
                                     type="password"
                                     friendlyName="password"
@@ -116,31 +107,27 @@ class RegisterForm extends React.Component{
                             >
                                 Continue as Pet Owner
                             </Button>
-                            <Typography align="center" variant="caption">
-                                You can always register as both a sitter and owner
-                                but just pick one for now!
-                            </Typography>
                         </form>
                     </Paper>
                 </main>
-            </React.Fragment>
         );
     }
 }
 
-RegisterForm = ReduxForm.reduxForm({form: 'register'})(RegisterForm);
+SignInForm = ReduxForm.reduxForm({form: 'SignIn'})(SignInForm);
 
-RegisterForm = connect(
+/*
+SignInForm = connect(
     state => ({
 
     }),
     dispatch => ({
-        register: user => dispatch(Users.Actions.register(user))
+        SignIn: user => dispatch(Users.Actions.SignIn(user))
     })
-)(RegisterForm);
+)(SignInForm);
 
-RegisterForm.propTypes = {
+SignInForm.propTypes = {
     classes: PropTypes.object.isRequired,
-};
+};*/
 
-export default withStyles(styles)(RegisterForm);
+export default withStyles(styles)(SignInForm);

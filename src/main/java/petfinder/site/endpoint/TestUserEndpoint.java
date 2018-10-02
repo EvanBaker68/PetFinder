@@ -1,6 +1,5 @@
 package petfinder.site.endpoint;
 
-import java.util.Map;
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -13,11 +12,14 @@ import org.springframework.web.bind.annotation.RestController;
 
 import petfinder.site.common.TestUser.TestUserDto;
 import petfinder.site.common.TestUser.TestUserService;
+<<<<<<< HEAD
 import petfinder.site.common.user.UserDao;
 import petfinder.site.common.user.UserDto;
 import petfinder.site.common.user.UserService;
 import petfinder.site.common.user.UserService.RegistrationRequest;
 
+=======
+>>>>>>> EvanElasticsearchTesting
 
 
 @RestController
@@ -32,9 +34,23 @@ public class TestUserEndpoint {
         return testUserService.findUserByEmail(principal);
     }
 
+<<<<<<< HEAD
     @PostMapping(value = "/register")
     public void register(@RequestBody TestUserDto testuser) {
         testUserService.register(testuser);
+=======
+        @Autowired
+        private TestUserService testUserService;
+
+        @GetMapping(value = "", produces = "application/json")
+        public Optional<TestUserDto> getUserDetails() {
+            String principal = SecurityContextHolder.getContext().getAuthentication().getName();
+            return testUserService.findUserByEmail(principal);
+        }
+
+        @PostMapping(value = "/register")
+        public void register(@RequestBody TestUserDto testUser) { testUserService.save(testUser);
+        }
+>>>>>>> EvanElasticsearchTesting
     }
 
-}
