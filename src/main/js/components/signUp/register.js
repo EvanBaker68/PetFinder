@@ -91,6 +91,7 @@ class RegisterForm extends React.Component{
                                     autoComplete="current-password"
                                 />
                             </FormControl>
+
                             <Button
                                 type="submit"
                                 loading="submitting"
