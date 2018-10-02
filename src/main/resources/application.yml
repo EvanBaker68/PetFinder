@@ -34,7 +34,7 @@ web:
 elastic-search:
     host: pet-ty-1855779769.us-east-1.bonsaisearch.net
     port: 443
-    scheme: http
+    scheme: https
     user-name: run3fmjd9u
     password: x7cjd0tlk5
 
