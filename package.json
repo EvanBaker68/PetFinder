@@ -73,6 +73,7 @@
 		"lodash": "^4.17.4",
 		"npm-install-peers": "^1.2.1",
 		"react": "^16.3.0",
+		"react-cookie": "^3.0.4",
 		"react-dom": "^16.3.0",
 		"react-hot-loader": "4.0.0-beta.14",
 		"react-redux": "^5.0.2",
@@ -82,7 +83,8 @@
 		"redux": "3.7.2",
 		"redux-form": "^6.8.0",
 		"redux-logger": "^2.8.2 ",
-		"redux-thunk": "^2.2.0"
+		"redux-thunk": "^2.2.0",
+		"universal-cookie": "^3.0.4"
 	},
 	"peerDependencies": {}
 }
