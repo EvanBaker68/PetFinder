@@ -59,7 +59,17 @@ const styles = theme => ({
 
 class RegisterForm extends React.Component{
 
-	onSubmit = user => {
+    constructor(props) {
+        super(props);
+        this.state = {redirect: false};
+    }
+
+    componentDidMount() {
+        this.setState({redirect: false});
+    }
+
+    onSubmit = user => {
+        this.setState({redirect: true});
 		return this.props.register(user);
 	};
 
@@ -67,7 +77,11 @@ class RegisterForm extends React.Component{
 
         const { classes } = this.props;
         let { handleSubmit, submitting } = this.props;
+        const { redirect } = this.state;
 
+        if (redirect === true) {
+            return <Redirect to='/completeRegistration' />;
+        }
 
         return (
             <React.Fragment>
