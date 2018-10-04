@@ -11,6 +11,11 @@ public class SitterDto implements Momento<Integer> {
     //current bookings
     //past bookings
 
+    public SitterDto(int sitterID, int ownerID) {
+        this.sitterID = sitterID;
+        this.ownerID = ownerID;
+    }
+
     public int getSitterID() {
         return sitterID;
     }

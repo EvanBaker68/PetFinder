@@ -11,6 +11,13 @@ public class BookingDto {
 
     //array of petID's
 
+    public BookingDto(int ownerID, int sitterID, LocalDateTime startDateTime, LocalDateTime endDateTime) {
+        this.ownerID = ownerID;
+        this.sitterID = sitterID;
+        this.startDateTime = startDateTime;
+        this.endDateTime = endDateTime;
+    }
+
     public int getOwnerID() {
         return ownerID;
     }

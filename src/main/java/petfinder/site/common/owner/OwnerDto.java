@@ -7,6 +7,11 @@ public class OwnerDto {
     //array of past bookings
     //array of current bookings
 
+    public OwnerDto(int ownerID, int sitterID){
+        this.ownerID = ownerID;
+        this.sitterID = sitterID;
+    }
+
     public int getOwnerID() {
         return ownerID;
     }
