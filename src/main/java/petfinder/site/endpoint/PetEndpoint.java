@@ -2,6 +2,10 @@ package petfinder.site.endpoint;
 
 import java.util.Optional;
 
+
+import java.util.logging.Logger;
+
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -32,6 +36,8 @@ public class PetEndpoint {
 
 	@PostMapping(produces = "application/json")
 	public PetDto savePet(@RequestBody PetDto pet) {
+		//Logger log = (Logger) LoggerFactory.getLogger(getClass());
+		//log.info("heyyo");
 		petService.save(pet);
 		return pet;
 	}

@@ -18,6 +18,9 @@ import { mainListItems, secondaryListItems } from 'js/components/dashboard/listI
 import SimpleTable from 'js/components/dashboard/simpleTable';
 import Input from '@material-ui/core/Input';
 import SearchIcon from '@material-ui/icons/Search';
+import ProfileForm from 'js/components/profile/ProfileForm';
+import Paper from '@material-ui/core/Paper';
+import Image from 'js/images/homeDog.jpg';
 
 const drawerWidth = 240;
 
@@ -87,15 +90,15 @@ const styles = theme => ({
         height: '100vh',
         overflow: 'auto',
     },
-    chartContainer: {
-        marginLeft: -22,
-    },
-    tableContainer: {
-        height: 320,
-    },
+    paperContainer: {
+        backgroundImage: `url(${Image})`,
+        alignItems: 'center',
+        height: 200,
+        width: 100
+    }
 });
 
-class Dashboard extends React.Component {
+class Profile extends React.Component {
     state = {
         open: true,
     };
@@ -132,7 +135,7 @@ class Dashboard extends React.Component {
                                 <MenuIcon />
                             </IconButton>
                             <Typography variant="display2" color="inherit" noWrap className={classes.title}>
-                                Owner Dashboard
+                                Owner Profile
                             </Typography>
                             <IconButton color="inherit">
                                 <Badge badgeContent={4} color="secondary">
@@ -162,23 +165,12 @@ class Dashboard extends React.Component {
                             variant="display1"
                             gutterBottom
                             align='center'>
-                            Enter your city to begin matching with a sitter
+                            Bobby
                         </Typography>
-                        <div className={classes.search}>
-                            <Input
-                                placeholder="Search…"
-                                classes={{
-                                    root: classes.inputRoot,
-                                    input: classes.inputInput,
-                                }}
-                            />
-                        </div>
-                        <Typography variant="display1" gutterBottom>
-                            Previous Sitters
-                        </Typography>
-                        <div className={classes.tableContainer}>
-                            <SimpleTable />
-                        </div>
+                        <Paper style={styles.paperContainer}>
+                            PICTURE HERE!
+                        </Paper>
+                        <ProfileForm/>
                     </main>
                 </div>
             </React.Fragment>
@@ -186,8 +178,8 @@ class Dashboard extends React.Component {
     }
 }
 
-Dashboard.propTypes = {
+Profile.propTypes = {
     classes: PropTypes.object.isRequired,
 };
 
-export default withStyles(styles)(Dashboard);
+export default withStyles(styles)(Profile);

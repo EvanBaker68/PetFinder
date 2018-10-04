@@ -118,7 +118,7 @@ test {
 }
 
 task integrationTest(type: Test, dependsOn: 'testClasses') {
-	testClassesDir = sourceSets.test.output.classesDir
+	testClassesDirs = sourceSets.test.output.classesDirs
 	classpath = sourceSets.test.runtimeClasspath
 	jvmArgs = ["-Druntime.environment=integrationdev"]
 
@@ -128,7 +128,7 @@ task integrationTest(type: Test, dependsOn: 'testClasses') {
 }
 
 task functionalTest(type: Test, dependsOn: 'build') {
-	testClassesDir = sourceSets.test.output.classesDir
+	testClassesDirs = sourceSets.test.output.classesDirs
 	classpath = sourceSets.test.runtimeClasspath
 
 	// set the browser driver if given

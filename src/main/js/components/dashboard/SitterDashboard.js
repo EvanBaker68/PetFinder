@@ -15,9 +15,8 @@ import MenuIcon from '@material-ui/icons/Menu';
 import ChevronLeftIcon from '@material-ui/icons/ChevronLeft';
 import NotificationsIcon from '@material-ui/icons/Notifications';
 import { mainListItems, secondaryListItems } from 'js/components/dashboard/listItems';
-import SimpleTable from 'js/components/dashboard/simpleTable';
-import Input from '@material-ui/core/Input';
-import SearchIcon from '@material-ui/icons/Search';
+import PreviousJobsTable from 'js/components/dashboard/PreviousJobsTable';
+import {SitterMenuList} from 'js/components/dashboard/SitterMenuList';
 
 const drawerWidth = 240;
 
@@ -91,7 +90,7 @@ const styles = theme => ({
         marginLeft: -22,
     },
     tableContainer: {
-        height: 320,
+        height: 200,
     },
 });
 
@@ -132,7 +131,7 @@ class Dashboard extends React.Component {
                                 <MenuIcon />
                             </IconButton>
                             <Typography variant="display2" color="inherit" noWrap className={classes.title}>
-                                Owner Dashboard
+                                Sitter Dashboard
                             </Typography>
                             <IconButton color="inherit">
                                 <Badge badgeContent={4} color="secondary">
@@ -154,30 +153,22 @@ class Dashboard extends React.Component {
                             </IconButton>
                         </div>
                         <Divider />
-                        <List>{mainListItems}</List>
+                        <List>{SitterMenuList}</List>
                     </Drawer>
                     <main className={classes.content}>
                         <div className={classes.appBarSpacer} />
-                        <Typography
-                            variant="display1"
-                            gutterBottom
-                            align='center'>
-                            Enter your city to begin matching with a sitter
-                        </Typography>
-                        <div className={classes.search}>
-                            <Input
-                                placeholder="Search…"
-                                classes={{
-                                    root: classes.inputRoot,
-                                    input: classes.inputInput,
-                                }}
-                            />
-                        </div>
                         <Typography variant="display1" gutterBottom>
-                            Previous Sitters
+                            Requests
                         </Typography>
                         <div className={classes.tableContainer}>
-                            <SimpleTable />
+                            <PreviousJobsTable />
+                        </div>
+                        <div className={classes.appBarSpacer} />
+                        <Typography variant="display1" gutterBottom>
+                            Previous Jobs
+                        </Typography>
+                        <div className={classes.tableContainer}>
+                            <PreviousJobsTable />
                         </div>
                     </main>
                 </div>
