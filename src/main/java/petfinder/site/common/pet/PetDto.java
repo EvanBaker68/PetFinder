@@ -6,38 +6,50 @@ import alloy.util.Identifiable;
  * Created by jlutteringer on 8/23/17.
  */
 public class PetDto implements Identifiable {
-	private Long id;
+	private Long petID;
+	private Long ownerID;
 	private String name;
-	private String type;
+	private String petType;
+	private Boolean isDog;
+	private String dogBreed;
+	private Double age;
 
-	public PetDto(Long id, String name, String type) {
-		this.id = id;
+	public PetDto(Long petID, Long ownerID, String name, String petType, Boolean isDog, String dogBreed, Double age) {
+		this.petID = petID;
+		this.ownerID = ownerID;
 		this.name = name;
-		this.type = type;
+		this.petType = petType;
+		this.isDog = isDog;
+		this.dogBreed = dogBreed;
+		this.age = age;
 	}
 
 	@Override
-	public Long getId() {
-		return id;
-	}
+    public Long getId() {
+        return petID;
+    }
 
-	public void setId(Long id) {
-		this.id = id;
-	}
+    public Long getOwnerID() {
+        return ownerID;
+    }
 
-	public String getName() {
-		return name;
-	}
+    public String getName() {
+        return name;
+    }
 
-	public void setName(String name) {
-		this.name = name;
-	}
+    public String getPetType() {
+        return petType;
+    }
 
-	public String getType() {
-		return type;
-	}
+    public Boolean getDog() {
+        return isDog;
+    }
 
-	public void setType(String type) {
-		this.type = type;
-	}
+    public String getDogBreed() {
+        return dogBreed;
+    }
+
+    public Double getAge() {
+        return age;
+    }
 }
