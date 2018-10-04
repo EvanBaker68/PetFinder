@@ -18,23 +18,39 @@ public class UserDto implements Momento<String> {
 	private List<String> roles;
 	private UserType type;
 	private Map<String, Object> attributes;
+	private Long petId;
 
 	private UserDto() {
 
 	}
 
 	public UserDto(String principal, List<String> roles, UserType type, Map<String, Object> attributes) {
-		this.principal = principal;
+		/*this.principal = principal;
+		this.roles = roles;
+		this.attributes = attributes;*/
+		setPrincipal(principal);
+		setRoles(roles);
+		setAttributes(attributes);
+	}
+
+	public UserDto(String principal, List<String> roles, UserType type, Map<String, Object> attributes, Long petId) {
+		/*this.principal = principal;
 		this.roles = roles;
 		this.attributes = attributes;
+		this.petId = petId;*/
+		setPrincipal(principal);
+		setRoles(roles);
+		setPetId(petId);
 	}
 
 	public String getPrincipal() {
-		return principal;
+		String temp = principal;
+		return temp;
 	}
 
 	public List<String> getRoles() {
-		return roles;
+		List<String> temp = roles;
+		return temp;
 	}
 
 	public Map<String, Object> getAttributes() {
@@ -42,7 +58,14 @@ public class UserDto implements Momento<String> {
 	}
 
 	public UserType getType() {
-		return type;
+		UserType temp = type;
+		return temp;
+	}
+
+
+	public Long getPetId() {
+		Long temp = petId;
+		return temp;
 	}
 
 	@JsonIgnore
@@ -50,6 +73,28 @@ public class UserDto implements Momento<String> {
 	public String getMomento() {
 		return principal;
 	}
+
+	public void setPrincipal(String principal) {
+		this.principal = principal;
+	}
+
+	public void setRoles(List<String> roles) {
+		this.roles = roles;
+	}
+
+	public void setType(UserType type) {
+		this.type = type;
+	}
+
+	public void setAttributes(Map<String, Object> attributes) {
+		this.attributes = attributes;
+	}
+
+	public void setPetId(Long petId) {
+		this.petId = petId;
+	}
+
+
 
 	public enum UserType {
 		OWNER, SITTER

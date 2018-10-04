@@ -3,9 +3,9 @@ import Cookies from 'universal-cookie';
 export function register(user) {
     var temp = axios.post('/api/user/register', user);
 
-    const cookies = new Cookies();
-    cookies.set('loggedIn', 'false', { path: '/' });
-    console.log(cookies.get('loggedIn'));
+    //const cookies = new Cookies();
+    //cookies.set('loggedIn', 'false', { path: '/' });
+    //console.log(cookies.get('loggedIn'));
 
 
     return temp;
@@ -66,10 +66,12 @@ Actions.authenticate = (username, password) => {
 		return authenticate(username, password).then(
 			authentication => {
 			    const cookies = new Cookies();
-			    cookies.set(username, authentication, { path: '/'  });
-                console.log(cookies.get('loggedIn'));
-                console.log(username);
-                console.log(authentication);
+			    cookies.set('username', username, { path: '/'  });
+			    cookies.set('auth', authentication, { path: '/' });
+			    cookies.set('loggedIn', 'true', { path: '/' });
+                //console.log(cookies.get('loggedIn'));
+                //console.log(username);
+                //console.log(authentication);
 				dispatch(Actions.setAuthentication(authentication));
 
 				return getUserDetails().then(user => {
@@ -82,6 +84,7 @@ Actions.authenticate = (username, password) => {
 
 Actions.logout = () => {
 	return (dispatch) => {
+	    cookies.set('loggedIn', 'false', { path: '/' });
 		dispatch(Actions.setAuthentication(null));
 		dispatch(Actions.setUser(null));
 	};
