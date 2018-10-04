@@ -6,8 +6,8 @@ import alloy.util.Momento;
  * Katy Atchison 10/4
  */
 public class SitterDto implements Momento<Integer> {
-    int sitterID;
-    int ownerID;
+    private int sitterID;
+    private int ownerID;
     //current bookings
     //past bookings
 
