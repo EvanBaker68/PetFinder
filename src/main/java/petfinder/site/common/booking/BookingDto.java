@@ -6,8 +6,8 @@ public class BookingDto {
     private int ownerID;
     private int sitterID;
 
-    LocalDateTime startDateTime;
-    LocalDateTime endDateTime;
+    private LocalDateTime startDateTime;
+    private LocalDateTime endDateTime;
 
     //array of petID's
 

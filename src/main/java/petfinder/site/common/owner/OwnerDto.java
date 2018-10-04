@@ -1,11 +1,14 @@
 package petfinder.site.common.owner;
 
+import petfinder.site.common.booking.BookingDto;
+import petfinder.site.common.pet.PetDto;
+
 public class OwnerDto {
     private int ownerID;
     private int sitterID;
-    //array of petIDs
-    //array of past bookings
-    //array of current bookings
+    private PetDto[] pets;
+    //private BookingDto[] pastBookings;
+    //private BookingDto[] currentBookings;
 
     public OwnerDto(int ownerID, int sitterID){
         this.ownerID = ownerID;
