@@ -10,6 +10,7 @@ import org.springframework.stereotype.Repository;
 import alloy.elasticsearch.ElasticSearchClientProvider;
 import petfinder.site.elasticsearch.SitterElasticSearchRepository;
 
+@Repository
 public class SitterDao {
     @Autowired
     private SitterElasticSearchRepository repository;

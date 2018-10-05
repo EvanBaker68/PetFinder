@@ -9,21 +9,23 @@ public class OwnerDto implements Momento<String> {
     private String principle;
     //do we need to make a seperate principle for sitters, instead of just using User's principle
     private Map<String, Object> attributes;
-    private long currentBookingId;
-    private long[] futureBookingIds;
-    private long[] pastBookingIds;
+    private Long currentBookingId;
+    private Long[] futureBookingIds;
+    private Long[] pastBookingIds;
+
+    private Long[] petIds;
 
 
     OwnerDto() {
-
     }
 
-    OwnerDto(String principle, Map<String, Object> attributes, long currentBookingId, long[] futureBookingIds, long[] pastBookingIds){
+    OwnerDto(String principle, Map<String, Object> attributes, Long currentBookingId, Long[] futureBookingIds, Long[] pastBookingIds, Long[] petIds){
         setPrinciple(principle);
         setAttributes(attributes);
         setCurrentBookingId(currentBookingId);
         setFutureBookingIds(futureBookingIds);
         setPastBookingIds(pastBookingIds);
+        setPetIds(petIds);
     }
 
     @JsonIgnore
@@ -48,27 +50,35 @@ public class OwnerDto implements Momento<String> {
         this.attributes = attributes;
     }
 
-    public long getCurrentBookingId() {
+    public Long getCurrentBookingId() {
         return currentBookingId;
     }
 
-    public void setCurrentBookingId(long currentBookingId) {
+    public void setCurrentBookingId(Long currentBookingId) {
         this.currentBookingId = currentBookingId;
     }
 
-    public long[] getFutureBookingIds() {
+    public Long[] getFutureBookingIds() {
         return futureBookingIds;
     }
 
-    public void setFutureBookingIds(long[] futureBookingIds) {
+    public void setFutureBookingIds(Long[] futureBookingIds) {
         this.futureBookingIds = futureBookingIds;
     }
 
-    public long[] getPastBookingIds() {
+    public Long[] getPastBookingIds() {
         return pastBookingIds;
     }
 
-    public void setPastBookingIds(long[] pastBookingIds) {
+    public void setPastBookingIds(Long[] pastBookingIds) {
         this.pastBookingIds = pastBookingIds;
+    }
+
+    public Long[] getPetIds() {
+        return petIds;
+    }
+
+    public void setPetIds(Long[] petIds) {
+        this.petIds = petIds;
     }
 }

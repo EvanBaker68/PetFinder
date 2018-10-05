@@ -15,6 +15,7 @@ import petfinder.site.common.user.UserAuthenticationDto;
 
 @Service
 public class SitterElasticSearchRepository  extends ElasticSearchJsonRepository<SitterDto, String> {
+
     @Autowired
     public SitterElasticSearchRepository(ElasticSearchClientProvider provider) {
         super(new ElasticSearchIndex(provider, "sitter"), SitterDto.class);

@@ -9,14 +9,14 @@ public class SitterDto implements Momento<String> {
     private String principle;
     //do we need to make a seperate principle for sitters, instead of just using User's principle
     private Map<String, Object> attributes;
-    private long currentBookingId;
-    private long[] futureBookingIds;
-    private long[] pastBookingIds;
+    private Long currentBookingId;
+    private Long[] futureBookingIds;
+    private Long[] pastBookingIds;
 
     public SitterDto() {}
 
 
-    public SitterDto(String principle, Map<String, Object> attributes, long currentBookingId, long[] futureBookingIds, long[] pastBookingIds){
+    public SitterDto(String principle, Map<String, Object> attributes, Long currentBookingId, Long[] futureBookingIds, Long[] pastBookingIds){
         setPrinciple(principle);
         setAttributes(attributes);
         setCurrentBookingId(currentBookingId);
@@ -50,19 +50,19 @@ public class SitterDto implements Momento<String> {
         this.currentBookingId = currentBookingId;
     }
 
-    public long[] getFutureBookingIds() {
+    public Long[] getFutureBookingIds() {
         return futureBookingIds;
     }
 
-    public void setFutureBookingIds(long[] futureBookingIds) {
+    public void setFutureBookingIds(Long[] futureBookingIds) {
         this.futureBookingIds = futureBookingIds;
     }
 
-    public long[] getPastBookingIds() {
+    public Long[] getPastBookingIds() {
         return pastBookingIds;
     }
 
-    public void setPastBookingIds(long[] pastBookingIds) {
+    public void setPastBookingIds(Long[] pastBookingIds) {
         this.pastBookingIds = pastBookingIds;
     }
 
