@@ -7,6 +7,7 @@ export default class Index extends React.Component {
 
 	constructor(props){
 		super(props);
+
 		const cookies = new Cookies();
 		cookies.set('loggedIn', 'false', { path: '/' });
 
