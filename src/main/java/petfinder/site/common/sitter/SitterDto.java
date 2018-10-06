@@ -1,23 +1,25 @@
-package petfinder.site.common.user;
+package petfinder.site.common.sitter;
 
-public class OwnerDto {
+import alloy.util.Momento;
+import org.codehaus.jackson.annotate.JsonIgnore;
+import java.util.Map;
 
-    private Long ownerId;
+public class SitterDto {
+
+    private Long sitterId;
     private Long[] currentBookings;
     private Long[] pastBookings;
 
+    public SitterDto() {}
 
-    public OwnerDto() {
-    }
-
-    public OwnerDto(Long ownerId, Long[] currentBookings, Long[] pastBookings) {
-        setOwnerId(ownerId);
+    public SitterDto(Long sitterId, Long[] currentBookings, Long[] pastBookings) {
+        setSitterId(sitterId);
         setCurrentBookings(currentBookings);
         setPastBookings(pastBookings);
     }
 
-    public Long getOwnerId() {
-        return ownerId;
+    public Long getSitterId() {
+        return sitterId;
     }
 
     public Long[] getCurrentBookings() {
@@ -28,8 +30,8 @@ public class OwnerDto {
         return pastBookings;
     }
 
-    public void setOwnerId(Long ownerId) {
-        this.ownerId = ownerId;
+    public void setSitterId(Long sitterId) {
+        this.sitterId = sitterId;
     }
 
     public void setCurrentBookings(Long[] currentBookings) {

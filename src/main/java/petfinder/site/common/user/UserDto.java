@@ -3,6 +3,10 @@ package petfinder.site.common.user;
 import org.codehaus.jackson.annotate.JsonIgnore;
 
 import alloy.util.Momento;
+import petfinder.site.common.owner.OwnerDto;
+import petfinder.site.common.owner.OwnerService;
+import petfinder.site.common.sitter.SitterDto;
+import petfinder.site.common.sitter.SitterService;
 
 public class UserDto implements Momento<String> {
 	private String principal;
@@ -11,28 +15,17 @@ public class UserDto implements Momento<String> {
 	private String name;
 	private String address;
 
-    private OwnerDto owner;
-    private OwnerService ownerService;
-    private SitterDto sitter;
-    private SitterService sitterService;
-
 	private UserDto() {
 
 	}
 
-	public UserDto(String principal, String password, Long ownerId, Long sitterId, String phoneNumber, String name, String address) {
+	public UserDto(String principal, String password, String phoneNumber, String name, String address) {
 	    setPrincipal(principal);
 	    setPassword(password);
 	    setPhoneNumber(phoneNumber);
 	    setName(name);
 	    setAddress(address);
 
-	    owner = new OwnerDto();
-	    ownerService = new OwnerService();
-	    sitter = new SitterDto();
-	    sitterService = new SitterService();
-	    setSitterId(sitterId);
-	    setOwnerId(ownerId);
 	}
 
 	public String getPrincipal() {
@@ -42,14 +35,6 @@ public class UserDto implements Momento<String> {
 
     public String getPassword() {
         return password;
-    }
-
-    public Long getOwnerId() {
-        return owner.getOwnerId();
-    }
-
-    public Long getSitterId() {
-        return sitter.getSitterId();
     }
 
     public String getPhoneNumber() {
@@ -76,14 +61,6 @@ public class UserDto implements Momento<String> {
 
     private void setPassword(String password) {
         this.password = password;
-    }
-
-    private void setOwnerId(Long ownerId) {
-        owner.setOwnerId(ownerId);
-    }
-
-    private void setSitterId(Long sitterId) {
-        sitter.setSitterId(sitterId);
     }
 
     private void setPhoneNumber(String phoneNumber) {

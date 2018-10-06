@@ -1,4 +1,4 @@
-package petfinder.site.common.user;
+package petfinder.site.common.owner;
 
 import java.util.Optional;
 
