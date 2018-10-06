@@ -1,22 +1,9 @@
 package petfinder.site.common.user;
 
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
-import java.util.UUID;
-
 import org.codehaus.jackson.annotate.JsonIgnore;
 
-import alloy.util.Identifiable;
 import alloy.util.Momento;
-import petfinder.site.common.owner.OwnerDto;
-import petfinder.site.common.owner.OwnerService;
-import petfinder.site.common.sitter.SitterDto;
-import petfinder.site.common.sitter.SitterService;
 
-/**
- * Created by jlutteringer on 8/23/17.
- */
 public class UserDto implements Momento<String> {
 	private String principal;
 	private String password;
