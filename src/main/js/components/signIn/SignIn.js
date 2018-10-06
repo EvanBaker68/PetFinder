@@ -54,34 +54,29 @@ const styles = theme => ({
 
 class SignInForm extends React.Component{
 
-	// state = {
-	// 	redirectOwner: false,
-     //    redirectSitter: false
-	// }
-	//
-	// setRedirectOwner = () => {
-	// 	this.setState({
-	// 		redirectOwner: true
-	// 	});
-	// }
-	//
-	// setRedirectSitter = () => {
-	// 	this.setState({
-	// 		redirectSitter: true
-	// 	});
-	// }
-	//
-	// renderRedirect = () => {
-	// 	if (this.state.redirectOwner) {
-	// 		return <Redirect to='/ownerDash' />;
-	// 	}
-	// 	else if(this.state.redirectSitter) {
-	// 	    return <Redirect to='/ownerDash' />;
-     //    }
-	// }
+	state = {
+		redirectOwner: false,
+        redirectSitter: false
+	}
+
+	setRedirectOwner = () => {
+		this.setState({
+			redirectOwner: true
+		});
+	}
+
+	setRedirectSitter = () => {
+		this.setState({
+			redirectSitter: true
+		});
+	}
+
+	renderRedirect = () => {
+
+	}
 
     onSubmit = (principal, password, callFunc) => {
-        // return this.props.authenticate(principal, password, callFunc);
+        return this.props.authenticate(principal, password, callFunc);
     };
 
     // handleUserEmailChange = event => {this.setState({ email: event.target.value });};
@@ -89,10 +84,16 @@ class SignInForm extends React.Component{
 
 
     render() {
-        // const callFunc = this.props.callFunc;
+        const callFunc = this.props.callFunc;
         const { classes } = this.props;
         let { handleSubmit, submitting } = this.props;
 
+		if (this.state.redirectOwner) {
+			return <div><Redirect to='/ownerDash' /></div>;
+		}
+		else if(this.state.redirectSitter) {
+			return <div><Redirect to='/ownerDash' /></div>;
+		}
 
         return (
 
@@ -116,29 +117,33 @@ class SignInForm extends React.Component{
                                     autoComplete="current-password"
                                 />
                             </FormControl>
-
+                            <div>
                             <Button
+
                                 type="submit"
                                 loading="submitting"
                                 fullWidth
                                 variant="raised"
                                 color="secondary"
                                 className={classes.submit}
-                                // callFunc={this.setRedirectSitter}
+                                callFunc={this.setRedirectSitter}
                             >
                                 Continue as Pet Sitter
                             </Button>
+                            </div>
 
+							<div>
                             <Button
                                 type="submit"
                                 fullWidth
                                 variant="raised"
                                 color="primary"
                                 className={classes.submit}
-								// callFunc={this.setRedirectOwner}
+								callFunc={this.setRedirectOwner}
                             >
                                 Continue as Pet Owner
                             </Button>
+                            </div>
                         </form>
                     </Paper>
                 </main>
@@ -154,7 +159,7 @@ SignInForm = connect(
 
     }),
     dispatch => ({
-        // authenticate: (principal, password, callFunc) => dispatch(Users.Actions.authenticate(principal, password, callFunc))
+        authenticate: (principal, password, callFunc) => dispatch(Users.Actions.authenticate(principal, password, callFunc))
     })
 )(SignInForm);
 

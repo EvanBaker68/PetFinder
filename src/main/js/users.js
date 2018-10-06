@@ -45,20 +45,20 @@ Actions.Types = {
 	SET_USER: 'SET_USER'
 };
 
-Actions.register = user => {
+Actions.register = (user, callFunc) => {
 	return (dispatch) => {
 		return register(user).then(() => {
-			return dispatch(Actions.authenticate(user.principal, user.password));
+			return dispatch(Actions.authenticate(user.principal, user.password, callFunc));
 		});
 	};
 };
 
-Actions.authenticate = (username, password) => {
+Actions.authenticate = (username, password, callFunc) => {
 	return (dispatch) => {
 		return authenticate(username, password).then(
 			authentication => {
 				const cookies = new Cookies();
-				// callFunc();
+				callFunc();
 				cookies.set('username', username, { path: '/' });
 				cookies.set('auth', authentication, { path: '/'});
 				dispatch(Actions.setAuthentication(authentication));

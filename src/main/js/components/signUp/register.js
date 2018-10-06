@@ -61,16 +61,27 @@ class RegisterForm extends React.Component{
 
     constructor(props) {
         super(props);
-        this.state = {redirect: false};
+        this.state = {redirectOwner: false, redirectSitter: false};
     }
 
     componentDidMount() {
-        this.setState({redirect: false});
+        this.setState({redirect: false, redirectSitter: false});
     }
 
+	onSubmitOwner = () => {
+		this.setState({
+			redirectOwner: true
+		});
+	}
+
+	onSubmitSitter = () => {
+		this.setState({
+			redirectSitter: true
+		});
+	}
+
     onSubmit = user => {
-        this.setState({redirect: true});
-		return this.props.register(user);
+		return this.props.register(user, callFunc);
 	};
 
     render() {
@@ -79,9 +90,12 @@ class RegisterForm extends React.Component{
         let { handleSubmit, submitting } = this.props;
         const { redirect } = this.state;
 
-        if (redirect === true) {
-            return <Redirect to='/completeRegistration' />;
-        }
+		if (this.state.redirectOwner) {
+			return <div><Redirect to='/ownerCompleteRegistration' /></div>;
+		}
+		else if(this.state.redirectSitter) {
+			return <div><Redirect to='/sitterCompleteRegistration' /></div>;
+		}
 
         return (
             <React.Fragment>
@@ -113,6 +127,7 @@ class RegisterForm extends React.Component{
                                 variant="raised"
                                 color="secondary"
                                 className={classes.submit}
+                                callFunc={this.onSubmitSitter()}
                             >
                                 Continue as Pet Sitter
                             </Button>
@@ -123,6 +138,7 @@ class RegisterForm extends React.Component{
                                 variant="raised"
                                 color="primary"
                                 className={classes.submit}
+                                callFunc={this.onSubmitOwner()}
                             >
                                 Continue as Pet Owner
                             </Button>
@@ -145,7 +161,7 @@ RegisterForm = connect(
 
     }),
     dispatch => ({
-        register: user => dispatch(Users.Actions.register(user))
+        register: (user, callFunc) => dispatch(Users.Actions.register(user, callFunc))
     })
 )(RegisterForm);
 
