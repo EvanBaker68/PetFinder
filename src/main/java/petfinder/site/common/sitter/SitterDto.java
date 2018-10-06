@@ -1,15 +1,18 @@
 package petfinder.site.common.sitter;
 
-public class SitterDto {
+import alloy.util.Momento;
+import org.codehaus.jackson.annotate.JsonIgnore;
 
-    private String principle;
+public class SitterDto implements Momento<String> {
+
+    private String principal;
     private Long[] currentBookings;
     private Long[] pastBookings;
 
     public SitterDto() {}
 
-    public SitterDto(String principle, Long[] currentBookings, Long[] pastBookings) {
-        setPrinciple(principle);
+    public SitterDto(String principal, Long[] currentBookings, Long[] pastBookings) {
+        setPrincipal(principal);
         setCurrentBookings(currentBookings);
         setPastBookings(pastBookings);
     }
@@ -22,8 +25,8 @@ public class SitterDto {
         return pastBookings;
     }
 
-    public String getPrinciple() {
-        return principle;
+    public String getPrincipal() {
+        return principal;
     }
 
     public void setCurrentBookings(Long[] currentBookings) {
@@ -34,7 +37,13 @@ public class SitterDto {
         this.pastBookings = pastBookings;
     }
 
-    public void setPrinciple(String principle) {
-        this.principle = principle;
+    public void setPrincipal(String principal) {
+        this.principal = principal;
+    }
+
+    @JsonIgnore
+    @Override
+    public String getMomento() {
+        return principal;
     }
 }

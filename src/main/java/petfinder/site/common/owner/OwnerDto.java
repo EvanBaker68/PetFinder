@@ -1,8 +1,11 @@
 package petfinder.site.common.owner;
 
-public class OwnerDto {
+import alloy.util.Momento;
+import org.codehaus.jackson.annotate.JsonIgnore;
 
-    private String principle;
+public class OwnerDto implements Momento<String> {
+
+    private String principal;
     private Long[] currentBookings;
     private Long[] pastBookings;
 
@@ -10,14 +13,14 @@ public class OwnerDto {
     public OwnerDto() {
     }
 
-    public OwnerDto(String principle, Long[] currentBookings, Long[] pastBookings) {
-        setPrinciple(principle);
+    public OwnerDto(String principal, Long[] currentBookings, Long[] pastBookings) {
+        setPrincipal(principal);
         setCurrentBookings(currentBookings);
         setPastBookings(pastBookings);
     }
 
-    public String getPrinciple() {
-        return principle;
+    public String getPrincipal() {
+        return principal;
     }
 
     public Long[] getCurrentBookings() {
@@ -36,7 +39,13 @@ public class OwnerDto {
         this.pastBookings = pastBookings;
     }
 
-    public void setPrinciple(String principle) {
-        this.principle = principle;
+    public void setPrincipal(String principal) {
+        this.principal = principal;
+    }
+
+    @JsonIgnore
+    @Override
+    public String getMomento() {
+        return principal;
     }
 }

@@ -45,8 +45,6 @@ public class BookingDto implements Momento<Long> {
         setScoreBySitter(-1);
     }
 
-
-
     @JsonIgnore
     @Override
     public Long getMomento() {
