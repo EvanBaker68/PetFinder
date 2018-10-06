@@ -2,35 +2,32 @@ package petfinder.site.common.pet;
 
 import alloy.util.Identifiable;
 
-/**
- * Created by jlutteringer on 8/23/17.
- */
 public class PetDto implements Identifiable {
-	private Long petID;
-	private Long ownerID;
+	private Long petId;
+	private Long ownerId;
 	private String name;
 	private String petType;
 	private Boolean isDog;
 	private String dogBreed;
 	private Double age;
 
-	public PetDto(Long petID, Long ownerID, String name, String petType, Boolean isDog, String dogBreed, Double age) {
-		this.petID = petID;
-		this.ownerID = ownerID;
-		this.name = name;
-		this.petType = petType;
-		this.isDog = isDog;
-		this.dogBreed = dogBreed;
-		this.age = age;
+	public PetDto(Long petId, Long ownerId, String name, String petType, Boolean isDog, String dogBreed, Double age) {
+	    setPetId(petId);
+	    setOwnerId(ownerId);
+	    setName(name);
+	    setPetType(petType);
+	    setDog(isDog);
+	    setDogBreed(dogBreed);
+	    setAge(age);
 	}
 
 	@Override
     public Long getId() {
-        return petID;
+        return petId;
     }
 
-    public Long getOwnerID() {
-        return ownerID;
+    public Long getOwnerId() {
+        return ownerId;
     }
 
     public String getName() {
@@ -51,5 +48,34 @@ public class PetDto implements Identifiable {
 
     public Double getAge() {
         return age;
+    }
+
+
+    public void setPetId(Long petId) {
+        this.petId = petId;
+    }
+
+    public void setOwnerId(Long ownerId) {
+        this.ownerId = ownerId;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public void setPetType(String petType) {
+        this.petType = petType;
+    }
+
+    public void setDog(Boolean dog) {
+        isDog = dog;
+    }
+
+    public void setDogBreed(String dogBreed) {
+        this.dogBreed = dogBreed;
+    }
+
+    public void setAge(Double age) {
+        this.age = age;
     }
 }
