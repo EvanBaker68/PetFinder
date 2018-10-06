@@ -24,7 +24,7 @@ elastic-search:
 
 ---
 spring:
-    profiles: qa
+    profiles: elasticsearch
 
 web:
     statics:

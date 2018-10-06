@@ -19,12 +19,8 @@ import {connect} from 'react-redux';
 import * as ReduxForm from 'redux-form';
 import * as Validation from 'js/alloy/utils/validation';
 import * as Bessemer from 'js/alloy/bessemer/components';
-<<<<<<< HEAD
-import  { Redirect } from 'react-router-dom';
-=======
 import Cookies from 'react-cookie';
 
->>>>>>> Andrew
 
 const styles = theme => ({
     palette: {
@@ -100,7 +96,6 @@ class RegisterForm extends React.Component{
                                     autoComplete="current-password"
                                 />
                             </FormControl>
-
                             <Button
                                 type="submit"
                                 loading="submitting"
