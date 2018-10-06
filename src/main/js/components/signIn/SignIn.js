@@ -126,7 +126,7 @@ class SignInForm extends React.Component{
                                 variant="raised"
                                 color="secondary"
                                 className={classes.submit}
-                                callFunc={this.setRedirectSitter}
+                                callFunc={this.setRedirectSitter()}
                             >
                                 Continue as Pet Sitter
                             </Button>
@@ -139,7 +139,7 @@ class SignInForm extends React.Component{
                                 variant="raised"
                                 color="primary"
                                 className={classes.submit}
-								callFunc={this.setRedirectOwner}
+								callFunc={this.setRedirectOwner()}
                             >
                                 Continue as Pet Owner
                             </Button>
