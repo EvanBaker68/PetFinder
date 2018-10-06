@@ -1,11 +1,10 @@
 package petfinder.site.endpoint;
 
 import org.springframework.web.bind.annotation.*;
-import petfinder.site.common.sitter.SitterService;
-import petfinder.site.common.sitter.SitterDto;
+import petfinder.site.common.user.SitterService;
+import petfinder.site.common.user.SitterDto;
 import java.util.Optional;
 import org.springframework.beans.factory.annotation.Autowired;
-import petfinder.site.common.sitter.SitterService;
 
 @RestController
 @RequestMapping(value = "/api/sitter")

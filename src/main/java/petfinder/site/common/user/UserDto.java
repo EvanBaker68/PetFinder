@@ -1,23 +1,20 @@
 package petfinder.site.common.user;
 
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
-import java.util.UUID;
-
 import org.codehaus.jackson.annotate.JsonIgnore;
 
-import alloy.util.Identifiable;
 import alloy.util.Momento;
 
 public class UserDto implements Momento<String> {
 	private String principal;
 	private String password;
-	private Long ownerId;
-	private Long sitterId;
 	private String phoneNumber;
 	private String name;
 	private String address;
+
+    private OwnerDto owner;
+    private OwnerService ownerService;
+    private SitterDto sitter;
+    private SitterService sitterService;
 
 	private UserDto() {
 
@@ -26,11 +23,16 @@ public class UserDto implements Momento<String> {
 	public UserDto(String principal, String password, Long ownerId, Long sitterId, String phoneNumber, String name, String address) {
 	    setPrincipal(principal);
 	    setPassword(password);
-	    setOwnerId(ownerId);
-	    setSitterId(sitterId);
 	    setPhoneNumber(phoneNumber);
 	    setName(name);
 	    setAddress(address);
+
+	    owner = new OwnerDto();
+	    ownerService = new OwnerService();
+	    sitter = new SitterDto();
+	    sitterService = new SitterService();
+	    setSitterId(sitterId);
+	    setOwnerId(ownerId);
 	}
 
 	public String getPrincipal() {
@@ -43,11 +45,11 @@ public class UserDto implements Momento<String> {
     }
 
     public Long getOwnerId() {
-        return ownerId;
+        return owner.getOwnerId();
     }
 
     public Long getSitterId() {
-        return sitterId;
+        return sitter.getSitterId();
     }
 
     public String getPhoneNumber() {
@@ -77,11 +79,11 @@ public class UserDto implements Momento<String> {
     }
 
     private void setOwnerId(Long ownerId) {
-        this.ownerId = ownerId;
+        owner.setOwnerId(ownerId);
     }
 
     private void setSitterId(Long sitterId) {
-        this.sitterId = sitterId;
+        sitter.setSitterId(sitterId);
     }
 
     private void setPhoneNumber(String phoneNumber) {

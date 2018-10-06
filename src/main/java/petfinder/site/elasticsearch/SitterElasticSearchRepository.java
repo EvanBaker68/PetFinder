@@ -5,12 +5,8 @@ import org.springframework.stereotype.Service;
 
 import alloy.elasticsearch.ElasticSearchClientProvider;
 import alloy.elasticsearch.ElasticSearchIndex;
-import alloy.elasticsearch.ElasticSearchRepository;
 import alloy.elasticsearch.ElasticSearchRepository.ElasticSearchJsonRepository;
-import alloy.elasticsearch.ElasticSearchRepository.ElasticSearchMomentoRepository;
-import alloy.util.Serializer;
-import petfinder.site.common.sitter.SitterDto;
-import petfinder.site.common.user.UserAuthenticationDto;
+import petfinder.site.common.user.SitterDto;
 
 
 @Service
