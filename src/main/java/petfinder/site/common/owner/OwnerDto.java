@@ -2,6 +2,7 @@ package petfinder.site.common.owner;
 
 public class OwnerDto {
 
+
     private Long[] currentBookings;
     private Long[] pastBookings;
 
@@ -13,6 +14,7 @@ public class OwnerDto {
         setCurrentBookings(currentBookings);
         setPastBookings(pastBookings);
     }
+
 
 
     public Long[] getCurrentBookings() {
