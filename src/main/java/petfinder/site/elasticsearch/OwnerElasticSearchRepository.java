@@ -6,8 +6,7 @@ import org.springframework.stereotype.Service;
 import alloy.elasticsearch.ElasticSearchClientProvider;
 import alloy.elasticsearch.ElasticSearchIndex;
 import alloy.elasticsearch.ElasticSearchRepository.ElasticSearchJsonRepository;
-import petfinder.site.common.owner.OwnerDto;
-import petfinder.site.common.user.UserAuthenticationDto;
+import petfinder.site.common.user.OwnerDto;
 
 @Service
 public class OwnerElasticSearchRepository extends ElasticSearchJsonRepository<OwnerDto, String> {

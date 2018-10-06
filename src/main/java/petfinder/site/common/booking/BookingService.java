@@ -19,4 +19,5 @@ public class BookingService {
     public void save(BookingDto bookingDto) {
         bookingDao.save(bookingDto);
     }
+
 }
