@@ -11,6 +11,8 @@ import Paper from '@material-ui/core/Paper';
 import Typography from '@material-ui/core/Typography';
 import withStyles from '@material-ui/core/styles/withStyles';
 import { Redirect } from 'react-router-dom';
+import {connect} from 'react-redux';
+import * as Users from 'js/users';
 import blue from '@material-ui/core/colors/blueGrey';
 import * as ReduxForm from 'redux-form';
 import * as Validation from 'js/alloy/utils/validation';
@@ -52,8 +54,34 @@ const styles = theme => ({
 
 class SignInForm extends React.Component{
 
-    onSubmit = user => {
-        //return this.props.SignIn(user);
+	// state = {
+	// 	redirectOwner: false,
+     //    redirectSitter: false
+	// }
+	//
+	// setRedirectOwner = () => {
+	// 	this.setState({
+	// 		redirectOwner: true
+	// 	});
+	// }
+	//
+	// setRedirectSitter = () => {
+	// 	this.setState({
+	// 		redirectSitter: true
+	// 	});
+	// }
+	//
+	// renderRedirect = () => {
+	// 	if (this.state.redirectOwner) {
+	// 		return <Redirect to='/ownerDash' />;
+	// 	}
+	// 	else if(this.state.redirectSitter) {
+	// 	    return <Redirect to='/ownerDash' />;
+     //    }
+	// }
+
+    onSubmit = (principal, password, callFunc) => {
+        // return this.props.authenticate(principal, password, callFunc);
     };
 
     // handleUserEmailChange = event => {this.setState({ email: event.target.value });};
@@ -61,17 +89,19 @@ class SignInForm extends React.Component{
 
 
     render() {
-
+        // const callFunc = this.props.callFunc;
         const { classes } = this.props;
         let { handleSubmit, submitting } = this.props;
 
 
         return (
+
                 <main className={classes.layout}>
                     <Paper className={classes.paper}>
                         <Typography variant="display1">SignIn</Typography>
                         <form className={classes.form}
                               onSubmit={handleSubmit(form => this.onSubmit(form))}>
+							{/*{this.renderRedirect()}*/}
                             <FormControl margin="normal" required fullWidth>
                                 <Bessemer.Field friendlyName="email" name="principal"
                                                 validators={[Validation.requiredValidator, Validation.emailValidator]} autoComplete="email" autoFocus/>
@@ -94,6 +124,7 @@ class SignInForm extends React.Component{
                                 variant="raised"
                                 color="secondary"
                                 className={classes.submit}
+                                // callFunc={this.setRedirectSitter}
                             >
                                 Continue as Pet Sitter
                             </Button>
@@ -104,6 +135,7 @@ class SignInForm extends React.Component{
                                 variant="raised"
                                 color="primary"
                                 className={classes.submit}
+								// callFunc={this.setRedirectOwner}
                             >
                                 Continue as Pet Owner
                             </Button>
@@ -116,18 +148,18 @@ class SignInForm extends React.Component{
 
 SignInForm = ReduxForm.reduxForm({form: 'SignIn'})(SignInForm);
 
-/*
+
 SignInForm = connect(
     state => ({
 
     }),
     dispatch => ({
-        SignIn: user => dispatch(Users.Actions.SignIn(user))
+        // authenticate: (principal, password, callFunc) => dispatch(Users.Actions.authenticate(principal, password, callFunc))
     })
 )(SignInForm);
 
 SignInForm.propTypes = {
     classes: PropTypes.object.isRequired,
-};*/
+};
 
 export default withStyles(styles)(SignInForm);

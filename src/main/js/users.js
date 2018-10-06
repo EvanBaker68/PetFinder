@@ -58,6 +58,7 @@ Actions.authenticate = (username, password) => {
 		return authenticate(username, password).then(
 			authentication => {
 				const cookies = new Cookies();
+				// callFunc();
 				cookies.set('username', username, { path: '/' });
 				cookies.set('auth', authentication, { path: '/'});
 				dispatch(Actions.setAuthentication(authentication));
