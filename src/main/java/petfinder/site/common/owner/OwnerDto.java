@@ -2,7 +2,6 @@ package petfinder.site.common.owner;
 
 public class OwnerDto {
 
-    private Long ownerId;
     private Long[] currentBookings;
     private Long[] pastBookings;
 
@@ -10,15 +9,11 @@ public class OwnerDto {
     public OwnerDto() {
     }
 
-    public OwnerDto(Long ownerId, Long[] currentBookings, Long[] pastBookings) {
-        setOwnerId(ownerId);
+    public OwnerDto(Long[] currentBookings, Long[] pastBookings) {
         setCurrentBookings(currentBookings);
         setPastBookings(pastBookings);
     }
 
-    public Long getOwnerId() {
-        return ownerId;
-    }
 
     public Long[] getCurrentBookings() {
         return currentBookings;
@@ -26,10 +21,6 @@ public class OwnerDto {
 
     public Long[] getPastBookings() {
         return pastBookings;
-    }
-
-    public void setOwnerId(Long ownerId) {
-        this.ownerId = ownerId;
     }
 
     public void setCurrentBookings(Long[] currentBookings) {
