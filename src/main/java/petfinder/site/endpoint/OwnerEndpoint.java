@@ -2,8 +2,9 @@ package petfinder.site.endpoint;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
-import petfinder.site.common.user.OwnerDto;
-import petfinder.site.common.user.OwnerService;
+import petfinder.site.common.owner.OwnerDao;
+import petfinder.site.common.owner.OwnerDto;
+import petfinder.site.common.owner.OwnerService;
 import java.util.Optional;
 
 @RestController

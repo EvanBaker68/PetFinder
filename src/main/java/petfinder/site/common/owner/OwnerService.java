@@ -1,4 +1,4 @@
-package petfinder.site.common.user;
+package petfinder.site.common.owner;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;

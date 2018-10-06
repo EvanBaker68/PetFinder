@@ -130,5 +130,4 @@ public class BookingDto implements Momento<Long> {
     public void setScoreBySitter(Integer scoreBySitter) {
         this.scoreBySitter = scoreBySitter;
     }
-
 }
