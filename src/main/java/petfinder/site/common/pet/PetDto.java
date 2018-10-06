@@ -56,7 +56,7 @@ public class PetDto implements Identifiable {
     }
 
     public void setOwnerPrinciple(Long ownerPrinciple) {
-        this.setOwnerPrinciple(ownerPrinciple);
+        this.ownerPrinciple = ownerPrinciple;
     }
 
 	public void setName(String name) {
