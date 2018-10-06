@@ -2,29 +2,25 @@ package petfinder.site.endpoint;
 
 import java.util.Optional;
 
-
 import java.util.logging.Logger;
-
 import org.slf4j.LoggerFactory;
+
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 
 import petfinder.site.common.pet.PetDto;
 import petfinder.site.common.pet.PetService;
-import petfinder.site.common.user.UserDto;
 
 /**
  * Created by jlutteringer on 8/23/17.
  */
 @RestController
-@RequestMapping("/api/pets")
+@RequestMapping("/api/pet")
 public class PetEndpoint {
 	@Autowired
 	private PetService petService;
@@ -34,11 +30,18 @@ public class PetEndpoint {
 		return petService.findPet(id);
 	}
 
+	/*
 	@PostMapping(produces = "application/json")
 	public PetDto savePet(@RequestBody PetDto pet) {
 		//Logger log = (Logger) LoggerFactory.getLogger(getClass());
 		//log.info("heyyo");
 		petService.save(pet);
 		return pet;
-	}
+	}*/
+
+	@PostMapping(value = "/add-pet", consumes = "application/json")
+    public PetDto savePet(@RequestBody PetDto pet) {
+	    petService.save(pet);
+	    return pet;
+    }
 }

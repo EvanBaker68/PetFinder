@@ -1,6 +1,5 @@
 package petfinder.site.endpoint;
 
-import java.util.Map;
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -11,7 +10,6 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import petfinder.site.common.user.UserDao;
 import petfinder.site.common.user.UserDto;
 import petfinder.site.common.user.UserService;
 import petfinder.site.common.user.UserService.RegistrationRequest;

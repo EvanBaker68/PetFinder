@@ -2,10 +2,6 @@ package petfinder.site.endpoint;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
-<<<<<<< HEAD
-=======
-import petfinder.site.common.owner.OwnerDao;
->>>>>>> Andrew
 import petfinder.site.common.owner.OwnerDto;
 import petfinder.site.common.owner.OwnerService;
 import java.util.Optional;
@@ -22,10 +18,17 @@ public class OwnerEndpoint {
     }
 
 
+    /*
     @PostMapping(produces = "application/json")
     public OwnerDto saveOwner(@RequestBody OwnerDto owner) {
         //Logger log = (Logger) LoggerFactory.getLogger(getClass());
         //log.info("heyyo");
+        ownerService.save(owner);
+        return owner;
+    }*/
+
+    @PostMapping(value = "/add-owner", consumes = "application/json")
+    public OwnerDto saveOwner(@RequestBody OwnerDto owner) {
         ownerService.save(owner);
         return owner;
     }
