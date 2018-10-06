@@ -5,6 +5,7 @@ import petfinder.site.common.sitter.SitterService;
 import petfinder.site.common.sitter.SitterDto;
 import java.util.Optional;
 import org.springframework.beans.factory.annotation.Autowired;
+import petfinder.site.common.sitter.SitterService;
 
 @RestController
 @RequestMapping(value = "/api/sitter")

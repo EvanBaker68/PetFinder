@@ -2,14 +2,17 @@ package petfinder.site.common.pet;
 
 import alloy.util.Identifiable;
 
+/**
+ * Created by jlutteringer on 8/23/17.
+ */
 public class PetDto implements Identifiable {
 	private Long petId;
 	private Long ownerPrinciple;
 	private String name;
 	private String petType;
-	private Boolean isDog;
-	private String dogBreed;
-	private Double age;
+	Boolean isDog;
+	String dogBreed;
+	Double age;
 
 	public PetDto(Long petId, Long ownerPrinciple, String name, String petType, Boolean isDog, String dogBreed, Double age) {
 	    setPetId(petId);
@@ -59,9 +62,9 @@ public class PetDto implements Identifiable {
         this.setOwnerPrinciple(ownerPrinciple);
     }
 
-    public void setName(String name) {
-        this.name = name;
-    }
+	public void setName(String name) {
+		this.name = name;
+	}
 
     public void setPetType(String petType) {
         this.petType = petType;

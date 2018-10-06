@@ -17,6 +17,8 @@ import petfinder.site.common.user.UserDto;
 import petfinder.site.common.user.UserService;
 import petfinder.site.common.user.UserService.RegistrationRequest;
 
+
+
 @RestController
 @RequestMapping(value = "/stuff/TestUser")
 public class TestUserEndpoint {
@@ -29,8 +31,10 @@ public class TestUserEndpoint {
         return testUserService.findUserByEmail(principal);
     }
 
+
         @PostMapping(value = "/register")
         public void register(@RequestBody TestUserDto testUser) { testUserService.save(testUser);
         }
+
     }
 

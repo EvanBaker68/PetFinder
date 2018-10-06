@@ -5,14 +5,11 @@ import { Link } from 'react-router-dom';
 import { connect } from 'react-redux';
 import * as Users from 'js/users';
 import * as Login from 'js/login';
-import OwnerDashboard from 'js/components/OwnerDash';
-import SitterDashBoard from 'js/components/dashboard/SitterDashboard';
-import Register from 'js/components/signUp/register';
-import SignIn from 'js/components/signIn/SignIn';
+import Dashboard from 'js/components/OwnerDash';
+import SignIn from 'js/components/signUp/register';
 import CompleteRegistration from 'js/components/signUp/completeRegistration';
 import HomePage from 'js/components/home';
 import PetPage from 'js/components/pets/petPage';
-import Profile from 'js/components/profile/ProfilePage';
 
 export class Home extends React.Component {
 	render() {
@@ -44,7 +41,7 @@ export class NewRegisterPage extends React.Component {
 	render() {
 		return (
 			<div>
-				<Register/>
+				<SignIn/>
 			</div>
 		);
 	}
@@ -63,8 +60,14 @@ export class CompleteRegisterPage extends React.Component {
 export class LoginPage extends React.Component {
 	render() {
 		return (
-			<div>
-				<SignIn/>
+			<div className="container padded">
+				<div className="row">
+					<div className="col-6 offset-md-3">
+						<h2>Login</h2>
+						<hr />
+						<Login.LoginForm />
+					</div>
+				</div>
 			</div>
 		);
 	}
@@ -72,8 +75,17 @@ export class LoginPage extends React.Component {
 class sitterDash extends React.Component {
 	render() {
 		return (
-			<div>
-				<SitterDashBoard/>
+			<div className="container padded">
+				Welcome to sitter dashboard
+
+				{ _.isDefined(this.props.user) &&
+				<div>User: {this.props.user.principal}!</div>
+				}
+
+				<ul>
+					<li><Link to="/ownerDash">Go to owner view</Link></li>
+					<li><Link to="/sitterProfile">Your Profile</Link></li>
+				</ul>
 			</div>
 		);
 	}
@@ -92,7 +104,7 @@ class ownerDash extends React.Component {
 	render() {
 		return (
 			<div>
-				<OwnerDashboard />
+				<Dashboard />
 			</div>
 		);
 	}
@@ -104,7 +116,7 @@ export class ownerProfile extends React.Component {
 	render() {
 		return (
 			<div>
-				<Profile/>
+				Profile
 			</div>
 		);
 	}
