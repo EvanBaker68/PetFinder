@@ -12,68 +12,72 @@ import OutlinedTextFields from 'js/components/signUp/ownerRegistrationForms';
 import {Link} from 'react-router-dom';
 
 const styles = theme => ({
-	root: {
-		width: '90%',
-	},
-	button: {
-		marginTop: theme.spacing.unit,
-		marginRight: theme.spacing.unit,
-	},
-	actionsContainer: {
-		marginBottom: theme.spacing.unit * 2,
-	},
-	resetContainer: {
-		padding: theme.spacing.unit * 3,
-	},
+    root: {
+        width: '90%',
+    },
+    button: {
+        marginTop: theme.spacing.unit,
+        marginRight: theme.spacing.unit,
+    },
+    actionsContainer: {
+        marginBottom: theme.spacing.unit * 2,
+    },
+    resetContainer: {
+        padding: theme.spacing.unit * 3,
+    },
 });
 
 function getSteps() {
-	return [<Typography variant="display1">Basic Information</Typography>,
-		<Typography variant="display1">Preferences</Typography>,
-		<Typography variant="display1">Profile Picture</Typography>];
+    return [<Typography variant="display1">Basic Information</Typography>,
+        <Typography variant="display1">Preferences</Typography>,
+        <Typography variant="display1">Profile Picture</Typography>];
 }
 
 function getStepContent(step) {
-	switch (step) {
-		case 0:
-			return (
-					<OutlinedTextFields/>
-			);
-		case 1:
-			return (
-					<OutlinedTextFields/>
-			);
-		case 2:
-			return (
-				<form>
-					<Typography variant="caption">Optional: upload a profile picture from your computer</Typography>
-					<input
-						accept="image/*"
-						id="flat-button-file"
-						multiple
-						type="file"
-					/>
-					<label htmlFor="flat-button-file">
-						<Button component="span">
-							Upload
-						</Button>
-					</label>
-				</form>
-			);
-		default:
-			return 'Unknown step';
-	}
+    switch (step) {
+        case 0:
+            return (
+                <div>
+                    <OutlinedTextFields/>
+                </div>
+            );
+        case 1:
+            return (
+                <div>
+                    <OutlinedTextFields/>
+                </div>
+            );
+        case 2:
+            return (
+                <div>
+                    <Typography variant="caption">Optional: upload a profile picture from your computer</Typography>
+                    <input
+                        accept="image/*"
+                        id="flat-button-file"
+                        multiple
+                        type="file"
+                    />
+                    <label htmlFor="flat-button-file">
+                        <Button component="span">
+                            Upload
+                        </Button>
+                    </label>
+                </div>
+            );
+        default:
+            return 'Unknown step';
+    }
 }
 
-class VerticalLinearStepper extends React.Component {
-	state = {
-		activeStep: 0,
-	};
+class SitterCompleteRegistration extends React.Component {
+    state = {
+        activeStep: 0,
+    };
 
-	handleNext = () => {
-		this.setState(state => ({
-			activeStep: state.activeStep + 1,
-	    }));
+    handleNext = () => {
+        this.setState(state => ({
+            activeStep: state.activeStep + 1,
+        }));
     };
 
     handleBack = () => {
@@ -129,7 +133,7 @@ class VerticalLinearStepper extends React.Component {
                 {activeStep === steps.length && (
                     <Paper square elevation={0} className={classes.resetContainer}>
                         <Typography>All steps completed - you&quot;re finished</Typography>
-                        <Link to="/ownerDash">
+                        <Link to="/sitterDash">
                             <Button className={classes.button}>
                                 Continue to Dashboard
                             </Button>
@@ -141,8 +145,8 @@ class VerticalLinearStepper extends React.Component {
     }
 }
 
-VerticalLinearStepper.propTypes = {
+SitterCompleteRegistration.propTypes = {
     classes: PropTypes.object,
 };
 
-export default withStyles(styles)(VerticalLinearStepper);
+export default withStyles(styles)(SitterCompleteRegistration);
