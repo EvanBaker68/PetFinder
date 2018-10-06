@@ -6,8 +6,6 @@ import alloy.elasticsearch.ElasticSearchRepository.ElasticSearchJsonRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import petfinder.site.common.booking.BookingDto;
-import petfinder.site.common.user.UserAuthenticationDto;
-
 
 @Service
 public class BookingElasticSearchRepository extends ElasticSearchJsonRepository<BookingDto, Long> {
