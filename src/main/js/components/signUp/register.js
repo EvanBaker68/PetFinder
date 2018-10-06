@@ -20,6 +20,7 @@ import * as ReduxForm from 'redux-form';
 import * as Validation from 'js/alloy/utils/validation';
 import * as Bessemer from 'js/alloy/bessemer/components';
 import  { Redirect } from 'react-router-dom';
+import Cookies from 'react-cookie';
 
 const styles = theme => ({
     palette: {
@@ -80,8 +81,9 @@ class RegisterForm extends React.Component{
         const { redirect } = this.state;
 
         if (redirect === true) {
-            return <Redirect to='/completeRegistration' />;
+            return <Redirect to='/ownerCompleteRegistration' />;
         }
+
 
         return (
             <React.Fragment>

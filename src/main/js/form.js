@@ -1,32 +1,6 @@
 import React from 'react';
 import elasticsearch from 'elasticsearch';
 import axios from 'axios';
-/*
-var client = new elasticsearch.Client({
-    hosts: ['000.0.0.0:9200']
-});
-
-
-client.ping({
-     requestTimeout: 30000,
- }, function(error) {
-     if (error) {
-         console.error('elasticsearch cluster is down!');
-     } else {
-         console.log('Everything is ok');
-     }
- });
-
-client.indices.create({
-      index: 'users'
-  }, function(err, resp, status) {
-      if (err) {
-          console.log(err);
-      } else {
-          console.log('create', resp);
-      }
- });
-*/
 
 export function authenticate(pet){
     return axios.post('/api/pets');
