@@ -74,4 +74,11 @@ public class UserService {
 		userDao.save(userAuthentication);
 		return userAuthentication.getUser();
 	}
+
+
+
+	/*public UserDto setPet(Long requestPet){
+		UserDto
+	}*/
+
 }

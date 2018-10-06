@@ -19,7 +19,12 @@ import {connect} from 'react-redux';
 import * as ReduxForm from 'redux-form';
 import * as Validation from 'js/alloy/utils/validation';
 import * as Bessemer from 'js/alloy/bessemer/components';
+<<<<<<< HEAD
 import  { Redirect } from 'react-router-dom';
+=======
+import Cookies from 'react-cookie';
+
+>>>>>>> Andrew
 
 const styles = theme => ({
     palette: {
@@ -59,14 +64,18 @@ const styles = theme => ({
 
 class RegisterForm extends React.Component{
 
+//axios.post('/api/user/register', user);
+
+
 	onSubmit = user => {
-		return this.props.register(user);
+        return this.props.register(user);
 	};
 
     render() {
 
         const { classes } = this.props;
         let { handleSubmit, submitting } = this.props;
+
 
 
         return (

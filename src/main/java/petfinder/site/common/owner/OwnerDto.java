@@ -1,26 +1,84 @@
 package petfinder.site.common.owner;
 
-import petfinder.site.common.booking.BookingDto;
-import petfinder.site.common.pet.PetDto;
+import alloy.util.Momento;
+import org.codehaus.jackson.annotate.JsonIgnore;
 
-public class OwnerDto {
-    private int ownerID;
-    private int sitterID;
-    private PetDto[] pets;
-    //private BookingDto[] pastBookings;
-    //private BookingDto[] currentBookings;
+import java.util.Map;
 
-    public OwnerDto(int ownerID, int sitterID){
-        this.ownerID = ownerID;
-        this.sitterID = sitterID;
+public class OwnerDto implements Momento<String> {
+    private String principle;
+    //do we need to make a seperate principle for sitters, instead of just using User's principle
+    private Map<String, Object> attributes;
+    private Long currentBookingId;
+    private Long[] futureBookingIds;
+    private Long[] pastBookingIds;
+
+    private Long[] petIds;
+
+
+    OwnerDto() {
     }
 
-    public int getOwnerID() {
-        return ownerID;
+    OwnerDto(String principle, Map<String, Object> attributes, Long currentBookingId, Long[] futureBookingIds, Long[] pastBookingIds, Long[] petIds){
+        setPrinciple(principle);
+        setAttributes(attributes);
+        setCurrentBookingId(currentBookingId);
+        setFutureBookingIds(futureBookingIds);
+        setPastBookingIds(pastBookingIds);
+        setPetIds(petIds);
     }
 
-    public int getSitterID() {
-        return sitterID;
+    @JsonIgnore
+    @Override
+    public String getMomento() {
+        return null;
     }
 
+    public String getPrinciple() {
+        return principle;
+    }
+
+    public void setPrinciple(String principle) {
+        this.principle = principle;
+    }
+
+    public Map<String, Object> getAttributes() {
+        return attributes;
+    }
+
+    public void setAttributes(Map<String, Object> attributes) {
+        this.attributes = attributes;
+    }
+
+    public Long getCurrentBookingId() {
+        return currentBookingId;
+    }
+
+    public void setCurrentBookingId(Long currentBookingId) {
+        this.currentBookingId = currentBookingId;
+    }
+
+    public Long[] getFutureBookingIds() {
+        return futureBookingIds;
+    }
+
+    public void setFutureBookingIds(Long[] futureBookingIds) {
+        this.futureBookingIds = futureBookingIds;
+    }
+
+    public Long[] getPastBookingIds() {
+        return pastBookingIds;
+    }
+
+    public void setPastBookingIds(Long[] pastBookingIds) {
+        this.pastBookingIds = pastBookingIds;
+    }
+
+    public Long[] getPetIds() {
+        return petIds;
+    }
+
+    public void setPetIds(Long[] petIds) {
+        this.petIds = petIds;
+    }
 }

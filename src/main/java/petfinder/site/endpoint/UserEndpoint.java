@@ -35,4 +35,10 @@ public class UserEndpoint {
 	public UserDto register(@RequestBody RegistrationRequest request) {
 		return userService.register(request);
 	}
+
+
+	/*@PostMapping(value = "/setPetForUser")
+*/
+
+
 }
