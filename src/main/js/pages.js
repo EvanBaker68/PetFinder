@@ -13,7 +13,6 @@ import OwnerCompleteRegistration from 'js/components/signUp/ownerCompleteRegistr
 import SitterCompleteRegistration from 'js/components/signUp/sitterCompleteRegistration';
 import HomePage from 'js/components/home';
 import PetPage from 'js/components/pets/petPage';
-import Profile from 'js/components/profile/ProfilePage';
 
 export class Home extends React.Component {
 	render() {

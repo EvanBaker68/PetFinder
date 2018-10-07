@@ -27,7 +27,10 @@ class OutlinedTextFields extends React.Component {
         fistname: '',
         lastname: '',
         address: '',
-        city: ''
+        city: '',
+        zip: '',
+        phone: '(000)000-0000',
+        state: ''
     };
 
     handleChange = name => event => {
@@ -61,7 +64,7 @@ class OutlinedTextFields extends React.Component {
                 />
                 <TextField
                     id="outlined-name"
-                    label="Address"
+                    label="Street Address"
                     className={classes.textField}
                     value={this.state.name}
                     onChange={this.handleChange('address')}
@@ -74,6 +77,33 @@ class OutlinedTextFields extends React.Component {
                     className={classes.textField}
                     value={this.state.name}
                     onChange={this.handleChange('city')}
+                    margin="normal"
+                    variant="standard"
+                />
+                <TextField
+                    id="outlined-name"
+                    label="State"
+                    className={classes.textField}
+                    value={this.state.name}
+                    onChange={this.handleChange('state')}
+                    margin="normal"
+                    variant="standard"
+                />
+                <TextField
+                    id="outlined-name"
+                    label="Zip Code"
+                    className={classes.textField}
+                    value={this.state.name}
+                    onChange={this.handleChange('zipCode')}
+                    margin="normal"
+                    variant="standard"
+                />
+                <TextField
+                    id="outlined-name"
+                    label="Phone Number"
+                    className={classes.textField}
+                    value={this.state.name}
+                    onChange={this.handleChange('phone')}
                     margin="normal"
                     variant="standard"
                 />

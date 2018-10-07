@@ -1,46 +1,27 @@
 package petfinder.site.common.user;
 
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
-import java.util.UUID;
-
 import org.codehaus.jackson.annotate.JsonIgnore;
 
-import alloy.util.Identifiable;
 import alloy.util.Momento;
 
-/**
- * Created by jlutteringer on 8/23/17.
- */
 public class UserDto implements Momento<String> {
 	private String principal;
-	private List<String> roles;
-	private UserType type;
-	private Map<String, Object> attributes;
-	private Long petId;
+	private String password;
+	private String phoneNumber;
+	private String name;
+	private String address;
 
 	private UserDto() {
 
 	}
 
-	public UserDto(String principal, List<String> roles, UserType type, Map<String, Object> attributes) {
-		/*this.principal = principal;
-		this.roles = roles;
-		this.attributes = attributes;*/
-		setPrincipal(principal);
-		setRoles(roles);
-		setAttributes(attributes);
-	}
+	public UserDto(String principal, String password, String phoneNumber, String name, String address) {
+	    setPrincipal(principal);
+	    setPassword(password);
+	    setPhoneNumber(phoneNumber);
+	    setName(name);
+	    setAddress(address);
 
-	public UserDto(String principal, List<String> roles, UserType type, Map<String, Object> attributes, Long petId) {
-		/*this.principal = principal;
-		this.roles = roles;
-		this.attributes = attributes;
-		this.petId = petId;*/
-		setPrincipal(principal);
-		setRoles(roles);
-		setPetId(petId);
 	}
 
 	public String getPrincipal() {
@@ -48,27 +29,23 @@ public class UserDto implements Momento<String> {
 		return temp;
 	}
 
-	public List<String> getRoles() {
-		List<String> temp = roles;
-		return temp;
-	}
+    public String getPassword() {
+        return password;
+    }
 
-	public Map<String, Object> getAttributes() {
-		return attributes;
-	}
+    public String getPhoneNumber() {
+        return phoneNumber;
+    }
 
-	public UserType getType() {
-		UserType temp = type;
-		return temp;
-	}
+    public String getName() {
+        return name;
+    }
 
+    public String getAddress() {
+        return address;
+    }
 
-	public Long getPetId() {
-		Long temp = petId;
-		return temp;
-	}
-
-	@JsonIgnore
+    @JsonIgnore
 	@Override
 	public String getMomento() {
 		return principal;
@@ -78,25 +55,19 @@ public class UserDto implements Momento<String> {
 		this.principal = principal;
 	}
 
-	public void setRoles(List<String> roles) {
-		this.roles = roles;
-	}
+    private void setPhoneNumber(String phoneNumber) {
+        this.phoneNumber = phoneNumber;
+    }
 
-	public void setType(UserType type) {
-		this.type = type;
-	}
+    public void setPassword(String password) {
+        this.password = password;
+    }
 
-	public void setAttributes(Map<String, Object> attributes) {
-		this.attributes = attributes;
-	}
+    public void setName(String name) {
+        this.name = name;
+    }
 
-	public void setPetId(Long petId) {
-		this.petId = petId;
-	}
-
-
-
-	public enum UserType {
-		OWNER, SITTER
-	}
+    public void setAddress(String address) {
+        this.address = address;
+    }
 }

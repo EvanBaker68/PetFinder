@@ -7,7 +7,10 @@ import alloy.elasticsearch.ElasticSearchClientProvider;
 import alloy.elasticsearch.ElasticSearchIndex;
 import alloy.elasticsearch.ElasticSearchRepository.ElasticSearchJsonRepository;
 import petfinder.site.common.owner.OwnerDto;
+<<<<<<< HEAD
+=======
 import petfinder.site.common.user.UserAuthenticationDto;
+>>>>>>> Andrew
 
 @Service
 public class OwnerElasticSearchRepository extends ElasticSearchJsonRepository<OwnerDto, String> {
