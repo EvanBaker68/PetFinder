@@ -1,9 +1,10 @@
 package petfinder.site.common.booking;
 
+import alloy.util.Identifiable;
 import alloy.util.Momento;
 import org.codehaus.jackson.annotate.JsonIgnore;
 import java.util.Date;
-public class BookingDto implements Momento<Long> {
+public class BookingDto implements Identifiable{
     private Long id;
     private String sitterPrincipal; //can possibly be array
     private String ownerPrincipal;  //can possibly be array
@@ -47,10 +48,6 @@ public class BookingDto implements Momento<Long> {
 
     @JsonIgnore
     @Override
-    public Long getMomento() {
-        return id;
-    }
-
     public Long getId() {
         return id;
     }
