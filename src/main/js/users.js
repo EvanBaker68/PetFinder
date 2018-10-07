@@ -85,7 +85,7 @@ Actions.authenticate = (username, password) => {
 
 Actions.logout = () => {
 	return (dispatch) => {
-	    cookies.set('loggedIn', 'false', { path: '/' });
+	    //cookies.set('loggedIn', 'false', { path: '/' });
 		dispatch(Actions.setAuthentication(null));
 		dispatch(Actions.setUser(null));
 	};

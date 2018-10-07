@@ -16,6 +16,7 @@ import ChevronLeftIcon from '@material-ui/icons/ChevronLeft';
 import NotificationsIcon from '@material-ui/icons/Notifications';
 import { mainListItems, secondaryListItems } from 'js/components/dashboard/listItems';
 import PetCard from 'js/components/pets/petCard';
+import AddPet from 'js/components/pets/addPetForm';
 
 const drawerWidth = 240;
 
@@ -156,6 +157,7 @@ class PetPage extends React.Component {
                     </Drawer>
                     <main className={classes.content}>
                         <PetCard/>
+                        <AddPet/>
                     </main>
                 </div>
             </React.Fragment>

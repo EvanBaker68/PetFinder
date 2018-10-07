@@ -9,7 +9,8 @@ import OwnerDashboard from 'js/components/OwnerDash';
 import SitterDashBoard from 'js/components/dashboard/SitterDashboard';
 import Register from 'js/components/signUp/register';
 import SignIn from 'js/components/signIn/SignIn';
-import CompleteRegistration from 'js/components/signUp/completeRegistration';
+import OwnerCompleteRegistration from 'js/components/signUp/ownerCompleteRegistration';
+import SitterCompleteRegistration from 'js/components/signUp/sitterCompleteRegistration';
 import HomePage from 'js/components/home';
 import PetPage from 'js/components/pets/petPage';
 import Profile from 'js/components/profile/ProfilePage';
@@ -50,14 +51,24 @@ export class NewRegisterPage extends React.Component {
 	}
 }
 
-export class CompleteRegisterPage extends React.Component {
+export class ownerCompleteRegisterPage extends React.Component {
 	render() {
 		return (
 			<div>
-				<CompleteRegistration/>
+				<OwnerCompleteRegistration/>
 			</div>
 		);
 	}
+}
+
+export class sitterCompleteRegisterPage extends React.Component {
+    render() {
+        return (
+            <div>
+                <SitterCompleteRegistration/>
+            </div>
+        );
+    }
 }
 
 export class LoginPage extends React.Component {

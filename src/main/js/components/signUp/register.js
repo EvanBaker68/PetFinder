@@ -62,25 +62,33 @@ class RegisterForm extends React.Component{
 
     constructor(props) {
         super(props);
-        this.state = {redirect: false};
-    }
-
-    componentDidMount() {
-        this.setState({redirect: false});
+        this.state = {sitterRedirect: false,
+                        ownerRedirect: false,
+                        submit: false};
     }
 
     onSubmit = user => {
-        this.setState({redirect: true});
+        this.setState({submit: true});
 		return this.props.register(user);
 	};
 
+    handleOwner() {
+        this.setState({ownerRedirect: true});
+    }
+
+    handleSitter() {
+        this.setState({sitterRedirect: true});
+    }
     render() {
 
         const { classes } = this.props;
         let { handleSubmit, submitting } = this.props;
-        const { redirect } = this.state;
+        const { sitterRedirect, ownerRedirect, submit } = this.state;
 
-        if (redirect === true) {
+        if (sitterRedirect === true && submit === true) {
+            return <Redirect to='/sitterCompleteRegistration' />;
+        }
+        if (ownerRedirect === true && submit === true) {
             return <Redirect to='/ownerCompleteRegistration' />;
         }
 
@@ -92,7 +100,7 @@ class RegisterForm extends React.Component{
                     <Paper className={classes.paper}>
                         <Typography variant="display1">Register</Typography>
                         <form className={classes.form}
-							  onSubmit={handleSubmit(form => this.onSubmit(form))}>
+							  onSubmit={handleSubmit(form => this.onSubmit({form, }))}>
                             <FormControl margin="normal" required fullWidth>
 								<Bessemer.Field friendlyName="email" name="principal"
                                        validators={[Validation.requiredValidator, Validation.emailValidator]} autoComplete="email" autoFocus/>
@@ -115,6 +123,7 @@ class RegisterForm extends React.Component{
                                 variant="raised"
                                 color="secondary"
                                 className={classes.submit}
+                                onClick={this.handleSitter()}
                             >
                                 Continue as Pet Sitter
                             </Button>
@@ -125,6 +134,7 @@ class RegisterForm extends React.Component{
                                 variant="raised"
                                 color="primary"
                                 className={classes.submit}
+                                onClick={this.handleOwner()}
                             >
                                 Continue as Pet Owner
                             </Button>

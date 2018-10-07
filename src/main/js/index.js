@@ -1,6 +1,5 @@
 import React from 'react';
 import { HashRouter, Route } from 'react-router-dom';
-import Cookies from 'universal-cookie';
 import * as Pages from 'js/pages';
 import Cookies from 'universal-cookie';
 export default class Index extends React.Component {
@@ -21,7 +20,8 @@ export default class Index extends React.Component {
 					<Route exact path="/" component={Pages.Home} />
 					<Route exact path="/register" component={Pages.RegisterPage} />
 					<Route exact path="/newRegister" component={Pages.NewRegisterPage}/>
-					<Route exact path="/completeRegistration" component={Pages.CompleteRegisterPage}/>
+					<Route exact path="/ownerCompleteRegistration" component={Pages.ownerCompleteRegisterPage}/>
+                    <Route exact path="/sitterCompleteRegistration" component={Pages.sitterCompleteRegisterPage}/>
 					<Route exact path="/login" component={Pages.LoginPage} />
 					<Route exact path="/sitterDash" component={Pages.sitterDash} />
 					<Route exact path="/ownerDash" component={Pages.ownerDash} />
