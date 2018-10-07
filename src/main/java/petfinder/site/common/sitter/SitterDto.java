@@ -10,8 +10,6 @@ public class SitterDto implements Momento<String> {
     private String principal;
     private Long[] currentBookings;
     private Long[] pastBookings;
-    private Availability[] availability;// dont think we need
-    public Integer availableTimes = -1; // dont think we need
     private Long[] datesAvailable;
 
 
@@ -30,11 +28,10 @@ public class SitterDto implements Momento<String> {
     }
 
     //Temporary until we get rid of Availability
-    public SitterDto(String principal, Long[] currentBookings, Long[] pastBookings, Availability[] availability) {
+    public SitterDto(String principal, Long[] currentBookings, Long[] pastBookings) {
         setPrincipal(principal);
         setCurrentBookings(currentBookings);
         setPastBookings(pastBookings);
-        setAvailability(availability);
     }
 
     public Long[] getCurrentBookings() {
@@ -49,9 +46,6 @@ public class SitterDto implements Momento<String> {
         return principal;
     }
 
-    public Availability[] getAvailability() {
-        return availability;
-    }
 
     public void setCurrentBookings(Long[] currentBookings) {
         this.currentBookings = currentBookings;
@@ -65,15 +59,6 @@ public class SitterDto implements Momento<String> {
         this.principal = principal;
     }
 
-    public void setAvailability(Availability[] availability) {
-        this.availability = availability;
-    }
-
-    public void addAvailability(LocalDateTime start, LocalDateTime end) {
-        availableTimes++;
-        availability[availableTimes].setStart(start);
-        availability[availableTimes].setEnd(end);
-    }
 
     @JsonIgnore
     @Override
@@ -90,32 +75,3 @@ public class SitterDto implements Momento<String> {
     }
 }
 
-class Availability {
-    private LocalDateTime start;
-    private LocalDateTime end;
-
-    Availability() {
-
-    }
-
-    Availability(LocalDateTime start, LocalDateTime end) {
-        setStart(start);
-        setEnd(end);
-    }
-
-    public LocalDateTime getStart() {
-        return start;
-    }
-
-    public void setStart(LocalDateTime start) {
-        this.start = start;
-    }
-
-    public LocalDateTime getEnd() {
-        return end;
-    }
-
-    public void setEnd(LocalDateTime end) {
-        this.end = end;
-    }
-}
