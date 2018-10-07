@@ -53,16 +53,17 @@ Actions.Types = {
 	SET_USER: 'SET_USER'
 };
 
-Actions.register = user => {
+Actions.register = (user, callFunc) => {
 	return (dispatch) => {
 		return register(user).then(() => {
-			return dispatch(Actions.authenticate(user.principal, user.password));
+			return dispatch(Actions.authenticate(user.principal, user.password, callFunc));
 		});
 	};
 };
 
-Actions.authenticate = (username, password) => {
+Actions.authenticate = (username, password, callFunc) => {
 	return (dispatch) => {
+		console.log('heyyyy', username, password);
 		return authenticate(username, password).then(
 			authentication => {
 
@@ -70,6 +71,8 @@ Actions.authenticate = (username, password) => {
 			    cookies.set('username', username, { path: '/'  });
 			    cookies.set('auth', authentication, { path: '/' });
 			    cookies.set('loggedIn', 'true', { path: '/' });
+				console.log('made it in');
+			    callFunc();
                 //console.log(cookies.get('loggedIn'));
                 //console.log(username);
                 //console.log(authentication);
@@ -79,13 +82,15 @@ Actions.authenticate = (username, password) => {
 					dispatch(Actions.setUser(user));
 				});
 			}
-		);
+		)
+		.catch( function(e) { console.log('catching error authenticating'); });
 	};
 };
 
 Actions.logout = () => {
 	return (dispatch) => {
-	    //cookies.set('loggedIn', 'false', { path: '/' });
+		const cookies = new Cookies();
+	    cookies.set('loggedIn', 'false', { path: '/' });
 		dispatch(Actions.setAuthentication(null));
 		dispatch(Actions.setUser(null));
 	};

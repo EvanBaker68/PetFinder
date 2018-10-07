@@ -62,20 +62,54 @@ class RegisterForm extends React.Component{
 
     constructor(props) {
         super(props);
-        this.state = {sitterRedirect: false,
-                        ownerRedirect: false,
-                        submit: false};
+        this.state = {isOwner: false, isSitter: false, redirectOwner: false, redirectSitter: false, callfunc: this.setRedirect};
     }
 
-    onSubmit = user => {
-		return this.props.register(user);
+    componentDidMount() {
+        this.setState({redirect: false, redirectSitter: false});
+    }
+
+	setIsOwner = () => {
+		this.setState({
+			isOwner: true
+		});
+	}
+
+	setIsSitter = () => {
+		this.setState({
+			isSitter: true
+		});
+	}
+
+	setRedirect = () => {
+		if(this.state.isSitter){
+			this.setState({
+				redirectSitter: true
+			});
+		}
+		else if(this.state.isOwner){
+			this.setState({
+				redirectOwner: true
+			});
+		}
+	}
+
+	onSubmit = (user) => {
+		return this.props.register(user, this.state.callfunc);
 	};
 
     render() {
 
         const { classes } = this.props;
         let { handleSubmit, submitting } = this.props;
-        const { sitterRedirect, ownerRedirect, submit } = this.state;
+        const { redirectOwner, redirectSitter } = this.state;
+
+		if (this.state.redirectOwner) {
+			return <div><Redirect to='/ownerCompleteRegistration' /></div>;
+		}
+		else if(this.state.redirectSitter) {
+			return <div><Redirect to='/sitterCompleteRegistration' /></div>;
+		}
 
         return (
             <React.Fragment>
@@ -107,6 +141,7 @@ class RegisterForm extends React.Component{
                                 variant="raised"
                                 color="secondary"
                                 className={classes.submit}
+								onClick={this.setIsSitter}
                             >
                                 Continue as Pet Sitter
                             </Button>
@@ -117,6 +152,8 @@ class RegisterForm extends React.Component{
                                 variant="raised"
                                 color="primary"
                                 className={classes.submit}
+								onClick={this.setIsOwner}
+
                             >
                                 Continue as Pet Owner
                             </Button>
@@ -139,7 +176,8 @@ RegisterForm = connect(
 
     }),
     dispatch => ({
-        register: user => dispatch(Users.Actions.register(user))
+        register: (user, callfunc) => dispatch(Users.Actions.register(user, callfunc))
+		// register: (user) => dispatch(Users.Actions.register(user))
     })
 )(RegisterForm);
 

@@ -7,7 +7,6 @@ export default class Index extends React.Component {
     constructor(props){
         super(props);
         const cookies = new Cookies();
-        cookies.set('loggedIn', 'false', { path: '/' });
         console.log(cookies.get('loggedIn'));
 
     }
@@ -39,6 +38,4 @@ export default class Index extends React.Component {
 			</HashRouter>
 		);
 	}
-
-	Component
 }
