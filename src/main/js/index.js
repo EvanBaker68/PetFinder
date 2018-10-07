@@ -1,6 +1,5 @@
 import React from 'react';
 import { HashRouter, Route } from 'react-router-dom';
-
 import * as Pages from 'js/pages';
 //import { CookiesProvider } from 'react-cookie';
 import Cookies from 'universal-cookie';
@@ -13,6 +12,7 @@ export default class Index extends React.Component {
         console.log(cookies.get('loggedIn'));
 
     }
+
 
 
 	render() {

@@ -13,15 +13,23 @@ public class OwnerEndpoint {
     OwnerService ownerService;
 
     @GetMapping(value = "/{id}", produces = "application/json")
+    @ResponseBody
     public Optional<OwnerDto> getSitter(@PathVariable("id") String id) {
         return ownerService.findOwner(id);
     }
 
 
+    /*
     @PostMapping(produces = "application/json")
     public OwnerDto saveOwner(@RequestBody OwnerDto owner) {
         //Logger log = (Logger) LoggerFactory.getLogger(getClass());
         //log.info("heyyo");
+        ownerService.save(owner);
+        return owner;
+    }*/
+
+    @PostMapping(value = "/add-owner", consumes = "application/json")
+    public OwnerDto saveOwner(@RequestBody OwnerDto owner) {
         ownerService.save(owner);
         return owner;
     }

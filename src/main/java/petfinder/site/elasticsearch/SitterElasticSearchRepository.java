@@ -8,7 +8,6 @@ import alloy.elasticsearch.ElasticSearchIndex;
 import alloy.elasticsearch.ElasticSearchRepository.ElasticSearchJsonRepository;
 import petfinder.site.common.sitter.SitterDto;
 
-
 @Service
 public class SitterElasticSearchRepository  extends ElasticSearchJsonRepository<SitterDto, String> {
 
