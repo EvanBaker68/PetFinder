@@ -18,16 +18,6 @@ public class OwnerEndpoint {
         return ownerService.findOwner(id);
     }
 
-
-    /*
-    @PostMapping(produces = "application/json")
-    public OwnerDto saveOwner(@RequestBody OwnerDto owner) {
-        //Logger log = (Logger) LoggerFactory.getLogger(getClass());
-        //log.info("heyyo");
-        ownerService.save(owner);
-        return owner;
-    }*/
-
     @PostMapping(value = "/add-owner", produces = "application/json", consumes = "application/json")
     @ResponseBody
     public OwnerDto saveOwner(@RequestBody OwnerDto owner) {

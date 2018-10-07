@@ -26,15 +26,6 @@ public class PetEndpoint {
 		return petService.findPet(id);
 	}
 
-	/*
-	@PostMapping(produces = "application/json")
-	public PetDto savePet(@RequestBody PetDto pet) {
-		//Logger log = (Logger) LoggerFactory.getLogger(getClass());
-		//log.info("heyyo");
-		petService.save(pet);
-		return pet;
-	}*/
-
 	@PostMapping(value = "/add-pet", consumes = "application/json", produces = "application/json")
     @ResponseBody
     public PetDto savePet(@RequestBody PetDto pet) {

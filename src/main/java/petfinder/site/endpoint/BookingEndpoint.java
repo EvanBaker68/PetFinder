@@ -22,8 +22,6 @@ public class BookingEndpoint {
     @PostMapping(value = "/add-booking", produces = "application/json", consumes = "application/json")
     @ResponseBody
     public BookingDto saveBooking(@RequestBody BookingDto bookingDto) {
-        //Logger log = (Logger) LoggerFactory.getLogger(getClass());
-        //log.info("heyyo");
         bookingService.save(bookingDto);
         return bookingDto;
     }
