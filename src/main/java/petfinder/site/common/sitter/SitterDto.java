@@ -15,11 +15,12 @@ public class SitterDto implements Momento<String> {
     private Long[] datesAvailable;
 
 
+    //Main Constructor
     public SitterDto(String principal, Long[] currentBookings, Long[] pastBookings, Long[] datesAvailable) {
-        this.principal = principal;
-        this.currentBookings = currentBookings;
-        this.pastBookings = pastBookings;
-        this.datesAvailable = datesAvailable;
+        setPrincipal(principal);
+        setCurrentBookings(currentBookings);
+        setPastBookings(pastBookings);
+        setDatesAvailable(datesAvailable);
     }
 
     public SitterDto() {}
@@ -28,7 +29,7 @@ public class SitterDto implements Momento<String> {
         setPrincipal(principal);
     }
 
-    //Main Constructor
+    //Temporary until we get rid of Availability
     public SitterDto(String principal, Long[] currentBookings, Long[] pastBookings, Availability[] availability) {
         setPrincipal(principal);
         setCurrentBookings(currentBookings);
