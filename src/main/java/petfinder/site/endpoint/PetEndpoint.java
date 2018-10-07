@@ -6,12 +6,7 @@ import java.util.logging.Logger;
 import org.slf4j.LoggerFactory;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import petfinder.site.common.pet.PetDto;
 import petfinder.site.common.pet.PetService;
@@ -26,6 +21,7 @@ public class PetEndpoint {
 	private PetService petService;
 
 	@GetMapping(value = "/{id}", produces = "application/json")
+    @ResponseBody
 	public Optional<PetDto> getPet(@PathVariable("id") Long id) {
 		return petService.findPet(id);
 	}

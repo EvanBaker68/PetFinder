@@ -14,6 +14,7 @@ public class SitterEndpoint {
     SitterService sitterService;
 
     @GetMapping(value = "/{id}", produces = "application/json")
+    @ResponseBody
     public Optional<SitterDto> getSitter(@PathVariable("id") String id) {
         return sitterService.findSitter(id);
     }

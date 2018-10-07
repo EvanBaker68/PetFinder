@@ -14,6 +14,7 @@ public class BookingEndpoint {
     BookingService bookingService;
 
     @GetMapping(value = "/{id}", produces = "application/json")
+    @ResponseBody
     public Optional<BookingDto> getBooking(@PathVariable("id") Long id) {
         return bookingService.findBooking(id);
     }
