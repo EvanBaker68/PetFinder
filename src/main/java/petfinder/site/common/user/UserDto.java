@@ -13,11 +13,11 @@ public class UserDto implements Momento<String> {
 	private UserType type;
 	private Map<String, Object> attributes;
 
-	/* Attributes to add
+
     private String phoneNumber;
     private String name;
     private String address;
-    */
+
 
 	private UserDto() {
 
@@ -29,13 +29,15 @@ public class UserDto implements Momento<String> {
 	    setAttributes(attributes);
     }
 
-	/*public UserDto(String principal, String phoneNumber, String name, String address) {
+	public UserDto(String principal, List<String> roles, UserType type, String phoneNumber, String name, String address) {
 	    setPrincipal(principal);
 	    setPhoneNumber(phoneNumber);
 	    setName(name);
 	    setAddress(address);
+	    setRoles(roles);
+	    setType(type);
 
-	}*/
+	}
 
 	public String getPrincipal() {
 		String temp = principal;
@@ -56,7 +58,7 @@ public class UserDto implements Momento<String> {
 	    return temp;
     }
 
-    /*
+
     public String getPhoneNumber() {
         return phoneNumber;
     }
@@ -68,7 +70,7 @@ public class UserDto implements Momento<String> {
     public String getAddress() {
         return address;
     }
-    */
+
 
     @JsonIgnore
 	@Override
@@ -92,7 +94,7 @@ public class UserDto implements Momento<String> {
 	    this.attributes = attributes;
     }
 
-    /*
+
     private void setPhoneNumber(String phoneNumber) {
         this.phoneNumber = phoneNumber;
     }
@@ -104,7 +106,7 @@ public class UserDto implements Momento<String> {
     public void setAddress(String address) {
         this.address = address;
     }
-    */
+
 
     public enum UserType {
 	    OWNER, SITTER
