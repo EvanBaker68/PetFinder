@@ -1,6 +1,6 @@
 package petfinder.site
 
-import javax.validation.Valid
+import javax.validation.Valid;
 
 class ValidationException extends Exception {
     private String invalidToken;
