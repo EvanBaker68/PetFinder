@@ -28,6 +28,7 @@ export default class Index extends React.Component {
 					<Route exact path="/ownerPets" component={Pages.pets} />
 					<Route exact path="/ownerProfile" component={Pages.ownerProfile} />
 					<Route exact path="/sitterProfile" component={Pages.sitterProfile} />
+					<Route exact path="/sitterTimeTable" component={Pages.sitterTimeTable} />
 					<Route exact path="/search" component={Pages.searchForSitters} />
 					<Route exact path="/otherSitterProfile" component={Pages.otherSitterProfile} />
 					<Route exact path="/bookSitter" component={Pages.bookSitter} />

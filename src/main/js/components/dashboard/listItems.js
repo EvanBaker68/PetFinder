@@ -6,6 +6,7 @@ import ProfileIcon from '@material-ui/icons/Person';
 import SearchIcon from '@material-ui/icons/Search';
 import HistoryIcon from '@material-ui/icons/History';
 import FavoriteIcon from '@material-ui/icons/Favorite';
+import SwapIcon from '@material-ui/icons/SwapHorizontalCircle';
 
 import { Link } from 'react-router-dom';
 
@@ -41,6 +42,14 @@ export const mainListItems = (
                     <ProfileIcon />
                 </ListItemIcon>
                 <ListItemText primary="Profile" />
+            </ListItem>
+        </Link>
+        <Link to="/sitterDash">
+            <ListItem button>
+                <ListItemIcon>
+                    <SwapIcon />
+                </ListItemIcon>
+                <ListItemText primary="Swap to Sitter" />
             </ListItem>
         </Link>
     </div>

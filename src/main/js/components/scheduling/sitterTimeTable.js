@@ -14,13 +14,14 @@ import Badge from '@material-ui/core/Badge';
 import MenuIcon from '@material-ui/icons/Menu';
 import ChevronLeftIcon from '@material-ui/icons/ChevronLeft';
 import NotificationsIcon from '@material-ui/icons/Notifications';
-import { mainListItems, secondaryListItems } from 'js/components/dashboard/listItems';
+import {SitterMenuList} from 'js/components/dashboard/SitterMenuList';
 import SimpleTable from 'js/components/dashboard/SimpleTable';
 import Input from '@material-ui/core/Input';
 import SearchIcon from '@material-ui/icons/Search';
 import ProfileForm from 'js/components/profile/ProfileForm';
 import Paper from '@material-ui/core/Paper';
 import Image from 'js/images/homeDog.jpg';
+import Time from 'js/components/scheduling/timePicker';
 
 const drawerWidth = 240;
 
@@ -113,6 +114,9 @@ class Profile extends React.Component {
 
     render() {
         const { classes } = this.props;
+        let today = new Date();
+        let day = today.getDate();
+        let month = today.getMonth();
 
         return (
             <React.Fragment>
@@ -134,8 +138,8 @@ class Profile extends React.Component {
                             >
                                 <MenuIcon />
                             </IconButton>
-                            <Typography variant="display2" color="inherit" noWrap className={classes.title}>
-                                Owner Profile
+                            <Typography variant="display2" color="inherit" noWrap className={classes.title} >
+                                Sitter Schedule
                             </Typography>
                             <IconButton color="inherit">
                                 <Badge badgeContent={4} color="secondary">
@@ -157,7 +161,7 @@ class Profile extends React.Component {
                             </IconButton>
                         </div>
                         <Divider />
-                        <List>{mainListItems}</List>
+                        <List>{SitterMenuList}</List>
                     </Drawer>
                     <main className={classes.content}>
                         <div className={classes.appBarSpacer} />
@@ -165,9 +169,26 @@ class Profile extends React.Component {
                             variant="display1"
                             gutterBottom
                             align='center'>
-                            Bobby
+                            Next Week Availability
                         </Typography>
-                        <ProfileForm/>
+                        <Typography
+                            variant="display1"
+                            gutterBottom>
+                            {month}/{day}
+                        </Typography>
+                        <Time/>
+                        <Typography
+                            variant="display1"
+                            gutterBottom>
+                            {month}/{day+1}
+                        </Typography>
+                        <Time/>
+                        <Typography
+                            variant="display1"
+                            gutterBottom>
+                            {month}/{day+2}
+                        </Typography>
+                        <Time/>
                     </main>
                 </div>
             </React.Fragment>

@@ -24,7 +24,7 @@ const styles = theme => ({
 
 class OutlinedTextFields extends React.Component {
     state = {
-        other: ''
+        cost: ''
     };
 
     handleChange = name => event => {
@@ -40,10 +40,10 @@ class OutlinedTextFields extends React.Component {
             <form className={classes.container} noValidate autoComplete="off">
                 <TextField
                     id="outlined-name"
-                    label="Other"
+                    label="Cost per hour"
                     className={classes.textField}
                     value={this.state.name}
-                    onChange={this.handleChange('other')}
+                    onChange={this.handleChange('cost')}
                     margin="normal"
                     variant="standard"
                 />

@@ -8,9 +8,11 @@ import StepContent from '@material-ui/core/StepContent';
 import Button from '@material-ui/core/Button';
 import Paper from '@material-ui/core/Paper';
 import Typography from '@material-ui/core/Typography';
-import OutlinedTextFields from 'js/components/signUp/ownerRegistrationForms';
+import BasicInfoFields from 'js/components/signUp/basicInformationForm';
+import OwnerInfoFields from 'js/components/signUp/ownerInformationForm';
 import {Link} from 'react-router-dom';
 import CssBaseline from '@material-ui/core/CssBaseline';
+import AddPet from 'js/components/pets/addPetForm';
 
 const styles = theme => ({
     root: {
@@ -46,71 +48,10 @@ const styles = theme => ({
     },
 });
 
-function getSteps() {
-    return [<Typography variant="display1">Basic Information</Typography>,
-        <Typography variant="display1">Preferences</Typography>,
-        <Typography variant="display1">Profile Picture</Typography>];
-}
-
-function getStepContent(step) {
-    switch (step) {
-        case 0:
-            return (
-                    <OutlinedTextFields/>
-            );
-        case 1:
-            return (
-                    <OutlinedTextFields/>
-            );
-        case 2:
-            return (
-                <form>
-                    <Typography variant="caption">Optional: upload a profile picture from your computer</Typography>
-                    <input
-                        accept="image/*"
-                        id="flat-button-file"
-                        multiple
-                        type="file"
-                    />
-                    <label htmlFor="flat-button-file">
-                        <Button component="span">
-                            Upload
-                        </Button>
-                    </label>
-                </form>
-            );
-        default:
-            return 'Unknown step';
-    }
-}
-
 class OwnerCompleteRegistration extends React.Component {
-    state = {
-        activeStep: 0,
-    };
-
-    handleNext = () => {
-        this.setState(state => ({
-            activeStep: state.activeStep + 1,
-        }));
-    };
-
-    handleBack = () => {
-        this.setState(state => ({
-            activeStep: state.activeStep - 1,
-        }));
-    };
-
-    handleReset = () => {
-        this.setState({
-            activeStep: 0,
-        });
-    };
 
     render() {
         const { classes } = this.props;
-        const steps = getSteps();
-        const { activeStep } = this.state;
 
         return (
             <React.Fragment>
@@ -118,50 +59,14 @@ class OwnerCompleteRegistration extends React.Component {
                 <main className={classes.layout}>
                     <Paper className={classes.paper}>
                         <Typography variant="display1">Register</Typography>
-
-                    <div className={classes.root}>
-                            <Stepper activeStep={activeStep} orientation="vertical">
-                                {steps.map((label, index) => {
-                                    return (
-                                        <Step key={label}>
-                                            <StepLabel>{label}</StepLabel>
-                                            <StepContent>
-                                                <Typography>{getStepContent(index)}</Typography>
-                                                <div className={classes.actionsContainer}>
-                                                    <div>
-                                                        <Button
-                                                            disabled={activeStep === 0}
-                                                            onClick={this.handleBack}
-                                                            className={classes.button}
-                                                        >
-                                                            Back
-                                                        </Button>
-                                                        <Button
-                                                            variant="contained"
-                                                            color="primary"
-                                                            onClick={this.handleNext}
-                                                            className={classes.button}
-                                                        >
-                                                            {activeStep === steps.length - 1 ? 'Finish' : 'Next'}
-                                                        </Button>
-                                                    </div>
-                                                </div>
-                                            </StepContent>
-                                        </Step>
-                                    );
-                                })}
-                            </Stepper>
-                            {activeStep === steps.length && (
-                                <Paper square elevation={0} className={classes.resetContainer}>
-                                    <Typography>All steps completed - you&quot;re finished</Typography>
-                                    <Link to="/ownerDash">
-                                        <Button className={classes.button}>
-                                            Continue to Dashboard
-                                        </Button>
-                                    </Link>
-                                </Paper>
-                            )}
-                        </div>
+                        <Typography variant="headline">Basic Information</Typography>
+                        <BasicInfoFields/>
+                        <Typography variant="headline">Preferences</Typography>
+                        <OwnerInfoFields/>
+                        <AddPet/>
+                        <Link to="/ownerDash">
+                            <Button color="secondary">Next</Button>
+                        </Link>
                     </Paper>
                 </main>
             </React.Fragment>

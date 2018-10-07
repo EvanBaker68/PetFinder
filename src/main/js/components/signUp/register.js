@@ -68,30 +68,14 @@ class RegisterForm extends React.Component{
     }
 
     onSubmit = user => {
-        this.setState({submit: true});
 		return this.props.register(user);
 	};
 
-    handleOwner() {
-        this.setState({ownerRedirect: true});
-    }
-
-    handleSitter() {
-        this.setState({sitterRedirect: true});
-    }
     render() {
 
         const { classes } = this.props;
         let { handleSubmit, submitting } = this.props;
         const { sitterRedirect, ownerRedirect, submit } = this.state;
-
-        if (sitterRedirect === true && submit === true) {
-            return <Redirect to='/sitterCompleteRegistration' />;
-        }
-        if (ownerRedirect === true && submit === true) {
-            return <Redirect to='/ownerCompleteRegistration' />;
-        }
-
 
         return (
             <React.Fragment>
@@ -123,7 +107,6 @@ class RegisterForm extends React.Component{
                                 variant="raised"
                                 color="secondary"
                                 className={classes.submit}
-                                onClick={this.handleSitter()}
                             >
                                 Continue as Pet Sitter
                             </Button>
@@ -134,7 +117,6 @@ class RegisterForm extends React.Component{
                                 variant="raised"
                                 color="primary"
                                 className={classes.submit}
-                                onClick={this.handleOwner()}
                             >
                                 Continue as Pet Owner
                             </Button>

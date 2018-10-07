@@ -13,6 +13,9 @@ import OwnerCompleteRegistration from 'js/components/signUp/ownerCompleteRegistr
 import SitterCompleteRegistration from 'js/components/signUp/sitterCompleteRegistration';
 import HomePage from 'js/components/home';
 import PetPage from 'js/components/pets/petPage';
+import OwnerProfile from 'js/components/profile/ProfilePage';
+import SitterProfile from 'js/components/profile/sitterProfilePage';
+import SitterTimeTable from 'js/components/scheduling/sitterTimeTable';
 
 export class Home extends React.Component {
 	render() {
@@ -114,7 +117,7 @@ export class ownerProfile extends React.Component {
 	render() {
 		return (
 			<div>
-				<Profile/>
+				<OwnerProfile/>
 			</div>
 		);
 	}
@@ -123,8 +126,18 @@ export class ownerProfile extends React.Component {
 export class sitterProfile extends React.Component {
 	render() {
 		return (
-			<div className="container padded">
-				Here is your sitter Profile:
+			<div>
+				<SitterProfile/>
+			</div>
+		);
+	}
+}
+
+export class sitterTimeTable extends React.Component {
+	render() {
+		return (
+			<div>
+				<SitterTimeTable/>
 			</div>
 		);
 	}

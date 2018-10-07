@@ -10,7 +10,15 @@ import DialogTitle from '@material-ui/core/DialogTitle';
 export default class FormDialog extends React.Component {
     state = {
         open: false,
+        name: '',
+        type: '',
+        breed: '',
+        comment: ''
     };
+
+    constructor(props) {
+        super(props);
+    }
 
     handleClickOpen = () => {
         this.setState({ open: true });
@@ -23,16 +31,16 @@ export default class FormDialog extends React.Component {
     render() {
         return (
             <div>
-                <Button onClick={this.handleClickOpen}>Add new pet</Button>
+                <Button color="secondary" variant="contained" onClick={this.handleClickOpen}>Edit</Button>
                 <Dialog
                     open={this.state.open}
                     onClose={this.handleClose}
                     aria-labelledby="form-dialog-title"
                 >
-                    <DialogTitle id="form-dialog-title">New Pet</DialogTitle>
+                    <DialogTitle id="form-dialog-title">Edit Pet</DialogTitle>
                     <DialogContent>
                         <DialogContentText>
-                            Enter details about your pet!
+                            Change {this.state.name}'s details
                         </DialogContentText>
                         <TextField
                             autoFocus
@@ -72,7 +80,7 @@ export default class FormDialog extends React.Component {
                             Cancel
                         </Button>
                         <Button onClick={this.handleClose} color="primary">
-                            Add
+                            Save
                         </Button>
                     </DialogActions>
                 </Dialog>

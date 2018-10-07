@@ -50,11 +50,56 @@ class ProfileForm extends React.Component {
                 />
                 <TextField
                     id="standard-name"
-                    label="Name"
+                    label="Last Name"
                     className={classes.textField}
                     value={this.state.lastName}
                     onChange={this.handleChange('lastname')}
                     margin="normal"
+                />
+                <TextField
+                    id="outlined-name"
+                    label="Street Address"
+                    className={classes.textField}
+                    value={this.state.name}
+                    onChange={this.handleChange('address')}
+                    margin="normal"
+                    variant="standard"
+                />
+                <TextField
+                    id="outlined-name"
+                    label="City"
+                    className={classes.textField}
+                    value={this.state.name}
+                    onChange={this.handleChange('city')}
+                    margin="normal"
+                    variant="standard"
+                />
+                <TextField
+                    id="outlined-name"
+                    label="State"
+                    className={classes.textField}
+                    value={this.state.name}
+                    onChange={this.handleChange('state')}
+                    margin="normal"
+                    variant="standard"
+                />
+                <TextField
+                    id="outlined-name"
+                    label="Zip Code"
+                    className={classes.textField}
+                    value={this.state.name}
+                    onChange={this.handleChange('zipCode')}
+                    margin="normal"
+                    variant="standard"
+                />
+                <TextField
+                    id="outlined-name"
+                    label="Phone Number"
+                    className={classes.textField}
+                    value={this.state.name}
+                    onChange={this.handleChange('phone')}
+                    margin="normal"
+                    variant="standard"
                 />
             </form>
         );
