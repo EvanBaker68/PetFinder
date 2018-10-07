@@ -35,7 +35,8 @@ public class PetEndpoint {
 		return pet;
 	}*/
 
-	@PostMapping(value = "/add-pet", consumes = "application/json")
+	@PostMapping(value = "/add-pet", consumes = "application/json", produces = "application/json")
+    @ResponseBody
     public PetDto savePet(@RequestBody PetDto pet) {
 	    petService.save(pet);
 	    return pet;

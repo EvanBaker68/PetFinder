@@ -29,7 +29,8 @@ public class SitterEndpoint {
         return pet;
     }*/
 
-    @PostMapping(value = "/add-sitter", consumes = "application/json")
+    @PostMapping(value = "/add-sitter", produces = "application/json", consumes = "application/json")
+    @ResponseBody
     public SitterDto saveSitter(@RequestBody SitterDto sitter) {
         sitterService.save(sitter);
         return sitter;

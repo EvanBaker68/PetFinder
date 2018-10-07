@@ -28,7 +28,8 @@ public class OwnerEndpoint {
         return owner;
     }*/
 
-    @PostMapping(value = "/add-owner", consumes = "application/json")
+    @PostMapping(value = "/add-owner", produces = "application/json", consumes = "application/json")
+    @ResponseBody
     public OwnerDto saveOwner(@RequestBody OwnerDto owner) {
         ownerService.save(owner);
         return owner;
