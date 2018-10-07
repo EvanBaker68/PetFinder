@@ -63,13 +63,16 @@ Actions.register = (user, callFunc) => {
 
 Actions.authenticate = (username, password, callFunc) => {
 	return (dispatch) => {
+		console.log('heyyyy', username, password);
 		return authenticate(username, password).then(
 			authentication => {
+
 			    const cookies = new Cookies();
 			    cookies.set('username', username, { path: '/'  });
 			    cookies.set('auth', authentication, { path: '/' });
 			    cookies.set('loggedIn', 'true', { path: '/' });
-				callFunc();
+				console.log('made it in');
+			    callFunc();
                 //console.log(cookies.get('loggedIn'));
                 //console.log(username);
                 //console.log(authentication);
@@ -79,12 +82,14 @@ Actions.authenticate = (username, password, callFunc) => {
 					dispatch(Actions.setUser(user));
 				});
 			}
-		);
+		)
+		.catch( function(e) { console.log('catching error authenticating'); });
 	};
 };
 
 Actions.logout = () => {
 	return (dispatch) => {
+		const cookies = new Cookies();
 	    cookies.set('loggedIn', 'false', { path: '/' });
 		dispatch(Actions.setAuthentication(null));
 		dispatch(Actions.setUser(null));

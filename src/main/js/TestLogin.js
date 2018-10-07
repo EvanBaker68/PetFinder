@@ -29,6 +29,7 @@ function NavBar(props) {
                         Pet.ty
                     </Typography>
                     <Link to="/newRegister">
+                        {/*<Link to="/register">*/}
                         <Button
                             variant="contained"
                             color="secondary"

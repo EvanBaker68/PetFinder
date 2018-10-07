@@ -62,34 +62,47 @@ class RegisterForm extends React.Component{
 
     constructor(props) {
         super(props);
-        this.state = {redirectOwner: false, redirectSitter: false};
+        this.state = {isOwner: false, isSitter: false, redirectOwner: false, redirectSitter: false, callfunc: this.setRedirect};
     }
 
     componentDidMount() {
         this.setState({redirect: false, redirectSitter: false});
     }
 
-	onSubmitOwner = () => {
+	setIsOwner = () => {
 		this.setState({
-			redirectOwner: true
+			isOwner: true
 		});
 	}
 
-	onSubmitSitter = () => {
+	setIsSitter = () => {
 		this.setState({
-			redirectSitter: true
+			isSitter: true
 		});
 	}
 
-    onSubmit = user => {
-		return this.props.register(user, callFunc);
+	setRedirect = () => {
+		if(this.state.isSitter){
+			this.setState({
+				redirectSitter: true
+			});
+		}
+		else if(this.state.isOwner){
+			this.setState({
+				redirectOwner: true
+			});
+		}
+	}
+
+	onSubmit = (user) => {
+		return this.props.register(user, this.state.callfunc);
 	};
 
     render() {
 
         const { classes } = this.props;
         let { handleSubmit, submitting } = this.props;
-        const { redirect } = this.state;
+        const { redirectOwner, redirectSitter } = this.state;
 
 		if (this.state.redirectOwner) {
 			return <div><Redirect to='/ownerCompleteRegistration' /></div>;
@@ -128,7 +141,7 @@ class RegisterForm extends React.Component{
                                 variant="raised"
                                 color="secondary"
                                 className={classes.submit}
-                                callFunc={this.onSubmitSitter()}
+								onClick={this.setIsSitter}
                             >
                                 Continue as Pet Sitter
                             </Button>
@@ -139,7 +152,8 @@ class RegisterForm extends React.Component{
                                 variant="raised"
                                 color="primary"
                                 className={classes.submit}
-                                callFunc={this.onSubmitOwner()}
+								onClick={this.setIsOwner}
+
                             >
                                 Continue as Pet Owner
                             </Button>
@@ -162,7 +176,8 @@ RegisterForm = connect(
 
     }),
     dispatch => ({
-        register: (user, callFunc) => dispatch(Users.Actions.register(user, callFunc))
+        register: (user, callfunc) => dispatch(Users.Actions.register(user, callfunc))
+		// register: (user) => dispatch(Users.Actions.register(user))
     })
 )(RegisterForm);
 

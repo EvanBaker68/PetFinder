@@ -55,28 +55,41 @@ const styles = theme => ({
 class SignInForm extends React.Component{
 
 	state = {
+		isOwner: false,
+		isSitter: false,
 		redirectOwner: false,
-        redirectSitter: false
+        redirectSitter: false,
+		callFunc: this.setRedirect
 	}
 
-	setRedirectOwner = () => {
+	setIsOwner = () => {
 		this.setState({
-			redirectOwner: true
+			isOwner: true
 		});
 	}
 
-	setRedirectSitter = () => {
+	setIsSitter = () => {
 		this.setState({
-			redirectSitter: true
+			isSitter: true
 		});
 	}
 
-	renderRedirect = () => {
-
+	setRedirect = () => {
+		console.log(this.state.isOwner);
+		if(this.state.isSitter){
+			this.setState({
+				redirectSitter: true
+			});
+		}
+		else if(this.state.isOwner){
+			this.setState({
+				redirectOwner: true
+			});
+		}
 	}
 
-    onSubmit = (principal, password, callFunc) => {
-        return this.props.authenticate(principal, password, callFunc);
+    onSubmit = ({principal, password}) => {
+        return this.props.authenticate(principal, password, this.state.callfunc);
     };
 
     // handleUserEmailChange = event => {this.setState({ email: event.target.value });};
@@ -84,15 +97,16 @@ class SignInForm extends React.Component{
 
 
     render() {
-        const callFunc = this.props.callFunc;
-        const { classes } = this.props;
+
+    	const { classes } = this.props;
         let { handleSubmit, submitting } = this.props;
 
 		if (this.state.redirectOwner) {
+
 			return <div><Redirect to='/ownerDash' /></div>;
 		}
 		else if(this.state.redirectSitter) {
-			return <div><Redirect to='/ownerDash' /></div>;
+			return <div><Redirect to='/sitterDash' /></div>;
 		}
 
         return (
@@ -102,10 +116,10 @@ class SignInForm extends React.Component{
                         <Typography variant="display1">SignIn</Typography>
                         <form className={classes.form}
                               onSubmit={handleSubmit(form => this.onSubmit(form))}>
-							{/*{this.renderRedirect()}*/}
                             <FormControl margin="normal" required fullWidth>
-                                <Bessemer.Field friendlyName="email" name="principal"
-                                                validators={[Validation.requiredValidator, Validation.emailValidator]} autoComplete="email" autoFocus/>
+                                <Bessemer.Field name="principal" friendlyName="email"
+                                                validators={[Validation.requiredValidator, Validation.emailValidator]}
+												autoComplete="email" autoFocus/>
                             </FormControl>
                             <FormControl margin="normal" required fullWidth>
                                 <Bessemer.Field
@@ -119,14 +133,13 @@ class SignInForm extends React.Component{
                             </FormControl>
                             <div>
                             <Button
-
                                 type="submit"
                                 loading="submitting"
                                 fullWidth
                                 variant="raised"
                                 color="secondary"
                                 className={classes.submit}
-                                callFunc={this.setRedirectSitter()}
+								onClick={this.setIsSitter}
                             >
                                 Continue as Pet Sitter
                             </Button>
@@ -139,7 +152,7 @@ class SignInForm extends React.Component{
                                 variant="raised"
                                 color="primary"
                                 className={classes.submit}
-								callFunc={this.setRedirectOwner()}
+								onClick={this.setIsOwner}
                             >
                                 Continue as Pet Owner
                             </Button>
@@ -158,8 +171,10 @@ SignInForm = connect(
     state => ({
 
     }),
-    dispatch => ({
-        authenticate: (principal, password, callFunc) => dispatch(Users.Actions.authenticate(principal, password, callFunc))
+    dispatch => (
+		{
+        // authenticate: (principal, password, callFunc) => dispatch(Users.Actions.authenticate(principal, password, callFunc))
+		authenticate: (principal, password, callfunc) => dispatch(Users.Actions.authenticate(principal, password, callfunc))
     })
 )(SignInForm);
 
