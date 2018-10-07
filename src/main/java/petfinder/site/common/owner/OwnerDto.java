@@ -3,13 +3,12 @@ package petfinder.site.common.owner;
 import alloy.util.Momento;
 import org.codehaus.jackson.annotate.JsonIgnore;
 
-<<<<<<< HEAD
 
-=======
+
+
 public class OwnerDto implements Momento<String> {
 
     private String principal;
->>>>>>> ed117eefa5387364089160d7341a606e5163a6af
     private Long[] currentBookings;
     private Long[] pastBookings;
 
