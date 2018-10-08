@@ -6,10 +6,15 @@ import DialogActions from '@material-ui/core/DialogActions';
 import DialogContent from '@material-ui/core/DialogContent';
 import DialogContentText from '@material-ui/core/DialogContentText';
 import DialogTitle from '@material-ui/core/DialogTitle';
+import axios from 'axios';
 
 export default class FormDialog extends React.Component {
     state = {
         open: false,
+        name: '',
+        breed: '',
+        type: '',
+        age: ''
     };
 
     handleClickOpen = () => {
@@ -20,6 +25,32 @@ export default class FormDialog extends React.Component {
         this.setState({ open: false });
     };
 
+    handleAddClose = () => {
+        const pet = {
+            petId: 0,
+            ownerPrinciple: 111,
+            name: this.state.name,
+            type: this.state.type,
+            breed: this.state.breed,
+            age: this.state.age
+        };
+        console.log(this.state.name);
+        axios.post('/pet/add-pet', pet)
+            .then(res => {
+                console.log(res);
+                console.log(res.data);
+                this.setState({open: false});
+            })
+            .catch(error => {
+                console.log(error.response);
+        });
+    };
+
+    handleChange = name => event => {
+        this.setState({
+            [name]: event.target.value,
+        });
+    };
     render() {
         return (
             <div>
@@ -38,8 +69,9 @@ export default class FormDialog extends React.Component {
                             autoFocus
                             margin="dense"
                             id="name"
-                            label="name"
-                            type="name"
+                            label="Name"
+                            value={this.state.name}
+                            onChange={this.handleChange('name')}
                             fullWidth
                         />
                         <TextField
@@ -48,6 +80,8 @@ export default class FormDialog extends React.Component {
                             id="type"
                             label="Type of Pet"
                             type="type"
+                            value={this.state.type}
+                            onChange={this.handleChange('type')}
                             fullWidth
                         />
                         <TextField
@@ -56,14 +90,18 @@ export default class FormDialog extends React.Component {
                             id="breed"
                             label="Breed"
                             type="breed"
+                            value={this.state.breed}
+                            onChange={this.handleChange('breed')}
                             fullWidth
                         />
                         <TextField
                             autoFocus
                             margin="dense"
-                            id="comment"
-                            label="Additional Comment"
-                            type="comment"
+                            id="age"
+                            label="Age"
+                            type="age"
+                            value={this.state.age}
+                            onChange={this.handleChange('age')}
                             fullWidth
                         />
                     </DialogContent>
@@ -71,7 +109,7 @@ export default class FormDialog extends React.Component {
                         <Button onClick={this.handleClose} color="primary">
                             Cancel
                         </Button>
-                        <Button onClick={this.handleClose} color="primary">
+                        <Button onClick={this.handleAddClose} color="primary">
                             Add
                         </Button>
                     </DialogActions>

@@ -14,6 +14,7 @@ import * as Validation from 'js/alloy/utils/validation';
 import * as Bessemer from 'js/alloy/bessemer/components';
 import Image from '../../images/homeDog.jpg';
 import Cookies from 'universal-cookie';
+import PropTypes from 'prop-types';
 
 const styles = theme => ({
     layout: {

@@ -7,16 +7,18 @@ public class PetDto implements Identifiable {
 	private Long ownerPrinciple;
 	private String name;
 	private String petType;
-	private Boolean isDog;
+	//private Boolean isDog;
 	private String dogBreed;
 	private Double age;
+
+	public PetDto() {}
 
 	public PetDto(Long petId, Long ownerPrinciple, String name, String petType, Boolean isDog, String dogBreed, Double age) {
 	    setPetId(petId);
 	    setOwnerPrinciple(ownerPrinciple);
 	    setName(name);
 	    setPetType(petType);
-	    setDog(isDog);
+	    //setDog(isDog);
 	    setDogBreed(dogBreed);
 	    setAge(age);
 	}
@@ -38,9 +40,9 @@ public class PetDto implements Identifiable {
         return petType;
     }
 
-    public Boolean getDog() {
-        return isDog;
-    }
+    //public Boolean getDog() {
+    //    return isDog;
+    //}
 
     public String getDogBreed() {
         return dogBreed;
@@ -56,7 +58,7 @@ public class PetDto implements Identifiable {
     }
 
     public void setOwnerPrinciple(Long ownerPrinciple) {
-        this.setOwnerPrinciple(ownerPrinciple);
+        this.ownerPrinciple = ownerPrinciple;
     }
 
 	public void setName(String name) {
@@ -67,10 +69,9 @@ public class PetDto implements Identifiable {
         this.petType = petType;
     }
 
-    public void setDog(Boolean dog) {
-        isDog = dog;
-    }
-
+    //public void setDog(Boolean dog) {
+       // isDog = dog;
+    //}
     public void setDogBreed(String dogBreed) {
         this.dogBreed = dogBreed;
     }
