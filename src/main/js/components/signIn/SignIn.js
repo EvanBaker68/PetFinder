@@ -90,7 +90,7 @@ class SignInForm extends React.Component{
 	}
 
     onSubmit = ({principal, password}) => {
-        return this.props.authenticate(principal, password, this.state.callfunc);
+        return this.props.authenticate(principal, password);
     };
 
     // handleUserEmailChange = event => {this.setState({ email: event.target.value });};
@@ -104,13 +104,20 @@ class SignInForm extends React.Component{
 
         const cookies = new Cookies();
 
-		if (cookies.get('loggedIn')) {
+		if (cookies.get('loggedIn') == 'true') {
 
-			return <div><Redirect to='/ownerDash' /></div>;
+			if(this.state.isOwner) {
+				cookies.set('isOwner', 'true', {path: '/'});
+				return <div><Redirect to='/ownerDash'/></div>;
+			}
+
+
+			else if(this.state.isSitter) {
+				cookies.set('isSitter', 'true', {path: '/'});
+				return <div><Redirect to='/sitterDash'/></div>;
+			}
 		}
-		else if(this.state.redirectSitter) {
-			return <div><Redirect to='/sitterDash' /></div>;
-		}
+
 
         return (
 

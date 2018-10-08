@@ -20,7 +20,7 @@ import * as ReduxForm from 'redux-form';
 import * as Validation from 'js/alloy/utils/validation';
 import * as Bessemer from 'js/alloy/bessemer/components';
 import  { Redirect } from 'react-router-dom';
-import Cookies from 'react-cookie';
+import Cookies from 'universal-cookie';
 
 const styles = theme => ({
     palette: {
@@ -95,7 +95,7 @@ class RegisterForm extends React.Component{
 	}
 
 	onSubmit = (user) => {
-		return this.props.register(user, this.state.callfunc);
+		return this.props.register(user);
 	};
 
     render() {
@@ -104,11 +104,24 @@ class RegisterForm extends React.Component{
         let { handleSubmit, submitting } = this.props;
         const { redirectOwner, redirectSitter } = this.state;
 
-		if (this.state.redirectOwner) {
-			return <div><Redirect to='/ownerCompleteRegistration' /></div>;
-		}
-		else if(this.state.redirectSitter) {
-			return <div><Redirect to='/sitterCompleteRegistration' /></div>;
+        const cookies = new Cookies();
+
+		if (cookies.get('loggedIn') == 'true') {
+
+			if(this.state.isOwner) {
+				cookies.set('isOwner', 'true', {path: '/'});
+				return <div><Redirect to='/ownerDash'/></div>;
+			}
+
+
+			else if(this.state.isSitter) {
+				cookies.set('isSitter', 'true', {path: '/'});
+				return <div><Redirect to='/sitterDash'/></div>;
+			}
+
+			else{
+				console.log('heyyy');
+			}
 		}
 
         return (
@@ -176,7 +189,7 @@ RegisterForm = connect(
 
     }),
     dispatch => ({
-        register: (user, callfunc) => dispatch(Users.Actions.register(user, callfunc))
+        register: (user) => dispatch(Users.Actions.register(user))
 		// register: (user) => dispatch(Users.Actions.register(user))
     })
 )(RegisterForm);
