@@ -3,72 +3,75 @@ package petfinder.site.common.sitter;
 import alloy.util.Momento;
 import org.codehaus.jackson.annotate.JsonIgnore;
 
-import java.util.Map;
+import java.time.LocalDateTime;
 
 public class SitterDto implements Momento<String> {
-    private String principle;
-    //do we need to make a seperate principle for sitters, instead of just using User's principle
-    private Map<String, Object> attributes;
-    private Long currentBookingId;
-    private Long[] futureBookingIds;
-    private Long[] pastBookingIds;
+
+    private String principal;
+    private Long[] currentBookings;
+    private Long[] pastBookings;
+    private Long[] datesAvailable;
+
+
+    //Main Constructor
+    public SitterDto(String principal, Long[] currentBookings, Long[] pastBookings, Long[] datesAvailable) {
+        setPrincipal(principal);
+        setCurrentBookings(currentBookings);
+        setPastBookings(pastBookings);
+        setDatesAvailable(datesAvailable);
+    }
 
     public SitterDto() {}
 
+    public SitterDto(String principal) {
+        setPrincipal(principal);
+    }
 
-    public SitterDto(String principle, Map<String, Object> attributes, Long currentBookingId, Long[] futureBookingIds, Long[] pastBookingIds){
-        setPrinciple(principle);
-        setAttributes(attributes);
-        setCurrentBookingId(currentBookingId);
-        setFutureBookingIds(futureBookingIds);
-        setPastBookingIds(pastBookingIds);
+    //Temporary until we get rid of Availability
+    public SitterDto(String principal, Long[] currentBookings, Long[] pastBookings) {
+        setPrincipal(principal);
+        setCurrentBookings(currentBookings);
+        setPastBookings(pastBookings);
+    }
+
+    public Long[] getCurrentBookings() {
+        return currentBookings;
+    }
+
+    public Long[] getPastBookings() {
+        return pastBookings;
+    }
+
+    public String getPrincipal() {
+        return principal;
     }
 
 
-
-    public String getPrinciple() {
-        return principle;
+    public void setCurrentBookings(Long[] currentBookings) {
+        this.currentBookings = currentBookings;
     }
 
-    public void setPrinciple(String principle) {
-        this.principle = principle;
+    public void setPastBookings(Long[] pastBookings) {
+        this.pastBookings = pastBookings;
     }
 
-    public Map<String, Object> getAttributes() {
-        return attributes;
+    public void setPrincipal(String principal) {
+        this.principal = principal;
     }
 
-    public void setAttributes(Map<String, Object> attributes) {
-        this.attributes = attributes;
-    }
-
-    public long getCurrentBookingId() {
-        return currentBookingId;
-    }
-
-    public void setCurrentBookingId(long currentBookingId) {
-        this.currentBookingId = currentBookingId;
-    }
-
-    public Long[] getFutureBookingIds() {
-        return futureBookingIds;
-    }
-
-    public void setFutureBookingIds(Long[] futureBookingIds) {
-        this.futureBookingIds = futureBookingIds;
-    }
-
-    public Long[] getPastBookingIds() {
-        return pastBookingIds;
-    }
-
-    public void setPastBookingIds(Long[] pastBookingIds) {
-        this.pastBookingIds = pastBookingIds;
-    }
 
     @JsonIgnore
     @Override
     public String getMomento() {
-        return principle;
+        return principal;
+    }
+
+    public Long[] getDatesAvailable() {
+        return datesAvailable;
+    }
+
+    public void setDatesAvailable(Long[] datesAvailable) {
+        this.datesAvailable = datesAvailable;
     }
 }
+

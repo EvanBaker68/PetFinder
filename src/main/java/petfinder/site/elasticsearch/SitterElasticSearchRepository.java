@@ -6,13 +6,13 @@ import org.springframework.stereotype.Service;
 import alloy.elasticsearch.ElasticSearchClientProvider;
 import alloy.elasticsearch.ElasticSearchIndex;
 import alloy.elasticsearch.ElasticSearchRepository.ElasticSearchJsonRepository;
-import petfinder.site.common.user.UserAuthenticationDto;
+import petfinder.site.common.sitter.SitterDto;
 
 @Service
+public class SitterElasticSearchRepository  extends ElasticSearchJsonRepository<SitterDto, String> {
 
-public class UserElasticSearchRepository extends ElasticSearchJsonRepository<UserAuthenticationDto, String> {
-	@Autowired
-	public UserElasticSearchRepository(ElasticSearchClientProvider provider) {
-		super(new ElasticSearchIndex(provider, "user"), UserAuthenticationDto.class);
-	}
+    @Autowired
+    public SitterElasticSearchRepository(ElasticSearchClientProvider provider) {
+        super(new ElasticSearchIndex(provider, "sitter"), SitterDto.class);
+    }
 }

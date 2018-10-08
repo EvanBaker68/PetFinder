@@ -22,6 +22,7 @@ import * as Bessemer from 'js/alloy/bessemer/components';
 import  { Redirect } from 'react-router-dom';
 import Cookies from 'universal-cookie';
 
+
 const styles = theme => ({
     palette: {
         primary: blue,
@@ -146,7 +147,6 @@ class RegisterForm extends React.Component{
                                     autoComplete="current-password"
                                 />
                             </FormControl>
-
                             <Button
                                 type="submit"
                                 loading="submitting"

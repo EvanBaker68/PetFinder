@@ -184,7 +184,7 @@ SignInForm = connect(
     dispatch => (
 		{
         // authenticate: (principal, password, callFunc) => dispatch(Users.Actions.authenticate(principal, password, callFunc))
-		authenticate: (principal, password, callfunc) => dispatch(Users.Actions.authenticate(principal, password, callfunc))
+		authenticate: (principal, password) => dispatch(Users.Actions.authenticate(principal, password))
     })
 )(SignInForm);
 
