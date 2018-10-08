@@ -19,8 +19,9 @@ public class UserDao {
 
 	// JOHN
 	public Optional<UserAuthenticationDto> findUser(String id) {
-//		return repository.find(id, UserAuthenticationDto.class);
-		return null;
+		//I commented out the UserAuthenticationDt0.class, IDK why it was there
+		return repository.find(id/*, UserAuthenticationDto.class*/);
+		//return null;
 	}
 
 	public Optional<UserAuthenticationDto> findUserByPrincipal(String principal) {
@@ -36,4 +37,5 @@ public class UserDao {
 
 		repository.save(userAuthentication);
 	}
+
 }
