@@ -7,6 +7,7 @@ import DialogContent from '@material-ui/core/DialogContent';
 import DialogContentText from '@material-ui/core/DialogContentText';
 import DialogTitle from '@material-ui/core/DialogTitle';
 import axios from 'axios';
+import Cookies from 'universal-cookie';
 
 export default class FormDialog extends React.Component {
     state = {
@@ -26,9 +27,10 @@ export default class FormDialog extends React.Component {
     };
 
     handleAddClose = () => {
+        const cookies = new Cookies();
         const pet = {
             petId: 1,
-            ownerPrinciple: 1,
+            ownerPrinciple: cookies.get('username'),
             name: this.state.name,
             petType: this.state.petType,
             dogBreed: this.state.dogBreed,

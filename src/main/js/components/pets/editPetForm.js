@@ -15,7 +15,8 @@ export default class FormDialog extends React.Component {
         petType: '',
         dogBreed: '',
         age: '',
-        pets: []
+        petId: 0,
+        ownerPrinciple: ''
     };
 
     constructor(props) {
@@ -23,7 +24,7 @@ export default class FormDialog extends React.Component {
     }
 
     componentDidMount() {
-        const petId = 111;
+        const petId = 1;
         const endpoint = '/pet/' + petId;
         console.log(endpoint);
         axios.get('/pet/' + petId, petId)
@@ -45,7 +46,7 @@ export default class FormDialog extends React.Component {
         return (
             <div>
                 <ul>
-                    { this.state.pets.map(pet => <li>{pet.name}</li>)}
+                    <li>{this.state.name}</li>
                 </ul>
                 <Button color="secondary" variant="contained" onClick={this.handleClickOpen}>Edit</Button>
                 <Dialog

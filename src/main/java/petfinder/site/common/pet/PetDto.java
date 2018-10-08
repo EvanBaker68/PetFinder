@@ -4,7 +4,7 @@ import alloy.util.Identifiable;
 
 public class PetDto implements Identifiable {
 	private Long petId;
-	private Long ownerPrinciple;
+	private String ownerPrinciple;
 	private String name;
 	private String petType;
 	//private Boolean isDog;
@@ -13,7 +13,7 @@ public class PetDto implements Identifiable {
 
 	public PetDto() {}
 
-	public PetDto(Long petId, Long ownerPrinciple, String name, String petType, Boolean isDog, String dogBreed, Double age) {
+	public PetDto(Long petId, String ownerPrinciple, String name, String petType, String dogBreed, Double age) {
 	    setPetId(petId);
 	    setOwnerPrinciple(ownerPrinciple);
 	    setName(name);
@@ -28,7 +28,7 @@ public class PetDto implements Identifiable {
         return petId;
     }
 
-    public Long getOwnerPrinciple() {
+    public String getOwnerPrinciple() {
         return ownerPrinciple;
     }
 
@@ -57,7 +57,7 @@ public class PetDto implements Identifiable {
         this.petId = petId;
     }
 
-    public void setOwnerPrinciple(Long ownerPrinciple) {
+    public void setOwnerPrinciple(String ownerPrinciple) {
         this.ownerPrinciple = ownerPrinciple;
     }
 
