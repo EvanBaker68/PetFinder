@@ -76,8 +76,9 @@ function NavBar(props) {
 							<Button
 								variant="contained"
 								color="secondary"
-								className={classes.button}>
-								onClick={cookies.set('isOwner', 'false', { path: '/' })}
+								className={classes.button}
+								onClick={cookies.set('isOwner', 'false', { path: '/' })}>
+
 								Log Out
 							</Button>
 					</Toolbar>

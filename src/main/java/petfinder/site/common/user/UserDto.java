@@ -1,52 +1,40 @@
 package petfinder.site.common.user;
 
-import org.codehaus.jackson.annotate.JsonIgnore;
-
-import alloy.util.Momento;
-
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.UUID;
 
+import org.codehaus.jackson.annotate.JsonIgnore;
+
+import alloy.util.Identifiable;
+import alloy.util.Momento;
+
+/**
+ * Created by jlutteringer on 8/23/17.
+ */
 public class UserDto implements Momento<String> {
 	private String principal;
 	private List<String> roles;
 	private UserType type;
 	private Map<String, Object> attributes;
 
-
-	private String phoneNumber;
-	private String name;
-	private String address;
-
-
 	private UserDto() {
 
 	}
 
 	public UserDto(String principal, List<String> roles, UserType type, Map<String, Object> attributes) {
-		setPrincipal(principal);
-		setRoles(roles);
-		setAttributes(attributes);
-	}
-
-	public UserDto(String principal, List<String> roles, UserType type, String phoneNumber, String name, String address) {
-		setPrincipal(principal);
-		setPhoneNumber(phoneNumber);
-		setName(name);
-		setAddress(address);
-		setRoles(roles);
-		setType(type);
-
+		this.principal = principal;
+		this.roles = roles;
+		this.attributes = attributes;
 	}
 
 	public String getPrincipal() {
-		String temp = principal;
-		return temp;
+		return principal;
 	}
 
 	public List<String> getRoles() {
-		List<String> temp = roles;
-		return temp;
+		return roles;
 	}
 
 	public Map<String, Object> getAttributes() {
@@ -54,59 +42,14 @@ public class UserDto implements Momento<String> {
 	}
 
 	public UserType getType() {
-		UserType temp = type;
-		return temp;
+		return type;
 	}
-
-
-	public String getPhoneNumber() {
-		return phoneNumber;
-	}
-
-	public String getName() {
-		return name;
-	}
-
-	public String getAddress() {
-		return address;
-	}
-
 
 	@JsonIgnore
 	@Override
 	public String getMomento() {
 		return principal;
 	}
-
-	public void setPrincipal(String principal) {
-		this.principal = principal;
-	}
-
-	public void setRoles(List<String> roles) {
-		this.roles = roles;
-	}
-
-	public void setType(UserType type) {
-		this.type = type;
-	}
-
-	public void setAttributes(Map<String, Object> attributes) {
-		this.attributes = attributes;
-	}
-
-
-	private void setPhoneNumber(String phoneNumber) {
-		this.phoneNumber = phoneNumber;
-	}
-
-	public void setName(String name) {
-		this.name = name;
-	}
-
-	public void setAddress(String address) {
-		this.address = address;
-	}
-
 
 	public enum UserType {
 		OWNER, SITTER

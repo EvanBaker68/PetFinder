@@ -95,7 +95,7 @@ class RegisterForm extends React.Component{
 		}
 	}
 
-	onSubmit = (user) => {
+	onSubmit = user => {
 		return this.props.register(user);
 	};
 
@@ -111,13 +111,13 @@ class RegisterForm extends React.Component{
 
 			if(this.state.isOwner) {
 				cookies.set('isOwner', 'true', {path: '/'});
-				return <div><Redirect to='/ownerDash'/></div>;
+				return <div><Redirect to='/ownerCompleteRegistration'/></div>;
 			}
 
 
 			else if(this.state.isSitter) {
 				cookies.set('isSitter', 'true', {path: '/'});
-				return <div><Redirect to='/sitterDash'/></div>;
+				return <div><Redirect to='/sitterCompleteRegistration'/></div>;
 			}
 
 			else{
@@ -132,7 +132,7 @@ class RegisterForm extends React.Component{
                     <Paper className={classes.paper}>
                         <Typography variant="display1">Register</Typography>
                         <form className={classes.form}
-							  onSubmit={handleSubmit(form => this.onSubmit({form, }))}>
+							  onSubmit={handleSubmit(form => this.onSubmit(form))}>
                             <FormControl margin="normal" required fullWidth>
 								<Bessemer.Field friendlyName="email" name="principal"
                                        validators={[Validation.requiredValidator, Validation.emailValidator]} autoComplete="email" autoFocus/>
