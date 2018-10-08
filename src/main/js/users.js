@@ -1,8 +1,9 @@
 import axios from 'axios';
 import Cookies from 'universal-cookie';
 export function register(user) {
+	console.log('beginning');
     var temp = axios.post('/api/user/register', user);
-
+	console.log('end');
     //const cookies = new Cookies();
     //cookies.set('loggedIn', 'false', { path: '/' });
     //console.log(cookies.get('loggedIn'));
@@ -54,6 +55,7 @@ Actions.Types = {
 };
 
 Actions.register = (user) => {
+	console.log('in register');
 	return (dispatch) => {
 		return register(user).then(() => {
 			return dispatch(Actions.authenticate(user.principal, user.password));
@@ -91,6 +93,8 @@ Actions.logout = () => {
 	return (dispatch) => {
 		const cookies = new Cookies();
 	    cookies.set('loggedIn', 'false', { path: '/' });
+		cookies.set('isSitter', 'false', { path: '/' });
+		cookies.set('isOwner', 'false', { path: '/' });
 		dispatch(Actions.setAuthentication(null));
 		dispatch(Actions.setUser(null));
 	};
