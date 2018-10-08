@@ -93,6 +93,8 @@ Actions.logout = () => {
 	return (dispatch) => {
 		const cookies = new Cookies();
 	    cookies.set('loggedIn', 'false', { path: '/' });
+		cookies.set('isSitter', 'false', { path: '/' });
+		cookies.set('isOwner', 'false', { path: '/' });
 		dispatch(Actions.setAuthentication(null));
 		dispatch(Actions.setUser(null));
 	};
