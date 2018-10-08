@@ -1,12 +1,13 @@
 package petfinder.site.common.booking;
 
+import alloy.util.Identifiable;
 import alloy.util.Momento;
 import org.codehaus.jackson.annotate.JsonIgnore;
 import java.util.Date;
-public class BookingDto implements Momento<Long> {
+public class BookingDto implements Identifiable{
     private Long id;
-    private String sitterPrinciple; //can possibly be array
-    private String ownerPrinciple;  //can possibly be array
+    private String sitterPrincipal; //can possibly be array
+    private String ownerPrincipal;  //can possibly be array
     private Date startDate;
     private Date finishDate;
     private String reviewByOwner;
@@ -19,10 +20,10 @@ public class BookingDto implements Momento<Long> {
 
     }
 
-    public BookingDto(Long id, String sitterPrinciple, String ownerPrinciple, Date startDate, Date finishDate, String reviewByOwner, String reviewBySitter, Integer scoreByOwner, Integer scoreBySitter) {
+    public BookingDto(Long id, String sitterPrincipal, String ownerPrincipal, Date startDate, Date finishDate, String reviewByOwner, String reviewBySitter, Integer scoreByOwner, Integer scoreBySitter) {
         setId(id);
-        setOwnerPrinciple(ownerPrinciple);
-        setSitterPrinciple(sitterPrinciple);
+        setOwnerPrincipal(ownerPrincipal);
+        setSitterPrincipal(sitterPrincipal);
         setFinishDate(finishDate);
         setStartDate(startDate);
         setReviewByOwner(reviewByOwner);
@@ -31,10 +32,10 @@ public class BookingDto implements Momento<Long> {
         setScoreBySitter(scoreBySitter);
     }
 
-    public BookingDto(Long id, String sitterPrinciple, String ownerPrinciple, Date startDate, Date finishDate){
+    public BookingDto(Long id, String sitterPrincipal, String ownerPrincipal, Date startDate, Date finishDate){
         setId(id);
-        setOwnerPrinciple(ownerPrinciple);
-        setSitterPrinciple(sitterPrinciple);
+        setOwnerPrincipal(ownerPrincipal);
+        setSitterPrincipal(sitterPrincipal);
         setFinishDate(finishDate);
         setStartDate(startDate);
 
@@ -45,14 +46,8 @@ public class BookingDto implements Momento<Long> {
         setScoreBySitter(-1);
     }
 
-
-
     @JsonIgnore
     @Override
-    public Long getMomento() {
-        return id;
-    }
-
     public Long getId() {
         return id;
     }
@@ -61,20 +56,20 @@ public class BookingDto implements Momento<Long> {
         this.id = id;
     }
 
-    public String getSitterPrinciple() {
-        return sitterPrinciple;
+    public String getSitterPrincipal() {
+        return sitterPrincipal;
     }
 
-    public void setSitterPrinciple(String sitterPrinciple) {
-        this.sitterPrinciple = sitterPrinciple;
+    public void setSitterPrincipal(String sitterPrincipal) {
+        this.sitterPrincipal = sitterPrincipal;
     }
 
-    public String getOwnerPrinciple() {
-        return ownerPrinciple;
+    public String getOwnerPrincipal() {
+        return ownerPrincipal;
     }
 
-    public void setOwnerPrinciple(String ownerPrinciple) {
-        this.ownerPrinciple = ownerPrinciple;
+    public void setOwnerPrincipal(String ownerPrincipal) {
+        this.ownerPrincipal = ownerPrincipal;
     }
 
     public Date getStartDate() {

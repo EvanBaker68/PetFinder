@@ -13,6 +13,7 @@ import * as ReduxForm from 'redux-form';
 import * as Validation from 'js/alloy/utils/validation';
 import * as Bessemer from 'js/alloy/bessemer/components';
 import Image from '../../images/homeDog.jpg';
+import Cookies from 'universal-cookie';
 
 const styles = theme => ({
     layout: {
@@ -84,24 +85,29 @@ class SignInForm extends React.Component{
 	}
 
     onSubmit = ({principal, password}) => {
-        return this.props.authenticate(principal, password, this.state.callfunc);
+        return this.props.authenticate(principal, password);
     };
-
-    // handleUserEmailChange = event => {this.setState({ email: event.target.value });};
-    // handlePasswordChange = event => {this.setState({ password: event.target.value });};
-
 
     render() {
 
     	const { classes } = this.props;
         let { handleSubmit, submitting } = this.props;
 
-		if (this.state.redirectOwner) {
 
-			return <div><Redirect to='/ownerDash' /></div>;
-		}
-		else if(this.state.redirectSitter) {
-			return <div><Redirect to='/sitterDash' /></div>;
+        const cookies = new Cookies();
+
+		if (cookies.get('loggedIn') == 'true') {
+
+			if(this.state.isOwner) {
+				cookies.set('isOwner', 'true', {path: '/'});
+				return <div><Redirect to='/ownerDash'/></div>;
+			}
+
+
+			else if(this.state.isSitter) {
+				cookies.set('isSitter', 'true', {path: '/'});
+				return <div><Redirect to='/sitterDash'/></div>;
+			}
 		}
 
         return (
@@ -168,8 +174,7 @@ SignInForm = connect(
     }),
     dispatch => (
 		{
-        // authenticate: (principal, password, callFunc) => dispatch(Users.Actions.authenticate(principal, password, callFunc))
-		authenticate: (principal, password, callfunc) => dispatch(Users.Actions.authenticate(principal, password, callfunc))
+		authenticate: (principal, password) => dispatch(Users.Actions.authenticate(principal, password))
     })
 )(SignInForm);
 

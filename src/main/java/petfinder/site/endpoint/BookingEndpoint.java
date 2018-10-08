@@ -1,11 +1,9 @@
 package petfinder.site.endpoint;
 
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 import petfinder.site.common.booking.BookingDto;
 import petfinder.site.common.booking.BookingService;
-import petfinder.site.common.pet.PetDto;
 
 import java.util.Optional;
 
@@ -16,14 +14,14 @@ public class BookingEndpoint {
     BookingService bookingService;
 
     @GetMapping(value = "/{id}", produces = "application/json")
+    @ResponseBody
     public Optional<BookingDto> getBooking(@PathVariable("id") Long id) {
         return bookingService.findBooking(id);
     }
 
-    @PostMapping(produces = "application/json")
+    @PostMapping(value = "/add-booking", produces = "application/json", consumes = "application/json")
+    @ResponseBody
     public BookingDto saveBooking(@RequestBody BookingDto bookingDto) {
-        //Logger log = (Logger) LoggerFactory.getLogger(getClass());
-        //log.info("heyyo");
         bookingService.save(bookingDto);
         return bookingDto;
     }

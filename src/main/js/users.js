@@ -53,15 +53,15 @@ Actions.Types = {
 	SET_USER: 'SET_USER'
 };
 
-Actions.register = (user, callFunc) => {
+Actions.register = (user) => {
 	return (dispatch) => {
 		return register(user).then(() => {
-			return dispatch(Actions.authenticate(user.principal, user.password, callFunc));
+			return dispatch(Actions.authenticate(user.principal, user.password));
 		});
 	};
 };
 
-Actions.authenticate = (username, password, callFunc) => {
+Actions.authenticate = (username, password) => {
 	return (dispatch) => {
 		console.log('heyyyy', username, password);
 		return authenticate(username, password).then(
@@ -72,7 +72,7 @@ Actions.authenticate = (username, password, callFunc) => {
 			    cookies.set('auth', authentication, { path: '/' });
 			    cookies.set('loggedIn', 'true', { path: '/' });
 				console.log('made it in');
-			    callFunc();
+			    // callFunc();
                 //console.log(cookies.get('loggedIn'));
                 //console.log(username);
                 //console.log(authentication);
