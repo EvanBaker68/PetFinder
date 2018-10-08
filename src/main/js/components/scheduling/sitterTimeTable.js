@@ -22,6 +22,7 @@ import ProfileForm from 'js/components/profile/ProfileForm';
 import Paper from '@material-ui/core/Paper';
 import Image from 'js/images/homeDog.jpg';
 import Time from 'js/components/scheduling/timePicker';
+import Calender from 'js/components/scheduling/calender';
 
 const drawerWidth = 240;
 
@@ -171,24 +172,8 @@ class Profile extends React.Component {
                             align='center'>
                             Next Week Availability
                         </Typography>
-                        <Typography
-                            variant="display1"
-                            gutterBottom>
-                            {month}/{day}
-                        </Typography>
-                        <Time/>
-                        <Typography
-                            variant="display1"
-                            gutterBottom>
-                            {month}/{day+1}
-                        </Typography>
-                        <Time/>
-                        <Typography
-                            variant="display1"
-                            gutterBottom>
-                            {month}/{day+2}
-                        </Typography>
-                        <Time/>
+                        <Calender/>
+                        <Typography/>
                     </main>
                 </div>
             </React.Fragment>

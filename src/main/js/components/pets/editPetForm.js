@@ -6,6 +6,7 @@ import DialogActions from '@material-ui/core/DialogActions';
 import DialogContent from '@material-ui/core/DialogContent';
 import DialogContentText from '@material-ui/core/DialogContentText';
 import DialogTitle from '@material-ui/core/DialogTitle';
+import axios from 'axios';
 
 export default class FormDialog extends React.Component {
     state = {
@@ -13,11 +14,21 @@ export default class FormDialog extends React.Component {
         name: '',
         type: '',
         breed: '',
-        comment: ''
+        age: '',
+        pets: []
     };
 
     constructor(props) {
         super(props);
+    }
+
+    componentDidMount() {
+        const id = 111;
+        axios.get('/pet/',id)
+            .then(res=> {
+                const pets = res.data;
+                this.setState({pets});
+            });
     }
 
     handleClickOpen = () => {
@@ -31,6 +42,9 @@ export default class FormDialog extends React.Component {
     render() {
         return (
             <div>
+                <ul>
+                    { this.state.pets.map(pet => <li>{pet.name}</li>)}
+                </ul>
                 <Button color="secondary" variant="contained" onClick={this.handleClickOpen}>Edit</Button>
                 <Dialog
                     open={this.state.open}

@@ -15,21 +15,25 @@ import petfinder.site.common.pet.PetService;
  * Created by jlutteringer on 8/23/17.
  */
 @RestController
-@RequestMapping("/api/pet")
+
+@RequestMapping("/pet")
 public class PetEndpoint {
+
 	@Autowired
 	private PetService petService;
 
 	@GetMapping(value = "/{id}", produces = "application/json")
-    @ResponseBody
+	@ResponseBody
 	public Optional<PetDto> getPet(@PathVariable("id") Long id) {
 		return petService.findPet(id);
 	}
 
+
 	@PostMapping(value = "/add-pet", consumes = "application/json", produces = "application/json")
-    @ResponseBody
-    public PetDto savePet(@RequestBody PetDto pet) {
-	    petService.save(pet);
-	    return pet;
-    }
+	@ResponseBody
+	public PetDto savePet(@RequestBody PetDto pet) {
+		System.out.println("made it to endpoint");
+		petService.save(pet);
+		return pet;
+	}
 }
