@@ -27,8 +27,8 @@ export default class FormDialog extends React.Component {
 
     handleAddClose = () => {
         const pet = {
-            petId: 0,
-            ownerPrinciple: 111,
+            petId: 1,
+            ownerPrinciple: 1,
             name: this.state.name,
             petType: this.state.petType,
             dogBreed: this.state.dogBreed,

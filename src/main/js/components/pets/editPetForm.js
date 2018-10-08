@@ -12,8 +12,8 @@ export default class FormDialog extends React.Component {
     state = {
         open: false,
         name: '',
-        type: '',
-        breed: '',
+        petType: '',
+        dogBreed: '',
         age: '',
         pets: []
     };
@@ -23,8 +23,10 @@ export default class FormDialog extends React.Component {
     }
 
     componentDidMount() {
-        const id = 111;
-        axios.get('/pet/',id)
+        const petId = 111;
+        const endpoint = '/pet/' + petId;
+        console.log(endpoint);
+        axios.get('/pet/' + petId, petId)
             .then(res=> {
                 const pets = res.data;
                 this.setState({pets});
@@ -67,17 +69,17 @@ export default class FormDialog extends React.Component {
                         <TextField
                             autoFocus
                             margin="dense"
-                            id="type"
+                            id="petType"
                             label="Type of Pet"
-                            type="type"
+                            type="petType"
                             fullWidth
                         />
                         <TextField
                             autoFocus
                             margin="dense"
-                            id="breed"
+                            id="dogBreed"
                             label="Breed"
-                            type="breed"
+                            type="dogBreed"
                             fullWidth
                         />
                         <TextField
