@@ -13,6 +13,7 @@ import * as ReduxForm from 'redux-form';
 import * as Validation from 'js/alloy/utils/validation';
 import * as Bessemer from 'js/alloy/bessemer/components';
 import Image from '../../images/homeDog.jpg';
+import Cookies from 'universal-cookie';
 
 const styles = theme => ({
     layout: {
@@ -96,7 +97,9 @@ class SignInForm extends React.Component{
     	const { classes } = this.props;
         let { handleSubmit, submitting } = this.props;
 
-		if (this.state.redirectOwner) {
+        const cookies = new Cookies();
+
+		if (cookies.get('loggedIn')) {
 
 			return <div><Redirect to='/ownerDash' /></div>;
 		}
