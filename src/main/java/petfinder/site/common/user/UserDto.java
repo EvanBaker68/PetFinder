@@ -15,8 +15,10 @@ public class UserDto implements Momento<String> {
     //TODO: add isOwner and isSitter to tell if the user can sign in as an owner or sitter,
     //and a cookie will be set to be used for the switch to owner/sitter button on the dash
 
+    //TODO: separate address into zip, city, state, and address
     private String phoneNumber;
-    private String name;
+    private String firstName;
+    private String lastName;
     private String address;
 
 
@@ -30,14 +32,16 @@ public class UserDto implements Momento<String> {
         setAttributes(attributes);
     }
 
-    public UserDto(String principal, List<String> roles, UserType type, String phoneNumber, String name, String address) {
+    public UserDto(String principal, List<String> roles, UserType type, String phoneNumber, String firstName, String lastName,
+                   String address, Map<String, Object> attributes) {
         setPrincipal(principal);
         setPhoneNumber(phoneNumber);
-        setName(name);
+        setFirstName(firstName);
+        setLastName(lastName);
         setAddress(address);
         setRoles(roles);
         setType(type);
-
+        setAttributes(attributes);
     }
 
     public String getPrincipal() {
@@ -64,14 +68,17 @@ public class UserDto implements Momento<String> {
         return phoneNumber;
     }
 
-    public String getName() {
-        return name;
-    }
-
     public String getAddress() {
         return address;
     }
 
+    public String getFirstName() { return firstName; }
+
+    public void setFirstName(String firstName) { this.firstName = firstName; }
+
+    public String getLastName() { return lastName; }
+
+    public void setLastName(String lastName) { this.lastName = lastName; }
 
     @JsonIgnore
     @Override
@@ -98,10 +105,6 @@ public class UserDto implements Momento<String> {
 
     private void setPhoneNumber(String phoneNumber) {
         this.phoneNumber = phoneNumber;
-    }
-
-    public void setName(String name) {
-        this.name = name;
     }
 
     public void setAddress(String address) {

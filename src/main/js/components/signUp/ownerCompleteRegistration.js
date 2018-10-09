@@ -13,6 +13,8 @@ import OwnerInfoFields from 'js/components/signUp/ownerInformationForm';
 import {Link} from 'react-router-dom';
 import CssBaseline from '@material-ui/core/CssBaseline';
 import AddPet from 'js/components/pets/addPetForm';
+import Cookies from 'universal-cookie';
+import axios from 'axios/index';
 
 const styles = theme => ({
     root: {
@@ -61,8 +63,6 @@ class OwnerCompleteRegistration extends React.Component {
                         <Typography variant="display1">Register</Typography>
                         <Typography variant="headline">Basic Information</Typography>
                         <BasicInfoFields/>
-                        <Typography variant="headline">Preferences</Typography>
-                        <OwnerInfoFields/>
                         <AddPet/>
                         <Link to="/ownerDash">
                             <Button color="secondary">Next</Button>
