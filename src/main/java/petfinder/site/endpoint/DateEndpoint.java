@@ -8,7 +8,7 @@ import petfinder.site.common.date.DateService;
 import java.util.Optional;
 
 @RestController
-@RequestMapping(value = "/api/date")
+@RequestMapping(value = "/date")
 public class DateEndpoint {
     @Autowired
     DateService dateService;

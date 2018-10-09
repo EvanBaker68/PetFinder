@@ -4,6 +4,7 @@ import alloy.util.Identifiable;
 import java.util.Date;
 import java.time.LocalDate;
 public class DateDto implements Identifiable {
+
     private Long id;
     private Date date;
     private LocalDate startTime;

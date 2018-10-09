@@ -14,7 +14,7 @@ import petfinder.site.common.user.UserService.RegistrationRequest;
  * Created by jlutteringer on 8/23/17.
  */
 @RestController
-@RequestMapping(value = "/api/user")
+@RequestMapping(value = "/user")
 public class UserEndpoint {
 	@Autowired
 	private UserService userService;

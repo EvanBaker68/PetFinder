@@ -15,7 +15,7 @@ import petfinder.site.common.pet.PetService;
  * Created by jlutteringer on 8/23/17.
  */
 @RestController
-@RequestMapping("/api/pet")
+@RequestMapping("/pet")
 public class PetEndpoint {
 	@Autowired
 	private PetService petService;
