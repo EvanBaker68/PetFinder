@@ -14,6 +14,10 @@ public class DateService {
         return dateDao.findDate(id);
     }
 
+    public Optional<DateDto> findUserByPrincipal(String principal) {
+        return dateDao.findDateByPrincipal(principal);
+    }
+
     public void saveDate(DateDto dateDto){
         dateDao.saveDate(dateDto);
     }
