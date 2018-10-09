@@ -1,7 +1,10 @@
 package petfinder.site.common.booking;
 
 import alloy.util.Momento;
+import jdk.nashorn.internal.runtime.regexp.joni.exception.ValueException;
 import org.codehaus.jackson.annotate.JsonIgnore;
+import petfinder.site.ValidationException;
+
 import java.util.Date;
 public class BookingDto implements Momento<Long> {
     private Long id;
@@ -19,7 +22,7 @@ public class BookingDto implements Momento<Long> {
 
     }
 
-    public BookingDto(Long id, String sitterPrincipal, String ownerPrincipal, Date startDate, Date finishDate, String reviewByOwner, String reviewBySitter, Integer scoreByOwner, Integer scoreBySitter) {
+    public BookingDto(Long id, String sitterPrincipal, String ownerPrincipal, Date startDate, Date finishDate, String reviewByOwner, String reviewBySitter, Integer scoreByOwner, Integer scoreBySitter) throws ValidationException{
         setId(id);
         setOwnerPrincipal(ownerPrincipal);
         setSitterPrincipal(sitterPrincipal);
@@ -31,7 +34,7 @@ public class BookingDto implements Momento<Long> {
         setScoreBySitter(scoreBySitter);
     }
 
-    public BookingDto(Long id, String sitterPrincipal, String ownerPrincipal, Date startDate, Date finishDate){
+    public BookingDto(Long id, String sitterPrincipal, String ownerPrincipal, Date startDate, Date finishDate) throws ValidationException {
         setId(id);
         setOwnerPrincipal(ownerPrincipal);
         setSitterPrincipal(sitterPrincipal);
@@ -48,63 +51,95 @@ public class BookingDto implements Momento<Long> {
     @JsonIgnore
     @Override
     public Long getMomento() {
-        return id;
+        Long temp = id;
+        return temp;
     }
 
     public Long getId() {
-        return id;
+        Long temp = id;
+        return temp;
     }
 
-    public void setId(Long id) {
+    public void setId(Long id) throws ValidationException{
+        if(id == null){
+            throw new ValidationException("setId", "was given a null value");
+        }else if (id <= 0){
+            throw new ValidationException("setId", "was given a bad value for id");
+        }
         this.id = id;
     }
 
     public String getSitterPrincipal() {
-        return sitterPrincipal;
+        String temp = sitterPrincipal;
+        return temp;
     }
 
-    public void setSitterPrincipal(String sitterPrincipal) {
+    public void setSitterPrincipal(String sitterPrincipal) throws ValidationException {
+        if(sitterPrincipal == null){
+            throw new ValidationException("setSitterPrincipal", "was given a null value");
+        } else if(!sitterPrincipal.matches("^(.+)@(.+)$")){
+            throw new ValidationException("setSitterPrincipal", "was given an invalid value");
+        }
         this.sitterPrincipal = sitterPrincipal;
     }
 
     public String getOwnerPrincipal() {
-        return ownerPrincipal;
+        String temp = ownerPrincipal;
+        return temp;
     }
 
-    public void setOwnerPrincipal(String ownerPrincipal) {
+    public void setOwnerPrincipal(String ownerPrincipal) throws ValidationException{
+        if(ownerPrincipal == null){
+            throw new ValidationException("setOwnerPrincipal", "was given a null value");
+        } else if(!ownerPrincipal.matches("^(.+)@(.+)$")){
+            throw new ValidationException("setOwnerPrincipal", "was given an invalid value");
+        }
         this.ownerPrincipal = ownerPrincipal;
     }
 
     public Date getStartDate() {
-        return startDate;
+        Date temp = startDate;
+        return temp;
     }
 
-    public void setStartDate(Date startDate) {
+
+    //MIGHT CHANGE THESE BECAUSE OF NEW DATE OBJECT
+    public void setStartDate(Date startDate) throws ValidationException{
+        if(startDate == null){
+            throw new ValidationException("setStartDate", "was given a null");
+        }
         this.startDate = startDate;
     }
 
     public Date getFinishDate() {
-        return finishDate;
+        Date temp = finishDate;
+        return temp;
     }
 
-    public void setFinishDate(Date finishDate) {
+    public void setFinishDate(Date finishDate) throws ValidationException {
+        if(finishDate == null){
+            throw new ValidationException("setFinishDate", "finishDate was set to null");
+        }
         this.finishDate = finishDate;
     }
 
     public String getReviewByOwner() {
-        return reviewByOwner;
+        String temp = reviewByOwner;
+        return temp;
     }
 
     public Integer getScoreByOwner() {
-        return scoreByOwner;
+        Integer temp = scoreByOwner;
+        return temp;
     }
 
     public String getReviewBySitter() {
-        return reviewBySitter;
+        String temp = reviewBySitter;
+        return temp;
     }
 
     //IF given empty string then has not been established yet
-    public void setReviewBySitter(String reviewBySitter) {
+    public void setReviewBySitter(String reviewBySitter) throws ValidationException{
         this.reviewBySitter = reviewBySitter;
     }
 

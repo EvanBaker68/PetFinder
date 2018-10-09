@@ -1,6 +1,7 @@
 package petfinder.site.common.pet;
 
 import alloy.util.Identifiable;
+import org.codehaus.jackson.annotate.JsonIgnore;
 
 public class PetDto implements Identifiable {
 	private Long petId;
@@ -68,7 +69,7 @@ public class PetDto implements Identifiable {
     }
 
     public void setDog(Boolean dog) {
-        isDog = dog;
+        this.isDog = dog;
     }
 
     public void setDogBreed(String dogBreed) {
