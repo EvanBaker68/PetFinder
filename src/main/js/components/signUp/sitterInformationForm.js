@@ -7,7 +7,7 @@ import TextField from '@material-ui/core/TextField';
 import Cookies from 'universal-cookie';
 import axios from 'axios/index';
 import {Link} from 'react-router-dom';
-import Button from '@material-ui/core/es/Button/Button';
+import Button from '@material-ui/core/Button';
 
 const styles = theme => ({
     container: {
