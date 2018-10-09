@@ -4,6 +4,10 @@ import classNames from 'classnames';
 import { withStyles } from '@material-ui/core/styles';
 import MenuItem from '@material-ui/core/MenuItem';
 import TextField from '@material-ui/core/TextField';
+import Cookies from 'universal-cookie';
+import axios from 'axios/index';
+import {Link} from 'react-router-dom';
+import Button from '@material-ui/core/es/Button/Button';
 
 const styles = theme => ({
     container: {
@@ -24,7 +28,7 @@ const styles = theme => ({
 
 class OutlinedTextFields extends React.Component {
     state = {
-        other: ''
+        numPets: 0
     };
 
     handleChange = name => event => {
@@ -33,6 +37,22 @@ class OutlinedTextFields extends React.Component {
         });
     };
 
+	handleAddClose = () => {
+		const cookies = new Cookies();
+		const owner = {
+			principal: cookies.get('username'),
+            numPets: this.state.numPets
+		};
+		axios.post('/owner/add-owner', owner)
+			.then(res => {
+				console.log(res);
+				console.log(res.data);
+			})
+			.catch(error => {
+				console.log(error.response);
+			});
+	};
+
     render() {
         const { classes } = this.props;
 
@@ -40,13 +60,17 @@ class OutlinedTextFields extends React.Component {
             <form className={classes.container} noValidate autoComplete="off">
                 <TextField
                     id="outlined-name"
-                    label="Other"
+                    label="Number of Pets"
                     className={classes.textField}
-                    value={this.state.name}
-                    onChange={this.handleChange('other')}
+                    value={this.state.numPets}
+                    onChange={this.handleChange('numPets')}
                     margin="normal"
                     variant="standard"
                 />
+				<Link to="/ownerDash">
+					<Button color="secondary"
+                    onClick={this.handleAddClose}>Next</Button>
+				</Link>
             </form>
         );
     }

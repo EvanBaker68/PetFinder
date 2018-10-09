@@ -40,7 +40,6 @@ export default class FormDialog extends React.Component {
 				petType: res.petType});
 			}).then(response => console.log(response))
 			.catch(error => this.setState({error}));
-
 	}
 
 

@@ -71,9 +71,6 @@ class SitterCompleteRegistration extends React.Component {
                         <BasicInfoFields/>
                         <Typography variant="headline">Preferences</Typography>
                         <SitterInfoFields/>
-                        <Link to="/sitterDash">
-                            <Button color="secondary">Next</Button>
-                        </Link>
                     </Paper>
                 </main>
             </React.Fragment>

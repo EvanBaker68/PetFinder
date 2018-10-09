@@ -63,10 +63,7 @@ class OwnerCompleteRegistration extends React.Component {
                         <Typography variant="display1">Register</Typography>
                         <Typography variant="headline">Basic Information</Typography>
                         <BasicInfoFields/>
-                        <AddPet/>
-                        <Link to="/ownerDash">
-                            <Button color="secondary">Next</Button>
-                        </Link>
+                        <OwnerInfoFields/>
                     </Paper>
                 </main>
             </React.Fragment>
