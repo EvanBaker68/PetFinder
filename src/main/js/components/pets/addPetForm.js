@@ -41,7 +41,6 @@ export default class FormDialog extends React.Component {
             .then(res => {
                 console.log(res);
                 console.log(res.data);
-                console.log('eyyyy');
                 this.setState({open: false});
             })
             .catch(error => {

@@ -7,6 +7,7 @@ import DialogContent from '@material-ui/core/DialogContent';
 import DialogContentText from '@material-ui/core/DialogContentText';
 import DialogTitle from '@material-ui/core/DialogTitle';
 import axios from 'axios';
+import Cookies from 'universal-cookie';
 
 export default class FormDialog extends React.Component {
     state = {
@@ -14,6 +15,7 @@ export default class FormDialog extends React.Component {
         name: '',
         age: 0,
         petId: 0,
+		petType: '',
         dogBreed: '',
         ownerPrinciple: '',
         pets: []
@@ -26,22 +28,17 @@ export default class FormDialog extends React.Component {
     componentDidMount() {
 		const petId = 1;
 		const endpoint = '/pet/' + petId;
-		console.log(endpoint);
+
 		axios.get('/pet/' + petId, petId)
-			.then(res => res.data.results.map(pet =>
-				({
-					name: '${pet.name}',
-					petType: '${pet.petType}',
-					dogBreed: '${pet.dogBreed}',
-					age: '${pet.age}',
-					petId: '${pet.petId}',
-					ownerPrinciple: '${pet.ownerPrinciple}'
-				}))
-			).then(pets => {
-			this.setState({
-				pets
-			});
-		}).then(response => console.log(response))
+			.then(res => {
+				this.setState({
+				name: res.name,
+                age: res.age,
+                dogBreed: res.dogBreed,
+                petId: res.petId,
+                ownerPrinciple: res.ownerPrinciple,
+				petType: res.petType});
+			}).then(response => console.log(response))
 			.catch(error => this.setState({error}));
 
 	}
@@ -55,13 +52,34 @@ export default class FormDialog extends React.Component {
         this.setState({ open: false });
     };
 
+	handleSaveClose = () => {
+		const cookies = new Cookies();
+		const pet = {
+			petId: 1,
+			ownerPrinciple: cookies.get('username'),
+			name: this.state.name,
+			petType: this.state.petType,
+			dogBreed: this.state.dogBreed,
+			age: this.state.age
+		};
+		axios.post('/pet/add-pet', pet)
+			.then(res => {
+				console.log(res);
+				console.log(res.data);
+				this.setState({open: false});
+			})
+			.catch(error => {
+				console.log(error.response);
+			});
+	};
+
+	handleChange = name => event => {
+		this.setState({
+			[name]: event.target.value,
+		});
+	};
+
     render() {
-        const { pets } = this.state;
-        // console.log(pets);
-		// pets.map(pet => {
-		// 	const { name, petType, dogBreed, petId, ownerPrinciple } = pet;
-		// 	this.setState({name: name, dogBreed: dogBreed, petId: petId, petType: petType, ownerPrinciple: ownerPrinciple});
-		// });
         return (
 
             <div>
@@ -77,47 +95,53 @@ export default class FormDialog extends React.Component {
                     <DialogTitle id="form-dialog-title">Edit Pet</DialogTitle>
                     <DialogContent>
                         <DialogContentText>
-                            Change {this.state.dogBreed}'s details
+                            Change {this.state.name}'s details
                         </DialogContentText>
-                        <TextField
-                            autoFocus
-                            margin="dense"
-                            id="name"
-                            label="name"
-                            type="name"
-                            value={this.state.age}
-                            fullWidth
-                        />
-                        <TextField
-                            autoFocus
-                            margin="dense"
-                            id="petType"
-                            label="Type of Pet"
-                            type="petType"
-                            fullWidth
-                        />
-                        <TextField
-                            autoFocus
-                            margin="dense"
-                            id="dogBreed"
-                            label="Breed"
-                            type="dogBreed"
-                            fullWidth
-                        />
-                        <TextField
-                            autoFocus
-                            margin="dense"
-                            id="comment"
-                            label="Additional Comment"
-                            type="comment"
-                            fullWidth
-                        />
+						<TextField
+							autoFocus
+							margin="dense"
+							id="name"
+							label="Name"
+							value={this.state.name}
+							onChange={this.handleChange('name')}
+							fullWidth
+						/>
+						<TextField
+							autoFocus
+							margin="dense"
+							id="petType"
+							label="Type of Pet"
+							type="petType"
+							value={this.state.petType}
+							onChange={this.handleChange('petType')}
+							fullWidth
+						/>
+						<TextField
+							autoFocus
+							margin="dense"
+							id="dogBreed"
+							label="Breed"
+							type="dogBreed"
+							value={this.state.dogBreed}
+							onChange={this.handleChange('dogBreed')}
+							fullWidth
+						/>
+						<TextField
+							autoFocus
+							margin="dense"
+							id="age"
+							label="Age"
+							type="age"
+							value={this.state.age}
+							onChange={this.handleChange('age')}
+							fullWidth
+						/>
                     </DialogContent>
                     <DialogActions>
                         <Button onClick={this.handleClose} color="primary">
                             Cancel
                         </Button>
-                        <Button onClick={this.handleClose} color="primary">
+                        <Button onClick={this.handleSaveClose} color="primary">
                             Save
                         </Button>
                     </DialogActions>
