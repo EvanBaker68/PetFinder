@@ -11,6 +11,7 @@ import org.springframework.stereotype.Service;
 @Service
 public class DateElasticSearchRepository extends ElasticSearchRepository.ElasticSearchJsonRepository<DateDto, Long> {
 
+    @Autowired
     public DateElasticSearchRepository(ElasticSearchClientProvider provider){
         super(new ElasticSearchIndex(provider, "date"), DateDto.class);
     }

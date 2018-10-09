@@ -85,6 +85,9 @@ export default class FormDialog extends React.Component {
             <div>
                 <ul>
                     <li>{this.state.name}</li>
+					<li>{this.state.petType}</li>
+					<li>{this.state.dogBreed}</li>
+					<li>{this.state.age} years old</li>
                 </ul>
                 <Button color="secondary" variant="contained" onClick={this.handleClickOpen}>Edit</Button>
                 <Dialog

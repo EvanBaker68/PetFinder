@@ -25,7 +25,7 @@ const styles = theme => ({
 
 class ProfileForm extends React.Component {
     state = {
-        firstname: 'Bobby',
+        firstName: 'Bobby',
         lastName: 'B'
     };
 
