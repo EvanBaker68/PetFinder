@@ -71,6 +71,7 @@ Actions.authenticate = (username, password) => {
 
 			    const cookies = new Cookies();
 			    cookies.set('username', username, { path: '/'  });
+			    cookies.set('password', password, { path: '/'  });
 			    cookies.set('auth', authentication, { path: '/' });
 			    cookies.set('loggedIn', 'true', { path: '/' });
 				console.log('made it in');
@@ -95,6 +96,7 @@ Actions.logout = () => {
 	    cookies.set('loggedIn', 'false', { path: '/' });
 		cookies.set('isSitter', 'false', { path: '/' });
 		cookies.set('isOwner', 'false', { path: '/' });
+		cookies.set('password', '', { path: '/'  });
 		dispatch(Actions.setAuthentication(null));
 		dispatch(Actions.setUser(null));
 	};
