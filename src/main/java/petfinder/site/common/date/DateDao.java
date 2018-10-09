@@ -28,6 +28,12 @@ public class DateDao {
         return dateElasticsearchRepository.search(searchSourceBuilder).stream().findFirst();
     }
 
+   /* public Optional<DateDto>[] rangeOfDatesWithUserId(String SitterPrinciple, String startDate, String endDate){
+        SearchSourceBuilder searchSourceBuilder = new SearchSourceBuilder();
+        String queryString = String.format("sitt")
+        return null;
+    }*/
+
     public void saveDate(DateDto dateDto){
         dateElasticsearchRepository.save(dateDto);
     }

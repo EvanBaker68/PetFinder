@@ -14,6 +14,10 @@ public class DateService {
         return dateDao.findDate(id);
     }
 
+    public Optional<DateDto>[] findByRange(String startDate, String endDate){
+
+        return null;
+    }
     public Optional<DateDto> findDateBySitter(String sitterPrinciple){
         return dateDao.findDateBySitter(sitterPrinciple);
     }

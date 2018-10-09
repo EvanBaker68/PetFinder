@@ -19,6 +19,8 @@ public class PetTest {
             assertNotNull(pet);
             PetDto pet2 = new PetDto();
             assertNotNull(pet2);
+
+
         }
 
         @Test
