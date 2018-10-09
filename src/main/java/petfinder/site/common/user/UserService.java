@@ -41,7 +41,7 @@ public class UserService {
 		private String password;
 		private Map<String, Object> attributes;
 
-		//Not sure if I need these instead of a map of attributes
+
         private String phoneNumber;
         private String name;
         private String address;
