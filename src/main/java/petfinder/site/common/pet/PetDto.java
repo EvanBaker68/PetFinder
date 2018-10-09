@@ -5,20 +5,21 @@ import org.codehaus.jackson.annotate.JsonIgnore;
 
 public class PetDto implements Identifiable {
 	private Long petId;
-	private Long ownerPrinciple;
+	private String ownerPrinciple;
 	private String name;
 	private String petType;
-	private Boolean isDog;
+	//private Boolean isDog;
 	private String dogBreed;
 	private Double age;
 
-	public PetDto(Long petId, Long ownerPrinciple, String name, String petType, Boolean isDog, String dogBreed, Double age) {
+	public PetDto() {}
+
+	public PetDto(Long petId, String ownerPrinciple, String name, String petType, String dogBreed, Double age) {
 	    setPetId(petId);
 	    setOwnerPrinciple(ownerPrinciple);
 	    setName(name);
 	    setPetType(petType);
-	    setDog(isDog);
-	    setDogBreed(dogBreed);
+	    //setDog(isDog);
 	    setAge(age);
 	}
 
@@ -27,7 +28,7 @@ public class PetDto implements Identifiable {
         return petId;
     }
 
-    public Long getOwnerPrinciple() {
+    public String getOwnerPrinciple() {
         return ownerPrinciple;
     }
 
@@ -39,9 +40,9 @@ public class PetDto implements Identifiable {
         return petType;
     }
 
-    public Boolean getDog() {
-        return isDog;
-    }
+    //public Boolean getDog() {
+    //    return isDog;
+    //}
 
     public String getDogBreed() {
         return dogBreed;
@@ -56,7 +57,7 @@ public class PetDto implements Identifiable {
         this.petId = petId;
     }
 
-    public void setOwnerPrinciple(Long ownerPrinciple) {
+    public void setOwnerPrinciple(String ownerPrinciple) {
         this.ownerPrinciple = ownerPrinciple;
     }
 
@@ -68,13 +69,7 @@ public class PetDto implements Identifiable {
         this.petType = petType;
     }
 
-    public void setDog(Boolean dog) {
-        this.isDog = dog;
-    }
 
-    public void setDogBreed(String dogBreed) {
-        this.dogBreed = dogBreed;
-    }
 
     public void setAge(Double age) {
         this.age = age;

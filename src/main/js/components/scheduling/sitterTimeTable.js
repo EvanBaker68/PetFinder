@@ -14,18 +14,15 @@ import Badge from '@material-ui/core/Badge';
 import MenuIcon from '@material-ui/icons/Menu';
 import ChevronLeftIcon from '@material-ui/icons/ChevronLeft';
 import NotificationsIcon from '@material-ui/icons/Notifications';
-import { mainListItems, secondaryListItems } from 'js/components/dashboard/listItems';
-import PetCard from 'js/components/pets/petCard';
-import AddPet from 'js/components/pets/addPetForm';
-import CardActionArea from '@material-ui/core/CardActionArea/CardActionArea';
-import CardMedia from '@material-ui/core/CardMedia/CardMedia';
-import Image from 'js/images/dog1.jpeg';
-import CardContent from '@material-ui/core/CardContent/CardContent';
-import CardActions from '@material-ui/core/CardActions/CardActions';
-import EditPet from 'js/components/pets/editPetForm';
-import Button from '@material-ui/core/Button/Button';
-import Card from '@material-ui/core/Card/Card';
-import axios from 'axios';
+import {SitterMenuList} from 'js/components/dashboard/SitterMenuList';
+import SimpleTable from 'js/components/dashboard/simpleTable';
+import Input from '@material-ui/core/Input';
+import SearchIcon from '@material-ui/icons/Search';
+import ProfileForm from 'js/components/profile/ProfileForm';
+import Paper from '@material-ui/core/Paper';
+import Image from 'js/images/homeDog.jpg';
+import Time from 'js/components/scheduling/timePicker';
+import Calender from 'js/components/scheduling/calender';
 
 const drawerWidth = 240;
 
@@ -95,43 +92,18 @@ const styles = theme => ({
         height: '100vh',
         overflow: 'auto',
     },
-    chartContainer: {
-        marginLeft: -22,
-    },
-    tableContainer: {
-        height: 320,
-    },
-    card: {
-        marginTop: 75,
-        maxWidth: 345,
-    },
-    media: {
-        objectFit: 'cover',
-    },
+    paperContainer: {
+        backgroundImage: `url(${Image})`,
+        alignItems: 'center',
+        height: 200,
+        width: 100
+    }
 });
 
-class PetPage extends React.Component {
+class Profile extends React.Component {
     state = {
         open: true,
     };
-
-    componentDidMount() {
-        const petId = 1;
-        const endpoint = '/pet/' + petId;
-
-        axios.get('/pet/' + petId, petId)
-            .then(res => {
-                this.setState({
-                    name: res.name,
-                    age: res.age,
-                    dogBreed: res.dogBreed,
-                    petId: res.petId,
-                    ownerPrinciple: res.ownerPrinciple,
-                    petType: res.petType});
-            }).then(response => console.log(response))
-            .catch(error => this.setState({error}));
-
-    }
 
     handleDrawerOpen = () => {
         this.setState({ open: true });
@@ -143,6 +115,9 @@ class PetPage extends React.Component {
 
     render() {
         const { classes } = this.props;
+        let today = new Date();
+        let day = today.getDate();
+        let month = today.getMonth();
 
         return (
             <React.Fragment>
@@ -164,8 +139,8 @@ class PetPage extends React.Component {
                             >
                                 <MenuIcon />
                             </IconButton>
-                            <Typography variant="display2" color="inherit" noWrap className={classes.title}>
-                                My Pets
+                            <Typography variant="display2" color="inherit" noWrap className={classes.title} >
+                                Sitter Schedule
                             </Typography>
                             <IconButton color="inherit">
                                 <Badge badgeContent={4} color="secondary">
@@ -187,15 +162,18 @@ class PetPage extends React.Component {
                             </IconButton>
                         </div>
                         <Divider />
-                        <List>{mainListItems}</List>
+                        <List>{SitterMenuList}</List>
                     </Drawer>
                     <main className={classes.content}>
-                        <Card className={classes.card}>
-                            <CardActions>
-                                <EditPet/>
-                            </CardActions>
-                        </Card>
-                        <AddPet/>
+                        <div className={classes.appBarSpacer} />
+                        <Typography
+                            variant="display1"
+                            gutterBottom
+                            align='center'>
+                            Next Week Availability
+                        </Typography>
+                        <Calender/>
+                        <Typography/>
                     </main>
                 </div>
             </React.Fragment>
@@ -203,8 +181,8 @@ class PetPage extends React.Component {
     }
 }
 
-PetPage.propTypes = {
+Profile.propTypes = {
     classes: PropTypes.object.isRequired,
 };
 
-export default withStyles(styles)(PetPage);
+export default withStyles(styles)(Profile);

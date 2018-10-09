@@ -3,40 +3,23 @@ import ListItem from '@material-ui/core/ListItem';
 import ListItemIcon from '@material-ui/core/ListItemIcon';
 import ListItemText from '@material-ui/core/ListItemText';
 import ProfileIcon from '@material-ui/icons/Person';
-import SearchIcon from '@material-ui/icons/Search';
 import HistoryIcon from '@material-ui/icons/History';
-import FavoriteIcon from '@material-ui/icons/Favorite';
+import DashIcon from '@material-ui/icons/Dashboard';
 import SwapIcon from '@material-ui/icons/SwapHorizontalCircle';
 
 import { Link } from 'react-router-dom';
 
-export const mainListItems = (
+export const SitterMenuList = (
     <div>
-        <Link to="/search">
+        <Link to="sitterDash">
             <ListItem button>
                 <ListItemIcon>
-                    <SearchIcon />
-                </ListItemIcon>
-                <ListItemText primary="Search" />
-            </ListItem>
-        </Link>
-        <Link to="/Ownerpets">
-            <ListItem button>
-                <ListItemIcon>
-                    <FavoriteIcon />
-                </ListItemIcon>
-                <ListItemText primary="Pets" />
-            </ListItem>
-        </Link>
-        <Link to="ownerDash">
-            <ListItem button>
-                <ListItemIcon>
-                    <HistoryIcon />
+                    <DashIcon />
                 </ListItemIcon>
                 <ListItemText primary="Dashboard" />
             </ListItem>
         </Link>
-        <Link to="/ownerProfile">
+        <Link to="/sitterProfile">
             <ListItem button>
                 <ListItemIcon>
                     <ProfileIcon />
@@ -44,12 +27,20 @@ export const mainListItems = (
                 <ListItemText primary="Profile" />
             </ListItem>
         </Link>
-        <Link to="/sitterDash">
+        <Link to="/sitterTimeTable">
+            <ListItem button>
+                <ListItemIcon>
+                    <HistoryIcon />
+                </ListItemIcon>
+                <ListItemText primary="Change Schedule" />
+            </ListItem>
+        </Link>
+        <Link to="/ownerDash">
             <ListItem button>
                 <ListItemIcon>
                     <SwapIcon />
                 </ListItemIcon>
-                <ListItemText primary="Swap to Sitter" />
+                <ListItemText primary="Swap to Owner" />
             </ListItem>
         </Link>
     </div>

@@ -7,28 +7,19 @@ import petfinder.site.common.owner.OwnerService;
 import java.util.Optional;
 
 @RestController
-@RequestMapping(value = "/api/owner")
+@RequestMapping(value = "/owner")
 public class OwnerEndpoint {
     @Autowired
     OwnerService ownerService;
 
-    @GetMapping(value = "/{id}", produces = "application/json")
+    @GetMapping(value = "/{principal}", produces = "application/json")
     @ResponseBody
-    public Optional<OwnerDto> getSitter(@PathVariable("id") String id) {
-        return ownerService.findOwner(id);
+    public Optional<OwnerDto> getSitter(@PathVariable("principal") String principal) {
+        return ownerService.findOwner(principal);
     }
 
-
-    /*
-    @PostMapping(produces = "application/json")
-    public OwnerDto saveOwner(@RequestBody OwnerDto owner) {
-        //Logger log = (Logger) LoggerFactory.getLogger(getClass());
-        //log.info("heyyo");
-        ownerService.save(owner);
-        return owner;
-    }*/
-
-    @PostMapping(value = "/add-owner", consumes = "application/json")
+    @PostMapping(value = "/add-owner", produces = "application/json", consumes = "application/json")
+    @ResponseBody
     public OwnerDto saveOwner(@RequestBody OwnerDto owner) {
         ownerService.save(owner);
         return owner;

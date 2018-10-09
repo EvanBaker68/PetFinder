@@ -10,17 +10,21 @@ import javax.xml.bind.ValidationEventLocator;
 
 public class OwnerDto implements Momento<String> {
     private String principal;
+    private Integer numPets;
     private Long[] currentBookings;
     private Long[] pastBookings;
-
+    private Long[] petIds;
 
     public OwnerDto() {
     }
 
-    public OwnerDto(String principal, Long[] currentBookings, Long[] pastBookings) throws ValidationException {
+
+    public OwnerDto(String principal, Long[] currentBookings, Long[] pastBookings, Long[] petIds, int numPets) throws ValidationException{
         setPrincipal(principal);
         setCurrentBookings(currentBookings);
         setPastBookings(pastBookings);
+        setPetIds(petIds);
+        setNumPets(numPets);
     }
 
     public String getPrincipal() {
@@ -40,16 +44,27 @@ public class OwnerDto implements Momento<String> {
     }
 
     public void setCurrentBookings(Long[] currentBookings) throws ValidationException {
-        if(currentBookings == null){
-            throw new ValidationException("setCurrentBookings","was given a null value");
+        if (currentBookings == null) {
+            throw new ValidationException("setCurrentBookings", "was given a null value");
         }
-        for(Long itr : currentBookings){
-            if(itr <= 0){
+        for (Long itr : currentBookings) {
+            if (itr <= 0) {
                 throw new ValidationException("setCurrentBookings", "given a bad bookingId");
             }
         }
-        this.currentBookings = currentBookings;
     }
+
+    public Long[] getPetIds() {
+        return petIds;
+    }
+
+
+    public void setNumPets(int numPets) { this.numPets = numPets; }
+
+    public void setPetIds(Long[] petIds) {
+        this.petIds = petIds;
+    }
+
 
     public void setPastBookings(Long[] pastBookings) throws ValidationException{
         if(pastBookings == null){

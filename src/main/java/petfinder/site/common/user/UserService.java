@@ -12,6 +12,7 @@ import alloy.util.AlloyAuthentication;
 import alloy.util.Wait;
 import alloy.util._Lists;
 import alloy.util._Maps;
+import petfinder.site.common.pet.PetDto;
 
 /**
  * Created by jlutteringer on 8/23/17.
@@ -42,10 +43,11 @@ public class UserService {
 		private Map<String, Object> attributes;
 
 		//Not sure if I need these instead of a map of attributes
-        private String phoneNumber;
-        private String name;
-        private String address;
-        //private Map<String, Object> attributes;
+		private String phoneNumber;
+		private String firstName;
+		private String lastName;
+		private String address;
+		//private Map<String, Object> attributes;
 
 		public String getPrincipal() {
 			return principal;
@@ -63,29 +65,30 @@ public class UserService {
 			this.password = password;
 		}
 
-        public String getPhoneNumber() {
-            return phoneNumber;
-        }
+		public String getPhoneNumber() {
+			return phoneNumber;
+		}
 
-        public void setPhoneNumber(String phoneNumber) {
-            this.phoneNumber = phoneNumber;
-        }
+		public void setPhoneNumber(String phoneNumber) {
+			this.phoneNumber = phoneNumber;
+		}
 
-        public String getName() {
-            return name;
-        }
+		public String getFirstName() { return firstName; }
 
-        public void setName(String name) {
-            this.name = name;
-        }
+		public void setFirstName(String firstName) { this.firstName = firstName; }
 
-        public String getAddress() {
-            return address;
-        }
+		public String getLastName() { return lastName; }
 
-        public void setAddress(String address) {
-            this.address = address;
-        }
+		public void setLastName(String lastName) { this.lastName = lastName; }
+
+
+		public String getAddress() {
+			return address;
+		}
+
+		public void setAddress(String address) {
+			this.address = address;
+		}
 
 		public Map<String, Object> getAttributes() {
 			return attributes;
@@ -98,8 +101,9 @@ public class UserService {
 
 	public UserDto register(RegistrationRequest request) {
 		UserAuthenticationDto userAuthentication = new UserAuthenticationDto(
-		    //new UserDto(request.getPrincipal(), request.getPhoneNumber(), request.getName(), request.getAddress()), passwordEncoder.encode(request.getPassword()));
-            new UserDto(request.getPrincipal(), _Lists.list("ROLE_USER"), UserDto.UserType.OWNER, request.getAttributes()), passwordEncoder.encode(request.getPassword()));
+				//new UserDto(request.getPrincipal(), request.getPhoneNumber(), request.getName(), request.getAddress()), passwordEncoder.encode(request.getPassword()));
+				new UserDto(request.getPrincipal(), _Lists.list("ROLE_USER"), UserDto.UserType.OWNER, request.getPhoneNumber(),
+						request.getFirstName(), request.getLastName(), request.getAddress(), request.getAttributes()), passwordEncoder.encode(request.getPassword()));
 		userDao.save(userAuthentication);
 		return userAuthentication.getUser();
 	}

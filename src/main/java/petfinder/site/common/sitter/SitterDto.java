@@ -2,6 +2,7 @@ package petfinder.site.common.sitter;
 
 import alloy.util.Momento;
 import org.codehaus.jackson.annotate.JsonIgnore;
+import petfinder.site.ValidationException;
 
 import java.time.LocalDateTime;
 
@@ -10,30 +11,27 @@ public class SitterDto implements Momento<String> {
     private String principal;
     private Long[] currentBookings;
     private Long[] pastBookings;
-    private Availability[] availability;// dont think we need
-    public Integer availableTimes = -1; // dont think we need
     private Long[] datesAvailable;
+    private Double rate;
 
 
-    public SitterDto(String principal, Long[] currentBookings, Long[] pastBookings, Long[] datesAvailable) {
-        this.principal = principal;
-        this.currentBookings = currentBookings;
-        this.pastBookings = pastBookings;
-        this.datesAvailable = datesAvailable;
+    //Main Constructor
+    public SitterDto(String principal, double rate) throws ValidationException {
+        setPrincipal(principal);
+        setRate(rate);
     }
 
     public SitterDto() {}
 
-    public SitterDto(String principal) {
+    public SitterDto(String principal) throws ValidationException{
         setPrincipal(principal);
     }
 
-    //Main Constructor
-    public SitterDto(String principal, Long[] currentBookings, Long[] pastBookings, Availability[] availability) {
+    //Temporary until we get rid of Availability
+    public SitterDto(String principal, Long[] currentBookings, Long[] pastBookings) throws ValidationException {
         setPrincipal(principal);
         setCurrentBookings(currentBookings);
         setPastBookings(pastBookings);
-        setAvailability(availability);
     }
 
     public Long[] getCurrentBookings() {
@@ -48,9 +46,9 @@ public class SitterDto implements Momento<String> {
         return principal;
     }
 
-    public Availability[] getAvailability() {
-        return availability;
-    }
+    public Double getRate() { return rate; }
+
+    public void setRate(Double rate) { this.rate = rate; }
 
     public void setCurrentBookings(Long[] currentBookings) {
         this.currentBookings = currentBookings;
@@ -64,15 +62,6 @@ public class SitterDto implements Momento<String> {
         this.principal = principal;
     }
 
-    public void setAvailability(Availability[] availability) {
-        this.availability = availability;
-    }
-
-    public void addAvailability(LocalDateTime start, LocalDateTime end) {
-        availableTimes++;
-        availability[availableTimes].setStart(start);
-        availability[availableTimes].setEnd(end);
-    }
 
     @JsonIgnore
     @Override
@@ -89,32 +78,3 @@ public class SitterDto implements Momento<String> {
     }
 }
 
-class Availability {
-    private LocalDateTime start;
-    private LocalDateTime end;
-
-    Availability() {
-
-    }
-
-    Availability(LocalDateTime start, LocalDateTime end) {
-        setStart(start);
-        setEnd(end);
-    }
-
-    public LocalDateTime getStart() {
-        return start;
-    }
-
-    public void setStart(LocalDateTime start) {
-        this.start = start;
-    }
-
-    public LocalDateTime getEnd() {
-        return end;
-    }
-
-    public void setEnd(LocalDateTime end) {
-        this.end = end;
-    }
-}

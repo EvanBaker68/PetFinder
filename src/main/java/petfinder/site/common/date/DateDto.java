@@ -9,28 +9,29 @@ import java.util.Date;
 import java.time.LocalDate;
 public class DateDto implements Identifiable {
     private Long id;
-    private Date date;
-    private LocalDate startTime;
-    private LocalDate endTime;
+    private String startDate;
+    private String endDate;
     private String sitterPrinciple;
 
-    public DateDto(Long id, Date date, LocalDate startTime, LocalDate endTime, String sitterPrinciple) throws ValidationException {
-       /* this.id = id;
-        this.date = date;
-        this.startTime = startTime;
-        this.endTime = endTime;
-        this.sitterPrinciple = sitterPrinciple;*/
-       if(startTime.isAfter(endTime)){
-           throw new ValidationException("DateDto", "startTime was set to after endTime");
-       }
-       setDate(date);
-       setId(id);
-       setSitterPrinciple(sitterPrinciple);
-       setStartTime(startTime);
-       setEndTime(endTime);
+    public DateDto(String startDate, String endDate, String sitterPrinciple) {
+        this.startDate = startDate;
+        this.endDate = endDate;
+        this.sitterPrinciple = sitterPrinciple;
     }
 
-    public DateDto() {}
+    public DateDto(Long id, String startDate, String endDate, String sitterPrinciple) throws ValidationException {
+        setId(id);
+        setStartDate(startDate);
+        setEndDate(endDate);
+        setSitterPrinciple(sitterPrinciple);
+    }
+
+
+    public DateDto() {
+        Long randomId = new Long(100);
+        this.id = randomId;
+    }
+
 
 
     @Override
@@ -45,44 +46,26 @@ public class DateDto implements Identifiable {
         }
         this.id = id;
     }
-
-    public Date getDate() {
-        Date temp = date;
-        return temp;
+    public String getStartDate() {
+        return startDate;
     }
 
-    public void setDate(Date date) throws ValidationException{
-        if(date == null){
-            throw new ValidationException("setDate", "setDate was given null");
-        } else if (date.before(new Date())){
-            throw new ValidationException("setDate", "was given a date that is not valid");
+    public void setStartDate(String startDate) throws ValidationException{
+        if(startDate == null){
+            throw new ValidationException("setStartDate", "was set to null");
         }
-        this.date = date;
+        this.startDate = startDate;
     }
 
-    public LocalDate getStartTime() {
-        LocalDate temp = startTime;
-        return temp;
+    public String getEndDate() {
+        return endDate;
     }
 
-    public void setStartTime(LocalDate startTime) throws ValidationException{
-        if(startTime == null){
-            throw new ValidationException("setStartTime", "was given a null value");
+    public void setEndDate(String endDate) throws ValidationException {
+        if(endDate == null){
+            throw new ValidationException("setEndDate", "was set to null");
         }
-
-        this.startTime = startTime;
-    }
-
-    public LocalDate getEndTime() {
-        LocalDate temp = endTime;
-        return temp;
-    }
-
-    public void setEndTime(LocalDate endTime) throws ValidationException{
-        if(endTime == null){
-            throw new ValidationException("setEndTime", "was given a null value");
-        }
-        this.endTime = endTime;
+        this.endDate = endDate;
     }
 
     public String getSitterPrinciple() {

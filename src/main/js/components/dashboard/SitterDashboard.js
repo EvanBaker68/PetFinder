@@ -15,17 +15,9 @@ import MenuIcon from '@material-ui/icons/Menu';
 import ChevronLeftIcon from '@material-ui/icons/ChevronLeft';
 import NotificationsIcon from '@material-ui/icons/Notifications';
 import { mainListItems, secondaryListItems } from 'js/components/dashboard/listItems';
-import PetCard from 'js/components/pets/petCard';
-import AddPet from 'js/components/pets/addPetForm';
-import CardActionArea from '@material-ui/core/CardActionArea/CardActionArea';
-import CardMedia from '@material-ui/core/CardMedia/CardMedia';
-import Image from 'js/images/dog1.jpeg';
-import CardContent from '@material-ui/core/CardContent/CardContent';
-import CardActions from '@material-ui/core/CardActions/CardActions';
-import EditPet from 'js/components/pets/editPetForm';
-import Button from '@material-ui/core/Button/Button';
-import Card from '@material-ui/core/Card/Card';
-import axios from 'axios';
+import PreviousJobsTable from 'js/components/dashboard/PreviousJobsTable';
+import {SitterMenuList} from 'js/components/dashboard/SitterMenuList';
+import RequestsTable from 'js/components/dashboard/requestsTable';
 
 const drawerWidth = 240;
 
@@ -99,39 +91,14 @@ const styles = theme => ({
         marginLeft: -22,
     },
     tableContainer: {
-        height: 320,
-    },
-    card: {
-        marginTop: 75,
-        maxWidth: 345,
-    },
-    media: {
-        objectFit: 'cover',
+        height: 200,
     },
 });
 
-class PetPage extends React.Component {
+class Dashboard extends React.Component {
     state = {
         open: true,
     };
-
-    componentDidMount() {
-        const petId = 1;
-        const endpoint = '/pet/' + petId;
-
-        axios.get('/pet/' + petId, petId)
-            .then(res => {
-                this.setState({
-                    name: res.name,
-                    age: res.age,
-                    dogBreed: res.dogBreed,
-                    petId: res.petId,
-                    ownerPrinciple: res.ownerPrinciple,
-                    petType: res.petType});
-            }).then(response => console.log(response))
-            .catch(error => this.setState({error}));
-
-    }
 
     handleDrawerOpen = () => {
         this.setState({ open: true });
@@ -165,7 +132,7 @@ class PetPage extends React.Component {
                                 <MenuIcon />
                             </IconButton>
                             <Typography variant="display2" color="inherit" noWrap className={classes.title}>
-                                My Pets
+                                Sitter Dashboard
                             </Typography>
                             <IconButton color="inherit">
                                 <Badge badgeContent={4} color="secondary">
@@ -187,15 +154,23 @@ class PetPage extends React.Component {
                             </IconButton>
                         </div>
                         <Divider />
-                        <List>{mainListItems}</List>
+                        <List>{SitterMenuList}</List>
                     </Drawer>
                     <main className={classes.content}>
-                        <Card className={classes.card}>
-                            <CardActions>
-                                <EditPet/>
-                            </CardActions>
-                        </Card>
-                        <AddPet/>
+                        <div className={classes.appBarSpacer} />
+                        <Typography variant="display1" gutterBottom>
+                            Requests
+                        </Typography>
+                        <div className={classes.tableContainer}>
+                            <RequestsTable />
+                        </div>
+                        <div className={classes.appBarSpacer} />
+                        <Typography variant="display1" gutterBottom>
+                            Previous Jobs
+                        </Typography>
+                        <div className={classes.tableContainer}>
+                            <PreviousJobsTable />
+                        </div>
                     </main>
                 </div>
             </React.Fragment>
@@ -203,8 +178,8 @@ class PetPage extends React.Component {
     }
 }
 
-PetPage.propTypes = {
+Dashboard.propTypes = {
     classes: PropTypes.object.isRequired,
 };
 
-export default withStyles(styles)(PetPage);
+export default withStyles(styles)(Dashboard);
