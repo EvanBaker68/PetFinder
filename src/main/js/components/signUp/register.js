@@ -190,6 +190,9 @@ RegisterForm = connect(
 
     }),
     dispatch => ({
+		//TODO: In complete registration, set a field in user specifying if it is an owner,
+		//sitter, or both. Then, if you try to log in as something you're not, you will
+		//be refused access.
         register: (user) => dispatch(Users.Actions.register(user))
 		// register: (user) => dispatch(Users.Actions.register(user))
     })

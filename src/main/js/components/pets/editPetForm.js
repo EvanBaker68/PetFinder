@@ -12,11 +12,11 @@ export default class FormDialog extends React.Component {
     state = {
         open: false,
         name: '',
-        petType: '',
-        dogBreed: '',
-        age: '',
+        age: 0,
         petId: 0,
-        ownerPrinciple: ''
+        dogBreed: '',
+        ownerPrinciple: '',
+        pets: []
     };
 
     constructor(props) {
@@ -24,15 +24,28 @@ export default class FormDialog extends React.Component {
     }
 
     componentDidMount() {
-        const petId = 1;
-        const endpoint = '/pet/' + petId;
-        console.log(endpoint);
-        axios.get('/pet/' + petId, petId)
-            .then(res=> {
-                const pets = res.data;
-                this.setState({pets});
-            });
-    }
+		const petId = 1;
+		const endpoint = '/pet/' + petId;
+		console.log(endpoint);
+		axios.get('/pet/' + petId, petId)
+			.then(res => res.data.results.map(pet =>
+				({
+					name: '${pet.name}',
+					petType: '${pet.petType}',
+					dogBreed: '${pet.dogBreed}',
+					age: '${pet.age}',
+					petId: '${pet.petId}',
+					ownerPrinciple: '${pet.ownerPrinciple}'
+				}))
+			).then(pets => {
+			this.setState({
+				pets
+			});
+		}).then(response => console.log(response))
+			.catch(error => this.setState({error}));
+
+	}
+
 
     handleClickOpen = () => {
         this.setState({ open: true });
@@ -43,7 +56,14 @@ export default class FormDialog extends React.Component {
     };
 
     render() {
+        const { pets } = this.state;
+        // console.log(pets);
+		// pets.map(pet => {
+		// 	const { name, petType, dogBreed, petId, ownerPrinciple } = pet;
+		// 	this.setState({name: name, dogBreed: dogBreed, petId: petId, petType: petType, ownerPrinciple: ownerPrinciple});
+		// });
         return (
+
             <div>
                 <ul>
                     <li>{this.state.name}</li>
@@ -57,7 +77,7 @@ export default class FormDialog extends React.Component {
                     <DialogTitle id="form-dialog-title">Edit Pet</DialogTitle>
                     <DialogContent>
                         <DialogContentText>
-                            Change {this.state.name}'s details
+                            Change {this.state.dogBreed}'s details
                         </DialogContentText>
                         <TextField
                             autoFocus
@@ -65,6 +85,7 @@ export default class FormDialog extends React.Component {
                             id="name"
                             label="name"
                             type="name"
+                            value={this.state.age}
                             fullWidth
                         />
                         <TextField

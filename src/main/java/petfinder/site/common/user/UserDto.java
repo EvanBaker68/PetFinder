@@ -12,7 +12,8 @@ public class UserDto implements Momento<String> {
     private List<String> roles;
     private UserType type;
     private Map<String, Object> attributes;
-
+    //TODO: add isOwner and isSitter to tell if the user can sign in as an owner or sitter,
+    //and a cookie will be set to be used for the switch to owner/sitter button on the dash
 
     private String phoneNumber;
     private String name;
