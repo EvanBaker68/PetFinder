@@ -21,6 +21,7 @@ import SearchIcon from '@material-ui/icons/Search';
 import ProfileForm from 'js/components/profile/ProfileForm';
 import Paper from '@material-ui/core/Paper';
 import Image from 'js/images/homeDog.jpg';
+import SitterProfileForm from 'js/components/profile/sitterProfileForm';
 
 const drawerWidth = 240;
 
@@ -168,6 +169,7 @@ class Profile extends React.Component {
                             Bobby
                         </Typography>
                         <ProfileForm/>
+                        <SitterProfileForm/>
                     </main>
                 </div>
             </React.Fragment>

@@ -4,6 +4,7 @@ import classNames from 'classnames';
 import { withStyles } from '@material-ui/core/styles';
 import MenuItem from '@material-ui/core/MenuItem';
 import TextField from '@material-ui/core/TextField';
+import Button from '@material-ui/core/Button';
 
 const styles = theme => ({
     container: {
@@ -25,8 +26,10 @@ const styles = theme => ({
 
 class ProfileForm extends React.Component {
     state = {
-        firstName: 'Bobby',
-        lastName: 'B'
+        firstName: '',
+        lastName: '',
+        address: '',
+        phoneNumber: '(000)000-0000'
     };
 
     handleChange = name => event => {
@@ -39,13 +42,14 @@ class ProfileForm extends React.Component {
         const { classes } = this.props;
 
         return (
+            <div>
             <form className={classes.container} noValidate autoComplete="off">
                 <TextField
                     id="standard-name"
                     label="Name"
                     className={classes.textField}
-                    value={this.state.firstname}
-                    onChange={this.handleChange('firstname')}
+                    value={this.state.firstName}
+                    onChange={this.handleChange('firstName')}
                     margin="normal"
                 />
                 <TextField
@@ -53,7 +57,7 @@ class ProfileForm extends React.Component {
                     label="Last Name"
                     className={classes.textField}
                     value={this.state.lastName}
-                    onChange={this.handleChange('lastname')}
+                    onChange={this.handleChange('lastName')}
                     margin="normal"
                 />
                 <TextField
@@ -67,41 +71,16 @@ class ProfileForm extends React.Component {
                 />
                 <TextField
                     id="outlined-name"
-                    label="City"
+                    label="Phone"
                     className={classes.textField}
-                    value={this.state.name}
-                    onChange={this.handleChange('city')}
-                    margin="normal"
-                    variant="standard"
-                />
-                <TextField
-                    id="outlined-name"
-                    label="State"
-                    className={classes.textField}
-                    value={this.state.name}
-                    onChange={this.handleChange('state')}
-                    margin="normal"
-                    variant="standard"
-                />
-                <TextField
-                    id="outlined-name"
-                    label="Zip Code"
-                    className={classes.textField}
-                    value={this.state.name}
-                    onChange={this.handleChange('zipCode')}
-                    margin="normal"
-                    variant="standard"
-                />
-                <TextField
-                    id="outlined-name"
-                    label="Phone Number"
-                    className={classes.textField}
-                    value={this.state.name}
-                    onChange={this.handleChange('phone')}
+                    value={this.state.phoneNumber}
+                    onChange={this.handleChange('phoneNumber')}
                     margin="normal"
                     variant="standard"
                 />
             </form>
+                <Button>Save User Info</Button>
+            </div>
         );
     }
 }
