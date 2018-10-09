@@ -28,6 +28,7 @@ public class UserEndpoint {
 
 	@PostMapping(value = "/register", produces = "application/json", consumes = "application/json")
 	public UserDto register(@RequestBody RegistrationRequest request) {
+		System.out.println("heyyyyyy");
 		return userService.register(request);
 	}
 

@@ -29,10 +29,10 @@ const styles = theme => ({
 
 class OutlinedTextFields extends React.Component {
     state = {
-        firstname: '',
-        lastname: '',
+        firstName: '',
+        lastName: '',
         address: '',
-        phone: '(000)000-0000'
+        phoneNumber: '(000)000-0000'
     };
 
     handleChange = name => event => {
@@ -65,7 +65,7 @@ class OutlinedTextFields extends React.Component {
                     label="First Name"
                     className={classes.textField}
                     value={this.state.name}
-                    onChange={this.handleChange('firstname')}
+                    onChange={this.handleChange('firstName')}
                     margin="normal"
                     variant="standard"
                 />
@@ -74,7 +74,7 @@ class OutlinedTextFields extends React.Component {
                     label="Last Name"
                     className={classes.textField}
                     value={this.state.name}
-                    onChange={this.handleChange('lastname')}
+                    onChange={this.handleChange('lastName')}
                     margin="normal"
                     variant="standard"
                 />
@@ -92,7 +92,7 @@ class OutlinedTextFields extends React.Component {
                     label="Phone Number"
                     className={classes.textField}
                     value={this.state.name}
-                    onChange={this.handleChange('phone')}
+                    onChange={this.handleChange('phoneNumber')}
                     margin="normal"
                     variant="standard"
                 />
