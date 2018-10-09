@@ -53,6 +53,17 @@ class OutlinedTextFields extends React.Component {
 			});
 	};
 
+	componentDidMount() {
+		const cookies = new Cookies();
+		axios.get('/pet/' + cookies.get('username'), cookies.get('username'))
+			.then(res => {
+				this.setState({
+					numPets: res.numPets});
+			}).then(response => console.log(response))
+			.catch(error => this.setState({error}));
+	}
+
+
     render() {
         const { classes } = this.props;
 
