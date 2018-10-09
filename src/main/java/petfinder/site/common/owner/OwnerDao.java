@@ -17,8 +17,8 @@ public class OwnerDao {
     @Autowired
     private OwnerElasticSearchRepository repository;
 
-    public Optional<OwnerDto> findOwner(String id){
-        return repository.find(id);
+    public Optional<OwnerDto> findOwner(String principal){
+        return repository.find(principal);
     }
 
     public void save(OwnerDto ownerDto){
