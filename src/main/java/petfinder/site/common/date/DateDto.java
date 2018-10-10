@@ -23,8 +23,7 @@ public class DateDto implements Identifiable {
     }
 
 
-
-    public DateDto()  throws ValidationException{
+    public DateDto() throws ValidationException {
         Long randomId = new Long(100);
         this.id = randomId;
     }
@@ -40,42 +39,41 @@ public class DateDto implements Identifiable {
     }
 
     public void setStartDate(String startDate) throws ValidationException {
-        if(startDate == null){
+        if (startDate == null) {
             throw new ValidationException("setStartDate", "given a null");
         }
         this.startDate = startDate;
     }
 
-    public String getEndDate(){
+    public String getEndDate() {
         return endDate;
     }
 
     public void setEndDate(String endDate) throws ValidationException {
-        if(endDate == null){
+        if (endDate == null) {
             throw new ValidationException("setEndDate", "given a null");
         }
         this.endDate = endDate;
     }
 
-    public String getSitterPrinciple(){
+    public String getSitterPrinciple() {
         return sitterPrinciple;
     }
 
     public void setSitterPrinciple(String sitterPrinciple) throws ValidationException {
-        if(sitterPrinciple == null){
+        if (sitterPrinciple == null) {
             throw new ValidationException("setSitterPrinciple", "given a null");
-        } else if(!sitterPrinciple.matches(".+\\@.+\\..+")){
+        } else if (!sitterPrinciple.matches(".+\\@.+\\..+")) {
             throw new ValidationException("setSitterPrinciple", "given a bad value");
         }
         this.sitterPrinciple = sitterPrinciple;
     }
 
-    public void setId(Long id) throws ValidationException{
-        if(id == null){
+    public void setId(Long id) throws ValidationException {
+        if (id == null) {
             throw new ValidationException("setId", "given a null");
-        } else if(id <= 0){
+        } else if (id <= 0) {
             throw new ValidationException("setId", "given a invalid Function");
         }
     }
-
 }

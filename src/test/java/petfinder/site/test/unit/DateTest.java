@@ -12,7 +12,7 @@ public class DateTest {
 
         @Test
         @DisplayName("Test constructor equals and null")
-        void testConstructor() throws ValidationException{
+        void testConstructor() throws ValidationException {
             DateDto date = new DateDto("1/1/17", "1/8/17", "drewb97@gmail.com");
             assertNotNull(date);
         }
@@ -49,5 +49,4 @@ public class DateTest {
             });
         }
     }
-
 }
