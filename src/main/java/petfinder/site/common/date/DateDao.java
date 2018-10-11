@@ -1,10 +1,7 @@
 package petfinder.site.common.date;
 
 import org.elasticsearch.index.query.QueryBuilders;
-<<<<<<< HEAD
-=======
 import org.elasticsearch.search.builder.SearchSourceBuilder;
->>>>>>> master
 import petfinder.site.elasticsearch.DateElasticSearchRepository;
 import alloy.elasticsearch.ElasticSearchClientProvider;
 import org.springframework.beans.factory.annotation.Autowired;
