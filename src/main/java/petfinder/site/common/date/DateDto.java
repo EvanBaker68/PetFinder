@@ -4,26 +4,20 @@ import alloy.util.Identifiable;
 
 import java.util.Date;
 
+
 public class DateDto implements Identifiable {
     private Long id;
-    private String startDate;
-    private String endDate;
+    private Date startDate;
+    private Date endDate;
     private String sitterPrinciple;
 
-    /*public DateDto(String startDate, String endDate, String sitterPrinciple) {
+    public DateDto(Date startDate, Date endDate, String sitterPrinciple) {
         this.startDate = startDate;
         this.endDate = endDate;
         this.sitterPrinciple = sitterPrinciple;
-    }*/
-
-    public DateDto(String startDate, String endDate, String sitterPrinciple) throws IllegalArgumentException {
-        setSitterPrinciple(sitterPrinciple);
-        setEndDate(endDate);
-        setStartDate(startDate);
     }
 
-
-    public DateDto() throws IllegalArgumentException {
+    public DateDto() {
         Long randomId = new Long(100);
         this.id = randomId;
     }
@@ -34,25 +28,19 @@ public class DateDto implements Identifiable {
         return id;
     }
 
-    public String getStartDate() {
+    public Date getStartDate() {
         return startDate;
     }
 
-    public void setStartDate(String startDate) throws IllegalArgumentException {
-        if(startDate == null){
-            throw new IllegalArgumentException("setStartDate given a null value");
-        }
+    public void setStartDate(Date startDate) {
         this.startDate = startDate;
     }
 
-    public String getEndDate() {
+    public Date getEndDate() {
         return endDate;
     }
 
-    public void setEndDate(String endDate) throws IllegalArgumentException {
-        if (endDate == null) {
-            throw new IllegalArgumentException("setEndDate given a null");
-        }
+    public void setEndDate(Date endDate) {
         this.endDate = endDate;
     }
 
@@ -60,21 +48,7 @@ public class DateDto implements Identifiable {
         return sitterPrinciple;
     }
 
-    public void setSitterPrinciple(String sitterPrinciple) throws IllegalArgumentException {
-        if (sitterPrinciple == null) {
-            throw new IllegalArgumentException("setSitterPrinciple given a null");
-        } else if (!sitterPrinciple.matches(".+\\@.+\\..+")) {
-            throw new IllegalArgumentException("setSitterPrinciple given a bad value");
-        }
+    public void setSitterPrinciple(String sitterPrinciple) {
         this.sitterPrinciple = sitterPrinciple;
-    }
-
-    public void setId(Long id) throws IllegalArgumentException {
-        if (id == null) {
-            throw new IllegalArgumentException("setId given a null");
-        } else if (id <= 0) {
-            throw new IllegalArgumentException("setId given a invalid Function");
-        }
-        this.id = id;
     }
 }
