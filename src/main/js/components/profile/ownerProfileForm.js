@@ -40,8 +40,9 @@ class ProfileForm extends React.Component {
 	componentDidMount() {
 		const cookies = new Cookies();
 		const principal = cookies.get('username');
+		var formattedPrincipal = principal.replace(/@/g, "%40");
 
-		axios.get('/owner/' + principal, principal)
+		axios.get('/owner/' + formattedPrincipal, formattedPrincipal)
 			.then(res => {
 				this.setState({
 					numPets: res.numPets});
@@ -52,7 +53,7 @@ class ProfileForm extends React.Component {
 	handleAddClose = () => {
 		const cookies = new Cookies();
 		const owner = {
-			principal: cookies.get('username'),
+			principal: cookies.get('username').replace(/@/g, "%40"),
 			numPets: this.state.numPets
 		};
 		axios.post('/owner/add-owner', owner)

@@ -5,6 +5,8 @@ import { withStyles } from '@material-ui/core/styles';
 import MenuItem from '@material-ui/core/MenuItem';
 import TextField from '@material-ui/core/TextField';
 import Button from '@material-ui/core/Button';
+import Cookies from 'universal-cookie';
+import axios from 'axios/index';
 
 const styles = theme => ({
     container: {
@@ -37,6 +39,20 @@ class ProfileForm extends React.Component {
             [name]: event.target.value,
         });
     };
+
+	componentDidMount() {
+		const cookies = new Cookies();
+
+		axios.get('/api/user')
+			.then(res => {
+				this.setState({
+					firstName: res.firstName,
+                    lastName: res.lastName,
+                    address: res.address,
+                    phoneNumber: res.phoneNumber});
+			}).then(response => console.log(response))
+			.catch(error => this.setState({error}));
+	}
 
     render() {
         const { classes } = this.props;

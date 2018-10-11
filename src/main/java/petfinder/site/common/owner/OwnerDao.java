@@ -19,7 +19,15 @@ public class OwnerDao {
 
     public Optional<OwnerDto> findOwner(String principal){
         return repository.find(principal);
+
+//        SearchSourceBuilder searchSourceBuilder = new SearchSourceBuilder();
+//
+//        String queryString = String.format("owner.principal=\"%s\"", principal.replace("\"", ""));
+//        searchSourceBuilder.query(QueryBuilders.queryStringQuery(queryString));
+//
+//        return repository.search(searchSourceBuilder).stream().findFirst();
     }
+
 
     public void save(OwnerDto ownerDto){
         repository.save(ownerDto);
