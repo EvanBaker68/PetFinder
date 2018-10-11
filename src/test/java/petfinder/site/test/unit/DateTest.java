@@ -2,6 +2,9 @@ package petfinder.site.test.unit;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Nested;
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.DisplayName;
+import org.junit.jupiter.api.Nested;
 import petfinder.site.ValidationException;
 import petfinder.site.common.date.DateDto;
 import static org.junit.jupiter.api.Assertions.*;
@@ -9,8 +12,6 @@ public class DateTest {
 
     @Nested
     class TestBasicDate {
-
-
         @Test
         @DisplayName("Test constructor equals and null")
         void testConstructor() throws ValidationException {
