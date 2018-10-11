@@ -1,6 +1,7 @@
 package petfinder.site.common.owner;
 
 import alloy.util.Momento;
+import com.sun.org.apache.xpath.internal.operations.Bool;
 import org.codehaus.jackson.annotate.JsonIgnore;
 
 
@@ -12,6 +13,7 @@ public class OwnerDto implements Momento<String> {
     private Long[] currentBookings;
     private Long[] pastBookings;
     private Long[] petIds;
+    private Boolean isDeleted;
 
     public OwnerDto() {
     }

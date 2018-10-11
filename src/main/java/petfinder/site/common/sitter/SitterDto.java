@@ -3,6 +3,7 @@ package petfinder.site.common.sitter;
 import alloy.util.Momento;
 import org.codehaus.jackson.annotate.JsonIgnore;
 
+import javax.swing.text.StyledEditorKit;
 import java.time.LocalDateTime;
 
 public class SitterDto implements Momento<String> {
@@ -11,11 +12,12 @@ public class SitterDto implements Momento<String> {
     private Long[] currentBookings;
     private Long[] pastBookings;
     private Long[] datesAvailable;
-    private double rate;
+    private Double rate;
+    private Boolean isDeleted;
 
 
     //Main Constructor
-    public SitterDto(String principal, double rate) {
+    public SitterDto(String principal, Double rate) {
         setPrincipal(principal);
         setRate(rate);
     }
@@ -45,7 +47,7 @@ public class SitterDto implements Momento<String> {
         return principal;
     }
 
-    public double getRate() { return rate; }
+    public Double getRate() { return rate; }
 
     public void setRate(double rate) { this.rate = rate; }
 
