@@ -10,8 +10,8 @@ public class OwnerService {
     @Autowired
     OwnerDao ownerDao;
 
-    public Optional<OwnerDto> findOwner(String id){
-        return ownerDao.findOwner(id);
+    public Optional<OwnerDto> findOwner(String principal){
+        return ownerDao.findOwner(principal);
     }
 
     public void save(OwnerDto ownerDto){

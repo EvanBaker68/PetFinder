@@ -9,6 +9,7 @@ import CardMedia from '@material-ui/core/CardMedia';
 import Button from '@material-ui/core/Button';
 import Typography from '@material-ui/core/Typography';
 import Image from 'js/images/dog1.jpeg';
+import EditPet from 'js/components/pets/editPetForm';
 
 const styles = {
     card: {
@@ -42,9 +43,7 @@ function PetCard(props) {
                 </CardContent>
             </CardActionArea>
             <CardActions>
-                <Button size="small" color="secondary">
-                    Edit
-                </Button>
+                <EditPet/>
                 <Button size="small" color="secondary">
                     Delete
                 </Button>

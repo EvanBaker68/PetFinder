@@ -5,11 +5,17 @@ import { Link } from 'react-router-dom';
 import { connect } from 'react-redux';
 import * as Users from 'js/users';
 import * as Login from 'js/login';
-import Dashboard from 'js/components/OwnerDash';
-import SignIn from 'js/components/signUp/register';
-import CompleteRegistration from 'js/components/signUp/completeRegistration';
+import OwnerDashboard from 'js/components/OwnerDash';
+import SitterDashBoard from 'js/components/dashboard/SitterDashboard';
+import Register from 'js/components/signUp/register';
+import SignIn from 'js/components/signIn/SignIn';
+import OwnerCompleteRegistration from 'js/components/signUp/ownerCompleteRegistration';
+import SitterCompleteRegistration from 'js/components/signUp/sitterCompleteRegistration';
 import HomePage from 'js/components/home';
 import PetPage from 'js/components/pets/petPage';
+import OwnerProfile from 'js/components/profile/ProfilePage';
+import SitterProfile from 'js/components/profile/sitterProfilePage';
+import SitterTimeTable from 'js/components/scheduling/sitterTimeTable';
 
 export class Home extends React.Component {
 	render() {
@@ -41,51 +47,64 @@ export class NewRegisterPage extends React.Component {
 	render() {
 		return (
 			<div>
+				<Register/>
+			</div>
+		);
+	}
+}
+
+export class ownerCompleteRegisterPage extends React.Component {
+	render() {
+		return (
+			<div>
+				<OwnerCompleteRegistration/>
+			</div>
+		);
+	}
+}
+
+export class sitterCompleteRegisterPage extends React.Component {
+    render() {
+        return (
+            <div>
+                <SitterCompleteRegistration/>
+            </div>
+        );
+    }
+}
+
+export class LoginPage extends React.Component {
+	render() {
+		return (
+			<div>
 				<SignIn/>
 			</div>
 		);
 	}
 }
 
-export class CompleteRegisterPage extends React.Component {
-	render() {
-		return (
-			<div>
-				<CompleteRegistration/>
-			</div>
-		);
-	}
-}
+// export class LoginPage extends React.Component {
+// 	render() {
+// 		return (
+// 			<div className="container padded">
+// 				<div className="row">
+// 					<div className="col-6 offset-md-3">
+// 						<h2>Login</h2>
+// 						<hr />
+// 						<Login.LoginForm />
+// 					</div>
+// 				</div>
+// 			</div>
+// 		);
+// 	}
+// }
 
-export class LoginPage extends React.Component {
-	render() {
-		return (
-			<div className="container padded">
-				<div className="row">
-					<div className="col-6 offset-md-3">
-						<h2>Login</h2>
-						<hr />
-						<Login.LoginForm />
-					</div>
-				</div>
-			</div>
-		);
-	}
-}
+
 class sitterDash extends React.Component {
 	render() {
 		return (
-			<div className="container padded">
-				Welcome to sitter dashboard
-
-				{ _.isDefined(this.props.user) &&
-				<div>User: {this.props.user.principal}!</div>
-				}
-
-				<ul>
-					<li><Link to="/ownerDash">Go to owner view</Link></li>
-					<li><Link to="/sitterProfile">Your Profile</Link></li>
-				</ul>
+			<div>
+				<SitterDashBoard/>
 			</div>
 		);
 	}
@@ -104,7 +123,7 @@ class ownerDash extends React.Component {
 	render() {
 		return (
 			<div>
-				<Dashboard />
+				<OwnerDashboard />
 			</div>
 		);
 	}
@@ -116,7 +135,7 @@ export class ownerProfile extends React.Component {
 	render() {
 		return (
 			<div>
-				Profile
+				<OwnerProfile/>
 			</div>
 		);
 	}
@@ -125,8 +144,18 @@ export class ownerProfile extends React.Component {
 export class sitterProfile extends React.Component {
 	render() {
 		return (
-			<div className="container padded">
-				Here is your sitter Profile:
+			<div>
+				<SitterProfile/>
+			</div>
+		);
+	}
+}
+
+export class sitterTimeTable extends React.Component {
+	render() {
+		return (
+			<div>
+				<SitterTimeTable/>
 			</div>
 		);
 	}

@@ -37,19 +37,15 @@ function getStepContent(step) {
 	switch (step) {
 		case 0:
 			return (
-				<div>
 					<OutlinedTextFields/>
-				</div>
 			);
 		case 1:
 			return (
-				<div>
 					<OutlinedTextFields/>
-				</div>
 			);
 		case 2:
 			return (
-				<div>
+				<form>
 					<Typography variant="caption">Optional: upload a profile picture from your computer</Typography>
 					<input
 						accept="image/*"
@@ -62,7 +58,7 @@ function getStepContent(step) {
 							Upload
 						</Button>
 					</label>
-				</div>
+				</form>
 			);
 		default:
 			return 'Unknown step';

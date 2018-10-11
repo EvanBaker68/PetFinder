@@ -1,25 +1,33 @@
 package petfinder.site.common.date;
 
 import alloy.util.Identifiable;
+
 import java.util.Date;
-import java.time.LocalDate;
+
 public class DateDto implements Identifiable {
 
     private Long id;
-    private Date date;
-    private LocalDate startTime;
-    private LocalDate endTime;
+    private String startDate;
+    private String endDate;
     private String sitterPrinciple;
 
-    public DateDto(Long id, Date date, LocalDate startTime, LocalDate endTime, String sitterPrinciple) {
-        this.id = id;
-        this.date = date;
-        this.startTime = startTime;
-        this.endTime = endTime;
+    /*public DateDto(String startDate, String endDate, String sitterPrinciple) {
+        this.startDate = startDate;
+        this.endDate = endDate;
         this.sitterPrinciple = sitterPrinciple;
+    }*/
+
+    public DateDto(String startDate, String endDate, String sitterPrinciple) throws IllegalArgumentException {
+        setSitterPrinciple(sitterPrinciple);
+        setEndDate(endDate);
+        setStartDate(startDate);
     }
 
-    public DateDto() {}
+
+    public DateDto() throws IllegalArgumentException {
+        Long randomId = new Long(100);
+        this.id = randomId;
+    }
 
 
     @Override
@@ -27,39 +35,47 @@ public class DateDto implements Identifiable {
         return id;
     }
 
-    public void setId(Long id) {
-        this.id = id;
+    public String getStartDate() {
+        return startDate;
     }
 
-    public Date getDate() {
-        return date;
+    public void setStartDate(String startDate) throws IllegalArgumentException {
+        if(startDate == null){
+            throw new IllegalArgumentException("setStartDate given a null value");
+        }
+        this.startDate = startDate;
     }
 
-    public void setDate(Date date) {
-        this.date = date;
+    public String getEndDate() {
+        return endDate;
     }
 
-    public LocalDate getStartTime() {
-        return startTime;
-    }
-
-    public void setStartTime(LocalDate startTime) {
-        this.startTime = startTime;
-    }
-
-    public LocalDate getEndTime() {
-        return endTime;
-    }
-
-    public void setEndTime(LocalDate endTime) {
-        this.endTime = endTime;
+    public void setEndDate(String endDate) throws IllegalArgumentException {
+        if (endDate == null) {
+            throw new IllegalArgumentException("setEndDate given a null");
+        }
+        this.endDate = endDate;
     }
 
     public String getSitterPrinciple() {
         return sitterPrinciple;
     }
 
-    public void setSitterPrinciple(String sitterPrinciple) {
+    public void setSitterPrinciple(String sitterPrinciple) throws IllegalArgumentException {
+        if (sitterPrinciple == null) {
+            throw new IllegalArgumentException("setSitterPrinciple given a null");
+        } else if (!sitterPrinciple.matches(".+\\@.+\\..+")) {
+            throw new IllegalArgumentException("setSitterPrinciple given a bad value");
+        }
         this.sitterPrinciple = sitterPrinciple;
+    }
+
+    public void setId(Long id) throws IllegalArgumentException {
+        if (id == null) {
+            throw new IllegalArgumentException("setId given a null");
+        } else if (id <= 0) {
+            throw new IllegalArgumentException("setId given a invalid Function");
+        }
+        this.id = id;
     }
 }

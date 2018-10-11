@@ -1,8 +1,9 @@
 import axios from 'axios';
 import Cookies from 'universal-cookie';
 export function register(user) {
+	console.log('beginning');
     var temp = axios.post('/api/user/register', user);
-
+	console.log('end');
     //const cookies = new Cookies();
     //cookies.set('loggedIn', 'false', { path: '/' });
     //console.log(cookies.get('loggedIn'));
@@ -53,7 +54,8 @@ Actions.Types = {
 	SET_USER: 'SET_USER'
 };
 
-Actions.register = user => {
+Actions.register = (user) => {
+	console.log('in register');
 	return (dispatch) => {
 		return register(user).then(() => {
 			return dispatch(Actions.authenticate(user.principal, user.password));
@@ -63,12 +65,17 @@ Actions.register = user => {
 
 Actions.authenticate = (username, password) => {
 	return (dispatch) => {
+		console.log('heyyyy', username, password);
 		return authenticate(username, password).then(
 			authentication => {
+
 			    const cookies = new Cookies();
 			    cookies.set('username', username, { path: '/'  });
+			    cookies.set('password', password, { path: '/'  });
 			    cookies.set('auth', authentication, { path: '/' });
 			    cookies.set('loggedIn', 'true', { path: '/' });
+				console.log('made it in');
+			    // callFunc();
                 //console.log(cookies.get('loggedIn'));
                 //console.log(username);
                 //console.log(authentication);
@@ -78,13 +85,18 @@ Actions.authenticate = (username, password) => {
 					dispatch(Actions.setUser(user));
 				});
 			}
-		);
+		)
+		.catch( function(e) { console.log('catching error authenticating'); });
 	};
 };
 
 Actions.logout = () => {
 	return (dispatch) => {
+		const cookies = new Cookies();
 	    cookies.set('loggedIn', 'false', { path: '/' });
+		cookies.set('isSitter', 'false', { path: '/' });
+		cookies.set('isOwner', 'false', { path: '/' });
+		cookies.set('password', '', { path: '/'  });
 		dispatch(Actions.setAuthentication(null));
 		dispatch(Actions.setUser(null));
 	};

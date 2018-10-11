@@ -19,7 +19,8 @@ import {connect} from 'react-redux';
 import * as ReduxForm from 'redux-form';
 import * as Validation from 'js/alloy/utils/validation';
 import * as Bessemer from 'js/alloy/bessemer/components';
-import Cookies from 'react-cookie';
+import  { Redirect } from 'react-router-dom';
+import Cookies from 'universal-cookie';
 
 
 const styles = theme => ({
@@ -60,19 +61,69 @@ const styles = theme => ({
 
 class RegisterForm extends React.Component{
 
-//axios.post('/api/user/register', user);
+    constructor(props) {
+        super(props);
+        this.state = {isOwner: false, isSitter: false, redirectOwner: false, redirectSitter: false, callfunc: this.setRedirect};
+    }
 
+    componentDidMount() {
+        this.setState({redirect: false, redirectSitter: false});
+    }
+
+	setIsOwner = () => {
+		this.setState({
+			isOwner: true
+		});
+	}
+
+	setIsSitter = () => {
+		this.setState({
+			isSitter: true
+		});
+	}
+
+	setRedirect = () => {
+		if(this.state.isSitter){
+			this.setState({
+				redirectSitter: true
+			});
+		}
+		else if(this.state.isOwner){
+			this.setState({
+				redirectOwner: true
+			});
+		}
+	}
 
 	onSubmit = user => {
-        return this.props.register(user);
+		return this.props.register(user);
 	};
 
     render() {
 
         const { classes } = this.props;
         let { handleSubmit, submitting } = this.props;
+        const { redirectOwner, redirectSitter } = this.state;
+
+        const cookies = new Cookies();
+
+		if (cookies.get('loggedIn') == 'true') {
+
+			if(this.state.isOwner) {
+				cookies.set('isOwner', 'true', {path: '/'});
+				return <div><Redirect to='/ownerCompleteRegistration'/></div>;
+			}
 
 
+			else if(this.state.isSitter) {
+				cookies.set('isSitter', 'true', {path: '/'});
+				return <div><Redirect to='/sitterCompleteRegistration'/></div>;
+			}
+
+			else{
+				console.log('heyyy');
+			}
+		}
 
         return (
             <React.Fragment>
@@ -96,6 +147,7 @@ class RegisterForm extends React.Component{
                                     autoComplete="current-password"
                                 />
                             </FormControl>
+
                             <Button
                                 type="submit"
                                 loading="submitting"
@@ -103,6 +155,7 @@ class RegisterForm extends React.Component{
                                 variant="raised"
                                 color="secondary"
                                 className={classes.submit}
+								onClick={this.setIsSitter}
                             >
                                 Continue as Pet Sitter
                             </Button>
@@ -113,6 +166,8 @@ class RegisterForm extends React.Component{
                                 variant="raised"
                                 color="primary"
                                 className={classes.submit}
+								onClick={this.setIsOwner}
+
                             >
                                 Continue as Pet Owner
                             </Button>
@@ -135,7 +190,11 @@ RegisterForm = connect(
 
     }),
     dispatch => ({
-        register: user => dispatch(Users.Actions.register(user))
+		//TODO: In complete registration, set a field in user specifying if it is an owner,
+		//sitter, or both. Then, if you try to log in as something you're not, you will
+		//be refused access.
+        register: (user) => dispatch(Users.Actions.register(user))
+		// register: (user) => dispatch(Users.Actions.register(user))
     })
 )(RegisterForm);
 

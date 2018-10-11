@@ -11,14 +11,13 @@ public class SitterDto implements Momento<String> {
     private Long[] currentBookings;
     private Long[] pastBookings;
     private Long[] datesAvailable;
+    private double rate;
 
 
     //Main Constructor
-    public SitterDto(String principal, Long[] currentBookings, Long[] pastBookings, Long[] datesAvailable) {
+    public SitterDto(String principal, double rate) {
         setPrincipal(principal);
-        setCurrentBookings(currentBookings);
-        setPastBookings(pastBookings);
-        setDatesAvailable(datesAvailable);
+        setRate(rate);
     }
 
     public SitterDto() {}
@@ -46,6 +45,9 @@ public class SitterDto implements Momento<String> {
         return principal;
     }
 
+    public double getRate() { return rate; }
+
+    public void setRate(double rate) { this.rate = rate; }
 
     public void setCurrentBookings(Long[] currentBookings) {
         this.currentBookings = currentBookings;
