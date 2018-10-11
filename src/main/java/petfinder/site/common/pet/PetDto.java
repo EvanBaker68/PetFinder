@@ -1,7 +1,7 @@
 package petfinder.site.common.pet;
 
 import alloy.util.Identifiable;
-import petfinder.site.ValidationException;
+
 public class PetDto implements Identifiable {
 	private Long petId;
 	private String ownerPrinciple;

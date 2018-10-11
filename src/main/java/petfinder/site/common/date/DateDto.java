@@ -1,7 +1,7 @@
 package petfinder.site.common.date;
 
 import alloy.util.Identifiable;
-import petfinder.site.ValidationException;
+
 import java.util.Date;
 
 public class DateDto implements Identifiable {

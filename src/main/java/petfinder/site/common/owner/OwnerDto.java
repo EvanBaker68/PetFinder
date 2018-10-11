@@ -2,7 +2,7 @@ package petfinder.site.common.owner;
 
 import alloy.util.Momento;
 import org.codehaus.jackson.annotate.JsonIgnore;
-import petfinder.site.ValidationException;
+
 
 
 public class OwnerDto implements Momento<String> {
@@ -16,7 +16,7 @@ public class OwnerDto implements Momento<String> {
     public OwnerDto() {
     }
 
-    public OwnerDto(String principal, Long[] currentBookings, Long[] pastBookings, Long[] petIds, int numPets) throws ValidationException {
+    public OwnerDto(String principal, Long[] currentBookings, Long[] pastBookings, Long[] petIds, int numPets) {
         setPrincipal(principal);
         setCurrentBookings(currentBookings);
         setPastBookings(pastBookings);
@@ -44,7 +44,7 @@ public class OwnerDto implements Momento<String> {
 
     public int getNumPets() { return numPets; }
 
-    public void setNumPets(int numPets) throws ValidationException{ this.numPets = numPets; }
+    public void setNumPets(int numPets) { this.numPets = numPets; }
 
     public void setPetIds(Long[] petIds) {
         this.petIds = petIds;

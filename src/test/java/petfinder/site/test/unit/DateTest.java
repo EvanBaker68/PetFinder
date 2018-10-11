@@ -5,7 +5,6 @@ import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Nested;
-import petfinder.site.ValidationException;
 import petfinder.site.common.date.DateDto;
 import static org.junit.jupiter.api.Assertions.*;
 public class DateTest {
