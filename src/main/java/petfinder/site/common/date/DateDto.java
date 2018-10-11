@@ -2,7 +2,7 @@ package petfinder.site.common.date;
 
 import alloy.util.Identifiable;
 import petfinder.site.ValidationException;
-
+import java.util.Date;
 
 public class DateDto implements Identifiable {
     private Long id;
@@ -39,8 +39,8 @@ public class DateDto implements Identifiable {
     }
 
     public void setStartDate(String startDate) throws ValidationException {
-        if (startDate == null) {
-            throw new ValidationException("setStartDate", "given a null");
+        if(startDate == null){
+            throw new ValidationException("setStartDate", "given a null value");
         }
         this.startDate = startDate;
     }
@@ -75,5 +75,6 @@ public class DateDto implements Identifiable {
         } else if (id <= 0) {
             throw new ValidationException("setId", "given a invalid Function");
         }
+        this.id = id;
     }
 }

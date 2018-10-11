@@ -8,7 +8,8 @@ import static org.junit.jupiter.api.Assertions.*;
 public class DateTest {
 
     @Nested
-    class TestConstuctor {
+    class TestBasicDate {
+
 
         @Test
         @DisplayName("Test constructor equals and null")
