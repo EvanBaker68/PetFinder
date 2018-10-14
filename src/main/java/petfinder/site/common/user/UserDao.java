@@ -6,8 +6,8 @@ import org.elasticsearch.index.query.QueryBuilders;
 import org.elasticsearch.search.builder.SearchSourceBuilder;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
-
 import petfinder.site.elasticsearch.UserElasticSearchRepository;
+import petfinder.site.elasticsearch.UserInfoElasticSearchRepository;
 
 /**
  * Created by jlutteringer on 8/23/17.
@@ -17,6 +17,8 @@ public class UserDao {
 	@Autowired
 	private UserElasticSearchRepository repository;
 
+	@Autowired
+	private UserInfoElasticSearchRepository userInfoElasticSearchRepository;
 	// JOHN
 	public Optional<UserAuthenticationDto> findUser(String id) {
 		//I commented out the UserAuthenticationDt0.class, IDK why it was there
@@ -39,8 +41,26 @@ public class UserDao {
 		//return repository.search(searchSourceBuilder).stream().findFirst();
 	}*/
 	public void save(UserAuthenticationDto userAuthentication) {
-
 		repository.save(userAuthentication);
+	}
+
+	public void saveInfo(UserDto userDto) {
+		userInfoElasticSearchRepository.save(userDto);
+	}
+
+	public Optional<UserDto> findByCity(String city, String type) {
+		Boolean isSitter = false;
+		Boolean isOwner = false;
+		SearchSourceBuilder searchSourceBuilder = new SearchSourceBuilder();
+		if(type.equals("sitter")){
+			isSitter = true;
+			String queryString = String.format("user.city=\"%s\"&user.isSitter=\"%s\"", city.replace("\"", ""), "true");
+		} else if(type.equals("owner")){
+			isOwner = true;
+			String queryString = String.format("user.city=\"%s\"&user.isOwner=\"%s\"", city.replace("\"", ""), "true");
+		}
+		//TODO: add thrown exception
+		return userInfoElasticSearchRepository.search(searchSourceBuilder).stream().findAny();
 	}
 
 }
