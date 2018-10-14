@@ -23,7 +23,7 @@ public class UserDto implements Momento<String> {
     private String firstName;
     private String lastName;
     private String address;
-
+    private String city;
 
     private UserDto() {
 
@@ -36,7 +36,7 @@ public class UserDto implements Momento<String> {
     }
 
     public UserDto(String principal, List<String> roles, UserType type, String phoneNumber, String firstName, String lastName,
-                   String address, Map<String, Object> attributes) {
+                   String address, String city, Map<String, Object> attributes) {
         setPrincipal(principal);
         setPhoneNumber(phoneNumber);
         setFirstName(firstName);
@@ -45,6 +45,7 @@ public class UserDto implements Momento<String> {
         setRoles(roles);
         setType(type);
         setAttributes(attributes);
+        setCity(city);
     }
 
     public String getPrincipal() {
@@ -112,6 +113,30 @@ public class UserDto implements Momento<String> {
 
     public void setAddress(String address) {
         this.address = address;
+    }
+
+    public Boolean getSitter() {
+        return isSitter;
+    }
+
+    public void setSitter(Boolean sitter) {
+        isSitter = sitter;
+    }
+
+    public Boolean getOwner() {
+        return isOwner;
+    }
+
+    public void setOwner(Boolean owner) {
+        isOwner = owner;
+    }
+
+    public String getCity() {
+        return city;
+    }
+
+    public void setCity(String city) {
+        this.city = city;
     }
 
 

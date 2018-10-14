@@ -48,6 +48,7 @@ public class UserService {
 		private String firstName;
 		private String lastName;
 		private String address;
+		private String city;
 		//private Map<String, Object> attributes;
 
 		public String getPrincipal() {
@@ -98,13 +99,21 @@ public class UserService {
 		public void setAttributes(Map<String, Object> attributes) {
 			this.attributes = attributes;
 		}
+
+		public String getCity() {
+			return city;
+		}
+
+		public void setCity(String city) {
+			this.city = city;
+		}
 	}
 
 	public UserDto register(RegistrationRequest request) {
 		UserAuthenticationDto userAuthentication = new UserAuthenticationDto(
 				//new UserDto(request.getPrincipal(), request.getPhoneNumber(), request.getName(), request.getAddress()), passwordEncoder.encode(request.getPassword()));
 				new UserDto(request.getPrincipal(), _Lists.list("ROLE_USER"), UserDto.UserType.OWNER, request.getPhoneNumber(),
-						request.getFirstName(), request.getLastName(), request.getAddress(), request.getAttributes()), passwordEncoder.encode(request.getPassword()));
+						request.getFirstName(), request.getLastName(), request.getAddress(), request.getCity(), request.getAttributes()), passwordEncoder.encode(request.getPassword()));
 		userDao.save(userAuthentication);
 		return userAuthentication.getUser();
 	}
