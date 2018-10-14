@@ -1,6 +1,7 @@
 package petfinder.site.common.date;
 
 import alloy.util.Identifiable;
+import com.sun.org.apache.xpath.internal.operations.Bool;
 
 import java.util.Date;
 
@@ -10,6 +11,7 @@ public class DateDto implements Identifiable {
     private String startDate;
     private String endDate;
     private String sitterPrinciple;
+    private Boolean isDeleted;
 
     /*public DateDto(String startDate, String endDate, String sitterPrinciple) {
         this.startDate = startDate;

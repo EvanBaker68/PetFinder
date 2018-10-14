@@ -10,6 +10,7 @@ public class PetDto implements Identifiable {
 	//private Boolean isDog;
 	private String dogBreed;
 	private Double age;
+	private Boolean isDeleted;
 
 	public PetDto() {}
 

@@ -11,6 +11,7 @@ import org.springframework.stereotype.Service;
 import alloy.util.AlloyAuthentication;
 import alloy.util.Wait;
 import alloy.util._Lists;
+import java.util.List;
 import alloy.util._Maps;
 import petfinder.site.common.pet.PetDto;
 
@@ -106,6 +107,14 @@ public class UserService {
 						request.getFirstName(), request.getLastName(), request.getAddress(), request.getAttributes()), passwordEncoder.encode(request.getPassword()));
 		userDao.save(userAuthentication);
 		return userAuthentication.getUser();
+	}
+
+	public Optional<UserDto> getSittersByCity(String city) {
+		return userDao.findByCity(city, "sitter");
+	}
+
+	public Optional<UserDto> getOwnersByCity(String city) {
+		return userDao.findByCity(city, "owner");
 	}
 
 
