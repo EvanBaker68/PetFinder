@@ -55,6 +55,7 @@ Actions.Types = {
 };
 
 Actions.register = (user) => {
+	console.log(user.principal);
 	console.log('in register');
 	return (dispatch) => {
 		return register(user).then(() => {

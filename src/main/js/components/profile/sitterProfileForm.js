@@ -40,7 +40,7 @@ class ProfileForm extends React.Component {
 	componentDidMount() {
 		const cookies = new Cookies();
 		const principal = cookies.get('username');
-		var formattedPrincipal = principal.replace(/@/g, "%40");
+		var formattedPrincipal = principal.replace(/@/g, '%40');
 
 		axios.get('/sitter/' + formattedPrincipal, formattedPrincipal)
 			.then(res => {
@@ -52,8 +52,8 @@ class ProfileForm extends React.Component {
 
 	handleAddClose = () => {
 		const cookies = new Cookies();
-		const owner = {
-			principal: cookies.get('username').replace(/@/g, "%40"),
+		const sitter = {
+			principal: cookies.get('username').replace(/@/g, '%40'),
 			numPets: this.state.numPets
 		};
 		axios.post('/sitter/add-sitter', sitter)
@@ -81,7 +81,7 @@ class ProfileForm extends React.Component {
                         margin="normal"
                     />
                 </form>
-                <Button>Save Sitter Info</Button>
+                <Button onClick={this.handleAddClose}>Save Sitter Info</Button>
             </div>
         );
     }
