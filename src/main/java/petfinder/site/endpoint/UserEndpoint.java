@@ -23,6 +23,7 @@ public class UserEndpoint {
 	@ResponseBody
 	public Optional<UserDto> getUserDetails() {
 		String principal = SecurityContextHolder.getContext().getAuthentication().getName();
+		System.out.println(principal);
 		return userService.findUserByPrincipal(principal);
 	}
 
