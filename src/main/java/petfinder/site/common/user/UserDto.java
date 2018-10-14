@@ -23,6 +23,7 @@ public class UserDto implements Momento<String> {
     private String firstName;
     private String lastName;
     private String address;
+    private String city;
 
 
     private UserDto() {
