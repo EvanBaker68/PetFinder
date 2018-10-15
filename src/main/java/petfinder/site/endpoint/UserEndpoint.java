@@ -15,7 +15,7 @@ import java.util.List;
  * Created by jlutteringer on 8/23/17.
  */
 @RestController
-@RequestMapping(value = "/user")
+@RequestMapping(value = "/api/user")
 public class UserEndpoint {
 	@Autowired
 	private UserService userService;

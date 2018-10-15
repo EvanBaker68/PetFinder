@@ -15,11 +15,6 @@ public class OwnerEndpoint {
     @GetMapping(value = "/{principal:.+}", produces = "application/json")
     @ResponseBody
     public Optional<OwnerDto> getOwner(@PathVariable("principal") String principal) {
-        System.out.println("Made it to getjjjjOwner");
-//        principal = "b@gmail.com";
-        System.out.println(principal);
-
-//        principal = principal.replace("@", "%40");
         return ownerService.findOwner(principal);
     }
 

@@ -41,7 +41,7 @@ class ProfileForm extends React.Component {
 		const cookies = new Cookies();
 		const principal = cookies.get('username');
 		var formattedPrincipal = principal.replace(/./g, '%2E');
-		console.log(principal);
+		// console.log(principal);
 		axios.get('/owner/' + principal, principal)
 			.then(res => {
 				this.setState({

@@ -42,8 +42,8 @@ class ProfileForm extends React.Component {
         });
     };
 
-    setAuthentication = ({username, password}) => {
-        this.props.authenticate({username, password});
+    setAuthentication = (username, password) => {
+         this.props.authenticate(username, password);
     }
 
 	componentDidMount() {
@@ -51,7 +51,7 @@ class ProfileForm extends React.Component {
 		const username = cookies.get('username');
 		const password = cookies.get('password');
 
-		this.setAuthentication({username, password});
+		// this.setAuthentication(username, password);
 
 		axios.get('/api/user')
 			.then(res => {
@@ -123,7 +123,7 @@ ProfileForm = connect(
 		//TODO: In complete registration, set a field in user specifying if it is an owner,
 		//sitter, or both. Then, if you try to log in as something you're not, you will
 		//be refused access.
-		authenticate: ({username, password}) => dispatch(Users.Actions.shortHandAuthenticate({username, password}))
+		authenticate: (username, password) => dispatch(Users.Actions.authenticate(username, password))
 		// register: (user) => dispatch(Users.Actions.register(user))
 	})
 )(ProfileForm);
