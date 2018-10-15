@@ -16,6 +16,7 @@ import PetPage from 'js/components/pets/petPage';
 import OwnerProfile from 'js/components/profile/ProfilePage';
 import SitterProfile from 'js/components/profile/sitterProfilePage';
 import SitterTimeTable from 'js/components/scheduling/sitterTimeTable';
+import SearchPage from './components/search/searchPage';
 
 export class Home extends React.Component {
 	render() {
@@ -175,10 +176,8 @@ export class pets extends React.Component {
 export class searchForSitters extends React.Component {
 	render() {
 		return (
-			<div className="container padded">
-				This is where you can search for a sitter
-
-				<li><Link to='/otherSitterProfile'>Sitter</Link></li>
+			<div>
+				<SearchPage/>
 			</div>
 		);
 	}
