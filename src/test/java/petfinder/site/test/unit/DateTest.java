@@ -1,25 +1,26 @@
 package petfinder.site.test.unit;
+import org.junit.jupiter.api.DisplayName;
+import org.junit.jupiter.api.Nested;
+import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Nested;
-import petfinder.site.ValidationException;
 import petfinder.site.common.date.DateDto;
 import static org.junit.jupiter.api.Assertions.*;
 public class DateTest {
 
     @Nested
-    class TestDate {
-
+    class TestBasicDate {
         @Test
         @DisplayName("Test constructor equals and null")
-        void testConstructor() throws ValidationException {
+        void testConstructor() throws IllegalArgumentException {
             DateDto date = new DateDto("1/1/17", "1/8/17", "drewb97@gmail.com");
             assertNotNull(date);
         }
 
         @Test
         @DisplayName("Test Getters")
-        void testGetters() throws ValidationException {
+        void testGetters() throws IllegalArgumentException {
             DateDto date = new DateDto("1/1/17", "1/8/17", "drewb97@gmail.com");
             assertAll(
                     () -> assertEquals("1/1/17", date.getStartDate()),
@@ -30,21 +31,21 @@ public class DateTest {
 
         @Test
         @DisplayName("Test Setters")
-        void testSetters() throws ValidationException {
+        void testSetters() throws IllegalArgumentException {
             DateDto date = new DateDto();
-            assertThrows(ValidationException.class, () -> {
+            assertThrows(IllegalArgumentException.class, () -> {
                 date.setSitterPrinciple("yeet");
             });
 
-            assertThrows(ValidationException.class, () -> {
+            assertThrows(IllegalArgumentException.class, () -> {
                 date.setSitterPrinciple(null);
             });
 
-            assertThrows(ValidationException.class, () -> {
+            assertThrows(IllegalArgumentException.class, () -> {
                 date.setStartDate(null);
             });
 
-            assertThrows(ValidationException.class, () -> {
+            assertThrows(IllegalArgumentException.class, () -> {
                 date.setEndDate(null);
             });
         }

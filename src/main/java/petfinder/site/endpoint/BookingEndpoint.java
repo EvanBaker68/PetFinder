@@ -8,7 +8,7 @@ import petfinder.site.common.booking.BookingService;
 import java.util.Optional;
 
 @RestController
-@RequestMapping(value = "/api/booking")
+@RequestMapping(value = "/booking")
 public class BookingEndpoint {
     @Autowired
     BookingService bookingService;
