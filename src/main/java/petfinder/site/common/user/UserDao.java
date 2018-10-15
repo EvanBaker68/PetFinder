@@ -54,13 +54,16 @@ public class UserDao {
 		Boolean isSitter = false;
 		Boolean isOwner = false;
 		SearchSourceBuilder searchSourceBuilder = new SearchSourceBuilder();
+		String queryString = "";
 		if(type.equals("sitter")){
 			isSitter = true;
-			String queryString = String.format("user.city=\"%s\"&user.isSitter=\"%s\"", city.replace("\"", ""), "true");
+			queryString = String.format("user.city=\"%s\"&user.isSitter=true", city.replace("\"", ""));
 		} else if(type.equals("owner")){
 			isOwner = true;
-			String queryString = String.format("user.city=\"%s\"&user.isOwner=\"%s\"", city.replace("\"", ""), "true");
+			queryString = String.format("user.city=\"%s\"&user.isOwner=true", city.replace("\"", ""));
 		}
+		searchSourceBuilder.query(QueryBuilders.queryStringQuery(queryString));
+
 		//TODO: add thrown exception
 
 		return userInfoElasticSearchRepository.search(searchSourceBuilder).stream().map(Optional::ofNullable)
