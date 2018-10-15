@@ -40,9 +40,9 @@ class ProfileForm extends React.Component {
 	componentDidMount() {
 		const cookies = new Cookies();
 		const principal = cookies.get('username');
-		var formattedPrincipal = principal.replace(/@/g, '%40');
-
-		axios.get('/owner/' + formattedPrincipal, formattedPrincipal)
+		var formattedPrincipal = principal.replace(/./g, '%2E');
+		console.log(principal);
+		axios.get('/owner/' + principal, principal)
 			.then(res => {
 				this.setState({
 					numPets: res.numPets});

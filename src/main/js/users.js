@@ -14,6 +14,7 @@ export function register(user) {
 }
 
 export function authenticate(username, password) {
+
 	return axios(
 		{
 			method: 'post',
@@ -88,6 +89,30 @@ Actions.authenticate = (username, password) => {
 			}
 		)
 		.catch( function(e) { console.log('catching error authenticating'); });
+	};
+};
+
+Actions.shortHandAuthenticate = (username, password) => {
+	return (dispatch) => {
+		console.log('heyyyy', username, password);
+		return authenticate(username, password).then(
+			authentication => {
+
+				const cookies = new Cookies();
+				cookies.set('username', username, { path: '/'  });
+				cookies.set('password', password, { path: '/'  });
+				cookies.set('auth', authentication, { path: '/' });
+				cookies.set('loggedIn', 'true', { path: '/' });
+				console.log('made it in');
+				// callFunc();
+				//console.log(cookies.get('loggedIn'));
+				//console.log(username);
+				//console.log(authentication);
+				dispatch(Actions.setAuthentication(authentication));
+
+			}
+		)
+			.catch( function(e) { console.log('catching error authenticating'); });
 	};
 };
 

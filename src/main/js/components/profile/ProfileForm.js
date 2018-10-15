@@ -7,6 +7,8 @@ import TextField from '@material-ui/core/TextField';
 import Button from '@material-ui/core/Button';
 import Cookies from 'universal-cookie';
 import axios from 'axios/index';
+import * as Users from 'js/users';
+import {connect} from 'react-redux';
 
 const styles = theme => ({
     container: {
@@ -40,8 +42,16 @@ class ProfileForm extends React.Component {
         });
     };
 
+    setAuthentication = ({username, password}) => {
+        this.props.authenticate({username, password});
+    }
+
 	componentDidMount() {
 		const cookies = new Cookies();
+		const username = cookies.get('username');
+		const password = cookies.get('password');
+
+		this.setAuthentication({username, password});
 
 		axios.get('/api/user')
 			.then(res => {
@@ -104,5 +114,18 @@ class ProfileForm extends React.Component {
 ProfileForm.propTypes = {
     classes: PropTypes.object.isRequired,
 };
+
+ProfileForm = connect(
+	state => ({
+
+	}),
+	dispatch => ({
+		//TODO: In complete registration, set a field in user specifying if it is an owner,
+		//sitter, or both. Then, if you try to log in as something you're not, you will
+		//be refused access.
+		authenticate: ({username, password}) => dispatch(Users.Actions.shortHandAuthenticate({username, password}))
+		// register: (user) => dispatch(Users.Actions.register(user))
+	})
+)(ProfileForm);
 
 export default withStyles(styles)(ProfileForm);
