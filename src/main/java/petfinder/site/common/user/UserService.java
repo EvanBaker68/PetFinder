@@ -1,6 +1,5 @@
 package petfinder.site.common.user;
 
-import java.time.Duration;
 import java.util.Map;
 import java.util.Optional;
 
@@ -8,12 +7,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
-import alloy.util.AlloyAuthentication;
-import alloy.util.Wait;
 import alloy.util._Lists;
 import java.util.List;
-import alloy.util._Maps;
-import petfinder.site.common.pet.PetDto;
 
 /**
  * Created by jlutteringer on 8/23/17.
@@ -109,18 +104,12 @@ public class UserService {
 		return userAuthentication.getUser();
 	}
 
-	public Optional<UserDto> getSittersByCity(String city) {
+	public List<Optional<UserDto>> getSittersByCity(String city) {
 		return userDao.findByCity(city, "sitter");
 	}
 
-	public Optional<UserDto> getOwnersByCity(String city) {
+	public List<Optional<UserDto>> getOwnersByCity(String city) {
 		return userDao.findByCity(city, "owner");
 	}
-
-
-
-	/*public UserDto setPet(Long requestPet){
-		UserDto
-	}*/
 
 }

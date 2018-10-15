@@ -1,6 +1,5 @@
 package petfinder.site.common.user;
 
-import com.sun.org.apache.xpath.internal.operations.Bool;
 import org.codehaus.jackson.annotate.JsonIgnore;
 
 import alloy.util.Momento;

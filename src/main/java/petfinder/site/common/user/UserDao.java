@@ -2,9 +2,7 @@ package petfinder.site.common.user;
 
 import java.util.List;
 import java.util.Optional;
-import java.util.Optional.*;
 import java.util.stream.Collectors;
-import java.util.stream.Stream;
 
 import org.elasticsearch.index.query.QueryBuilders;
 import org.elasticsearch.search.builder.SearchSourceBuilder;
@@ -52,7 +50,7 @@ public class UserDao {
 		userInfoElasticSearchRepository.save(userDto);
 	}
 
-	public List<UserDto> findByCity(String city, String type) {
+	public List<Optional<UserDto>> findByCity(String city, String type) {
 		Boolean isSitter = false;
 		Boolean isOwner = false;
 		SearchSourceBuilder searchSourceBuilder = new SearchSourceBuilder();
@@ -64,11 +62,9 @@ public class UserDao {
 			String queryString = String.format("user.city=\"%s\"&user.isOwner=\"%s\"", city.replace("\"", ""), "true");
 		}
 		//TODO: add thrown exception
-		return userInfoElasticSearchRepository.search(searchSourceBuilder);
 
-		//If returning a list of Optional<UserDto>'s- currently does not work
-		/*return userInfoElasticSearchRepository.search(searchSourceBuilder).stream().flatMap(Optional -> Optional::isPresent ? Stream.of(Optional.getClass()) : Stream.empty())
-                .collect(Collectors.toList());*/
+		return userInfoElasticSearchRepository.search(searchSourceBuilder).stream().map(Optional::ofNullable)
+				.collect(Collectors.toList());
 	}
 
 }
