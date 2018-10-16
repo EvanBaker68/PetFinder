@@ -133,7 +133,7 @@ class SearchPage extends React.Component {
         axios.get('/user/getSittersInCity/' +city, city)
             .then(res =>{
                 console.log(res);
-                this.setState({sitter: res})
+                this.setState({sitter: res.data})
             .catch(error => {
                     console.log(error.response);
             });
@@ -153,12 +153,14 @@ class SearchPage extends React.Component {
 
         //this will replace lisitems and num
         const sitters = this.state.sitter;
-        const sitterItems = sitters.map((sitter) =>
-            <div key={sitter.principal}>
-                <li>{sitter.firstName}</li>
-                <SitterView principal={sitter.principal}/>
-            </div>
-        );
+        if (sitters) {
+            const sitterItems = sitters.map((sitter) =>
+                <div key={sitter.principal}>
+                    <li>{sitter.firstName}</li>
+                    <SitterView principal={sitter.principal}/>
+                </div>
+            );
+        }
 
         return (
             <React.Fragment>
