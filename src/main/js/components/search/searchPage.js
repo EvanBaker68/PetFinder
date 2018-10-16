@@ -132,7 +132,7 @@ class SearchPage extends React.Component {
         axios.get('/getSittersInCity', this.state.city)
             .then(res =>{
                 console.log(res);
-                this.setState({sitter: res.sitter})
+                this.setState({sitter: res})
             .catch(error => {
                     console.log(error.response);
             });
