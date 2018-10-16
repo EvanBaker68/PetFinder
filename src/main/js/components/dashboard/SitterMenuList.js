@@ -6,10 +6,13 @@ import ProfileIcon from '@material-ui/icons/Person';
 import HistoryIcon from '@material-ui/icons/History';
 import DashIcon from '@material-ui/icons/Dashboard';
 import SwapIcon from '@material-ui/icons/SwapHorizontalCircle';
+import Cookies from 'universal-cookie';
 
 import { Link } from 'react-router-dom';
 
+const cookies = new Cookies();
 export const SitterMenuList = (
+
     <div>
         <Link to="sitterDash">
             <ListItem button>
@@ -35,13 +38,15 @@ export const SitterMenuList = (
                 <ListItemText primary="Change Schedule" />
             </ListItem>
         </Link>
+        {cookies.get('isOwner') == 'true' &&
         <Link to="/ownerDash">
             <ListItem button>
                 <ListItemIcon>
-                    <SwapIcon />
+                    <SwapIcon/>
                 </ListItemIcon>
-                <ListItemText primary="Swap to Owner" />
+                <ListItemText primary="Swap to Owner"/>
             </ListItem>
         </Link>
+        }
     </div>
 );
