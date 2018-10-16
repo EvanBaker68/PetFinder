@@ -18,10 +18,10 @@ public class SitterEndpoint {
     @Autowired
     DateService dateService;
 
-    @GetMapping(value = "/{id}", produces = "application/json")
+    @GetMapping(value = "/{principal:.+}", produces = "application/json")
     @ResponseBody
-    public Optional<SitterDto> getSitter(@PathVariable("id") String id) {
-        return sitterService.findSitter(id);
+    public Optional<SitterDto> getSitter(@PathVariable("principal") String principal) {
+        return sitterService.findSitter(principal);
     }
 
     @PostMapping(value = "/add-sitter", produces = "application/json", consumes = "application/json")

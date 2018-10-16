@@ -12,6 +12,7 @@ public class OwnerDto implements Momento<String> {
     private Long[] currentBookings;
     private Long[] pastBookings;
     private Long[] petIds;
+    private Boolean isDeleted;
 
     public OwnerDto() {
     }

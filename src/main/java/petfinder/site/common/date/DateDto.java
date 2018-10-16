@@ -6,10 +6,12 @@ import java.util.Date;
 
 
 public class DateDto implements Identifiable {
+
     private Long id;
     private Date startDate;
     private Date endDate;
     private String sitterPrinciple;
+    private Boolean isDeleted;
 
     public DateDto(Date startDate, Date endDate, String sitterPrinciple) {
         this.startDate = startDate;

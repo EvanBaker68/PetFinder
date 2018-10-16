@@ -49,7 +49,8 @@ public class OAuth2ResourceServerConfig extends ResourceServerConfigurerAdapter 
 	}
 
 	private static class OAuthRequestMatcher implements RequestMatcher {
-		public boolean matches(HttpServletRequest request) {
+		public boolean
+		matches(HttpServletRequest request) {
 			// Determine if the resource called is "/api/**"
 			String path = request.getServletPath();
 

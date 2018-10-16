@@ -15,8 +15,8 @@ public class SitterDao {
     @Autowired
     private SitterElasticSearchRepository repository;
 
-    public Optional<SitterDto> findSitter(String id){
-        return repository.find(id);
+    public Optional<SitterDto> findSitter(String principal){
+        return repository.find(principal);
     }
 
     public void save(SitterDto sitterDto){
