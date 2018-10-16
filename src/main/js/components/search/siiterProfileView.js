@@ -30,11 +30,14 @@ class FormDialog extends React.Component {
         console.log(props);
         this.state = {
             num: props.number,
+            principal: props.principal,
             open: false,
             date: '',
             start: '',
             end: ''
         };
+
+        //load sitter information
     }
 
     handleClickOpen = () => {
@@ -52,6 +55,7 @@ class FormDialog extends React.Component {
     };
 
     render() {
+        //num should eventually be sitter details
         const num = this.state.num;
         const { classes } = this.props;
 
