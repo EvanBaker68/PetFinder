@@ -18,9 +18,9 @@ export default class Index extends React.Component {
         console.log(this.props);
         // console.log(cookies.get('loggedIn'));
 		// this.s
-		 this.props.setAuthentication(cookies.get('auth'));
+		// this.props.setAuthentication(cookies.get('auth'));
 		// this.authenticate();
-		this.props.refresh();
+		// this.props.refresh();
     }
 
 	render() {
