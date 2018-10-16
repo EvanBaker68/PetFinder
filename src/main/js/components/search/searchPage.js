@@ -150,6 +150,15 @@ class SearchPage extends React.Component {
             </div>
         );
 
+        //this will replace lisitems and num
+        const sitters = this.state.sitter;
+        const sitterItems = sitters.map((sitter) =>
+            <div key={sitter.principal}>
+                <li>{sitter.firstName}</li>
+                <SitterView principal={sitter.principal}/>
+            </div>
+        );
+
         return (
             <React.Fragment>
                 <CssBaseline />
