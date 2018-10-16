@@ -9,6 +9,9 @@ import java.util.List;
 import java.util.Map;
 
 public class UserDto implements Momento<String> {
+    public Boolean isEmpty() {
+        return false;
+    }
     private String principal;
     private List<String> roles;
     private UserType type;
