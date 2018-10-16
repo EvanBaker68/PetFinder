@@ -18,6 +18,7 @@ import { mainListItems, secondaryListItems } from 'js/components/dashboard/listI
 import SimpleTable from 'js/components/dashboard/simpleTable';
 import Input from '@material-ui/core/Input';
 import SearchIcon from '@material-ui/icons/Search';
+import UpcomingTable from 'js/components/dashboard/upcomingTable';
 
 const drawerWidth = 240;
 
@@ -135,7 +136,7 @@ class Dashboard extends React.Component {
                                 Owner Dashboard
                             </Typography>
                             <IconButton color="inherit">
-                                <Badge badgeContent={4} color="secondary">
+                                <Badge badgeContent={2} color="secondary">
                                     <NotificationsIcon />
                                 </Badge>
                             </IconButton>
@@ -172,6 +173,12 @@ class Dashboard extends React.Component {
                                     input: classes.inputInput,
                                 }}
                             />
+                        </div>
+                        <Typography variant="display1" gutterBottom>
+                            Upcoming Bookings
+                        </Typography>
+                        <div className={classes.tableContainer}>
+                            <UpcomingTable/>
                         </div>
                         <Typography variant="display1" gutterBottom>
                             Previous Sitters

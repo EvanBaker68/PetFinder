@@ -92,6 +92,11 @@ const styles = theme => ({
         height: '100vh',
         overflow: 'auto',
     },
+    textField: {
+        marginLeft: theme.spacing.unit,
+        marginRight: theme.spacing.unit,
+        width: 600,
+    },
 });
 
 class SearchPage extends React.Component {
@@ -192,6 +197,7 @@ class SearchPage extends React.Component {
                         <TextField
                             id="standard-name"
                             label="Search"
+                            className={classes.textField}
                             value={this.state.city}
                             onChange={this.handleChange('city')}
                             margin="normal"
