@@ -23,6 +23,7 @@ import Paper from '@material-ui/core/Paper';
 import TextField from '@material-ui/core/TextField/TextField';
 import Button from '@material-ui/core/Button/Button';
 import SitterView from 'js/components/search/siiterProfileView';
+import axios from 'axios';
 
 const drawerWidth = 240;
 
@@ -106,7 +107,8 @@ class SearchPage extends React.Component {
         this.state = {
             open: true,
             city: '',
-            searched: false
+            searched: false,
+            sitter: []
         };
 
         //fill city with current owner information
@@ -127,7 +129,14 @@ class SearchPage extends React.Component {
     };
 
     handleSearch = () => {
-        //axios.get(/, this.city)
+        axios.get('/getSittersInCity', this.state.city)
+            .then(res =>{
+                console.log(res);
+                this.setState({sitter: res.sitter})
+            .catch(error => {
+                    console.log(error.response);
+            });
+            });
         this.setState({searched: true});
     };
 
