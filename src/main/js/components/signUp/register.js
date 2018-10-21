@@ -109,7 +109,6 @@ class RegisterForm extends React.Component{
 	}
 
 	onSubmit = (user) => {
-
     		const principal = this.state.principal.replace(/@/g, '%40');
 			const password = this.state.password;
 		// return this.props.register({principal, password});

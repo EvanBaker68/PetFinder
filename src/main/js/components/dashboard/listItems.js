@@ -9,8 +9,11 @@ import FavoriteIcon from '@material-ui/icons/Favorite';
 import SwapIcon from '@material-ui/icons/SwapHorizontalCircle';
 
 import { Link } from 'react-router-dom';
+import Cookies from 'universal-cookie';
 
+const cookies = new Cookies();
 export const mainListItems = (
+
     <div>
         <Link to="/search">
             <ListItem button>
@@ -44,13 +47,15 @@ export const mainListItems = (
                 <ListItemText primary="Profile" />
             </ListItem>
         </Link>
+        {cookies.get('isSitter') == 'true' &&
         <Link to="/sitterDash">
             <ListItem button>
                 <ListItemIcon>
-                    <SwapIcon />
+                    <SwapIcon/>
                 </ListItemIcon>
-                <ListItemText primary="Swap to Sitter" />
+                <ListItemText primary="Swap to Sitter"/>
             </ListItem>
         </Link>
+        }
     </div>
 );

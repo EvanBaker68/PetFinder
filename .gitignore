@@ -3,6 +3,6 @@ node_modules
 out
 .eslintrc
 application.yml
-.gradle/
+.gradle
 build/
 

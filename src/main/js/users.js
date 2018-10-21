@@ -148,12 +148,19 @@ export { Actions };
 
 let Reducers = {};
 
-Reducers.authentication = (authentication = null, action) => {
+const cookies = new Cookies();
+
+Reducers.authentication = (authentication = cookies.get('auth') , action) => {
+	console.log('HYYYYYY');
 	switch (action.type) {
 		case Actions.Types.SET_AUTHENTICATION: {
+			console.log('setting authentication');
+			console.log(authentication);
 			return action.authentication;
 		}
 		default: {
+			console.log('default authentication');
+			console.log(authentication);
 			return authentication;
 		}
 	}

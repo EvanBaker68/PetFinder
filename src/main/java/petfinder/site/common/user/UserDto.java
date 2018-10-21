@@ -28,6 +28,13 @@ public class UserDto implements Momento<String> {
     private String address;
     private String city;
 
+    public void setCity(String city){
+        this.city = city;
+    }
+
+    public String getCity(){
+        return city;
+    }
     private UserDto() {
 
     }
@@ -132,14 +139,6 @@ public class UserDto implements Momento<String> {
 
     public void setOwner(Boolean owner) {
         isOwner = owner;
-    }
-
-    public String getCity() {
-        return city;
-    }
-
-    public void setCity(String city) {
-        this.city = city;
     }
 
 

@@ -28,12 +28,17 @@ const styles = theme => ({
 });
 
 class OutlinedTextFields extends React.Component {
-    state = {
-        firstName: '',
-        lastName: '',
-        address: '',
-        phoneNumber: '(000)000-0000'
-    };
+    constructor(props) {
+        super(props);
+        this.state = {
+            isSitter: props.isSitter,
+            firstName: '',
+            lastName: '',
+            address: '',
+            city: '',
+            phoneNumber: '(000)000-0000'
+        };
+    }
 
     handleChange = name => event => {
         this.setState({
@@ -44,11 +49,12 @@ class OutlinedTextFields extends React.Component {
 	handleNext = () => {
 		const cookies = new Cookies();
 		const user = {
-			principal: cookies.get('username').replace(/@/g, '%40'),
+			principal: cookies.get('username'),
 			password: cookies.get('password'),
 			firstName: this.state.firstName,
 			lastName: this.state.lastName,
 			phoneNumber: this.state.phoneNumber,
+			city: this.state.city,
 			address: this.state.address
 		};
 		return this.props.register(user);
@@ -84,6 +90,15 @@ class OutlinedTextFields extends React.Component {
                     className={classes.textField}
                     value={this.state.name}
                     onChange={this.handleChange('address')}
+                    margin="normal"
+                    variant="standard"
+                />
+                <TextField
+                    id="outlined-name"
+                    label="City"
+                    className={classes.city}
+                    value={this.state.name}
+                    onChange={this.handleChange('city')}
                     margin="normal"
                     variant="standard"
                 />

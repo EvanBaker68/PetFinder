@@ -33,7 +33,8 @@ class ProfileForm extends React.Component {
         firstName: '',
         lastName: '',
         address: '',
-        phoneNumber: '(000)000-0000'
+        phoneNumber: '(000)000-0000',
+		city: ''
     };
 
     handleChange = name => event => {
@@ -52,14 +53,15 @@ class ProfileForm extends React.Component {
 		const password = cookies.get('password');
 
 		// this.setAuthentication(username, password);
-
+		console.log('NEW MESSAGE');
 		axios.get('/api/user')
 			.then(res => {
 				this.setState({
 					firstName: res.firstName,
                     lastName: res.lastName,
                     address: res.address,
-                    phoneNumber: res.phoneNumber});
+                    phoneNumber: res.phoneNumber,
+					city: res.city});
 			}).then(response => console.log(response))
 			.catch(error => this.setState({error}));
 	}
@@ -90,14 +92,23 @@ class ProfileForm extends React.Component {
                     id="outlined-name"
                     label="Street Address"
                     className={classes.textField}
-                    value={this.state.name}
+                    value={this.state.address}
                     onChange={this.handleChange('address')}
                     margin="normal"
                     variant="standard"
                 />
+				<TextField
+					id="outlined-name"
+					label="City"
+					className={classes.textField}
+					value={this.state.city}
+					onChange={this.handleChange('city')}
+					margin="normal"
+					variant="standard"
+				/>
                 <TextField
                     id="outlined-name"
-                    label="Phone"
+                    label="Phone Number"
                     className={classes.textField}
                     value={this.state.phoneNumber}
                     onChange={this.handleChange('phoneNumber')}
@@ -115,17 +126,17 @@ ProfileForm.propTypes = {
     classes: PropTypes.object.isRequired,
 };
 
-ProfileForm = connect(
-	state => ({
-
-	}),
-	dispatch => ({
-		//TODO: In complete registration, set a field in user specifying if it is an owner,
-		//sitter, or both. Then, if you try to log in as something you're not, you will
-		//be refused access.
-		authenticate: (username, password) => dispatch(Users.Actions.authenticate(username, password))
-		// register: (user) => dispatch(Users.Actions.register(user))
-	})
-)(ProfileForm);
+// ProfileForm = connect(
+// 	state => ({
+//
+// 	}),
+// 	dispatch => ({
+// 		//TODO: In complete registration, set a field in user specifying if it is an owner,
+// 		//sitter, or both. Then, if you try to log in as something you're not, you will
+// 		//be refused access.
+// 		authenticate: (username, password) => dispatch(Users.Actions.authenticate(username, password))
+// 		// register: (user) => dispatch(Users.Actions.register(user))
+// 	})
+// )(ProfileForm);
 
 export default withStyles(styles)(ProfileForm);

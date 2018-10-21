@@ -18,7 +18,12 @@ import { mainListItems, secondaryListItems } from 'js/components/dashboard/listI
 import SimpleTable from 'js/components/dashboard/simpleTable';
 import Input from '@material-ui/core/Input';
 import SearchIcon from '@material-ui/icons/Search';
-import UpcomingTable from 'js/components/dashboard/upcomingTable';
+import ProfileForm from 'js/components/profile/ProfileForm';
+import Paper from '@material-ui/core/Paper';
+import TextField from '@material-ui/core/TextField/TextField';
+import Button from '@material-ui/core/Button/Button';
+import SitterView from 'js/components/search/siiterProfileView';
+import axios from 'axios';
 
 const drawerWidth = 240;
 
@@ -88,17 +93,31 @@ const styles = theme => ({
         height: '100vh',
         overflow: 'auto',
     },
-    chartContainer: {
-        marginLeft: -22,
-    },
-    tableContainer: {
-        height: 320,
+    textField: {
+        marginLeft: theme.spacing.unit,
+        marginRight: theme.spacing.unit,
+        width: 600,
     },
 });
 
-class Dashboard extends React.Component {
-    state = {
-        open: true,
+class SearchPage extends React.Component {
+
+    constructor(props) {
+        super(props);
+        this.state = {
+            open: true,
+            city: '',
+            searched: false,
+            sitter: []
+        };
+
+        //fill city with current owner information
+    }
+
+    handleChange = name => event => {
+        this.setState({
+            [name]: event.target.value,
+        });
     };
 
     handleDrawerOpen = () => {
@@ -109,8 +128,39 @@ class Dashboard extends React.Component {
         this.setState({ open: false });
     };
 
+    handleSearch = () => {
+        const city = this.state.city;
+        axios.get('/api/user/getSittersInCity/' +city, city)
+            .then(res =>{
+                console.log(res);
+                this.setState({sitter: res.data})
+            .catch(error => {
+                    console.log(error.response);
+            });
+            });
+        this.setState({searched: true});
+    };
+
     render() {
         const { classes } = this.props;
+        const numbers = [1, 2, 3, 4, 5];
+        const listItems = numbers.map((number) =>
+            <div key={number.toString()}>
+                <li>{number}</li>
+                <SitterView num={number}/>
+            </div>
+        );
+
+        //this will replace lisitems and num
+        const sitters = this.state.sitter;
+        if (sitters) {
+            const sitterItems = sitters.map((sitter) =>
+                <div key={sitter.principal}>
+                    <li>{sitter.firstName}</li>
+                    <SitterView principal={sitter.principal}/>
+                </div>
+            );
+        }
 
         return (
             <React.Fragment>
@@ -133,10 +183,10 @@ class Dashboard extends React.Component {
                                 <MenuIcon />
                             </IconButton>
                             <Typography variant="display2" color="inherit" noWrap className={classes.title}>
-                                Owner Dashboard
+                                Search and Match
                             </Typography>
                             <IconButton color="inherit">
-                                <Badge badgeContent={2} color="secondary">
+                                <Badge badgeContent={4} color="secondary">
                                     <NotificationsIcon />
                                 </Badge>
                             </IconButton>
@@ -163,29 +213,25 @@ class Dashboard extends React.Component {
                             variant="display1"
                             gutterBottom
                             align='center'>
-                            Enter your city to begin matching with a sitter
+                            Enter your city...
                         </Typography>
-                        <div className={classes.search}>
-                            <Input
-                                placeholder="Search…"
-                                classes={{
-                                    root: classes.inputRoot,
-                                    input: classes.inputInput,
-                                }}
-                            />
+                        <TextField
+                            id="standard-name"
+                            label="Search"
+                            className={classes.textField}
+                            value={this.state.city}
+                            onChange={this.handleChange('city')}
+                            margin="normal"
+                        />
+                        <Button  onClick={this.handleSearch}>Continue</Button>
+                    {this.state.searched &&
+                        <div>
+                            <Typography variant="display1" align="center">Matched Sitters</Typography>
+                            <ul>
+                                {listItems}
+                            </ul>
                         </div>
-                        <Typography variant="display1" gutterBottom>
-                            Upcoming Bookings
-                        </Typography>
-                        <div className={classes.tableContainer}>
-                            <UpcomingTable/>
-                        </div>
-                        <Typography variant="display1" gutterBottom>
-                            Previous Sitters
-                        </Typography>
-                        <div className={classes.tableContainer}>
-                            <SimpleTable />
-                        </div>
+                    }
                     </main>
                 </div>
             </React.Fragment>
@@ -193,8 +239,8 @@ class Dashboard extends React.Component {
     }
 }
 
-Dashboard.propTypes = {
+SearchPage.propTypes = {
     classes: PropTypes.object.isRequired,
 };
 
-export default withStyles(styles)(Dashboard);
+export default withStyles(styles)(SearchPage);
