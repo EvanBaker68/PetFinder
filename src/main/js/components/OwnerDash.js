@@ -19,6 +19,10 @@ import SimpleTable from 'js/components/dashboard/simpleTable';
 import Input from '@material-ui/core/Input';
 import SearchIcon from '@material-ui/icons/Search';
 import UpcomingTable from 'js/components/dashboard/upcomingTable';
+import Button from '@material-ui/core/Button';
+import  { Redirect } from 'react-router-dom';
+
+
 
 const drawerWidth = 240;
 
@@ -81,6 +85,9 @@ const styles = theme => ({
             width: theme.spacing.unit * 9,
         },
     },
+	submit: {
+		marginTop: theme.spacing.unit * 3,
+	},
     appBarSpacer: theme.mixins.toolbar,
     content: {
         flexGrow: 1,
@@ -99,6 +106,7 @@ const styles = theme => ({
 class Dashboard extends React.Component {
     state = {
         open: true,
+        redirect: false
     };
 
     handleDrawerOpen = () => {
@@ -109,8 +117,17 @@ class Dashboard extends React.Component {
         this.setState({ open: false });
     };
 
+    handleHome = () => {
+        this.setState({ redirect: true });
+    }
+
     render() {
         const { classes } = this.props;
+
+
+        if(this.state.redirect){
+			return <div><Redirect to='/'/></div>;
+        }
 
         return (
             <React.Fragment>
@@ -135,6 +152,16 @@ class Dashboard extends React.Component {
                             <Typography variant="display2" color="inherit" noWrap className={classes.title}>
                                 Owner Dashboard
                             </Typography>
+							<Button
+								type="submit"
+
+								variant="raised"
+								color="secondary"
+								className={classes.submit}
+								onClick={this.handleHome}
+							>
+                                Home Page
+                            </Button>
                             <IconButton color="inherit">
                                 <Badge badgeContent={2} color="secondary">
                                     <NotificationsIcon />
