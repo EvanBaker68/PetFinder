@@ -9,10 +9,14 @@ import OwnerDashboard from 'js/components/OwnerDash';
 import SitterDashBoard from 'js/components/dashboard/SitterDashboard';
 import Register from 'js/components/signUp/register';
 import SignIn from 'js/components/signIn/SignIn';
-import CompleteRegistration from 'js/components/signUp/completeRegistration';
+import OwnerCompleteRegistration from 'js/components/signUp/ownerCompleteRegistration';
+import SitterCompleteRegistration from 'js/components/signUp/sitterCompleteRegistration';
 import HomePage from 'js/components/home';
 import PetPage from 'js/components/pets/petPage';
-import Profile from 'js/components/profile/ProfilePage';
+import OwnerProfile from 'js/components/profile/ProfilePage';
+import SitterProfile from 'js/components/profile/sitterProfilePage';
+import SitterTimeTable from 'js/components/scheduling/sitterTimeTable';
+import SearchPage from './components/search/searchPage';
 
 export class Home extends React.Component {
 	render() {
@@ -50,14 +54,24 @@ export class NewRegisterPage extends React.Component {
 	}
 }
 
-export class CompleteRegisterPage extends React.Component {
+export class ownerCompleteRegisterPage extends React.Component {
 	render() {
 		return (
 			<div>
-				<CompleteRegistration/>
+				<OwnerCompleteRegistration/>
 			</div>
 		);
 	}
+}
+
+export class sitterCompleteRegisterPage extends React.Component {
+    render() {
+        return (
+            <div>
+                <SitterCompleteRegistration/>
+            </div>
+        );
+    }
 }
 
 export class LoginPage extends React.Component {
@@ -69,6 +83,24 @@ export class LoginPage extends React.Component {
 		);
 	}
 }
+
+// export class LoginPage extends React.Component {
+// 	render() {
+// 		return (
+// 			<div className="container padded">
+// 				<div className="row">
+// 					<div className="col-6 offset-md-3">
+// 						<h2>Login</h2>
+// 						<hr />
+// 						<Login.LoginForm />
+// 					</div>
+// 				</div>
+// 			</div>
+// 		);
+// 	}
+// }
+
+
 class sitterDash extends React.Component {
 	render() {
 		return (
@@ -104,7 +136,7 @@ export class ownerProfile extends React.Component {
 	render() {
 		return (
 			<div>
-				<Profile/>
+				<OwnerProfile/>
 			</div>
 		);
 	}
@@ -113,8 +145,18 @@ export class ownerProfile extends React.Component {
 export class sitterProfile extends React.Component {
 	render() {
 		return (
-			<div className="container padded">
-				Here is your sitter Profile:
+			<div>
+				<SitterProfile/>
+			</div>
+		);
+	}
+}
+
+export class sitterTimeTable extends React.Component {
+	render() {
+		return (
+			<div>
+				<SitterTimeTable/>
 			</div>
 		);
 	}
@@ -134,10 +176,8 @@ export class pets extends React.Component {
 export class searchForSitters extends React.Component {
 	render() {
 		return (
-			<div className="container padded">
-				This is where you can search for a sitter
-
-				<li><Link to='/otherSitterProfile'>Sitter</Link></li>
+			<div>
+				<SearchPage/>
 			</div>
 		);
 	}

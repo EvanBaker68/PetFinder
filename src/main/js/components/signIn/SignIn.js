@@ -1,21 +1,19 @@
 import React from 'react';
-import PropTypes from 'prop-types';
-import Avatar from '@material-ui/core/Avatar';
 import Button from '@material-ui/core/Button';
-import CssBaseline from '@material-ui/core/CssBaseline';
 import FormControl from '@material-ui/core/FormControl';
-import Input from '@material-ui/core/Input';
-import InputLabel from '@material-ui/core/InputLabel';
-import LockIcon from '@material-ui/icons/LockOutlined';
 import Paper from '@material-ui/core/Paper';
 import Typography from '@material-ui/core/Typography';
 import withStyles from '@material-ui/core/styles/withStyles';
+import PropTypes from 'prop-types';
 import { Redirect } from 'react-router-dom';
+import {connect} from 'react-redux';
+import * as Users from 'js/users';
 import blue from '@material-ui/core/colors/blueGrey';
 import * as ReduxForm from 'redux-form';
 import * as Validation from 'js/alloy/utils/validation';
 import * as Bessemer from 'js/alloy/bessemer/components';
 import Image from '../../images/homeDog.jpg';
+import Cookies from 'universal-cookie';
 
 const styles = theme => ({
     layout: {
@@ -52,29 +50,77 @@ const styles = theme => ({
 
 class SignInForm extends React.Component{
 
-    onSubmit = user => {
-        //return this.props.SignIn(user);
+	state = {
+		isOwner: false,
+		isSitter: false,
+		redirectOwner: false,
+        redirectSitter: false,
+		callFunc: this.setRedirect
+	}
+
+	setIsOwner = () => {
+		this.setState({
+			isOwner: true
+		});
+	}
+
+	setIsSitter = () => {
+		this.setState({
+			isSitter: true
+		});
+	}
+
+	setRedirect = () => {
+		console.log(this.state.isOwner);
+		if(this.state.isSitter){
+			this.setState({
+				redirectSitter: true
+			});
+		}
+		else if(this.state.isOwner){
+			this.setState({
+				redirectOwner: true
+			});
+		}
+	}
+
+    onSubmit = ({principal, password}) => {
+        return this.props.authenticate(principal, password);
     };
-
-    // handleUserEmailChange = event => {this.setState({ email: event.target.value });};
-    // handlePasswordChange = event => {this.setState({ password: event.target.value });};
-
 
     render() {
 
-        const { classes } = this.props;
+    	const { classes } = this.props;
         let { handleSubmit, submitting } = this.props;
 
 
+        const cookies = new Cookies();
+
+		if (cookies.get('loggedIn') == 'true') {
+
+			if(this.state.isOwner) {
+				cookies.set('isOwner', 'true', {path: '/'});
+				return <div><Redirect to='/ownerDash'/></div>;
+			}
+
+
+			else if(this.state.isSitter) {
+				cookies.set('isSitter', 'true', {path: '/'});
+				return <div><Redirect to='/sitterDash'/></div>;
+			}
+		}
+
         return (
+
                 <main className={classes.layout}>
                     <Paper className={classes.paper}>
                         <Typography variant="display1">SignIn</Typography>
                         <form className={classes.form}
                               onSubmit={handleSubmit(form => this.onSubmit(form))}>
                             <FormControl margin="normal" required fullWidth>
-                                <Bessemer.Field friendlyName="email" name="principal"
-                                                validators={[Validation.requiredValidator, Validation.emailValidator]} autoComplete="email" autoFocus/>
+                                <Bessemer.Field name="principal" friendlyName="email"
+                                                validators={[Validation.requiredValidator, Validation.emailValidator]}
+												autoComplete="email" autoFocus/>
                             </FormControl>
                             <FormControl margin="normal" required fullWidth>
                                 <Bessemer.Field
@@ -86,7 +132,7 @@ class SignInForm extends React.Component{
                                     autoComplete="current-password"
                                 />
                             </FormControl>
-
+                            <div>
                             <Button
                                 type="submit"
                                 loading="submitting"
@@ -94,19 +140,24 @@ class SignInForm extends React.Component{
                                 variant="raised"
                                 color="secondary"
                                 className={classes.submit}
+								onClick={this.setIsSitter}
                             >
                                 Continue as Pet Sitter
                             </Button>
+                            </div>
 
+							<div>
                             <Button
                                 type="submit"
                                 fullWidth
                                 variant="raised"
                                 color="primary"
                                 className={classes.submit}
+								onClick={this.setIsOwner}
                             >
                                 Continue as Pet Owner
                             </Button>
+                            </div>
                         </form>
                     </Paper>
                 </main>
@@ -116,18 +167,20 @@ class SignInForm extends React.Component{
 
 SignInForm = ReduxForm.reduxForm({form: 'SignIn'})(SignInForm);
 
-/*
+
 SignInForm = connect(
     state => ({
 
     }),
-    dispatch => ({
-        SignIn: user => dispatch(Users.Actions.SignIn(user))
+    dispatch => (
+		{
+		authenticate: (principal, password) => dispatch(Users.Actions.authenticate(principal, password))
     })
 )(SignInForm);
 
 SignInForm.propTypes = {
-    classes: PropTypes.object.isRequired,
-};*/
+	classes: PropTypes.object.isRequired,
+};
+
 
 export default withStyles(styles)(SignInForm);

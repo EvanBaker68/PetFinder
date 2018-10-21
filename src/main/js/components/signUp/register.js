@@ -20,7 +20,8 @@ import * as ReduxForm from 'redux-form';
 import * as Validation from 'js/alloy/utils/validation';
 import * as Bessemer from 'js/alloy/bessemer/components';
 import  { Redirect } from 'react-router-dom';
-import Cookies from 'react-cookie';
+import Cookies from 'universal-cookie';
+
 
 const styles = theme => ({
     palette: {
@@ -62,15 +63,55 @@ class RegisterForm extends React.Component{
 
     constructor(props) {
         super(props);
-        this.state = {redirect: false};
+        console.log(this.props);
+        this.state = {isOwner: false,
+			isSitter: false,
+			redirectOwner: false,
+			redirectSitter: false,
+			callfunc: this.setRedirect,
+        	principal: '',
+			password: ''};
     }
+
+	handleChange = name => event => {
+		this.setState({
+			[name]: event.target.value,
+		});
+	};
 
     componentDidMount() {
-        this.setState({redirect: false});
+        this.setState({redirect: false, redirectSitter: false});
     }
 
-    onSubmit = user => {
-        this.setState({redirect: true});
+	setIsOwner = () => {
+		this.setState({
+			isOwner: true
+		});
+	}
+
+	setIsSitter = () => {
+		this.setState({
+			isSitter: true
+		});
+	}
+
+	setRedirect = () => {
+		if(this.state.isSitter){
+			this.setState({
+				redirectSitter: true
+			});
+		}
+		else if(this.state.isOwner){
+			this.setState({
+				redirectOwner: true
+			});
+		}
+	}
+
+	onSubmit = (user) => {
+    		const principal = this.state.principal.replace(/@/g, '%40');
+			const password = this.state.password;
+		// return this.props.register({principal, password});
 		return this.props.register(user);
 	};
 
@@ -78,12 +119,27 @@ class RegisterForm extends React.Component{
 
         const { classes } = this.props;
         let { handleSubmit, submitting } = this.props;
-        const { redirect } = this.state;
+        const { redirectOwner, redirectSitter } = this.state;
 
-        if (redirect === true) {
-            return <Redirect to='/ownerCompleteRegistration' />;
-        }
+        const cookies = new Cookies();
 
+		if (cookies.get('loggedIn') == 'true') {
+
+			if(this.state.isOwner) {
+				cookies.set('isOwner', 'true', {path: '/'});
+				return <div><Redirect to='/ownerCompleteRegistration'/></div>;
+			}
+
+
+			else if(this.state.isSitter) {
+				cookies.set('isSitter', 'true', {path: '/'});
+				return <div><Redirect to='/sitterCompleteRegistration'/></div>;
+			}
+
+			else{
+				console.log('heyyy');
+			}
+		}
 
         return (
             <React.Fragment>
@@ -95,6 +151,7 @@ class RegisterForm extends React.Component{
 							  onSubmit={handleSubmit(form => this.onSubmit(form))}>
                             <FormControl margin="normal" required fullWidth>
 								<Bessemer.Field friendlyName="email" name="principal"
+												onChange={this.handleChange('principal')}
                                        validators={[Validation.requiredValidator, Validation.emailValidator]} autoComplete="email" autoFocus/>
                             </FormControl>
                             <FormControl margin="normal" required fullWidth>
@@ -102,6 +159,7 @@ class RegisterForm extends React.Component{
                                     name="password"
                                     type="password"
                                     friendlyName="password"
+									onChange={this.handleChange('password')}
                                     validators={[Validation.requiredValidator, Validation.passwordValidator]}
                                     field={<input className="form-control" type="password" />}
                                     autoComplete="current-password"
@@ -115,6 +173,7 @@ class RegisterForm extends React.Component{
                                 variant="raised"
                                 color="secondary"
                                 className={classes.submit}
+								onClick={this.setIsSitter}
                             >
                                 Continue as Pet Sitter
                             </Button>
@@ -125,6 +184,8 @@ class RegisterForm extends React.Component{
                                 variant="raised"
                                 color="primary"
                                 className={classes.submit}
+								onClick={this.setIsOwner}
+
                             >
                                 Continue as Pet Owner
                             </Button>
@@ -147,7 +208,11 @@ RegisterForm = connect(
 
     }),
     dispatch => ({
-        register: user => dispatch(Users.Actions.register(user))
+		//TODO: In complete registration, set a field in user specifying if it is an owner,
+		//sitter, or both. Then, if you try to log in as something you're not, you will
+		//be refused access.
+        register: (user) => dispatch(Users.Actions.register(user))
+		// register: (user) => dispatch(Users.Actions.register(user))
     })
 )(RegisterForm);
 

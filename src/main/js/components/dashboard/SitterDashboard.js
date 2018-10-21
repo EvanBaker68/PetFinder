@@ -17,6 +17,7 @@ import NotificationsIcon from '@material-ui/icons/Notifications';
 import { mainListItems, secondaryListItems } from 'js/components/dashboard/listItems';
 import PreviousJobsTable from 'js/components/dashboard/PreviousJobsTable';
 import {SitterMenuList} from 'js/components/dashboard/SitterMenuList';
+import RequestsTable from 'js/components/dashboard/requestsTable';
 
 const drawerWidth = 240;
 
@@ -161,7 +162,7 @@ class Dashboard extends React.Component {
                             Requests
                         </Typography>
                         <div className={classes.tableContainer}>
-                            <PreviousJobsTable />
+                            <RequestsTable />
                         </div>
                         <div className={classes.appBarSpacer} />
                         <Typography variant="display1" gutterBottom>

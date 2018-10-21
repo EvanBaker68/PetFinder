@@ -6,9 +6,6 @@ import alloy.util.AlloyAuthentication;
 import alloy.util.Momento;
 import org.springframework.beans.factory.annotation.Autowired;
 
-/**
- * Created by jlutteringer on 1/15/18.
- */
 public class UserAuthenticationDto implements Momento<String> {
 	@Autowired
 	private UserDto user;
