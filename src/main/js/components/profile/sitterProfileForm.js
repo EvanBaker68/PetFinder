@@ -53,7 +53,7 @@ class ProfileForm extends React.Component {
 	handleAddClose = () => {
 		const cookies = new Cookies();
 		const sitter = {
-			principal: cookies.get('username').replace(/@/g, '%40'),
+			principal: cookies.get('username'),
 			numPets: this.state.numPets
 		};
 		axios.post('/sitter/add-sitter', sitter)

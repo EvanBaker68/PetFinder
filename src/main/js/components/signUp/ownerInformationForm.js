@@ -40,7 +40,7 @@ class OutlinedTextFields extends React.Component {
 	handleAddClose = () => {
 		const cookies = new Cookies();
 		const owner = {
-			principal: cookies.get('username').replace(/@/g, '%40'),
+			principal: cookies.get('username'),
             numPets: this.state.numPets
 		};
 		axios.post('/owner/add-owner', owner)

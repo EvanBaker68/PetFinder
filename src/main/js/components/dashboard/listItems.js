@@ -47,7 +47,7 @@ export const mainListItems = (
                 <ListItemText primary="Profile" />
             </ListItem>
         </Link>
-        {cookies.get('isOwner') == 'true' &&
+        {cookies.get('isSitter') == 'true' &&
         <Link to="/sitterDash">
             <ListItem button>
                 <ListItemIcon>

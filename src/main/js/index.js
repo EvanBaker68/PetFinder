@@ -15,7 +15,7 @@ export default class Index extends React.Component {
     constructor(props){
         super(props);
         const cookies = new Cookies();
-        console.log(this.props);
+        // console.log(this.props);
         // console.log(cookies.get('loggedIn'));
 		// this.s
 		// this.props.setAuthentication(cookies.get('auth'));
@@ -56,7 +56,7 @@ Index = connect(
 
 	}),
 	dispatch => ({
-		setAuthentication: (authentication) => dispatch(Users.Actions.setAuthentication(authentication))
+		// setAuthentication: (authentication) => dispatch(Users.Actions.setAuthentication(authentication))
 		// refresh: () => dispatch(Users.Actions.refreshUser())
 	})
 )(Index);
