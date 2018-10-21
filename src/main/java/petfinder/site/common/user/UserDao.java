@@ -3,6 +3,9 @@ package petfinder.site.common.user;
 import java.util.*;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
+import java.util.List;
+import java.util.Optional;
+import java.util.stream.Collectors;
 
 import org.elasticsearch.index.query.QueryBuilders;
 import org.elasticsearch.search.builder.SearchSourceBuilder;
@@ -49,23 +52,24 @@ public class UserDao {
 	public void saveInfo(UserDto userDto) {
 		userInfoElasticSearchRepository.save(userDto);
 	}
-
-	public List<UserDto> findByCity(String city, String type) {
+public List<Optional<UserDto>> findByCity(String city, String type) {
 		Boolean isSitter = false;
 		Boolean isOwner = false;
 		SearchSourceBuilder searchSourceBuilder = new SearchSourceBuilder();
-		String queryString = new String();
+		String queryString = "";
 		if(type.equals("sitter")){
 			isSitter = true;
-			queryString = String.format("user.city=\"%s\"&user.isSitter=\"%s\"", city.replace("\"", ""), "true");
+			queryString = String.format("user.city=\"%s\"&user.isSitter=true", city.replace("\"", ""));
 		} else if(type.equals("owner")){
 			isOwner = true;
-			queryString = String.format("user.city=\"%s\"&user.isOwner=\"%s\"", city.replace("\"", ""), "true");
+			queryString = String.format("user.city=\"%s\"&user.isOwner=true", city.replace("\"", ""));
 		}
-		//TODO: add thrown exception
 		searchSourceBuilder.query(QueryBuilders.queryStringQuery(queryString));
-		List<UserDto> dummy = userInfoElasticSearchRepository.search(searchSourceBuilder).stream().filter(Optional::isPresent).map(Optional::get).collect(Collectors.toList());
-		return dummy;
+
+		//TODO: add thrown exception
+
+		return userInfoElasticSearchRepository.search(searchSourceBuilder).stream().map(Optional::ofNullable)
+				.collect(Collectors.toList());
 	}
 
 }

@@ -63,8 +63,21 @@ class RegisterForm extends React.Component{
 
     constructor(props) {
         super(props);
-        this.state = {isOwner: false, isSitter: false, redirectOwner: false, redirectSitter: false, callfunc: this.setRedirect};
+        console.log(this.props);
+        this.state = {isOwner: false,
+			isSitter: false,
+			redirectOwner: false,
+			redirectSitter: false,
+			callfunc: this.setRedirect,
+        	principal: '',
+			password: ''};
     }
+
+	handleChange = name => event => {
+		this.setState({
+			[name]: event.target.value,
+		});
+	};
 
     componentDidMount() {
         this.setState({redirect: false, redirectSitter: false});
@@ -95,7 +108,11 @@ class RegisterForm extends React.Component{
 		}
 	}
 
-	onSubmit = user => {
+	onSubmit = (user) => {
+
+    		const principal = this.state.principal.replace(/@/g, '%40');
+			const password = this.state.password;
+		// return this.props.register({principal, password});
 		return this.props.register(user);
 	};
 
@@ -135,6 +152,7 @@ class RegisterForm extends React.Component{
 							  onSubmit={handleSubmit(form => this.onSubmit(form))}>
                             <FormControl margin="normal" required fullWidth>
 								<Bessemer.Field friendlyName="email" name="principal"
+												onChange={this.handleChange('principal')}
                                        validators={[Validation.requiredValidator, Validation.emailValidator]} autoComplete="email" autoFocus/>
                             </FormControl>
                             <FormControl margin="normal" required fullWidth>
@@ -142,6 +160,7 @@ class RegisterForm extends React.Component{
                                     name="password"
                                     type="password"
                                     friendlyName="password"
+									onChange={this.handleChange('password')}
                                     validators={[Validation.requiredValidator, Validation.passwordValidator]}
                                     field={<input className="form-control" type="password" />}
                                     autoComplete="current-password"

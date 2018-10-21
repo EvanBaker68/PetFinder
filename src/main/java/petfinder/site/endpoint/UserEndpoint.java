@@ -24,6 +24,7 @@ public class UserEndpoint {
 	@ResponseBody
 	public Optional<UserDto> getUserDetails() {
 		String principal = SecurityContextHolder.getContext().getAuthentication().getName();
+		System.out.println(principal);
 		return userService.findUserByPrincipal(principal);
 	}
 
@@ -34,13 +35,13 @@ public class UserEndpoint {
 
 	@GetMapping(value = "/getSittersInCity", produces = "application/json")
     @ResponseBody
-    public Optional<List<UserDto>> getSittersInCity(@RequestBody String city) {
+    public List<Optional<UserDto>> getSittersInCity(@RequestBody String city) {
 	    return userService.getSittersByCity(city);
     }
 
     @GetMapping(value = "/getOwnersInCity", produces = "application/json")
     @ResponseBody
-    public Optional<List<UserDto>> getOwnersInCity(@RequestBody String city) {
+    public List<Optional<UserDto>> getOwnersInCity(@RequestBody String city) {
         return userService.getOwnersByCity(city);
     }
 

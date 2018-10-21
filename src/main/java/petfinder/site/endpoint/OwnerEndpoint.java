@@ -12,9 +12,9 @@ public class OwnerEndpoint {
     @Autowired
     OwnerService ownerService;
 
-    @GetMapping(value = "/{principal}", produces = "application/json")
+    @GetMapping(value = "/{principal:.+}", produces = "application/json")
     @ResponseBody
-    public Optional<OwnerDto> getSitter(@PathVariable("principal") String principal) {
+    public Optional<OwnerDto> getOwner(@PathVariable("principal") String principal) {
         return ownerService.findOwner(principal);
     }
 

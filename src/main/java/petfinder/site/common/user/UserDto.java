@@ -1,6 +1,5 @@
 package petfinder.site.common.user;
 
-import com.sun.org.apache.xpath.internal.operations.Bool;
 import org.codehaus.jackson.annotate.JsonIgnore;
 
 import alloy.util.Momento;
@@ -18,6 +17,7 @@ public class UserDto implements Momento<String> {
     private Map<String, Object> attributes;
     private Boolean isSitter;
     private Boolean isOwner;
+
     //TODO: add isOwner and isSitter to tell if the user can sign in as an owner or sitter,
     //and a cookie will be set to be used for the switch to owner/sitter button on the dash
 

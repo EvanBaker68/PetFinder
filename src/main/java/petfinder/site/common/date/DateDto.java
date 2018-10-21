@@ -1,11 +1,11 @@
 package petfinder.site.common.date;
 
 import alloy.util.Identifiable;
-import com.sun.org.apache.xpath.internal.operations.Bool;
 
 import java.util.Date;
 
 public class DateDto implements Identifiable {
+
     private Long id;
     private String startDate;
     private String endDate;

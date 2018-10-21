@@ -11,9 +11,8 @@ public class SitterService {
     @Autowired
     private SitterDao sitterDao;
 
-
-    public Optional<SitterDto> findSitter(String id) {
-        return sitterDao.findSitter(id);
+    public Optional<SitterDto> findSitter(String principal) {
+        return sitterDao.findSitter(principal);
     }
 
     public void save(SitterDto sitterDto) {

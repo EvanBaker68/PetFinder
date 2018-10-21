@@ -44,7 +44,7 @@ class OutlinedTextFields extends React.Component {
 	handleNext = () => {
 		const cookies = new Cookies();
 		const user = {
-			principal: cookies.get('username'),
+			principal: cookies.get('username').replace(/@/g, '%40'),
 			password: cookies.get('password'),
 			firstName: this.state.firstName,
 			lastName: this.state.lastName,

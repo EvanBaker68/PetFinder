@@ -112,19 +112,13 @@ public class UserService {
 		userDao.save(userAuthentication);
 		return userAuthentication.getUser();
 	}
-
-	public Optional<List<UserDto>> getSittersByCity(String city) {
+	public List<Optional<UserDto>> getSittersByCity(String city) {
 		return userDao.findByCity(city, "sitter");
 	}
 
-	public Optional<List<UserDto>> getOwnersByCity(String city) {
+	public List<Optional<UserDto>> getOwnersByCity(String city) {
 		return userDao.findByCity(city, "owner");
 	}
 
-
-
-	/*public UserDto setPet(Long requestPet){
-		UserDto
-	}*/
 
 }
