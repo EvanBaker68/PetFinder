@@ -173,7 +173,6 @@ class SignInForm extends React.Component{
 
 SignInForm = ReduxForm.reduxForm({form: 'SignIn'})(SignInForm);
 
-
 SignInForm = connect(
     state => ({
 
