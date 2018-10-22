@@ -15,8 +15,8 @@ public class UserDto implements Momento<String> {
     private List<String> roles;
     private UserType type;
     private Map<String, Object> attributes;
-    private Boolean isSitter;
-    private Boolean isOwner;
+    private String isSitter;
+    private String isOwner;
 
     //TODO: add isOwner and isSitter to tell if the user can sign in as an owner or sitter,
     //and a cookie will be set to be used for the switch to owner/sitter button on the dash
@@ -46,7 +46,7 @@ public class UserDto implements Momento<String> {
     }
 
     public UserDto(String principal, List<String> roles, UserType type, String phoneNumber, String firstName, String lastName,
-                   String address, String city, Map<String, Object> attributes) {
+                   String address, String city, String isSitter, String isOwner, Map<String, Object> attributes) {
         setPrincipal(principal);
         setPhoneNumber(phoneNumber);
         setFirstName(firstName);
@@ -56,6 +56,8 @@ public class UserDto implements Momento<String> {
         setType(type);
         setAttributes(attributes);
         setCity(city);
+        setOwner(isOwner);
+        setSitter(isSitter);
     }
 
     public String getPrincipal() {
@@ -125,20 +127,20 @@ public class UserDto implements Momento<String> {
         this.address = address;
     }
 
-    public Boolean getSitter() {
+    public String getSitter() {
         return isSitter;
     }
 
-    public void setSitter(Boolean sitter) {
-        isSitter = sitter;
+    public void setSitter(String isSitter) {
+        this.isSitter = isSitter;
     }
 
-    public Boolean getOwner() {
+    public String getOwner() {
         return isOwner;
     }
 
-    public void setOwner(Boolean owner) {
-        isOwner = owner;
+    public void setOwner(String isOwner) {
+        this.isOwner = isOwner;
     }
 
 

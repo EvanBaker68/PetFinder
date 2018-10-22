@@ -46,6 +46,26 @@ public class UserService {
 		private String lastName;
 		private String address;
 		private String city;
+		private String isOwner;
+		private String isSitter;
+
+		public String getIsOwner() {
+			return isOwner;
+		}
+
+		public void setIsOwner(String isOwner) {
+			this.isOwner = isOwner;
+		}
+
+		public String getIsSitter() {
+			return isSitter;
+		}
+
+		public void setIsSitter(String isSitter) {
+			this.isSitter = isSitter;
+		}
+
+
 		//private Map<String, Object> attributes;
 
 		public String getPrincipal() {
@@ -110,11 +130,12 @@ public class UserService {
 		UserAuthenticationDto userAuthentication = new UserAuthenticationDto(
 				//new UserDto(request.getPrincipal(), request.getPhoneNumber(), request.getName(), request.getAddress()), passwordEncoder.encode(request.getPassword()));
 				new UserDto(request.getPrincipal(), _Lists.list("ROLE_USER"), UserDto.UserType.OWNER, request.getPhoneNumber(),
-						request.getFirstName(), request.getLastName(), request.getAddress(), request.getCity(), request.getAttributes()), passwordEncoder.encode(request.getPassword()));
+						request.getFirstName(), request.getLastName(), request.getAddress(), request.getCity(), request.isSitter, request.isOwner, request.getAttributes()), passwordEncoder.encode(request.getPassword()));
 		userDao.save(userAuthentication);
 		return userAuthentication.getUser();
 	}
 	public List<UserDto> getSittersByCity(String city) {
+		System.out.println("IN THE CITY");
 		List<Optional<UserAuthenticationDto>> listDtos = userDao.findByCity(city, "sitter");
 		//return userDao.findByCity(city, "sitter");
 		List<UserAuthenticationDto> filteredUsers = listDtos.stream().filter(Optional::isPresent).map(Optional::get).collect(Collectors.toList());

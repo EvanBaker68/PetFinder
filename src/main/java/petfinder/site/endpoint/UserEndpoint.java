@@ -33,9 +33,9 @@ public class UserEndpoint {
 		return userService.register(request);
 	}
 
-	@GetMapping(value = "/getSittersInCity", produces = "application/json")
+	@GetMapping(value = "/getSittersInCity/{city}", produces = "application/json")
     @ResponseBody
-    public List<UserDto> getSittersInCity(@RequestBody String city) {
+    public List<UserDto> getSittersInCity(@PathVariable("city") String city) {
 	    return userService.getSittersByCity(city);
     }
 

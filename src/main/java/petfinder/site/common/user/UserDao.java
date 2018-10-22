@@ -58,11 +58,15 @@ public class UserDao {
 		SearchSourceBuilder searchSourceBuilder = new SearchSourceBuilder();
 		String queryString = "";
 		if(type.equals("sitter")){
+			System.out.println("HEY THERE BUCKOOOOO");
 			isSitter = true;
-			queryString = String.format("user.city=\"%s\"&user.isSitter=true", city.replace("\"", ""));
+//			queryString = String.format("user.city=\"%s\"&user.isSitter=\"true\"", city.replace("\"", ""));
+			queryString = String.format("user.city=\"%s\"&&user.sitter=\"true\"", city.replace("\"", ""));
 		} else if(type.equals("owner")){
 			isOwner = true;
-			queryString = String.format("user.city=\"%s\"&user.isOwner=true", city.replace("\"", ""));
+//			queryString = String.format("user.city=\"%s\"&user.isOwner=\"true\"", city.replace("\"", ""));
+			queryString = String.format("user.city=\"%s\"&user.owner=\"true\"", city.replace("\"", ""));
+
 		}
 		searchSourceBuilder.query(QueryBuilders.queryStringQuery(queryString));
 

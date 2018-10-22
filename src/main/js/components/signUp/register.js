@@ -64,7 +64,8 @@ class RegisterForm extends React.Component{
     constructor(props) {
         super(props);
         console.log(this.props);
-        this.state = {isOwner: false,
+        this.state = {
+        	isOwner: false,
 			isSitter: false,
 			redirectOwner: false,
 			redirectSitter: false,
