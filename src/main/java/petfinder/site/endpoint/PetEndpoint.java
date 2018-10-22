@@ -1,5 +1,6 @@
 package petfinder.site.endpoint;
 
+import java.util.List;
 import java.util.Optional;
 
 import java.util.logging.Logger;
@@ -26,6 +27,12 @@ public class PetEndpoint {
 	@ResponseBody
 	public Optional<PetDto> getPet(@PathVariable("id") Long id) {
 		return petService.findPet(id);
+	}
+
+	@GetMapping(value = "/pets/{ownerPrincipal:.+}", produces = "application/json")
+	@ResponseBody
+	public List<Optional<PetDto>> getPets(@PathVariable("ownerPrincipal") String ownerPrincipal) {
+		return petService.findPetByPrincipal(ownerPrincipal);
 	}
 
 
