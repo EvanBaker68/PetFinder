@@ -118,17 +118,17 @@ class PetPage extends React.Component {
     };
 
     componentDidMount() {
-        const petId = 1;
-        const endpoint = '/pet/' + petId;
+        const id = 1;
+        const endpoint = '/pet/' + id;
         const cookies = new Cookies();
 
-        axios.get('/pet/' + petId, petId)
+        axios.get('/pet/' + id, id)
             .then(res => {
                 this.setState({
                     name: res.name,
                     age: res.age,
                     dogBreed: res.dogBreed,
-                    petId: res.petId,
+                    id: res.id,
                     ownerPrincipal: res.ownerPrincipal,
                     petType: res.petType});
             }).then(response => console.log(response))
@@ -164,9 +164,11 @@ class PetPage extends React.Component {
         var petItems;
         if(pets)
 		{petItems = pets.map(pet => {
-			const {name, age, breed, petType} = pet;
+			const {name, age, dogBreed, petType, id} = pet;
 			return (
-				<PetCard name={name} breed={breed} type={petType}/>
+				<div key={(((1+Math.random())*0x10000)|0)}>
+				<PetCard id={id} name={name} type={petType} breed={dogBreed} age={age}/>
+				</div>
 			);
 		});}
 
@@ -218,12 +220,12 @@ class PetPage extends React.Component {
                         <List>{mainListItems}</List>
                     </Drawer>
                     <main className={classes.content}>
-                        <Card className={classes.card}>
-                            <CardActions>
-                                <EditPet/>
-                            </CardActions>
-                        </Card>
-                        {/*{petItems}*/}
+                        {/*<Card className={classes.card}>*/}
+                            {/*<CardActions>*/}
+                                {/*<EditPet/>*/}
+                            {/*</CardActions>*/}
+                        {/*</Card>*/}
+                        {petItems}
                         {/*<PetCard/>*/}
                         <AddPet/>
                     </main>

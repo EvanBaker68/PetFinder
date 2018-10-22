@@ -30,7 +30,7 @@ export default class FormDialog extends React.Component {
 		const cookies = new Cookies();
 		console.log(cookies.get('username'));
 		const pet = {
-			petId: 2,
+			id: (((1+Math.random())*0x10000)|0),
 			ownerPrincipal: cookies.get('username'),
 			name: this.state.name,
 			petType: this.state.petType,

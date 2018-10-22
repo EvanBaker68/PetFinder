@@ -47,7 +47,7 @@ export default class Form extends React.Component {
             <form>
                 <input
                 name='id'
-                placeholder='petId pwease'
+                placeholder='id pwease'
                 value={this.state.id}
                 onChange={e => this.change(e)}/>
 

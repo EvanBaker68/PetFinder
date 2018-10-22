@@ -19,7 +19,10 @@ public class PetService {
 	}
 
 	public List<Optional<PetDto>> findPetByPrincipal(String ownerPrincipal) {
-		return petDao.findPetByPrincipal(ownerPrincipal);
+		List<Optional<PetDto>> theList =  petDao.findPetByPrincipal(ownerPrincipal);
+		for(Optional<PetDto> pet : theList)
+			System.out.println(pet.get().getId());
+		return theList;
 	}
 
 	public void save(PetDto pet) {

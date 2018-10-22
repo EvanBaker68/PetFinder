@@ -25,7 +25,7 @@ public class DateTest {
             assertAll(
                     () -> assertEquals("1/1/17", date.getStartDate()),
                     () -> assertEquals("1/8/17", date.getEndDate()),
-                    () -> assertEquals("drewb97@gmail.com", date.getSitterPrinciple())
+                    () -> assertEquals("drewb97@gmail.com", date.getSitterPrincipal())
             );
         }
 
@@ -34,11 +34,11 @@ public class DateTest {
         void testSetters() throws IllegalArgumentException {
             DateDto date = new DateDto();
             assertThrows(IllegalArgumentException.class, () -> {
-                date.setSitterPrinciple("yeet");
+                date.setSitterPrincipal("yeet");
             });
 
             assertThrows(IllegalArgumentException.class, () -> {
-                date.setSitterPrinciple(null);
+                date.setSitterPrincipal(null);
             });
 
             assertThrows(IllegalArgumentException.class, () -> {

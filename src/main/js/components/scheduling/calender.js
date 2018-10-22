@@ -58,7 +58,7 @@ export default class Calender extends React.Component
                             const date = {
                                 startDate: start,
                                 endDate: end,
-                                sitterPrinciple: 'emily'
+                                sitterPrincipal: 'emily'
                             };
                             axios.post('/sitter/add-date', date)
                                 .then(res => {
