@@ -8,6 +8,9 @@ import java.util.List;
 import java.util.Map;
 
 public class UserDto implements Momento<String> {
+    public Boolean isEmpty() {
+        return false;
+    }
     private String principal;
     private List<String> roles;
     private UserType type;
@@ -32,7 +35,6 @@ public class UserDto implements Momento<String> {
     public String getCity(){
         return city;
     }
-
     private UserDto() {
 
     }
@@ -44,7 +46,7 @@ public class UserDto implements Momento<String> {
     }
 
     public UserDto(String principal, List<String> roles, UserType type, String phoneNumber, String firstName, String lastName,
-                   String address, Map<String, Object> attributes) {
+                   String address, String city, Map<String, Object> attributes) {
         setPrincipal(principal);
         setPhoneNumber(phoneNumber);
         setFirstName(firstName);
@@ -53,6 +55,7 @@ public class UserDto implements Momento<String> {
         setRoles(roles);
         setType(type);
         setAttributes(attributes);
+        setCity(city);
     }
 
     public String getPrincipal() {
@@ -120,6 +123,22 @@ public class UserDto implements Momento<String> {
 
     public void setAddress(String address) {
         this.address = address;
+    }
+
+    public Boolean getSitter() {
+        return isSitter;
+    }
+
+    public void setSitter(Boolean sitter) {
+        isSitter = sitter;
+    }
+
+    public Boolean getOwner() {
+        return isOwner;
+    }
+
+    public void setOwner(Boolean owner) {
+        isOwner = owner;
     }
 
 
