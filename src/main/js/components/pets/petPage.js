@@ -63,6 +63,11 @@ const styles = theme => ({
         marginLeft: 12,
         marginRight: 36,
     },
+	divider: {
+	width: 5,
+	height: 50,
+	display: 'inline-block',
+    },
     menuButtonHidden: {
         display: 'none',
     },
@@ -226,8 +231,12 @@ class PetPage extends React.Component {
                             {/*</CardActions>*/}
                         {/*</Card>*/}
                         {petItems}
+						<div className={classes.divider}/>
+
+							<AddPet/>
+
                         {/*<PetCard/>*/}
-                        <AddPet/>
+
                     </main>
                 </div>
             </React.Fragment>
