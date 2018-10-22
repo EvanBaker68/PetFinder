@@ -40,6 +40,10 @@ public class PetEndpoint {
 	@ResponseBody
 	public PetDto savePet(@RequestBody PetDto pet) {
 		System.out.println("made it to endpoint");
+		System.out.println(pet.getAge());
+		System.out.println(pet.getName());
+		System.out.println(pet.getownerPrincipal());
+		System.out.println(pet.getId());
 		petService.save(pet);
 		return pet;
 	}

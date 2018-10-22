@@ -23,6 +23,11 @@ const styles = {
 
 function PetCard(props) {
     const { classes } = props;
+
+    var name = 'Buddy';
+    var type = 'Dog';
+    var breed = 'Border Collie';
+    var petId = 1;
     return (
         <Card className={classes.card}>
             <CardActionArea>
@@ -35,15 +40,15 @@ function PetCard(props) {
                 />
                 <CardContent>
                     <Typography gutterBottom variant="headline" component="h2">
-                        Buddy
+                        {name}
                     </Typography>
                     <Typography component="p">
-                        Dog, Border Collie
+                        {type}, {breed}
                     </Typography>
                 </CardContent>
             </CardActionArea>
             <CardActions>
-                <EditPet/>
+                <EditPet />
                 <Button size="small" color="secondary">
                     Delete
                 </Button>

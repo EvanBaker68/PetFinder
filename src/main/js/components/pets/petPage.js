@@ -161,23 +161,21 @@ class PetPage extends React.Component {
         const { classes } = this.props;
         const { pets } = this.state;
 
+        var petItems;
+        if(pets)
+		{petItems = pets.map(pet => {
+			const {name, age, breed, petType} = pet;
+			return (
+				<PetCard name={name} breed={breed} type={petType}/>
+			);
+		});}
 
         return (
 
             <React.Fragment>
                 <CssBaseline />
                 <div className={classes.root}>
-					{pets.map(pet => {
-						const {name, age, breed, petType} = pet;
-						return (
-							<div key={name}>
-								<p>{age}</p>
-								<p>{breed}</p>
-								<p>{petType}</p>
-								<hr />
-							</div>
-						);
-					})};
+
                     <AppBar
                         position="absolute"
                         className={classNames(classes.appBar, this.state.open && classes.appBarShift)}
@@ -225,6 +223,8 @@ class PetPage extends React.Component {
                                 <EditPet/>
                             </CardActions>
                         </Card>
+                        {/*{petItems}*/}
+                        {/*<PetCard/>*/}
                         <AddPet/>
                     </main>
                 </div>
