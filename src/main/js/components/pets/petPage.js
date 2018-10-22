@@ -114,6 +114,7 @@ const styles = theme => ({
 class PetPage extends React.Component {
     state = {
         open: true,
+        pets: []
     };
 
     componentDidMount() {
@@ -137,6 +138,9 @@ class PetPage extends React.Component {
 
 		axios.get('/pet/pets/' + cookies.get('username'), cookies.get('username'))
             .then(res => {
+                this.setState({
+                    pets: res
+                });
                 console.log(res);
             }).then(response => console.log(response))
 			.catch(error => this.setState({error}));
@@ -155,11 +159,25 @@ class PetPage extends React.Component {
 
     render() {
         const { classes } = this.props;
+        const { pets } = this.state;
+
 
         return (
+
             <React.Fragment>
                 <CssBaseline />
                 <div className={classes.root}>
+					{pets.map(pet => {
+						const {name, age, breed, petType} = pet;
+						return (
+							<div key={name}>
+								<p>{age}</p>
+								<p>{breed}</p>
+								<p>{petType}</p>
+								<hr />
+							</div>
+						);
+					})};
                     <AppBar
                         position="absolute"
                         className={classNames(classes.appBar, this.state.open && classes.appBarShift)}
