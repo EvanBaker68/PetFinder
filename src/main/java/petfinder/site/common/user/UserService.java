@@ -120,7 +120,9 @@ public class UserService {
 		List<UserAuthenticationDto> filteredUsers = listDtos.stream().filter(Optional::isPresent).map(Optional::get).collect(Collectors.toList());
 		List<UserDto> newList = new ArrayList<>();
 		for(UserAuthenticationDto i : filteredUsers){
-			newList.add(i.getUser());
+			if(i.getUser().getSitter()) {
+				newList.add(i.getUser());
+			}
 		}
 		return newList;
 	}
@@ -131,7 +133,9 @@ public class UserService {
 		List<UserAuthenticationDto> filteredUsers = listDtos.stream().filter(Optional::isPresent).map(Optional::get).collect(Collectors.toList());
 		List<UserDto> newList = new ArrayList<>();
 		for(UserAuthenticationDto i : filteredUsers){
-			newList.add(i.getUser());
+			if(i.getUser().getOwner() == true) {
+				newList.add(i.getUser());
+			}
 		}
 		return newList;
 	}

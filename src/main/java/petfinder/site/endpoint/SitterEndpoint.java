@@ -39,10 +39,12 @@ public class SitterEndpoint {
         return date;
     }
 
-    @GetMapping(value = "/get-dates/{sitterPrinciple}", produces = "application/json")
+    @GetMapping(value = "/get-dates/{sitterPrinciple}/{endDate}/{startDate}", produces = "application/json")
     @ResponseBody
-    public Optional<DateDto> getDates(@PathVariable("sitterPrinciple") String sitterPrinciple) {
+    public Optional<DateDto> getDates(@PathVariable("sitterPrinciple") String sitterPrinciple, @PathVariable("endDate") String endDate, @PathVariable("startDate") String startDate) {
         System.out.println("made to endpoint");
-        return dateService.findDateBySitter(sitterPrinciple);
+        return dateService.findDateBySitter(sitterPrinciple, startDate, endDate);
     }
+
+
 }
