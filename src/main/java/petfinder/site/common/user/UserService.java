@@ -6,9 +6,10 @@ import java.util.Optional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
-
+import java.util.ArrayList;
 import alloy.util._Lists;
 import java.util.List;
+import java.util.stream.Collectors;
 
 /**
  * Created by jlutteringer on 8/23/17.
@@ -113,12 +114,26 @@ public class UserService {
 		userDao.save(userAuthentication);
 		return userAuthentication.getUser();
 	}
-	public List<Optional<UserDto>> getSittersByCity(String city) {
-		return userDao.findByCity(city, "sitter");
+	public List<UserDto> getSittersByCity(String city) {
+		List<Optional<UserAuthenticationDto>> listDtos = userDao.findByCity(city, "sitter");
+		//return userDao.findByCity(city, "sitter");
+		List<UserAuthenticationDto> filteredUsers = listDtos.stream().filter(Optional::isPresent).map(Optional::get).collect(Collectors.toList());
+		List<UserDto> newList = new ArrayList<>();
+		for(UserAuthenticationDto i : filteredUsers){
+			newList.add(i.getUser());
+		}
+		return newList;
 	}
 
-	public List<Optional<UserDto>> getOwnersByCity(String city) {
-		return userDao.findByCity(city, "owner");
+	public List<UserDto> getOwnersByCity(String city) {
+		//return userDao.findByCity(city, "owner");
+		List<Optional<UserAuthenticationDto>> listDtos = userDao.findByCity(city, "owner");
+		List<UserAuthenticationDto> filteredUsers = listDtos.stream().filter(Optional::isPresent).map(Optional::get).collect(Collectors.toList());
+		List<UserDto> newList = new ArrayList<>();
+		for(UserAuthenticationDto i : filteredUsers){
+			newList.add(i.getUser());
+		}
+		return newList;
 	}
 
 

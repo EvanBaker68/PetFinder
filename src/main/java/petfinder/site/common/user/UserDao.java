@@ -52,7 +52,7 @@ public class UserDao {
 	public void saveInfo(UserDto userDto) {
 		userInfoElasticSearchRepository.save(userDto);
 	}
-public List<Optional<UserDto>> findByCity(String city, String type) {
+	public List<Optional<UserAuthenticationDto>> findByCity(String city, String type) {
 		Boolean isSitter = false;
 		Boolean isOwner = false;
 		SearchSourceBuilder searchSourceBuilder = new SearchSourceBuilder();
@@ -68,7 +68,7 @@ public List<Optional<UserDto>> findByCity(String city, String type) {
 
 		//TODO: add thrown exception
 
-		return userInfoElasticSearchRepository.search(searchSourceBuilder).stream().map(Optional::ofNullable)
+		return repository.search(searchSourceBuilder).stream().map(Optional::ofNullable)
 				.collect(Collectors.toList());
 	}
 

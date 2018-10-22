@@ -18,6 +18,8 @@ import { mainListItems, secondaryListItems } from 'js/components/dashboard/listI
 import PreviousJobsTable from 'js/components/dashboard/PreviousJobsTable';
 import {SitterMenuList} from 'js/components/dashboard/SitterMenuList';
 import RequestsTable from 'js/components/dashboard/requestsTable';
+import Button from '@material-ui/core/Button';
+import  { Redirect } from 'react-router-dom';
 
 const drawerWidth = 240;
 
@@ -108,8 +110,16 @@ class Dashboard extends React.Component {
         this.setState({ open: false });
     };
 
+	handleHome = () => {
+		this.setState({ redirect: true });
+	}
+
     render() {
         const { classes } = this.props;
+
+		if(this.state.redirect){
+			return <div><Redirect to='/'/></div>;
+		}
 
         return (
             <React.Fragment>
@@ -134,6 +144,16 @@ class Dashboard extends React.Component {
                             <Typography variant="display2" color="inherit" noWrap className={classes.title}>
                                 Sitter Dashboard
                             </Typography>
+							<Button
+								type="submit"
+
+								variant="raised"
+								color="secondary"
+								className={classes.submit}
+								onClick={this.handleHome}
+							>
+								Home Page
+							</Button>
                             <IconButton color="inherit">
                                 <Badge badgeContent={4} color="secondary">
                                     <NotificationsIcon />
