@@ -3,7 +3,7 @@ package petfinder.site.common.owner;
 import alloy.util.Momento;
 import org.codehaus.jackson.annotate.JsonIgnore;
 
-import petfinder.site.ValidationException;
+//import petfinder.site.ValidationException;
 
 import javax.xml.bind.ValidationEventLocator;
 
@@ -19,7 +19,7 @@ public class OwnerDto implements Momento<String> {
     }
 
 
-    public OwnerDto(String principal, Long[] currentBookings, Long[] pastBookings, Long[] petIds, int numPets) throws ValidationException{
+    public OwnerDto(String principal, Long[] currentBookings, Long[] pastBookings, Long[] petIds, int numPets) throws IllegalArgumentException{
         setPrincipal(principal);
         setCurrentBookings(currentBookings);
         setPastBookings(pastBookings);
@@ -43,13 +43,13 @@ public class OwnerDto implements Momento<String> {
         return temp;
     }
 
-    public void setCurrentBookings(Long[] currentBookings) throws ValidationException {
+    public void setCurrentBookings(Long[] currentBookings) throws IllegalArgumentException {
         if (currentBookings == null) {
-            throw new ValidationException("setCurrentBookings", "was given a null value");
+            throw new IllegalArgumentException("setCurrentBookings\n was given a null value");
         }
         for (Long itr : currentBookings) {
             if (itr <= 0) {
-                throw new ValidationException("setCurrentBookings", "given a bad bookingId");
+                throw new IllegalArgumentException("setCurrentBookings\n given a bad bookingId");
             }
         }
     }
@@ -66,21 +66,21 @@ public class OwnerDto implements Momento<String> {
     }
 
 
-    public void setPastBookings(Long[] pastBookings) throws ValidationException{
+    public void setPastBookings(Long[] pastBookings) throws IllegalArgumentException{
         if(pastBookings == null){
-            throw new ValidationException("setPastBookings", "was given a null value");
+            throw new IllegalArgumentException("setPastBookings\n was given a null value");
         }
         for(Long itr : pastBookings){
             if(itr <= 0){
-                throw new ValidationException("setPastBookings", "was given a bad bookingId");
+                throw new IllegalArgumentException("setPastBookings\n was given a bad bookingId");
             }
         }
         this.pastBookings = pastBookings;
     }
 
-    public void setPrincipal(String principal) throws ValidationException {
+    public void setPrincipal(String principal) throws IllegalArgumentException {
         if(principal == null){
-            throw new ValidationException("setPrincipal", "was given a null value");
+            throw new IllegalArgumentException("setPrincipal\n was given a null value");
         }
         this.principal = principal;
     }
