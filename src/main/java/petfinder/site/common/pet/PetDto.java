@@ -2,7 +2,7 @@ package petfinder.site.common.pet;
 
 import alloy.util.Identifiable;
 import org.codehaus.jackson.annotate.JsonIgnore;
-import petfinder.site.ValidationException;
+//import petfinder.site.ValidationException;
 
 public class PetDto implements Identifiable {
 	private Long petId;
@@ -16,22 +16,16 @@ public class PetDto implements Identifiable {
 
 	public PetDto() {}
 
-<<<<<<< HEAD
-	public PetDto(Long petId, String ownerPrinciple, String name, String petType, String dogBreed, Double age) throws ValidationException {
+	public PetDto(Long petId, String ownerPrinciple, String name, String petType, String dogBreed, Double age) throws IllegalArgumentException {
 	    setPetId(petId);
 	    setOwnerPrinciple(ownerPrinciple);
-=======
-	public PetDto(Long petId, String ownerPrincipal, String name, String petType, String dogBreed, Double age) {
-	    setId(petId);
-	    setownerPrincipal(ownerPrincipal);
->>>>>>> 545bb29c30fe91466dbc8dfc91822392b9cf7c32
 	    setName(name);
 	    setPetType(petType);
 	    //setDog(isDog);
 	    setAge(age);
 	}
 
-	public PetDto(Long petId, String ownerPrinciple, String name, String petType) throws ValidationException {
+	public PetDto(Long petId, String ownerPrinciple, String name, String petType) throws IllegalArgumentException{
         setPetId(petId);
         setOwnerPrinciple(ownerPrinciple);
         setName(name);
@@ -68,54 +62,48 @@ public class PetDto implements Identifiable {
     }
 
 
-<<<<<<< HEAD
-    public void setPetId(Long petId) throws ValidationException{
+    public void setPetId(Long petId) throws IllegalArgumentException{
 	    if(petId == null){
-	        throw new ValidationException("setPetId", "was given a null");
+	        throw new IllegalArgumentException("setPetId\n was given a null");
         } else if(petId <= 0){ // can add a max later
-	        throw new ValidationException("setPetId", "was given a bad id");
+	        throw new IllegalArgumentException("setPetId\n was given a bad id");
         }
         this.petId = petId;
     }
 
-    public void setOwnerPrinciple(String ownerPrinciple) throws ValidationException {
-        if(ownerPrinciple == null){
-            throw new ValidationException("setOwnerPrinciple", "was given a null");
-        } else if(!ownerPrinciple.matches("^(.+)@(.+)$")){
-            throw new ValidationException("setOwnerPrinciple", "given incorrect value");
+    public void setOwnerPrinciple(String ownerPrinciple) throws IllegalArgumentException {
+        if (ownerPrinciple == null) {
+            throw new IllegalArgumentException("setOwnerPrinciple\n was given a null");
+        } else if (!ownerPrinciple.matches("^(.+)@(.+)$")) {
+            throw new IllegalArgumentException("setOwnerPrinciple\n given incorrect value");
         }
-	    this.ownerPrinciple = ownerPrinciple;
-=======
+        this.ownerPrincipal = ownerPrinciple;
+    }
     public void setId(Long petId) {
         this.petId = petId;
     }
 
-    public void setownerPrincipal(String ownerPrincipal) {
-        this.ownerPrincipal = ownerPrincipal;
->>>>>>> 545bb29c30fe91466dbc8dfc91822392b9cf7c32
-    }
-
-	public void setName(String name) throws ValidationException {
+	public void setName(String name) throws IllegalArgumentException {
 	    if(name ==  null){
-	        throw new ValidationException("setName", "was given a null");
+	        throw new IllegalArgumentException("setName\n was given a null");
         }
 		this.name = name;
 	}
 
-    public void setPetType(String petType) throws ValidationException{
+    public void setPetType(String petType) throws IllegalArgumentException{
 	    if(petType == null){
-	        throw new ValidationException("setPetType", "was given a null");
+	        throw new IllegalArgumentException("setPetType\n was given a null");
         }
         this.petType = petType;
     }
 
 
 
-    public void setAge(Double age) throws ValidationException{
+    public void setAge(Double age) throws IllegalArgumentException{
 	    if(age == null){
-	        throw new ValidationException("setAge", "was given a null");
+	        throw new IllegalArgumentException("setAge\n was given a null");
         }else if (age < 0){
-	        throw new ValidationException("setAge", "was given a bad value");
+	        throw new IllegalArgumentException("setAge\n was given a bad value");
         }
         this.age = age;
     }

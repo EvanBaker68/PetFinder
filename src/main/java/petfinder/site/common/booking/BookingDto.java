@@ -4,7 +4,7 @@ import alloy.util.Identifiable;
 import alloy.util.Momento;
 import jdk.nashorn.internal.runtime.regexp.joni.exception.ValueException;
 import org.codehaus.jackson.annotate.JsonIgnore;
-import petfinder.site.ValidationException;
+//import petfinder.site.ValidationException;
 
 import java.util.Date;
 public class BookingDto implements Identifiable{
@@ -23,7 +23,7 @@ public class BookingDto implements Identifiable{
 
     }
 
-    public BookingDto(Long id, String sitterPrincipal, String ownerPrincipal, Date startDate, Date finishDate, String reviewByOwner, String reviewBySitter, Integer scoreByOwner, Integer scoreBySitter) throws ValidationException{
+    public BookingDto(Long id, String sitterPrincipal, String ownerPrincipal, Date startDate, Date finishDate, String reviewByOwner, String reviewBySitter, Integer scoreByOwner, Integer scoreBySitter) throws IllegalArgumentException{
         setId(id);
         setOwnerPrincipal(ownerPrincipal);
         setSitterPrincipal(sitterPrincipal);
@@ -35,7 +35,7 @@ public class BookingDto implements Identifiable{
         setScoreBySitter(scoreBySitter);
     }
 
-    public BookingDto(Long id, String sitterPrincipal, String ownerPrincipal, Date startDate, Date finishDate) throws ValidationException {
+    public BookingDto(Long id, String sitterPrincipal, String ownerPrincipal, Date startDate, Date finishDate) throws IllegalArgumentException{
         setId(id);
         setOwnerPrincipal(ownerPrincipal);
         setSitterPrincipal(sitterPrincipal);
@@ -62,11 +62,11 @@ public class BookingDto implements Identifiable{
         return temp;
     }
 
-    public void setId(Long id) throws ValidationException{
+    public void setId(Long id) throws IllegalArgumentException{
         if(id == null){
-            throw new ValidationException("setId", "was given a null value");
+            throw new IllegalArgumentException("setId\n was given a null value");
         }else if (id <= 0){
-            throw new ValidationException("setId", "was given a bad value for id");
+            throw new IllegalArgumentException("setId\n was given a bad value for id");
         }
         this.id = id;
     }
@@ -76,11 +76,11 @@ public class BookingDto implements Identifiable{
         return temp;
     }
 
-    public void setSitterPrincipal(String sitterPrincipal) throws ValidationException {
+    public void setSitterPrincipal(String sitterPrincipal) throws IllegalArgumentException{
         if(sitterPrincipal == null){
-            throw new ValidationException("setSitterPrincipal", "was given a null value");
+            throw new IllegalArgumentException("setSitterPrincipal\n was given a null value");
         } else if(!sitterPrincipal.matches("^(.+)@(.+)$")){
-            throw new ValidationException("setSitterPrincipal", "was given an invalid value");
+            throw new IllegalArgumentException("setSitterPrincipal\n was given an invalid value");
         }
         this.sitterPrincipal = sitterPrincipal;
     }
@@ -90,11 +90,11 @@ public class BookingDto implements Identifiable{
         return temp;
     }
 
-    public void setOwnerPrincipal(String ownerPrincipal) throws ValidationException{
+    public void setOwnerPrincipal(String ownerPrincipal) throws IllegalArgumentException{
         if(ownerPrincipal == null){
-            throw new ValidationException("setOwnerPrincipal", "was given a null value");
+            throw new IllegalArgumentException("setOwnerPrincipal\n was given a null value");
         } else if(!ownerPrincipal.matches("^(.+)@(.+)$")){
-            throw new ValidationException("setOwnerPrincipal", "was given an invalid value");
+            throw new IllegalArgumentException("setOwnerPrincipal\n was given an invalid value");
         }
         this.ownerPrincipal = ownerPrincipal;
     }
@@ -106,9 +106,9 @@ public class BookingDto implements Identifiable{
 
 
     //MIGHT CHANGE THESE BECAUSE OF NEW DATE OBJECT
-    public void setStartDate(Date startDate) throws ValidationException{
+    public void setStartDate(Date startDate) throws IllegalArgumentException{
         if(startDate == null){
-            throw new ValidationException("setStartDate", "was given a null");
+            throw new IllegalArgumentException("setStartDate\n was given a null");
         }
         this.startDate = startDate;
     }
@@ -118,9 +118,9 @@ public class BookingDto implements Identifiable{
         return temp;
     }
 
-    public void setFinishDate(Date finishDate) throws ValidationException {
+    public void setFinishDate(Date finishDate) throws IllegalArgumentException {
         if(finishDate == null){
-            throw new ValidationException("setFinishDate", "finishDate was set to null");
+            throw new IllegalArgumentException("setFinishDate\n finishDate was set to null");
         }
         this.finishDate = finishDate;
     }
@@ -141,7 +141,7 @@ public class BookingDto implements Identifiable{
     }
 
     //IF given empty string then has not been established yet
-    public void setReviewBySitter(String reviewBySitter) throws ValidationException{
+    public void setReviewBySitter(String reviewBySitter) throws IllegalArgumentException{
         this.reviewBySitter = reviewBySitter;
     }
 

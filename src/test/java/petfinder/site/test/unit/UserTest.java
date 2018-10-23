@@ -12,7 +12,7 @@ public class UserTest {
 
     @Nested
     @DisplayName("Testing Functionality of User Constructor")
-    public class TestUserConstructor{
+    public class TestUserSimple{
 
         @Test
         @DisplayName("Testing Values")
