@@ -4,7 +4,7 @@ import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.Nested;
 import static org.junit.jupiter.api.Assertions.*;
 import petfinder.site.common.pet.PetDto;
-/*import petfinder.site.ValidationException;
+//import petfinder.site.ValidationException;
 public class PetTest {
 
     @Nested
@@ -13,7 +13,7 @@ public class PetTest {
 
         @Test
         @DisplayName("Testing constructor not null")
-        void testConstructorNotNull() throws ValidationException{
+        void testConstructorNotNull() throws IllegalArgumentException{
             PetDto pet = new PetDto(1L,"drewb97@gmail.com", "coco", "mcdog");
             assertNotNull(pet);
             PetDto pet2 = new PetDto();
@@ -24,42 +24,42 @@ public class PetTest {
 
         @Test
         @DisplayName("Testing Setters invalid types")
-        void testSetters() throws ValidationException{
+        void testSetters() throws IllegalArgumentException{
             PetDto pet = new PetDto();
             //null values
-            assertThrows(ValidationException.class, () -> {
+            assertThrows(IllegalArgumentException.class, () -> {
                 pet.setName(null);
             });
-            assertThrows(ValidationException.class, () -> {
+            assertThrows(IllegalArgumentException.class, () -> {
                 pet.setOwnerPrinciple(null);
             });
-            assertThrows(ValidationException.class, () -> {
+            assertThrows(IllegalArgumentException.class, () -> {
                 pet.setPetId(null);
             });
-            assertThrows(ValidationException.class, () -> {
+            assertThrows(IllegalArgumentException.class, () -> {
                 pet.setPetType(null);
             });
 
-            assertThrows(ValidationException.class, () -> {
+            assertThrows(IllegalArgumentException.class, () -> {
                 pet.setPetId(-1L);
             });
 
-            assertThrows(ValidationException.class, () -> {
+            assertThrows(IllegalArgumentException.class, () -> {
                 pet.setOwnerPrinciple("yeet");
             });
 
-            assertThrows(ValidationException.class, () -> {
+            assertThrows(IllegalArgumentException.class, () -> {
                 pet.setAge(-1.0);
             });
         }
 
         @Test
         @DisplayName("Testing Getters equal")
-        void testGettersEquals() throws ValidationException {
+        void testGettersEquals() throws IllegalArgumentException {
             PetDto pet = new PetDto(1L, "drewb97@gmail.com", "coco", "mcdog");
             assertAll("All should be true",
                     () -> assertEquals((Long)1L, pet.getId()),
-                    () -> assertEquals("drewb97@gmail.com", pet.getOwnerPrinciple()),
+                    () -> assertEquals("drewb97@gmail.com", pet.getownerPrincipal()),
                     () -> assertEquals("coco", pet.getName()),
                     () -> assertEquals("mcdog", pet.getPetType())
                     );
@@ -69,4 +69,3 @@ public class PetTest {
 
     }
 }
-*/

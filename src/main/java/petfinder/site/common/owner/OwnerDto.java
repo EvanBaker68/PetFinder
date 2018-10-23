@@ -6,6 +6,7 @@ import org.codehaus.jackson.annotate.JsonIgnore;
 //import petfinder.site.ValidationException;
 
 import javax.xml.bind.ValidationEventLocator;
+import java.util.List;
 
 public class OwnerDto implements Momento<String> {
     private String principal;
@@ -15,7 +16,7 @@ public class OwnerDto implements Momento<String> {
     private Long[] petIds;
     private Boolean isDeleted;
 
-    public OwnerDto() {
+    public OwnerDto(String principal, List<Long> currentBookings, List<Long> pastBookings, List<Long> petIds, int numPets) {
     }
 
 
