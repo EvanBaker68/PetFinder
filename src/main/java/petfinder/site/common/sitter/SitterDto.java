@@ -2,8 +2,9 @@ package petfinder.site.common.sitter;
 
 import alloy.util.Momento;
 import org.codehaus.jackson.annotate.JsonIgnore;
-import petfinder.site.ValidationException;
+//import petfinder.site.ValidationException;
 
+import javax.swing.text.StyledEditorKit;
 import java.time.LocalDateTime;
 
 public class SitterDto implements Momento<String> {
@@ -13,22 +14,23 @@ public class SitterDto implements Momento<String> {
     private Long[] pastBookings;
     private Long[] datesAvailable;
     private Double rate;
+    private Boolean isDeleted;
 
 
     //Main Constructor
-    public SitterDto(String principal, double rate) throws ValidationException {
+    public SitterDto(String principal, Double rate) {
         setPrincipal(principal);
         setRate(rate);
     }
 
     public SitterDto() {}
 
-    public SitterDto(String principal) throws ValidationException{
+    public SitterDto(String principal) throws IllegalArgumentException{
         setPrincipal(principal);
     }
 
     //Temporary until we get rid of Availability
-    public SitterDto(String principal, Long[] currentBookings, Long[] pastBookings) throws ValidationException {
+    public SitterDto(String principal, Long[] currentBookings, Long[] pastBookings) throws IllegalArgumentException{
         setPrincipal(principal);
         setCurrentBookings(currentBookings);
         setPastBookings(pastBookings);

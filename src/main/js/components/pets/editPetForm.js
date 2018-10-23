@@ -17,7 +17,7 @@ export default class FormDialog extends React.Component {
         petId: 0,
 		petType: '',
         dogBreed: '',
-        ownerPrinciple: '',
+        ownerPrincipal: '',
         pets: []
     };
 
@@ -36,7 +36,7 @@ export default class FormDialog extends React.Component {
                 age: res.age,
                 dogBreed: res.dogBreed,
                 petId: res.petId,
-                ownerPrinciple: res.ownerPrinciple,
+                ownerPrincipal: res.ownerPrincipal,
 				petType: res.petType});
 			}).then(response => console.log(response))
 			.catch(error => this.setState({error}));
@@ -55,7 +55,7 @@ export default class FormDialog extends React.Component {
 		const cookies = new Cookies();
 		const pet = {
 			petId: 1,
-			ownerPrinciple: cookies.get('username'),
+			ownerPrincipal: cookies.get('username'),
 			name: this.state.name,
 			petType: this.state.petType,
 			dogBreed: this.state.dogBreed,

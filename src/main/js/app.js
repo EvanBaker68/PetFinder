@@ -7,6 +7,7 @@ import createLogger from 'redux-logger';
 import thunkMiddleware from 'redux-thunk';
 import { reducer as formReducer } from 'redux-form';
 import axios from 'axios';
+import Cookies from 'universal-cookie';
 
 import Index from 'js/index';
 import * as Users from 'js/users';
@@ -22,16 +23,20 @@ const reducers = [
 	Users.Reducers
 ];
 
+const cookies = new Cookies();
 const reducer = Utils.combineReducers(reducers);
-const store = createStore(reducer, {authentication: null, user: null}, applyMiddleware(thunkMiddleware, createLogger()));
+const store = createStore(reducer, {authentication: cookies.get('auth'), user: null}, applyMiddleware(thunkMiddleware, createLogger()));
 
 axios.defaults.headers.post['Content-Type'] = 'application/json';
 axios.defaults.headers.put['Content-Type'] = 'application/json';
+
+
 
 axios.interceptors.request.use(request => {
 	let authentication = Users.State.getAuthentication(store.getState());
 	if(_.isDefined(authentication)) {
 		request.headers.common['Authorization'] = 'Bearer ' + authentication['access_token'];
+		// request.headers.common['Authorization'] = cookies.get('auth');
 	}
 
 	return request;

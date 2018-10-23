@@ -6,18 +6,25 @@ import petfinder.site.ValidationException;
 
 public class PetDto implements Identifiable {
 	private Long petId;
-	private String ownerPrinciple;
+	private String ownerPrincipal;
 	private String name;
 	private String petType;
 	//private Boolean isDog;
 	private String dogBreed;
 	private Double age;
+	private Boolean isDeleted;
 
 	public PetDto() {}
 
+<<<<<<< HEAD
 	public PetDto(Long petId, String ownerPrinciple, String name, String petType, String dogBreed, Double age) throws ValidationException {
 	    setPetId(petId);
 	    setOwnerPrinciple(ownerPrinciple);
+=======
+	public PetDto(Long petId, String ownerPrincipal, String name, String petType, String dogBreed, Double age) {
+	    setId(petId);
+	    setownerPrincipal(ownerPrincipal);
+>>>>>>> 545bb29c30fe91466dbc8dfc91822392b9cf7c32
 	    setName(name);
 	    setPetType(petType);
 	    //setDog(isDog);
@@ -36,8 +43,8 @@ public class PetDto implements Identifiable {
         return petId;
     }
 
-    public String getOwnerPrinciple() {
-        return ownerPrinciple;
+    public String getownerPrincipal() {
+        return ownerPrincipal;
     }
 
     public String getName() {
@@ -61,6 +68,7 @@ public class PetDto implements Identifiable {
     }
 
 
+<<<<<<< HEAD
     public void setPetId(Long petId) throws ValidationException{
 	    if(petId == null){
 	        throw new ValidationException("setPetId", "was given a null");
@@ -77,6 +85,14 @@ public class PetDto implements Identifiable {
             throw new ValidationException("setOwnerPrinciple", "given incorrect value");
         }
 	    this.ownerPrinciple = ownerPrinciple;
+=======
+    public void setId(Long petId) {
+        this.petId = petId;
+    }
+
+    public void setownerPrincipal(String ownerPrincipal) {
+        this.ownerPrincipal = ownerPrincipal;
+>>>>>>> 545bb29c30fe91466dbc8dfc91822392b9cf7c32
     }
 
 	public void setName(String name) throws ValidationException {

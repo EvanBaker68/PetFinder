@@ -28,9 +28,10 @@ export default class FormDialog extends React.Component {
 
     handleAddClose = () => {
         const cookies = new Cookies();
+        console.log(cookies.get('username'));
         const pet = {
-            petId: 1,
-            ownerPrinciple: cookies.get('username'),
+            petId: 2,
+            ownerPrincipal: cookies.get('username'),
             name: this.state.name,
             petType: this.state.petType,
             dogBreed: this.state.dogBreed,

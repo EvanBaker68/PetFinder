@@ -7,13 +7,13 @@ import petfinder.site.ValidationException;
 
 import javax.xml.bind.ValidationEventLocator;
 
-
 public class OwnerDto implements Momento<String> {
     private String principal;
     private Integer numPets;
     private Long[] currentBookings;
     private Long[] pastBookings;
     private Long[] petIds;
+    private Boolean isDeleted;
 
     public OwnerDto() {
     }

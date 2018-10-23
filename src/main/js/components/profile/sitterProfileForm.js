@@ -5,6 +5,11 @@ import { withStyles } from '@material-ui/core/styles';
 import MenuItem from '@material-ui/core/MenuItem';
 import TextField from '@material-ui/core/TextField';
 import Button from '@material-ui/core/Button';
+import Cookies from 'universal-cookie';
+import axios from 'axios/index';
+import  { Redirect } from 'react-router-dom';
+
+const cookies = new Cookies();
 
 const styles = theme => ({
     container: {
@@ -26,7 +31,7 @@ const styles = theme => ({
 
 class ProfileForm extends React.Component {
     state = {
-        rate: '',
+        rate: 0,
     };
 
     handleChange = name => event => {
@@ -35,8 +40,41 @@ class ProfileForm extends React.Component {
         });
     };
 
+	componentDidMount() {
+		const cookies = new Cookies();
+		const principal = cookies.get('username');
+		var formattedPrincipal = principal.replace(/@/g, '%40');
+
+		axios.get('/sitter/' + principal, principal)
+			.then(res => {
+				this.setState({
+					rate: res.rate});
+			}).then(response => console.log(response))
+			.catch(error => this.setState({error}));
+	}
+
+	handleAddClose = () => {
+		const cookies = new Cookies();
+		const sitter = {
+			principal: cookies.get('username'),
+			numPets: this.state.numPets
+		};
+		axios.post('/sitter/add-sitter', sitter)
+			.then(res => {
+				console.log(res);
+				console.log(res.data);
+			})
+			.catch(error => {
+				console.log(error.response);
+			});
+	};
+
     render() {
         const { classes } = this.props;
+
+        if( cookies.get('isSitter') === 'false' ) {
+            return <div><Redirect to='/'/></div>;
+        }
 
         return (
             <div>
@@ -50,7 +88,7 @@ class ProfileForm extends React.Component {
                         margin="normal"
                     />
                 </form>
-                <Button>Save Sitter Info</Button>
+                <Button onClick={this.handleAddClose}>Save Sitter Info</Button>
             </div>
         );
     }

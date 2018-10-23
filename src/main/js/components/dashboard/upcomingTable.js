@@ -26,8 +26,8 @@ function createData(name, date, timeStart, timeEnd, approved) {
 }
 
 const data = [
-    createData('Bob', '09/20/2018', '1:00pm', '5:00pm', true),
-    createData('Cheryl', '09/28/2018', '1:00pm', '5:00pm', false),
+    createData('Bob', '09/20/2018', '1:00pm', '5:00pm', 'pending'),
+    createData('Cheryl', '09/28/2018', '1:00pm', '5:00pm', 'accepted'),
 ];
 
 function RequestTable(props) {
@@ -38,11 +38,12 @@ function RequestTable(props) {
             <Table className={classes.table}>
                 <TableHead>
                     <TableRow>
-                        <TableCell>Owner</TableCell>
+                        <TableCell>Sitter</TableCell>
                         <TableCell>Date</TableCell>
                         <TableCell>Start</TableCell>
                         <TableCell>End</TableCell>
-                        <TableCell>Approve</TableCell>
+                        <TableCell>Staus</TableCell>
+                        <TableCell>Cancel</TableCell>
                     </TableRow>
                 </TableHead>
                 <TableBody>
@@ -55,21 +56,13 @@ function RequestTable(props) {
                                 <TableCell>{n.date}</TableCell>
                                 <TableCell>{n.timeStart}</TableCell>
                                 <TableCell>{n.timeEnd}</TableCell>
+                                <TableCell>{n.approved}</TableCell>
                                 <TableCell>
-                                    {n.approved &&
-                                    <Button
-                                        variant="contained"
-                                        color='secondary'>
-                                        Approve
-                                    </Button>
-                                    }
-                                    {!n.approved &&
                                     <Button
                                         variant="contained"
                                         color='secondary'>
                                         Cancel
                                     </Button>
-                                    }
                                 </TableCell>
                             </TableRow>
                         );

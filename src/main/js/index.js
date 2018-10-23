@@ -2,13 +2,25 @@ import React from 'react';
 import { HashRouter, Route } from 'react-router-dom';
 import * as Pages from 'js/pages';
 import Cookies from 'universal-cookie';
+import * as Users from 'js/users';
+import {connect} from 'react-redux';
+import * as ReduxForm from 'redux-form';
 export default class Index extends React.Component {
+
+	// authenticate = () => {
+	// 	const cookies = new Cookies();
+	// 	this.props.setAuthentication(cookies.get('auth'));
+	// }
 
     constructor(props){
         super(props);
         const cookies = new Cookies();
-        console.log(cookies.get('loggedIn'));
-
+        // console.log(this.props);
+        // console.log(cookies.get('loggedIn'));
+		// this.s
+		// this.props.setAuthentication(cookies.get('auth'));
+		// this.authenticate();
+		// this.props.refresh();
     }
 
 	render() {
@@ -38,3 +50,13 @@ export default class Index extends React.Component {
 		);
 	}
 }
+
+Index = connect(
+	state => ({
+
+	}),
+	dispatch => ({
+		// setAuthentication: (authentication) => dispatch(Users.Actions.setAuthentication(authentication))
+		// refresh: () => dispatch(Users.Actions.refreshUser())
+	})
+)(Index);

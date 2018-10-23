@@ -7,6 +7,8 @@ import alloy.elasticsearch.ElasticSearchClientProvider;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 import java.util.Optional;
+import org.elasticsearch.search.builder.SearchSourceBuilder;
+
 @Repository
 public class DateDao {
     @Autowired
@@ -23,6 +25,7 @@ public class DateDao {
         SearchSourceBuilder searchSourceBuilder = new SearchSourceBuilder();
 
         String queryString = String.format("user.principal=\"%s\"", sitterPrincipal.replace("\"", ""));
+
         searchSourceBuilder.query(QueryBuilders.queryStringQuery(queryString));
 
         return dateElasticsearchRepository.search(searchSourceBuilder).stream().findFirst();

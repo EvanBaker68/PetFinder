@@ -14,6 +14,7 @@ export function register(user) {
 }
 
 export function authenticate(username, password) {
+	console.log('BIG');
 	return axios(
 		{
 			method: 'post',
@@ -32,6 +33,7 @@ export function authenticate(username, password) {
 }
 
 export function getUserDetails() {
+	console.log('BUTTS');
 	return axios.get('/api/user');
 }
 
@@ -55,6 +57,7 @@ Actions.Types = {
 };
 
 Actions.register = (user) => {
+	console.log(user.principal);
 	console.log('in register');
 	return (dispatch) => {
 		return register(user).then(() => {
@@ -70,10 +73,10 @@ Actions.authenticate = (username, password) => {
 			authentication => {
 
 			    const cookies = new Cookies();
-			    cookies.set('username', username, { path: '/'  });
-			    cookies.set('password', password, { path: '/'  });
-			    cookies.set('auth', authentication, { path: '/' });
-			    cookies.set('loggedIn', 'true', { path: '/' });
+			    cookies.set('username', username);
+			    cookies.set('password', password);
+			    cookies.set('auth', authentication);
+			    cookies.set('loggedIn', 'true');
 				console.log('made it in');
 			    // callFunc();
                 //console.log(cookies.get('loggedIn'));
@@ -90,13 +93,44 @@ Actions.authenticate = (username, password) => {
 	};
 };
 
+Actions.shortHandAuthenticate = (username, password) => {
+	return (dispatch) => {
+		console.log('heyyyy', username, password);
+		return authenticate(username, password).then(
+			authentication => {
+
+				const cookies = new Cookies();
+				cookies.set('username', username);
+				cookies.set('password', password);
+				cookies.set('auth', authentication);
+				cookies.set('loggedIn', 'true');
+				console.log('made it in');
+				// callFunc();
+				//console.log(cookies.get('loggedIn'));
+				//console.log(username);
+				//console.log(authentication);
+				dispatch(Actions.setAuthentication(authentication));
+
+			}
+		)
+			.catch( function(e) { console.log('catching error authenticating'); });
+	};
+};
+
+Actions.refreshUser = () => { return (dispatch) => {
+	return getUserDetails().then(user => {
+		dispatch(Actions.setUser(user));
+	});
+};
+};
+
 Actions.logout = () => {
 	return (dispatch) => {
 		const cookies = new Cookies();
-	    cookies.set('loggedIn', 'false', { path: '/' });
-		cookies.set('isSitter', 'false', { path: '/' });
-		cookies.set('isOwner', 'false', { path: '/' });
-		cookies.set('password', '', { path: '/'  });
+	    cookies.set('loggedIn', 'false');
+		cookies.set('isSitter', 'false');
+		cookies.set('isOwner', 'false');
+		cookies.set('password', '');
 		dispatch(Actions.setAuthentication(null));
 		dispatch(Actions.setUser(null));
 	};
@@ -114,12 +148,19 @@ export { Actions };
 
 let Reducers = {};
 
-Reducers.authentication = (authentication = null, action) => {
+const cookies = new Cookies();
+
+Reducers.authentication = (authentication = cookies.get('auth') , action) => {
+	console.log('HYYYYYY');
 	switch (action.type) {
 		case Actions.Types.SET_AUTHENTICATION: {
+			console.log('setting authentication');
+			console.log(authentication);
 			return action.authentication;
 		}
 		default: {
+			console.log('default authentication');
+			console.log(authentication);
 			return authentication;
 		}
 	}

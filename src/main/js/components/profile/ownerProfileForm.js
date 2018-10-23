@@ -7,6 +7,9 @@ import TextField from '@material-ui/core/TextField';
 import Button from '@material-ui/core/Button';
 import axios from 'axios/index';
 import Cookies from 'universal-cookie';
+import  { Redirect } from 'react-router-dom';
+
+const cookies = new Cookies();
 
 const styles = theme => ({
     container: {
@@ -40,7 +43,8 @@ class ProfileForm extends React.Component {
 	componentDidMount() {
 		const cookies = new Cookies();
 		const principal = cookies.get('username');
-
+		var formattedPrincipal = principal.replace(/./g, '%2E');
+		// console.log(principal);
 		axios.get('/owner/' + principal, principal)
 			.then(res => {
 				this.setState({
@@ -52,7 +56,7 @@ class ProfileForm extends React.Component {
 	handleAddClose = () => {
 		const cookies = new Cookies();
 		const owner = {
-			principal: cookies.get('username'),
+			principal: cookies.get('username').replace(/@/g, '%40'),
 			numPets: this.state.numPets
 		};
 		axios.post('/owner/add-owner', owner)
@@ -67,6 +71,10 @@ class ProfileForm extends React.Component {
 
     render(){
         const { classes } = this.props;
+
+        if( cookies.get('isOwner') === 'false' ) {
+            return <div><Redirect to='/'/></div>;
+        }
 
         return (
             <div>

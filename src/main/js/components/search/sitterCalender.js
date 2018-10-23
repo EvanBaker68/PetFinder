@@ -11,18 +11,10 @@ export default class Calender extends React.Component
         this.state = {
             start: new Date(),
             end: new Date(),
-            loaded: false
+            loaded: true
         };
 
-        axios.get('/sitter/get-dates/' + 'emily', 'emily')
-            .then(res => {
-                this.setState({
-                    start: new Date(res.startDate),
-                    end: new Date(res.endDate),
-                    loaded: true
-                });
-                console.log('Start:', this.state.start, 'End:', this.state.end);
-            }).catch(error => this.setState({error}));
+        //get for this.props.priciple
     }
 
     render()
@@ -52,23 +44,7 @@ export default class Calender extends React.Component
                         },
                     ]}
                     onChange={(selections) => {
-                        selections.forEach(({start, end}) => {
-                            const cookies = new Cookies();
-                            console.log('Start:', start, 'End:', end);
-                            const date = {
-                                startDate: start,
-                                endDate: end,
-                                sitterPrinciple: 'emily'
-                            };
-                            axios.post('/sitter/add-date', date)
-                                .then(res => {
-                                    console.log(res);
-                                    console.log(res.data);
-                                })
-                                .catch(error => {
-                                    console.log(error.response);
-                                });
-                        });
+
                     }}
                     onEventsRequested={({calendarId, start, end, callback}) => {
                         //loadMoreEvents(calendarId, start, end).then(callback);

@@ -26,6 +26,7 @@ import EditPet from 'js/components/pets/editPetForm';
 import Button from '@material-ui/core/Button/Button';
 import Card from '@material-ui/core/Card/Card';
 import axios from 'axios';
+import Cookies from 'universal-cookie';
 
 const drawerWidth = 240;
 
@@ -118,6 +119,7 @@ class PetPage extends React.Component {
     componentDidMount() {
         const petId = 1;
         const endpoint = '/pet/' + petId;
+        const cookies = new Cookies();
 
         axios.get('/pet/' + petId, petId)
             .then(res => {
@@ -126,12 +128,22 @@ class PetPage extends React.Component {
                     age: res.age,
                     dogBreed: res.dogBreed,
                     petId: res.petId,
-                    ownerPrinciple: res.ownerPrinciple,
+                    ownerPrincipal: res.ownerPrincipal,
                     petType: res.petType});
             }).then(response => console.log(response))
             .catch(error => this.setState({error}));
 
+
+
+		axios.get('/pet/pets/' + cookies.get('username'), cookies.get('username'))
+            .then(res => {
+                console.log(res);
+            }).then(response => console.log(response))
+			.catch(error => this.setState({error}));
     }
+
+
+
 
     handleDrawerOpen = () => {
         this.setState({ open: true });

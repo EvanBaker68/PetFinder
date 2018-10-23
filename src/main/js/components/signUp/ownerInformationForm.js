@@ -8,6 +8,9 @@ import Cookies from 'universal-cookie';
 import axios from 'axios/index';
 import {Link} from 'react-router-dom';
 import Button from '@material-ui/core/Button';
+import  { Redirect } from 'react-router-dom';
+
+const cookies = new Cookies();
 
 const styles = theme => ({
     container: {
@@ -55,7 +58,7 @@ class OutlinedTextFields extends React.Component {
 
 	componentDidMount() {
 		const cookies = new Cookies();
-		axios.get('/pet/' + cookies.get('username'), cookies.get('username'))
+		axios.get('/owner/' + cookies.get('username').replace(/@/g, '%40'), cookies.get('username').replace(/@/g, '%40'))
 			.then(res => {
 				this.setState({
 					numPets: res.numPets});
@@ -66,6 +69,10 @@ class OutlinedTextFields extends React.Component {
 
     render() {
         const { classes } = this.props;
+
+        if( cookies.get('isOwner') === 'false' ) {
+            return <div><Redirect to='/'/></div>;
+        }
 
         return (
             <form className={classes.container} noValidate autoComplete="off">
