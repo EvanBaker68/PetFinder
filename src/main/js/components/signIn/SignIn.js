@@ -141,7 +141,7 @@ class SignInForm extends React.Component{
                                 color="secondary"
                                 className={classes.submit}
 								//onClick={this.setIsSitter}
-                                onClick={() => { cookies.get('isSitter') == 'false' ?
+                                onClick={() => { cookies.get('isSitter') === 'false' ?
                                     alert('This account does not exist.') :
                                     this.setIsSitter; }}
                             >
@@ -157,7 +157,7 @@ class SignInForm extends React.Component{
                                 color="primary"
                                 className={classes.submit}
 								//onClick={this.setIsOwner}
-                                onClick={() => { cookies.get('isOwner') == 'false' ?
+                                onClick={() => { cookies.get('isOwner') === 'false' ?
                                     alert('This account does not exist.') :
                                     this.setIsOwner; }}
                             >

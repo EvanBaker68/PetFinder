@@ -19,6 +19,10 @@ import SimpleTable from 'js/components/dashboard/simpleTable';
 import Input from '@material-ui/core/Input';
 import SearchIcon from '@material-ui/icons/Search';
 import UpcomingTable from 'js/components/dashboard/upcomingTable';
+import  { Redirect } from 'react-router-dom';
+import Cookies from 'universal-cookie';
+
+const cookies = new Cookies();
 
 const drawerWidth = 240;
 
@@ -111,6 +115,10 @@ class Dashboard extends React.Component {
 
     render() {
         const { classes } = this.props;
+
+        if( cookies.get('isOwner') === 'false' ) {
+            return <div><Redirect to='/'/></div>;
+        }
 
         return (
             <React.Fragment>

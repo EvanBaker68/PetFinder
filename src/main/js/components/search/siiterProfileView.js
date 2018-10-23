@@ -11,6 +11,9 @@ import axios from 'axios';
 import Cookies from 'universal-cookie';
 import Calender from './sitterCalender';
 import {withStyles} from '@material-ui/core';
+import  { Redirect } from 'react-router-dom';
+
+const cookies = new Cookies();
 
 const styles = theme => ({
     container: {
@@ -54,6 +57,10 @@ class FormDialog extends React.Component {
     render() {
         const num = this.state.num;
         const { classes } = this.props;
+
+        if( cookies.get('isSitter') === 'false' ) {
+            return <div><Redirect to='/'/></div>;
+        }
 
         return (
             <div>
