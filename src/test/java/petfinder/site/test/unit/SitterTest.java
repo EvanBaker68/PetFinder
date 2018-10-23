@@ -2,14 +2,14 @@ package petfinder.site.test.unit;
 import org.junit.jupiter.api.Nested;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.DisplayName;
-import petfinder.site.common.owner.OwnerDto;
+import petfinder.site.common.sitter.SitterDto;
 
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.*;
-public class OwnerTest {
+public class SitterTest {
 
     @Nested
     @DisplayName("Testing Owner Basics")
@@ -26,15 +26,13 @@ public class OwnerTest {
             petIds.add(8L);
             currentBookings.add(69L);
             pastBookings.add(420L);
-            OwnerDto ownerDto = new OwnerDto(principal, currentBookings, pastBookings, petIds, numPets);
+            SitterDto ownerDto = new SitterDto(principal, currentBookings, pastBookings);
             assertAll(
                     ()-> assertNotNull(ownerDto),
                     ()-> assertEquals(principal, ownerDto.getPrincipal()),
                     ()-> assertEquals(principal, ownerDto.getMomento()),
                     ()-> assertEquals(currentBookings, ownerDto.getCurrentBookings()),
-                    ()-> assertEquals(pastBookings, ownerDto.getPastBookings()),
-                    ()-> assertEquals(petIds, ownerDto.getPetIds()),
-                    ()-> assertEquals(numPets, ownerDto.getPetIds().size())
+                    ()-> assertEquals(pastBookings, ownerDto.getPastBookings())
             );
         }
 
@@ -50,7 +48,7 @@ public class OwnerTest {
             petIds.add(8L);
             currentBookings.add(69L);
             pastBookings.add(420L);
-            OwnerDto ownerDto = new OwnerDto(principal, currentBookings, pastBookings, petIds, numPets);
+            SitterDto ownerDto = new SitterDto(principal, currentBookings, pastBookings);
 
             assertAll(
                     ()-> assertThrows(IllegalArgumentException.class, ()-> {
@@ -61,16 +59,8 @@ public class OwnerTest {
                     }),
                     ()-> assertThrows(IllegalArgumentException.class, ()-> {
                         ownerDto.setPastBookings(null);
-                    }),
-                    ()-> assertThrows(IllegalArgumentException.class, ()-> {
-                        ownerDto.setPetIds(null);
-                    }),
-                    ()-> assertThrows(IllegalArgumentException.class, ()-> {
-                        ownerDto.setNumPets(-1);
                     })
             );
         }
     }
-
-
 }

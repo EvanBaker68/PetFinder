@@ -6,21 +6,21 @@ import org.codehaus.jackson.annotate.JsonIgnore;
 //import petfinder.site.ValidationException;
 
 import javax.xml.bind.ValidationEventLocator;
+import java.util.ArrayList;
 import java.util.List;
 
 public class OwnerDto implements Momento<String> {
     private String principal;
     private Integer numPets;
-    private Long[] currentBookings;
-    private Long[] pastBookings;
-    private Long[] petIds;
+    private List<Long> currentBookings;
+    private List<Long> pastBookings;
+    private List<Long> petIds;
     private Boolean isDeleted;
 
     public OwnerDto(String principal, List<Long> currentBookings, List<Long> pastBookings, List<Long> petIds, int numPets) {
-    }
-
-
-    public OwnerDto(String principal, Long[] currentBookings, Long[] pastBookings, Long[] petIds, int numPets) throws IllegalArgumentException{
+        this.currentBookings = new ArrayList<>();
+        this.pastBookings = new ArrayList<>();
+        this.petIds = new ArrayList<>();
         setPrincipal(principal);
         setCurrentBookings(currentBookings);
         setPastBookings(pastBookings);
@@ -28,23 +28,33 @@ public class OwnerDto implements Momento<String> {
         setNumPets(numPets);
     }
 
+
+    /*public OwnerDto(String principal, Long[] currentBookings, Long[] pastBookings, Long[] petIds, int numPets) throws IllegalArgumentException{
+        setPrincipal(principal);
+        setCurrentBookings(currentBookings);
+        setPastBookings(pastBookings);
+        setPetIds(petIds);
+        setNumPets(numPets);
+    }*/
+
+
     public String getPrincipal() {
         String temp = principal;
         return temp;
     }
 
 
-    public Long[] getCurrentBookings() {
-        Long[] temp = currentBookings;
+    public List<Long> getCurrentBookings() {
+        List<Long> temp = currentBookings;
         return temp;
     }
 
-    public Long[] getPastBookings() {
-        Long[] temp = pastBookings;
+    public List<Long> getPastBookings() {
+        List<Long> temp = pastBookings;
         return temp;
     }
 
-    public void setCurrentBookings(Long[] currentBookings) throws IllegalArgumentException {
+    public void setCurrentBookings(List<Long> currentBookings) throws IllegalArgumentException {
         if (currentBookings == null) {
             throw new IllegalArgumentException("setCurrentBookings\n was given a null value");
         }
@@ -53,21 +63,22 @@ public class OwnerDto implements Momento<String> {
                 throw new IllegalArgumentException("setCurrentBookings\n given a bad bookingId");
             }
         }
+        this.currentBookings = currentBookings;
     }
 
-    public Long[] getPetIds() {
+    public List<Long> getPetIds() {
         return petIds;
     }
 
 
     public void setNumPets(int numPets) { this.numPets = numPets; }
 
-    public void setPetIds(Long[] petIds) {
+    public void setPetIds(List<Long> petIds) {
         this.petIds = petIds;
     }
 
 
-    public void setPastBookings(Long[] pastBookings) throws IllegalArgumentException{
+    public void setPastBookings(List<Long> pastBookings) throws IllegalArgumentException{
         if(pastBookings == null){
             throw new IllegalArgumentException("setPastBookings\n was given a null value");
         }

@@ -4,6 +4,7 @@ import alloy.util.Identifiable;
 import alloy.util.Momento;
 import jdk.nashorn.internal.runtime.regexp.joni.exception.ValueException;
 import org.codehaus.jackson.annotate.JsonIgnore;
+import petfinder.site.common.date.DateDto;
 //import petfinder.site.ValidationException;
 
 import java.util.Date;
@@ -11,8 +12,8 @@ public class BookingDto implements Identifiable{
     private Long id;
     private String sitterPrincipal; //can possibly be array
     private String ownerPrincipal;  //can possibly be array
-    private Date startDate;
-    private Date finishDate;
+    private DateDto startDate;
+    private DateDto finishDate;
     private String reviewByOwner;
     private Integer scoreByOwner;
     private String reviewBySitter;
@@ -23,7 +24,7 @@ public class BookingDto implements Identifiable{
 
     }
 
-    public BookingDto(Long id, String sitterPrincipal, String ownerPrincipal, Date startDate, Date finishDate, String reviewByOwner, String reviewBySitter, Integer scoreByOwner, Integer scoreBySitter) throws IllegalArgumentException{
+    public BookingDto(Long id, String sitterPrincipal, String ownerPrincipal, DateDto startDate, DateDto finishDate, String reviewByOwner, String reviewBySitter, Integer scoreByOwner, Integer scoreBySitter) throws IllegalArgumentException{
         setId(id);
         setOwnerPrincipal(ownerPrincipal);
         setSitterPrincipal(sitterPrincipal);
@@ -35,7 +36,7 @@ public class BookingDto implements Identifiable{
         setScoreBySitter(scoreBySitter);
     }
 
-    public BookingDto(Long id, String sitterPrincipal, String ownerPrincipal, Date startDate, Date finishDate) throws IllegalArgumentException{
+    public BookingDto(Long id, String sitterPrincipal, String ownerPrincipal, DateDto startDate, DateDto finishDate) throws IllegalArgumentException{
         setId(id);
         setOwnerPrincipal(ownerPrincipal);
         setSitterPrincipal(sitterPrincipal);
@@ -99,26 +100,26 @@ public class BookingDto implements Identifiable{
         this.ownerPrincipal = ownerPrincipal;
     }
 
-    public Date getStartDate() {
-        Date temp = startDate;
+    public DateDto getStartDate() {
+        DateDto temp = startDate;
         return temp;
     }
 
 
     //MIGHT CHANGE THESE BECAUSE OF NEW DATE OBJECT
-    public void setStartDate(Date startDate) throws IllegalArgumentException{
+    public void setStartDate(DateDto startDate) throws IllegalArgumentException{
         if(startDate == null){
             throw new IllegalArgumentException("setStartDate\n was given a null");
         }
         this.startDate = startDate;
     }
 
-    public Date getFinishDate() {
-        Date temp = finishDate;
+    public DateDto getFinishDate() {
+        DateDto temp = finishDate;
         return temp;
     }
 
-    public void setFinishDate(Date finishDate) throws IllegalArgumentException {
+    public void setFinishDate(DateDto finishDate) throws IllegalArgumentException {
         if(finishDate == null){
             throw new IllegalArgumentException("setFinishDate\n finishDate was set to null");
         }
