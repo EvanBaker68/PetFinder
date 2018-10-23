@@ -7,6 +7,8 @@ import TextField from '@material-ui/core/TextField';
 import Button from '@material-ui/core/Button';
 import axios from 'axios/index';
 import Cookies from 'universal-cookie';
+import  { Redirect } from 'react-router-dom';
+
 
 const styles = theme => ({
     container: {
@@ -69,7 +71,13 @@ class ProfileForm extends React.Component {
     render(){
         const { classes } = this.props;
 
-        return (
+        const cookies = new Cookies();
+		if( cookies.get('isOwner') !== 'true' ) {
+			return <div><Redirect to='/'/></div>;
+		}
+
+
+		return (
             <div>
                 <form className={classes.container} noValidate autoComplete="off">
                     <TextField

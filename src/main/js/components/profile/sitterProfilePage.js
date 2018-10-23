@@ -22,6 +22,8 @@ import ProfileForm from 'js/components/profile/ProfileForm';
 import Paper from '@material-ui/core/Paper';
 import Image from 'js/images/homeDog.jpg';
 import SitterProfileForm from 'js/components/profile/sitterProfileForm';
+import Cookies from 'universal-cookie';
+import {Redirect} from 'react-router-dom';
 
 const drawerWidth = 240;
 
@@ -115,7 +117,12 @@ class Profile extends React.Component {
     render() {
         const { classes } = this.props;
 
-        return (
+		const cookies = new Cookies();
+		if( cookies.get('isSitter') !== 'true' ) {
+			return <div><Redirect to='/'/></div>;
+		}
+
+		return (
             <React.Fragment>
                 <CssBaseline />
                 <div className={classes.root}>

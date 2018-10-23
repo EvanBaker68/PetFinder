@@ -24,6 +24,8 @@ import TextField from '@material-ui/core/TextField/TextField';
 import Button from '@material-ui/core/Button/Button';
 import SitterView from 'js/components/search/siiterProfileView';
 import axios from 'axios';
+import Cookies from 'universal-cookie';
+import {Redirect} from 'react-router-dom';
 
 const drawerWidth = 240;
 
@@ -140,7 +142,14 @@ class SearchPage extends React.Component {
     };
 
     render() {
-        const { classes } = this.props;
+
+		const cookies = new Cookies();
+		if( cookies.get('isOwner') !== 'true' ) {
+			return <div><Redirect to='/'/></div>;
+		}
+
+
+		const { classes } = this.props;
         // const numbers = [1, 2, 3, 4, 5];
         // const listItems = numbers.map((number) =>
         //     <div key={number.toString()}>

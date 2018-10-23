@@ -20,6 +20,7 @@ import {SitterMenuList} from 'js/components/dashboard/SitterMenuList';
 import RequestsTable from 'js/components/dashboard/requestsTable';
 import Button from '@material-ui/core/Button';
 import  { Redirect } from 'react-router-dom';
+import Cookies from 'universal-cookie';
 
 const drawerWidth = 240;
 
@@ -116,6 +117,12 @@ class Dashboard extends React.Component {
 
     render() {
         const { classes } = this.props;
+
+		const cookies = new Cookies();
+		if( cookies.get('isSitter') !== 'true' ) {
+			return <div><Redirect to='/'/></div>;
+		}
+
 
 		if(this.state.redirect){
 			return <div><Redirect to='/'/></div>;

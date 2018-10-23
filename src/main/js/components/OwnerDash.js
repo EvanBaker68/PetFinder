@@ -21,6 +21,7 @@ import SearchIcon from '@material-ui/icons/Search';
 import UpcomingTable from 'js/components/dashboard/upcomingTable';
 import Button from '@material-ui/core/Button';
 import  { Redirect } from 'react-router-dom';
+import Cookies from 'universal-cookie';
 
 
 
@@ -124,6 +125,10 @@ class Dashboard extends React.Component {
     render() {
         const { classes } = this.props;
 
+		const cookies = new Cookies();
+		if( cookies.get('isOwner') !== 'true' ) {
+			return <div><Redirect to='/'/></div>;
+		}
 
         if(this.state.redirect){
 			return <div><Redirect to='/'/></div>;
