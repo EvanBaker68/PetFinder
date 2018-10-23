@@ -3,9 +3,8 @@ import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.Nested;
 import static org.junit.jupiter.api.Assertions.*;
-import petfinder.site.ValidationException;
 import petfinder.site.common.pet.PetDto;
-
+/*import petfinder.site.ValidationException;
 public class PetTest {
 
     @Nested
@@ -70,3 +69,4 @@ public class PetTest {
 
     }
 }
+*/
