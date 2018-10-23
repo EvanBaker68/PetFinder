@@ -14,6 +14,7 @@ import * as Validation from 'js/alloy/utils/validation';
 import * as Bessemer from 'js/alloy/bessemer/components';
 import Image from '../../images/homeDog.jpg';
 import Cookies from 'universal-cookie';
+import axios from 'axios/index';
 
 const styles = theme => ({
     layout: {
@@ -84,8 +85,17 @@ class SignInForm extends React.Component{
 		}
 	}
 
+
+
     onSubmit = ({principal, password}) => {
-        return this.props.authenticate(principal, password);
+		const cookies = new Cookies();
+		this.props.authenticate(principal, password);
+		axios.get('/api/user')
+			.then(res => {
+					cookies.set('isOwner',res.isOwner);
+					cookies.set('isSitter', res.isSitter);
+			}).then(response => console.log(response))
+			.catch(error => this.setState({error}));
     };
 
     render() {
@@ -99,14 +109,28 @@ class SignInForm extends React.Component{
 		if (cookies.get('loggedIn') == 'true') {
 
 			if(this.state.isOwner) {
-				cookies.set('isOwner', 'true', {path: '/'});
+				if(cookies.get('isOwner') == 'true')
 				return <div><Redirect to='/ownerDash'/></div>;
+
+				else{
+					alert('This account is not registered as an owner.');
+					cookies.set('isOwner', 'false');
+					cookies.set('isSitter', 'false');
+					this.setState({isOwner: false});
+				}
 			}
 
 
 			else if(this.state.isSitter) {
-				cookies.set('isSitter', 'true', {path: '/'});
+				if(cookies.get('isSitter') == 'true')
 				return <div><Redirect to='/sitterDash'/></div>;
+
+				else{
+					alert('This account is not registered as a sitter.');
+					cookies.set('isOwner', 'false');
+					cookies.set('isSitter', 'false');
+					this.setState({isSitter: false});
+				}
 			}
 		}
 
@@ -140,7 +164,9 @@ class SignInForm extends React.Component{
                                 variant="raised"
                                 color="secondary"
                                 className={classes.submit}
-								onClick={this.setIsSitter}
+								onClick={() => { cookies.get('isSitter') == 'false' ?
+									alert('This account does not exist.') :
+									this.setIsSitter;}}
                             >
                                 Continue as Pet Sitter
                             </Button>

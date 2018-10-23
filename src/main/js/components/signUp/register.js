@@ -136,10 +136,6 @@ class RegisterForm extends React.Component{
 				cookies.set('isSitter', 'true', {path: '/'});
 				return <div><Redirect to='/sitterCompleteRegistration'/></div>;
 			}
-
-			else{
-				console.log('heyyy');
-			}
 		}
 
         return (
