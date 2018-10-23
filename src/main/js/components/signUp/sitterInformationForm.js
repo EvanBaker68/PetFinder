@@ -8,6 +8,9 @@ import Cookies from 'universal-cookie';
 import axios from 'axios/index';
 import {Link} from 'react-router-dom';
 import Button from '@material-ui/core/Button';
+import  { Redirect } from 'react-router-dom';
+
+const cookies = new Cookies();
 
 const styles = theme => ({
     container: {
@@ -55,6 +58,10 @@ class OutlinedTextFields extends React.Component {
 
     render() {
         const { classes } = this.props;
+
+        if( cookies.get('isSitter') === 'false' ) {
+            return <div><Redirect to='/'/></div>;
+        }
 
         return (
             <form className={classes.container} noValidate autoComplete="off">

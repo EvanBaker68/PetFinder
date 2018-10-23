@@ -81,6 +81,7 @@ class RegisterForm extends React.Component{
 
     componentDidMount() {
         this.setState({redirect: false, redirectSitter: false});
+        this.setState({isSitter: false, isOwner: true});
     }
 
 	setIsOwner = () => {
