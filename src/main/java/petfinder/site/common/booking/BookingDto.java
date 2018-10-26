@@ -14,6 +14,8 @@ public class BookingDto implements Identifiable{
     private Integer scoreByOwner;
     private String reviewBySitter;
     private Integer scoreBySitter;
+    private Boolean isDeleted = false;
+
 
 
     public BookingDto() {
@@ -51,6 +53,10 @@ public class BookingDto implements Identifiable{
     public Long getId() {
         return id;
     }
+
+    public Boolean getDeleted() { return isDeleted; }
+
+    public void setDeleted(Boolean deleted) { isDeleted = deleted; }
 
     public void setId(Long id) {
         this.id = id;

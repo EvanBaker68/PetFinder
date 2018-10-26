@@ -17,6 +17,8 @@ public class UserDto implements Momento<String> {
     private Map<String, Object> attributes;
     private String isSitter;
     private String isOwner;
+    private Boolean isDeleted = false;
+
 
     //TODO: add isOwner and isSitter to tell if the user can sign in as an owner or sitter,
     //and a cookie will be set to be used for the switch to owner/sitter button on the dash
@@ -79,6 +81,9 @@ public class UserDto implements Momento<String> {
         return temp;
     }
 
+    public Boolean getDeleted() { return isDeleted; }
+
+    public void setDeleted(Boolean deleted) { isDeleted = deleted; }
 
     public String getPhoneNumber() {
         return phoneNumber;
