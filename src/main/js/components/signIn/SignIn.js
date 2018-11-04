@@ -132,16 +132,9 @@ class SignInForm extends React.Component{
 					}
 				}
 
-			if(this.state.isOwner) {
-				cookies.set('isOwner', 'true', {path: '/'});
-				return <div><Redirect to='/ownerDash'/></div>;
-			}
-
-
-
-			/*else if(this.state.isSitter) {
-				cookies.set('isSitter', 'true', {path: '/'});
-				return <div><Redirect to='/sitterDash'/></div>;*/
+			else if(this.state.isSitter) {
+				if (cookies.get('isSitter') === 'true')
+				    return <div><Redirect to='/sitterDash'/></div>;
 
 					else {
 						alert('This account is not registered as a sitter.');
@@ -156,7 +149,6 @@ class SignInForm extends React.Component{
 
 			}
 		}
-
 
 
         return (
