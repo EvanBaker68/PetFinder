@@ -15,8 +15,15 @@ public class BookingDto implements Identifiable{
     private String reviewBySitter;
     private Integer scoreBySitter;
     private Boolean isDeleted = false;
+    private String status;
 
+    public String getStatus() {
+        return status;
+    }
 
+    public void setStatus(String status) {
+        this.status = status;
+    }
 
     public BookingDto() {
 

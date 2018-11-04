@@ -3,6 +3,9 @@ import React from 'react';
 import Button from '@material-ui/core/Button';
 import Cookies from 'universal-cookie';
 import axios from 'axios';
+import DialogActions from '@material-ui/core/DialogActions/DialogActions';
+import Dialog from '@material-ui/core/Dialog/Dialog';
+import Typograhpy from '@material-ui/core/Typography';
 
 export default class Calender extends React.Component
 {
@@ -11,11 +14,20 @@ export default class Calender extends React.Component
         this.state = {
             start: new Date(),
             end: new Date(),
-            loaded: true
+            loaded: true,
+            open: false
         };
 
         //get for this.props.priciple
     }
+
+    handleClickOpen = () => {
+        this.setState({ open: true });
+    };
+
+    handleClose = () => {
+        this.setState({ open: false });
+    };
 
     render()
     {
@@ -26,37 +38,53 @@ export default class Calender extends React.Component
 
         if (loaded === true) {
             return (
-                <AvailableTimes
-                    weekStartsOn="monday"
-                    calendars={[
-                        {
-                            id: 'work',
-                            title: 'Work',
-                            foregroundColor: '#ff00ff',
-                            backgroundColor: '#f0f0f0',
-                            selected: true,
-                        },
-                        {
-                            id: 'private',
-                            title: 'My private cal',
-                            foregroundColor: '#666',
-                            backgroundColor: '#f3f3f3',
-                        },
-                    ]}
-                    onChange={(selections) => {
+                <div>
+                <Button onClick={this.handleClickOpen}>View Availability</Button>
+                    <Dialog
+                        open={this.state.open}
+                        onClose={this.handleClose}
+                        aria-labelledby="form-dialog-title"
+                        fullWidth={true}
+                    >
+                        <Typograhpy>We recommand that you only request a time that the sitter is available</Typograhpy>
+                    <AvailableTimes
+                        weekStartsOn="monday"
+                        calendars={[
+                            {
+                                id: 'work',
+                                title: 'Work',
+                                foregroundColor: '#ff00ff',
+                                backgroundColor: '#f0f0f0',
+                                selected: true,
+                            },
+                            {
+                                id: 'private',
+                                title: 'My private cal',
+                                foregroundColor: '#666',
+                                backgroundColor: '#f3f3f3',
+                            },
+                        ]}
+                        onChange={(selections) => {
 
-                    }}
-                    onEventsRequested={({calendarId, start, end, callback}) => {
-                        //loadMoreEvents(calendarId, start, end).then(callback);
-                    }}
-                    initialSelections={[
-                        {start: startD, end: endD}
-                    ]}
-                    height={400}
-                    recurring={false}
-                    availableDays={['monday', 'tuesday', 'wednesday', 'thursday', 'friday', 'saturday', 'sunday']}
-                    availableHourRange={{start: 0, end: 24}}
-                />
+                        }}
+                        onEventsRequested={({calendarId, start, end, callback}) => {
+                            //loadMoreEvents(calendarId, start, end).then(callback);
+                        }}
+                        initialSelections={[
+                            {start: startD, end: endD}
+                        ]}
+                        height={400}
+                        recurring={false}
+                        availableDays={['monday', 'tuesday', 'wednesday', 'thursday', 'friday', 'saturday', 'sunday']}
+                        availableHourRange={{start: 0, end: 24}}
+                    />
+                        <DialogActions>
+                            <Button onClick={this.handleClose} color="primary">
+                                Close
+                            </Button>
+                        </DialogActions>
+                    </Dialog>
+                </div>
             );
         }
         return null;

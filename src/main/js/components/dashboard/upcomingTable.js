@@ -30,9 +30,11 @@ const data = [
     createData('Cheryl', '09/28/2018', '1:00pm', '5:00pm', 'accepted'),
 ];
 
+//covert to component
 function RequestTable(props) {
     const { classes } = props;
 
+    //get upcoming booking from database
     return (
         <Paper className={classes.root}>
             <Table className={classes.table}>
