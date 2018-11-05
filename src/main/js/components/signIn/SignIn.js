@@ -89,40 +89,6 @@ class SignInForm extends React.Component{
 		}
 	}
 
-    /*clickSitter = () => {
-        axios.get('/api/user')
-            .then(res => {
-                cookies.set('owner', res.owner);
-                cookies.set('sitter', res.sitter);
-                console.log(res.sitter);
-                console.log(res.owner);
-            }).then(response => console.log(response))
-            .catch(error => this.setState({error}));
-
-        if( cookies.get('sitter') === 'false') {
-            alert('This account does not exist 3.');
-        }
-        else {
-            this.setsitter();
-        }
-    }
-
-    clickOwner = () => {
-        axios.get('/api/user')
-            .then(res => {
-                cookies.set('owner', res.owner);
-                cookies.set('sitter', res.sitter);
-            }).then(response => console.log(response))
-            .catch(error => this.setState({error}));
-
-        if(cookies.get('owner') === 'false') {
-            alert('This account does not exist 4.');
-        }
-        else {
-            this.setowner();
-        }
-    }*/
-
     onSubmit = ({principal, password}) => {
 		return this.props.authenticate(principal, password);
     };
@@ -153,7 +119,7 @@ class SignInForm extends React.Component{
 
 					else {
 						alert('This account is not registered as an owner.');
-						this.setState({owner: false});
+						//this.setState({owner: false});
 					}
 				}
 
@@ -163,7 +129,7 @@ class SignInForm extends React.Component{
 
                     else {
                         alert('This account is not registered as a sitter.');
-                        this.setState({sitter: false});
+                        //this.setState({sitter: false});
                     }
                 }
                 else {
@@ -208,10 +174,6 @@ class SignInForm extends React.Component{
                                 color="secondary"
                                 className={classes.submit}
                                 onClick={this.setsitter}
-                                /*onClick={() => { cookies.get('sitter') === 'false' ?
-                                alert('This account does not exist.') :
-                                this.setsitter; }}*/
-								//onClick={this.clickSitter}
                             >
                                 Continue as Pet Sitter
                             </Button>
@@ -225,7 +187,6 @@ class SignInForm extends React.Component{
                                 color="primary"
                                 className={classes.submit}
                                 onClick={this.setowner}
-                                //onClick={this.clickOwner}
                             >
                                 Continue as Pet Owner
                             </Button>
