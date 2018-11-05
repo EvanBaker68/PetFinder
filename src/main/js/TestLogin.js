@@ -70,7 +70,7 @@ class NavBar extends React.Component {
 			);
 		}
 
-		else if (cookies.get('isOwner') == 'true') {
+		else if (cookies.get('owner') == 'true') {
 			return (
 				<div className={classes.root}>
 					<AppBar position="static" style={{background: 'transparent', boxShadow: 'none'}}>
@@ -101,7 +101,7 @@ class NavBar extends React.Component {
 			);
 		}
 
-		else if (cookies.get('isSitter') == 'true') {
+		else if (cookies.get('sitter') == 'true') {
 			return (
 				<div className={classes.root}>
 					<AppBar position="static" style={{background: 'transparent', boxShadow: 'none'}}>

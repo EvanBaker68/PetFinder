@@ -46,23 +46,23 @@ public class UserService {
 		private String lastName;
 		private String address;
 		private String city;
-		private String isOwner;
-		private String isSitter;
+		private String owner;
+		private String sitter;
 
-		public String getIsOwner() {
-			return isOwner;
+		public String getowner() {
+			return owner;
 		}
 
-		public void setIsOwner(String isOwner) {
-			this.isOwner = isOwner;
+		public void setowner(String owner) {
+			this.owner = owner;
 		}
 
-		public String getIsSitter() {
-			return isSitter;
+		public String getsitter() {
+			return sitter;
 		}
 
-		public void setIsSitter(String isSitter) {
-			this.isSitter = isSitter;
+		public void setsitter(String sitter) {
+			this.sitter = sitter;
 		}
 
 
@@ -130,7 +130,7 @@ public class UserService {
 		UserAuthenticationDto userAuthentication = new UserAuthenticationDto(
 				//new UserDto(request.getPrincipal(), request.getPhoneNumber(), request.getName(), request.getAddress()), passwordEncoder.encode(request.getPassword()));
 				new UserDto(request.getPrincipal(), _Lists.list("ROLE_USER"), UserDto.UserType.OWNER, request.getPhoneNumber(),
-						request.getFirstName(), request.getLastName(), request.getAddress(), request.getCity(), request.isSitter, request.isOwner, request.getAttributes()), passwordEncoder.encode(request.getPassword()));
+						request.getFirstName(), request.getLastName(), request.getAddress(), request.getCity(), request.sitter, request.owner, request.getAttributes()), passwordEncoder.encode(request.getPassword()));
 		userDao.save(userAuthentication);
 		return userAuthentication.getUser();
 	}

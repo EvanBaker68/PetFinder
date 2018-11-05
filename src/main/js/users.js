@@ -123,9 +123,10 @@ Actions.logout = () => {
 	return (dispatch) => {
 		const cookies = new Cookies();
 	    cookies.set('loggedIn', 'false');
-		cookies.set('isSitter', 'false');
-		cookies.set('isOwner', 'false');
+		cookies.set('sitter', 'false');
+		cookies.set('owner', 'false');
 		cookies.set('password', '');
+		cookies.set('username', '');
 		dispatch(Actions.setAuthentication(null));
 		dispatch(Actions.setUser(null));
 	};

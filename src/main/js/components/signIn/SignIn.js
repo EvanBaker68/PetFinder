@@ -49,47 +49,79 @@ const styles = theme => ({
     },
 });
 
+const cookies = new Cookies();
+
 class SignInForm extends React.Component{
 
 	state = {
-		isOwner: false,
-		isSitter: false,
+		owner: false,
+		sitter: false,
 		redirectOwner: false,
 		redirectSitter: false,
 		callFunc: this.setRedirect
 	}
 
-	setIsOwner = () => {
+	setowner = () => {
 		this.setState({
-			isOwner: true
+			owner: true,
+            hasLoggedIn: true
 		});
 	}
 
-	setIsSitter = () => {
+	setsitter = () => {
 		this.setState({
-			isSitter: true
+			sitter: true,
+            hasLoggedIn: true
 		});
 	}
 
 	setRedirect = () => {
-		console.log(this.state.isOwner);
-		if(this.state.isSitter){
+		console.log(this.state.owner);
+		if(this.state.sitter){
 			this.setState({
 				redirectSitter: true
 			});
 		}
-		else if(this.state.isOwner){
+		else if(this.state.owner){
 			this.setState({
 				redirectOwner: true
 			});
 		}
 	}
 
-	checkValid = () => {
-		const cookies = new Cookies();
+    /*clickSitter = () => {
+        axios.get('/api/user')
+            .then(res => {
+                cookies.set('owner', res.owner);
+                cookies.set('sitter', res.sitter);
+                console.log(res.sitter);
+                console.log(res.owner);
+            }).then(response => console.log(response))
+            .catch(error => this.setState({error}));
 
+        if( cookies.get('sitter') === 'false') {
+            alert('This account does not exist 3.');
+        }
+        else {
+            this.setsitter();
+        }
+    }
 
-	}
+    clickOwner = () => {
+        axios.get('/api/user')
+            .then(res => {
+                cookies.set('owner', res.owner);
+                cookies.set('sitter', res.sitter);
+            }).then(response => console.log(response))
+            .catch(error => this.setState({error}));
+
+        if(cookies.get('owner') === 'false') {
+            alert('This account does not exist 4.');
+        }
+        else {
+            this.setowner();
+        }
+    }*/
 
     onSubmit = ({principal, password}) => {
 		return this.props.authenticate(principal, password);
@@ -100,54 +132,48 @@ class SignInForm extends React.Component{
 		const { classes } = this.props;
 		let { handleSubmit, submitting } = this.props;
 
-        /*onClick={() => { cookies.get('isSitter') === 'false' ?
-            alert('This account does not exist.') :
-            this.setIsSitter; }}*/
-
-
-        const cookies = new Cookies();
-
-        //hasLoggedIn- has the button been pressed
         if(this.state.hasLoggedIn) {
 		console.log('HEYYYYY');
-		    //loggedIn- authentication works
-			//will need to reset cookie to false if they do not sign in properly so that it is not set for the next person logging in
 			if (cookies.get('loggedIn') === 'true') {
 
-				axios.get('/api/user') //gets user that is signed in (you)
-					.then(res => {
-						cookies.set('isOwner', res.isOwner);
-						cookies.set('isSitter', res.isSitter); //cookie should now have proper representation of whether user is owner or sitter
-					}).then(response => console.log(response))
-					.catch(error => this.setState({error})); //state set after button is pushed
+                axios.get('/api/user')
+                    .then(res => {
+                        cookies.set('owner', res.owner);
+                        cookies.set('sitter', res.sitter);
+                        console.log('cookie sitter: ' + res.sitter);
+                        console.log('cookie owner: ' + res.owner);
+                        console.log('state sitter: ' + this.state.sitter);
+                        console.log('state owner: ' + this.state.owner);
+                    }).then(response => console.log(response))
+                    .catch(error => this.setState({error}));
 
-				if (this.state.isOwner) {
-					if (cookies.get('isOwner') === 'true')
+				if (this.state.owner) {
+					if (cookies.get('owner') === 'true')
 						return <div><Redirect to='/ownerDash'/></div>;
 
 					else {
 						alert('This account is not registered as an owner.');
-						cookies.set('isOwner', 'false');
-						this.setState({isOwner: false});
+						this.setState({owner: false});
 					}
 				}
 
-			else if(this.state.isSitter) {
-				if (cookies.get('isSitter') === 'true')
-				    return <div><Redirect to='/sitterDash'/></div>;
+                else if(this.state.sitter) {
+                    if (cookies.get('sitter') === 'true')
+                        return <div><Redirect to='/sitterDash'/></div>;
 
-					else {
-						alert('This account is not registered as a sitter.');
-						cookies.set('isSitter', 'false');
-						this.setState({isSitter: false});
-					}
-				}
-			}
-			else {
-				alert('This account does not exist.');
-                cookies.set('loggedIn', 'false');
-
-			}
+                    else {
+                        alert('This account is not registered as a sitter.');
+                        this.setState({sitter: false});
+                    }
+                }
+                else {
+                    alert('This account does not exist 1.');
+                    cookies.set('loggedIn', 'false');
+                }
+            }
+            else {
+                alert('This account does not exist 2.');
+            }
 		}
 
 
@@ -181,8 +207,11 @@ class SignInForm extends React.Component{
                                 variant="raised"
                                 color="secondary"
                                 className={classes.submit}
-								onClick={
-									this.setIsSitter}
+                                onClick={this.setsitter}
+                                /*onClick={() => { cookies.get('sitter') === 'false' ?
+                                alert('This account does not exist.') :
+                                this.setsitter; }}*/
+								//onClick={this.clickSitter}
                             >
                                 Continue as Pet Sitter
                             </Button>
@@ -195,7 +224,8 @@ class SignInForm extends React.Component{
                                 variant="raised"
                                 color="primary"
                                 className={classes.submit}
-								onClick={this.setIsOwner}
+                                onClick={this.setowner}
+                                //onClick={this.clickOwner}
                             >
                                 Continue as Pet Owner
                             </Button>
