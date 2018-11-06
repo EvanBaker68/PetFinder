@@ -131,6 +131,8 @@ Actions.logout = () => {
 		cookies.set('owner', 'false');
 		cookies.set('password', '');
 		cookies.set('username', '');
+		cookies.set('sitterButton', 'false');
+		cookies.set('ownerButton', 'false');
 		dispatch(Actions.setAuthentication(null));
 		dispatch(Actions.setUser(null));
 	};
