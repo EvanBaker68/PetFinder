@@ -24,7 +24,7 @@ public class PetDto implements Identifiable {
 
     public PetDto() {}
 
-    public PetDto(Long id, String ownerPrincipal, String name, String petType, String dogBreed, Double age) {
+    public PetDto(Long id, String ownerPrincipal, String name, String petType, String dogBreed, Double age) throws IllegalArgumentException{
         setId(id);
         setOwnerPrincipal(ownerPrincipal);
         setName(name);
@@ -32,6 +32,13 @@ public class PetDto implements Identifiable {
         //setDog(isDog);
         setDogBreed(dogBreed);
         setAge(age);
+    }
+
+    public PetDto(Long id, String ownerPrincipal, String name, String petType) throws IllegalArgumentException{
+        setId(id);
+        setOwnerPrincipal(ownerPrincipal);
+        setName(name);
+        setPetType(petType);
     }
 
     @Override
@@ -64,30 +71,46 @@ public class PetDto implements Identifiable {
     }
 
 
-    public void setId(Long id) {
+    public void setId(Long id) throws IllegalArgumentException{
+
         this.id = id;
     }
 
-    public void setOwnerPrincipal(String ownerPrincipal) {
+    public void setOwnerPrincipal(String ownerPrincipal) throws IllegalArgumentException{
+
         this.ownerPrincipal = ownerPrincipal;
     }
 
-    public void setName(String name) {
+    public void setName(String name) throws IllegalArgumentException{
+        if(name == null){
+            throw new IllegalArgumentException("setName\t was given a null");
+        }
         this.name = name;
     }
 
-    public void setPetType(String petType) {
+    public void setPetType(String petType) throws IllegalArgumentException{
+        if(petType == null){
+            throw new IllegalArgumentException("setPetType\t given a bad value");
+        }
         this.petType = petType;
     }
 
     //public void setDog(Boolean dog) {
     // isDog = dog;
     //}
-    public void setDogBreed(String dogBreed) {
+    public void setDogBreed(String dogBreed) throws IllegalArgumentException{
+        if(dogBreed == null){
+            throw new IllegalArgumentException("setDogBread\t was given a null");
+        }
         this.dogBreed = dogBreed;
     }
 
-    public void setAge(Double age) {
+    public void setAge(Double age) throws IllegalArgumentException{
+        if(age == null){
+            throw new IllegalArgumentException("setAge\t was given a null");
+        } else if(age < 0L){
+            throw new IllegalArgumentException("setAge\t was given an invalid value");
+        }
         this.age = age;
     }
 }

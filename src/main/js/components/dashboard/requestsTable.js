@@ -24,8 +24,6 @@ const styles = {
 let id = 0;
 
 
-
-
 class RequestTable extends React.Component {
 
     state = {

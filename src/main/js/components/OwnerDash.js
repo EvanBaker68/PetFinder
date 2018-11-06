@@ -118,10 +118,6 @@ class Dashboard extends React.Component {
         this.setState({ open: false });
     };
 
-    handleHome = () => {
-        this.setState({ redirect: true });
-    }
-
     render() {
         const { classes } = this.props;
 
@@ -129,10 +125,6 @@ class Dashboard extends React.Component {
 		if( cookies.get('owner') !== 'true' ) {
 			return <div><Redirect to='/'/></div>;
 		}
-
-        if(this.state.redirect){
-			return <div><Redirect to='/'/></div>;
-        }
 
         return (
             <React.Fragment>
