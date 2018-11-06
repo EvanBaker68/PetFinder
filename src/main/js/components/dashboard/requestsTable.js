@@ -23,14 +23,17 @@ const styles = {
 
 let id = 0;
 
+const data = [];
 
+let name = '';
 
 
 class RequestTable extends React.Component {
 
     state = {
         name: '',
-        bookings: []
+        bookings: [],
+        load: true
     }
 
 	componentDidMount() {
@@ -42,6 +45,35 @@ class RequestTable extends React.Component {
 			    console.log(res);
 				this.setState({
 					bookings: res});
+				if(this.state.bookings)
+				{this.state.bookings.map(booking => {
+					const startDate = new Date(booking.startDate);
+					const endDate = new Date(booking.finishDate);
+					const status = booking.status;
+					const ownerPrincipal = booking.ownerPrincipal;
+
+					console.log('startDate: ', startDate);
+					console.log('endDate: ', endDate);
+
+					axios.get('/api/user/' + ownerPrincipal, ownerPrincipal)
+						.then(res => {
+							console.log('name: ', res.firstName);
+							console.log('startDate', startDate);
+							console.log('endDate', endDate);
+							console.log('status', status);
+							console.log('data1:',data);
+							name = res.firstName;
+							console.log('name2: ', name);
+
+							data.push(this.createData(name, startDate, endDate, status));
+						}).then(response => console.log(response))
+						.catch(error => this.setState({error}));
+
+
+
+
+				});}
+
 			}).then(response => console.log(response))
 			.catch(error => this.setState({error}));
 		}
@@ -53,33 +85,12 @@ class RequestTable extends React.Component {
 	}
 
 render() {
+	const { classes } = this.props;
 
     const { bookings } = this.state;
-    const { classes } = this.props;
-	const data = [];
 
 
-	if(bookings)
-	{bookings.map(booking => {
-		const startDate = new Date(booking.startDate);
-		const endDate = new Date(booking.endDate);
-        const status = booking.status;
-        const ownerPrincipal = booking.ownerPrincipal;
-        var name = '';
-        console.log('heybuckaroo');
-
-		axios.get('/api/user/' + ownerPrincipal, ownerPrincipal)
-			.then(res => {
-			    console.log('user: ', res);
-				name = res.firstName + ' ' + res.lastName;
-			}).then(response => console.log(response))
-			.catch(error => this.setState({error}));
-
-		data.push(this.createData(name, startDate, endDate, status));
-
-
-	});}
-
+    console.log('fdaskjlafsdjkladsdfs',data);
 
 
 	return (
@@ -94,7 +105,9 @@ render() {
 					</TableRow>
 				</TableHead>
 				<TableBody>
+                    {console.log('HEYTHERE')}
 					{data.map(n => {
+					    console.log('NAME:',n.name);
 						return (
 							<TableRow key={n.id}>
 								<TableCell component="th" scope="row">
