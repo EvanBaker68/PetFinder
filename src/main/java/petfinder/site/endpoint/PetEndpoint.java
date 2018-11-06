@@ -7,6 +7,7 @@ import java.util.logging.Logger;
 import org.slf4j.LoggerFactory;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.web.bind.annotation.*;
 
 import petfinder.site.common.pet.PetDto;
@@ -32,6 +33,17 @@ public class PetEndpoint {
 	@GetMapping(value = "/pets/{ownerPrincipal:.+}", produces = "application/json")
 	@ResponseBody
 	public List<Optional<PetDto>> getPets(@PathVariable("ownerPrincipal") String ownerPrincipal) {
+		/*
+		if (ownerPrincipal.equals(SecurityContextHolder.getContext().getAuthentication().getName())) {
+			return petService.findPetByPrincipal(ownerPrincipal);
+		}
+		else {
+			Optional<PetDto> returnVal = Optional.empty();
+			List<Optional<PetDto>> returnList = new List<Optional<PetDto>>;
+			returnList.add(returnVal);
+
+			return returnList;
+		}*/
 		return petService.findPetByPrincipal(ownerPrincipal);
 	}
 

@@ -1,6 +1,7 @@
 package petfinder.site.endpoint;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.web.bind.annotation.*;
 import petfinder.site.common.booking.BookingDto;
 import petfinder.site.common.booking.BookingService;
@@ -16,6 +17,16 @@ public class BookingEndpoint {
     @GetMapping(value = "/{id}", produces = "application/json")
     @ResponseBody
     public Optional<BookingDto> getBooking(@PathVariable("id") Long id) {
+
+        /*
+        if (principal.equals(SecurityContextHolder.getContext().getAuthentication().getName())) {
+            return bookingService.findBooking(id);
+        }
+        else {
+            return Optional.empty();
+        }
+        */
+
         return bookingService.findBooking(id);
     }
 

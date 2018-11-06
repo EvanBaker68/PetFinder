@@ -15,7 +15,18 @@ public class DateEndpoint {
 
     @GetMapping(value = "/{id}", produces = "application/json")
     @ResponseBody
-    public Optional<DateDto> getDate(@PathVariable("id") Long id) { return dateService.findDate(id);}
+    public Optional<DateDto> getDate(@PathVariable("id") Long id) {
+
+        /*
+        if (principal.equals(SecurityContextHolder.getContext().getAuthentication().getName())) {
+            return dateService.findDate(id);
+        }
+        else {
+            return Optional.empty();
+        }
+        */
+        return dateService.findDate(id);
+    }
 
     @PostMapping(value = "/add-date", produces = "application/json", consumes = "application/json")
     @ResponseBody
