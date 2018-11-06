@@ -43,9 +43,21 @@ class ProfileForm extends React.Component {
         });
     };
 
-    setAuthentication = (username, password) => {
-         this.props.authenticate(username, password);
-    }
+	handleNext = () => {
+		const cookies = new Cookies();
+		const user = {
+			principal: cookies.get('username'),
+			password: cookies.get('password'),
+			firstName: this.state.firstName,
+			lastName: this.state.lastName,
+			phoneNumber: this.state.phoneNumber,
+			city: this.state.city,
+			address: this.state.address,
+			isSitter: cookies.get('isSitter'),
+			isOwner: cookies.get('isOwner')
+		};
+		return this.props.register(user);
+	}
 
 	componentDidMount() {
 		const cookies = new Cookies();
@@ -53,7 +65,6 @@ class ProfileForm extends React.Component {
 		const password = cookies.get('password');
 
 		// this.setAuthentication(username, password);
-		console.log('NEW MESSAGE');
 		axios.get('/api/user')
 			.then(res => {
 				this.setState({
@@ -116,7 +127,16 @@ class ProfileForm extends React.Component {
                     variant="standard"
                 />
             </form>
-                <Button>Save User Info</Button>
+				<Button
+					type="submit"
+					fullWidth
+					variant="raised"
+					color="primary"
+					className={classes.submit}
+					onClick={this.handleNext}
+				>
+					Save User Info
+				</Button>
             </div>
         );
     }
@@ -126,17 +146,17 @@ ProfileForm.propTypes = {
     classes: PropTypes.object.isRequired,
 };
 
-// ProfileForm = connect(
-// 	state => ({
-//
-// 	}),
-// 	dispatch => ({
-// 		//TODO: In complete registration, set a field in user specifying if it is an owner,
-// 		//sitter, or both. Then, if you try to log in as something you're not, you will
-// 		//be refused access.
-// 		authenticate: (username, password) => dispatch(Users.Actions.authenticate(username, password))
-// 		// register: (user) => dispatch(Users.Actions.register(user))
-// 	})
-// )(ProfileForm);
+ProfileForm = connect(
+	state => ({
+
+	}),
+	dispatch => ({
+		//TODO: In complete registration, set a field in user specifying if it is an owner,
+		//sitter, or both. Then, if you try to log in as something you're not, you will
+		//be refused access.
+		// authenticate: (username, password) => dispatch(Users.Actions.authenticate(username, password))
+		register: (user) => dispatch(Users.Actions.register(user))
+	})
+)(ProfileForm);
 
 export default withStyles(styles)(ProfileForm);

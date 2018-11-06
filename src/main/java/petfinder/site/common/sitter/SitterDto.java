@@ -11,9 +11,10 @@ public class SitterDto implements Momento<String> {
     private String principal;
     private Long[] currentBookings;
     private Long[] pastBookings;
+    private Long[] pendingBookings;
     private Long[] datesAvailable;
     private Double rate;
-    private Boolean isDeleted;
+    private Boolean isDeleted = false;
 
 
     //Main Constructor
@@ -34,6 +35,17 @@ public class SitterDto implements Momento<String> {
         setCurrentBookings(currentBookings);
         setPastBookings(pastBookings);
     }
+
+
+    public Long[] getPendingBookings() { return pendingBookings; }
+
+    public void setPendingBookings(Long[] pendingBookings) { this.pendingBookings = pendingBookings; }
+
+    public void setRate(Double rate) { this.rate = rate; }
+
+    public Boolean getDeleted() { return isDeleted; }
+
+    public void setDeleted(Boolean deleted) { isDeleted = deleted; }
 
     public Long[] getCurrentBookings() {
         return currentBookings;

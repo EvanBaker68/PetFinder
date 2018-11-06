@@ -9,8 +9,27 @@ import DialogContentText from '@material-ui/core/DialogContentText';
 import DialogTitle from '@material-ui/core/DialogTitle';
 import axios from 'axios';
 import Cookies from 'universal-cookie';
-import Calender from './sitterCalender';
 import {withStyles} from '@material-ui/core';
+import SitterCalender from './sitterCalender';
+
+function DateAndTimePickers(props) {
+    const { classes } = props;
+
+    return (
+        <form className={classes.container} noValidate>
+            <TextField
+                id="datetime-local"
+                label="Next appointment"
+                type="datetime-local"
+                defaultValue="2017-05-24T10:30"
+                className={classes.textField}
+                InputLabelProps={{
+                    shrink: true,
+                }}
+            />
+        </form>
+    );
+}
 
 const styles = theme => ({
     container: {
@@ -31,14 +50,39 @@ class FormDialog extends React.Component {
         this.state = {
             num: props.number,
             principal: props.principal,
+            name: props.name,
+            cost: '',
+            city: props.city,
             open: false,
-            date: '',
-            start: '',
-            end: ''
+            start: new Date(),
+            end: new Date()
         };
 
         //load sitter information
     }
+
+    saveBooking = () => {
+        const cookies = new Cookies();
+        console.log(cookies.get('username'));
+        const booking = {
+            id: (((1+Math.random())*0x10000)|0),
+            ownerPrincipal: cookies.get('username'),
+            sitterPrincipal: this.state.principal,
+            startDate: this.state.start,
+            finishDate: this.state.end,
+            status: 'pending'
+        };
+        console.log(this.state.name);
+        axios.post('/booking/add-booking', booking)
+            .then(res => {
+                console.log(res);
+                console.log(res.data);
+                this.setState({open: false});
+            })
+            .catch(error => {
+                console.log(error.response);
+            });
+    };
 
     handleClickOpen = () => {
         this.setState({ open: true });
@@ -56,7 +100,7 @@ class FormDialog extends React.Component {
 
     render() {
         //num should eventually be sitter details
-        const num = this.state.num;
+        //const principal = this.state.principal;
         const { classes } = this.props;
 
         return (
@@ -68,39 +112,44 @@ class FormDialog extends React.Component {
                     aria-labelledby="form-dialog-title"
                     fullWidth={true}
                 >
-                    <DialogTitle id="form-dialog-title">{this.props.num}</DialogTitle>
+                    <DialogTitle id="form-dialog-title">{this.state.name}</DialogTitle>
                     <Typography>Rating</Typography>
-                    <Typography>Cost Per Hour</Typography>
-                    <Typography variant="text">City</Typography>
-                    <TextField
-                        id="standard-name"
-                        label="Requested Date"
-                        className={classes.textField}
-                        value={this.state.date}
-                        onChange={this.handleChange('date')}
-                        margin="normal"
-                    />
-                    <TextField
-                        id="standard-name"
-                        label="Start Time"
-                        className={classes.textField}
-                        value={this.state.start}
-                        onChange={this.handleChange('start')}
-                        margin="normal"
-                    />
-                    <TextField
-                        id="standard-name"
-                        label="End Time"
-                        className={classes.textField}
-                        value={this.state.end}
-                        onChange={this.handleChange('end')}
-                        margin="normal"
-                    />
+                    <Typography>Cost Per Hour: </Typography>
+                    <Typography variant="text">City : {this.state.city}</Typography>
+                    <SitterCalender/>
+                    <form className={classes.container} noValidate>
+                        <TextField
+                            id="datetime-local"
+                            label="Next appointment"
+                            type="datetime-local"
+                            defaultValue={this.state.start}
+                            value={this.state.start}
+                            onChange={this.handleChange('start')}
+                            className={classes.textField}
+                            InputLabelProps={{
+                                shrink: true,
+                            }}
+                        />
+                    </form>
+                    <form className={classes.container} noValidate>
+                        <TextField
+                            id="datetime-local"
+                            label="Next appointment"
+                            type="datetime-local"
+                            defaultValue={this.state.end}
+                            value={this.state.end}
+                            className={classes.textField}
+                            onChange={this.handleChange('end')}
+                            InputLabelProps={{
+                                shrink: true,
+                            }}
+                        />
+                    </form>
                     <DialogActions>
                         <Button onClick={this.handleClose} color="primary">
                             Cancel
                         </Button>
-                        <Button>
+                        <Button onClick={this.saveBooking}>
                             Book
                         </Button>
                     </DialogActions>

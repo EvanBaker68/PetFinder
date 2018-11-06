@@ -26,6 +26,8 @@ import EditPet from 'js/components/pets/editPetForm';
 import Button from '@material-ui/core/Button/Button';
 import Card from '@material-ui/core/Card/Card';
 import axios from 'axios';
+import Cookies from 'universal-cookie';
+import MenuBar from 'js/components/dashboard/MenuBar';
 
 const drawerWidth = 240;
 
@@ -61,6 +63,11 @@ const styles = theme => ({
     menuButton: {
         marginLeft: 12,
         marginRight: 36,
+    },
+	divider: {
+	width: 5,
+	height: 50,
+	display: 'inline-block',
     },
     menuButtonHidden: {
         display: 'none',
@@ -113,25 +120,40 @@ const styles = theme => ({
 class PetPage extends React.Component {
     state = {
         open: true,
+        pets: []
     };
 
     componentDidMount() {
-        const petId = 1;
-        const endpoint = '/pet/' + petId;
+        const id = 1;
+        const endpoint = '/pet/' + id;
+        const cookies = new Cookies();
 
-        axios.get('/pet/' + petId, petId)
+        axios.get('/pet/' + id, id)
             .then(res => {
                 this.setState({
                     name: res.name,
                     age: res.age,
                     dogBreed: res.dogBreed,
-                    petId: res.petId,
-                    ownerPrinciple: res.ownerPrinciple,
+                    id: res.id,
+                    ownerPrincipal: res.ownerPrincipal,
                     petType: res.petType});
             }).then(response => console.log(response))
             .catch(error => this.setState({error}));
 
+
+
+		axios.get('/pet/pets/' + cookies.get('username'), cookies.get('username'))
+            .then(res => {
+                this.setState({
+                    pets: res
+                });
+                console.log(res);
+            }).then(response => console.log(response))
+			.catch(error => this.setState({error}));
     }
+
+
+
 
     handleDrawerOpen = () => {
         this.setState({ open: true });
@@ -143,37 +165,26 @@ class PetPage extends React.Component {
 
     render() {
         const { classes } = this.props;
+        const { pets } = this.state;
+
+        var petItems;
+        if(pets)
+		{petItems = pets.map(pet => {
+			const {name, age, dogBreed, petType, id} = pet;
+			return (
+				<div key={(((1+Math.random())*0x10000)|0)}>
+				<PetCard id={id} name={name} type={petType} breed={dogBreed} age={age}/>
+				</div>
+			);
+		});}
 
         return (
+
             <React.Fragment>
                 <CssBaseline />
                 <div className={classes.root}>
-                    <AppBar
-                        position="absolute"
-                        className={classNames(classes.appBar, this.state.open && classes.appBarShift)}
-                    >
-                        <Toolbar disableGutters={!this.state.open} className={classes.toolbar}>
-                            <IconButton
-                                color="inherit"
-                                aria-label="Open drawer"
-                                onClick={this.handleDrawerOpen}
-                                className={classNames(
-                                    classes.menuButton,
-                                    this.state.open && classes.menuButtonHidden,
-                                )}
-                            >
-                                <MenuIcon />
-                            </IconButton>
-                            <Typography variant="display2" color="inherit" noWrap className={classes.title}>
-                                My Pets
-                            </Typography>
-                            <IconButton color="inherit">
-                                <Badge badgeContent={4} color="secondary">
-                                    <NotificationsIcon />
-                                </Badge>
-                            </IconButton>
-                        </Toolbar>
-                    </AppBar>
+
+                    <MenuBar title='Pets'/>
                     <Drawer
                         variant="permanent"
                         classes={{
@@ -190,12 +201,18 @@ class PetPage extends React.Component {
                         <List>{mainListItems}</List>
                     </Drawer>
                     <main className={classes.content}>
-                        <Card className={classes.card}>
-                            <CardActions>
-                                <EditPet/>
-                            </CardActions>
-                        </Card>
-                        <AddPet/>
+                        {/*<Card className={classes.card}>*/}
+                            {/*<CardActions>*/}
+                                {/*<EditPet/>*/}
+                            {/*</CardActions>*/}
+                        {/*</Card>*/}
+                        {petItems}
+						<div className={classes.divider}/>
+
+							<AddPet/>
+
+                        {/*<PetCard/>*/}
+
                     </main>
                 </div>
             </React.Fragment>

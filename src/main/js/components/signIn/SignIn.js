@@ -14,6 +14,7 @@ import * as Validation from 'js/alloy/utils/validation';
 import * as Bessemer from 'js/alloy/bessemer/components';
 import Image from '../../images/homeDog.jpg';
 import Cookies from 'universal-cookie';
+import axios from 'axios/index';
 
 const styles = theme => ({
     layout: {
@@ -54,7 +55,7 @@ class SignInForm extends React.Component{
 		isOwner: false,
 		isSitter: false,
 		redirectOwner: false,
-        redirectSitter: false,
+		redirectSitter: false,
 		callFunc: this.setRedirect
 	}
 
@@ -84,17 +85,17 @@ class SignInForm extends React.Component{
 		}
 	}
 
-    onSubmit = ({principal, password}) => {
-        return this.props.authenticate(principal, password);
-    };
+	onSubmit = ({principal, password}) => {
+		return this.props.authenticate(principal, password);
+	};
 
-    render() {
+	render() {
 
-    	const { classes } = this.props;
-        let { handleSubmit, submitting } = this.props;
+		const { classes } = this.props;
+		let { handleSubmit, submitting } = this.props;
 
 
-        const cookies = new Cookies();
+		const cookies = new Cookies();
 
 		if (cookies.get('loggedIn') == 'true') {
 
@@ -109,6 +110,8 @@ class SignInForm extends React.Component{
 				return <div><Redirect to='/sitterDash'/></div>;
 			}
 		}
+
+
 
         return (
 
@@ -140,7 +143,8 @@ class SignInForm extends React.Component{
                                 variant="raised"
                                 color="secondary"
                                 className={classes.submit}
-								onClick={this.setIsSitter}
+								onClick={
+									this.setIsSitter}
                             >
                                 Continue as Pet Sitter
                             </Button>

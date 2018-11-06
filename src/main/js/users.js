@@ -1,9 +1,7 @@
 import axios from 'axios';
 import Cookies from 'universal-cookie';
 export function register(user) {
-	console.log('beginning');
     var temp = axios.post('/api/user/register', user);
-	console.log('end');
     //const cookies = new Cookies();
     //cookies.set('loggedIn', 'false', { path: '/' });
     //console.log(cookies.get('loggedIn'));
@@ -14,7 +12,6 @@ export function register(user) {
 }
 
 export function authenticate(username, password) {
-	console.log('BIG');
 	return axios(
 		{
 			method: 'post',
@@ -33,7 +30,6 @@ export function authenticate(username, password) {
 }
 
 export function getUserDetails() {
-	console.log('BUTTS');
 	return axios.get('/api/user');
 }
 
@@ -95,7 +91,6 @@ Actions.authenticate = (username, password) => {
 
 Actions.shortHandAuthenticate = (username, password) => {
 	return (dispatch) => {
-		console.log('heyyyy', username, password);
 		return authenticate(username, password).then(
 			authentication => {
 
@@ -151,7 +146,6 @@ let Reducers = {};
 const cookies = new Cookies();
 
 Reducers.authentication = (authentication = cookies.get('auth') , action) => {
-	console.log('HYYYYYY');
 	switch (action.type) {
 		case Actions.Types.SET_AUTHENTICATION: {
 			console.log('setting authentication');
@@ -159,7 +153,6 @@ Reducers.authentication = (authentication = cookies.get('auth') , action) => {
 			return action.authentication;
 		}
 		default: {
-			console.log('default authentication');
 			console.log(authentication);
 			return authentication;
 		}

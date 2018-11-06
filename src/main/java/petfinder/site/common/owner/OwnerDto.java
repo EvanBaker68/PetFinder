@@ -11,17 +11,17 @@ public class OwnerDto implements Momento<String> {
     private int numPets;
     private Long[] currentBookings;
     private Long[] pastBookings;
-    private Long[] petIds;
+    private Long[] ids;
     private Boolean isDeleted;
 
     public OwnerDto() {
     }
 
-    public OwnerDto(String principal, Long[] currentBookings, Long[] pastBookings, Long[] petIds, int numPets) {
+    public OwnerDto(String principal, Long[] currentBookings, Long[] pastBookings, Long[] ids, int numPets) {
         setPrincipal(principal);
         setCurrentBookings(currentBookings);
         setPastBookings(pastBookings);
-        setPetIds(petIds);
+        setIds(ids);
         setNumPets(numPets);
     }
 
@@ -38,8 +38,8 @@ public class OwnerDto implements Momento<String> {
         return pastBookings;
     }
 
-    public Long[] getPetIds() {
-        return petIds;
+    public Long[] getIds() {
+        return ids;
     }
 
 
@@ -47,8 +47,8 @@ public class OwnerDto implements Momento<String> {
 
     public void setNumPets(int numPets) { this.numPets = numPets; }
 
-    public void setPetIds(Long[] petIds) {
-        this.petIds = petIds;
+    public void setIds(Long[] ids) {
+        this.ids = ids;
     }
 
     public void setCurrentBookings(Long[] currentBookings) {

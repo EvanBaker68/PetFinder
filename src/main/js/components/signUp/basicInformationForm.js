@@ -31,7 +31,6 @@ class OutlinedTextFields extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
-            isSitter: props.isSitter,
             firstName: '',
             lastName: '',
             address: '',
@@ -55,7 +54,9 @@ class OutlinedTextFields extends React.Component {
 			lastName: this.state.lastName,
 			phoneNumber: this.state.phoneNumber,
 			city: this.state.city,
-			address: this.state.address
+			address: this.state.address,
+			isSitter: cookies.get('isSitter'),
+			isOwner: cookies.get('isOwner')
 		};
 		return this.props.register(user);
 	}

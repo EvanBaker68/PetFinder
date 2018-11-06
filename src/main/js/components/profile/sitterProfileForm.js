@@ -7,6 +7,7 @@ import TextField from '@material-ui/core/TextField';
 import Button from '@material-ui/core/Button';
 import Cookies from 'universal-cookie';
 import axios from 'axios/index';
+import {Redirect} from 'react-router-dom';
 
 const styles = theme => ({
     container: {
@@ -68,6 +69,11 @@ class ProfileForm extends React.Component {
 
     render() {
         const { classes } = this.props;
+
+		const cookies = new Cookies();
+		if( cookies.get('isSitter') !== 'true' ) {
+			return <div><Redirect to='/'/></div>;
+		}
 
         return (
             <div>

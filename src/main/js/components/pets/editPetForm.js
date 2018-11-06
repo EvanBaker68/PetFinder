@@ -7,6 +7,7 @@ import DialogContent from '@material-ui/core/DialogContent';
 import DialogContentText from '@material-ui/core/DialogContentText';
 import DialogTitle from '@material-ui/core/DialogTitle';
 import axios from 'axios';
+import PropTypes from 'prop-types';
 import Cookies from 'universal-cookie';
 
 export default class FormDialog extends React.Component {
@@ -14,10 +15,10 @@ export default class FormDialog extends React.Component {
         open: false,
         name: '',
         age: 0,
-        petId: 0,
+        id: 0,
 		petType: '',
         dogBreed: '',
-        ownerPrinciple: '',
+        ownerPrincipal: '',
         pets: []
     };
 
@@ -26,17 +27,17 @@ export default class FormDialog extends React.Component {
     }
 
     componentDidMount() {
-		const petId = 1;
-		const endpoint = '/pet/' + petId;
+		let { name, age, id, dogBreed, petType, ownerPrincipal } = this.props;
+		const endpoint = '/pet/' + id;
 
-		axios.get('/pet/' + petId, petId)
+		axios.get('/pet/' + id, id)
 			.then(res => {
 				this.setState({
 				name: res.name,
                 age: res.age,
                 dogBreed: res.dogBreed,
-                petId: res.petId,
-                ownerPrinciple: res.ownerPrinciple,
+                id: res.id,
+                ownerPrincipal: res.ownerPrincipal,
 				petType: res.petType});
 			}).then(response => console.log(response))
 			.catch(error => this.setState({error}));
@@ -54,8 +55,8 @@ export default class FormDialog extends React.Component {
 	handleSaveClose = () => {
 		const cookies = new Cookies();
 		const pet = {
-			petId: 1,
-			ownerPrinciple: cookies.get('username'),
+			id: this.state.id,
+			ownerPrincipal: cookies.get('username'),
 			name: this.state.name,
 			petType: this.state.petType,
 			dogBreed: this.state.dogBreed,
@@ -152,3 +153,10 @@ export default class FormDialog extends React.Component {
         );
     }
 }
+
+FormDialog.propTypes = {
+	name: PropTypes.string,
+	age: PropTypes.number,
+	type: PropTypes.string,
+	breed: PropTypes.string,
+};

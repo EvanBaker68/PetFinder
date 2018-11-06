@@ -1,5 +1,6 @@
 package petfinder.site.endpoint;
 
+import java.util.List;
 import java.util.Optional;
 
 import java.util.logging.Logger;
@@ -28,11 +29,21 @@ public class PetEndpoint {
 		return petService.findPet(id);
 	}
 
+	@GetMapping(value = "/pets/{ownerPrincipal:.+}", produces = "application/json")
+	@ResponseBody
+	public List<Optional<PetDto>> getPets(@PathVariable("ownerPrincipal") String ownerPrincipal) {
+		return petService.findPetByPrincipal(ownerPrincipal);
+	}
+
 
 	@PostMapping(value = "/add-pet", consumes = "application/json", produces = "application/json")
 	@ResponseBody
 	public PetDto savePet(@RequestBody PetDto pet) {
 		System.out.println("made it to endpoint");
+		System.out.println(pet.getAge());
+		System.out.println(pet.getName());
+		System.out.println(pet.getOwnerPrincipal());
+		System.out.println(pet.getId());
 		petService.save(pet);
 		return pet;
 	}

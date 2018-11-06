@@ -6,9 +6,10 @@ import java.util.Optional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
-
+import java.util.ArrayList;
 import alloy.util._Lists;
 import java.util.List;
+import java.util.stream.Collectors;
 
 /**
  * Created by jlutteringer on 8/23/17.
@@ -44,6 +45,27 @@ public class UserService {
 		private String firstName;
 		private String lastName;
 		private String address;
+		private String city;
+		private String isOwner;
+		private String isSitter;
+
+		public String getIsOwner() {
+			return isOwner;
+		}
+
+		public void setIsOwner(String isOwner) {
+			this.isOwner = isOwner;
+		}
+
+		public String getIsSitter() {
+			return isSitter;
+		}
+
+		public void setIsSitter(String isSitter) {
+			this.isSitter = isSitter;
+		}
+
+
 		//private Map<String, Object> attributes;
 
 		public String getPrincipal() {
@@ -94,23 +116,47 @@ public class UserService {
 		public void setAttributes(Map<String, Object> attributes) {
 			this.attributes = attributes;
 		}
+
+		public String getCity() {
+			return city;
+		}
+
+		public void setCity(String city) {
+			this.city = city;
+		}
 	}
 
 	public UserDto register(RegistrationRequest request) {
 		UserAuthenticationDto userAuthentication = new UserAuthenticationDto(
 				//new UserDto(request.getPrincipal(), request.getPhoneNumber(), request.getName(), request.getAddress()), passwordEncoder.encode(request.getPassword()));
 				new UserDto(request.getPrincipal(), _Lists.list("ROLE_USER"), UserDto.UserType.OWNER, request.getPhoneNumber(),
-						request.getFirstName(), request.getLastName(), request.getAddress(), request.getAttributes()), passwordEncoder.encode(request.getPassword()));
+						request.getFirstName(), request.getLastName(), request.getAddress(), request.getCity(), request.isSitter, request.isOwner, request.getAttributes()), passwordEncoder.encode(request.getPassword()));
 		userDao.save(userAuthentication);
 		return userAuthentication.getUser();
 	}
-
-	public List<Optional<UserDto>> getSittersByCity(String city) {
-		return userDao.findByCity(city, "sitter");
+	public List<UserDto> getSittersByCity(String city) {
+		System.out.println("IN THE CITY");
+		List<Optional<UserAuthenticationDto>> listDtos = userDao.findByCity(city, "sitter");
+		//return userDao.findByCity(city, "sitter");
+		List<UserAuthenticationDto> filteredUsers = listDtos.stream().filter(Optional::isPresent).map(Optional::get).collect(Collectors.toList());
+		List<UserDto> newList = new ArrayList<>();
+		for(UserAuthenticationDto i : filteredUsers){
+			if(i.getUser().getSitter().equals("true"))
+			newList.add(i.getUser());
+		}
+		return newList;
 	}
 
-	public List<Optional<UserDto>> getOwnersByCity(String city) {
-		return userDao.findByCity(city, "owner");
+	public List<UserDto> getOwnersByCity(String city) {
+		//return userDao.findByCity(city, "owner");
+		List<Optional<UserAuthenticationDto>> listDtos = userDao.findByCity(city, "owner");
+		List<UserAuthenticationDto> filteredUsers = listDtos.stream().filter(Optional::isPresent).map(Optional::get).collect(Collectors.toList());
+		List<UserDto> newList = new ArrayList<>();
+		for(UserAuthenticationDto i : filteredUsers){
+			newList.add(i.getUser());
+		}
+		return newList;
 	}
+
 
 }

@@ -24,6 +24,8 @@ import TextField from '@material-ui/core/TextField/TextField';
 import Button from '@material-ui/core/Button/Button';
 import SitterView from 'js/components/search/siiterProfileView';
 import axios from 'axios';
+import Cookies from 'universal-cookie';
+import {Redirect} from 'react-router-dom';
 
 const drawerWidth = 240;
 
@@ -130,34 +132,41 @@ class SearchPage extends React.Component {
 
     handleSearch = () => {
         const city = this.state.city;
-        axios.get('/user/getSittersInCity/' +city, city)
+        axios.get('/api/user/getSittersInCity/' + city, city)
             .then(res =>{
                 console.log(res);
-                this.setState({sitter: res.data})
-            .catch(error => {
-                    console.log(error.response);
-            });
-            });
-        this.setState({searched: true});
+                this.setState({sitter: res});
+            }).then(response => console.log(response))
+			.catch(error => this.setState({error}));
+            this.setState({searched: true});
     };
 
     render() {
-        const { classes } = this.props;
-        const numbers = [1, 2, 3, 4, 5];
-        const listItems = numbers.map((number) =>
-            <div key={number.toString()}>
-                <li>{number}</li>
-                <SitterView num={number}/>
-            </div>
-        );
+
+		const cookies = new Cookies();
+		if( cookies.get('isOwner') !== 'true' ) {
+			return <div><Redirect to='/'/></div>;
+		}
+
+
+		const { classes } = this.props;
+        // const numbers = [1, 2, 3, 4, 5];
+        // const listItems = numbers.map((number) =>
+        //     <div key={number.toString()}>
+        //         <li>{number}</li>
+        //         <SitterView num={number}/>
+        //     </div>
+        // );
 
         //this will replace lisitems and num
         const sitters = this.state.sitter;
+        var sitterItems;
         if (sitters) {
-            const sitterItems = sitters.map((sitter) =>
+             sitterItems = sitters.map((sitter) =>
                 <div key={sitter.principal}>
                     <li>{sitter.firstName}</li>
-                    <SitterView principal={sitter.principal}/>
+                    <SitterView principal={sitter.principal} name={sitter.firstName+' '+sitter.lastName}
+                        city={sitter.city}/>
                 </div>
             );
         }
@@ -228,7 +237,7 @@ class SearchPage extends React.Component {
                         <div>
                             <Typography variant="display1" align="center">Matched Sitters</Typography>
                             <ul>
-                                {listItems}
+                                {sitterItems}
                             </ul>
                         </div>
                     }

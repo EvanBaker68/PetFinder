@@ -10,13 +10,13 @@ public class DateDto implements Identifiable {
     private Long id;
     private Date startDate;
     private Date endDate;
-    private String sitterPrinciple;
+    private String sitterPrincipal;
     private Boolean isDeleted;
 
-    public DateDto(Date startDate, Date endDate, String sitterPrinciple) {
+    public DateDto(Date startDate, Date endDate, String sitterPrincipal) {
         this.startDate = startDate;
         this.endDate = endDate;
-        this.sitterPrinciple = sitterPrinciple;
+        this.sitterPrincipal = sitterPrincipal;
     }
 
     public DateDto() {
@@ -46,11 +46,11 @@ public class DateDto implements Identifiable {
         this.endDate = endDate;
     }
 
-    public String getSitterPrinciple() {
-        return sitterPrinciple;
+    public String getSitterPrincipal() {
+        return sitterPrincipal;
     }
 
-    public void setSitterPrinciple(String sitterPrinciple) {
-        this.sitterPrinciple = sitterPrinciple;
+    public void setSitterPrincipal(String sitterPrincipal) {
+        this.sitterPrincipal = sitterPrincipal;
     }
 }

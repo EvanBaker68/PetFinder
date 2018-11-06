@@ -15,8 +15,8 @@ public class DateService {
         return dateDao.findDate(id);
     }
 
-    public Optional<DateDto> findDateBySitter(String sitterPrinciple){
-        return dateDao.findDateBySitter(sitterPrinciple);
+    public Optional<DateDto> findDateBySitter(String sitterPrincipal){
+        return dateDao.findDateBySitter(sitterPrincipal);
     }
 
     public void saveDate(DateDto dateDto){

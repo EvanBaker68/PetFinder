@@ -8,12 +8,17 @@ import java.util.List;
 import java.util.Map;
 
 public class UserDto implements Momento<String> {
+    public Boolean isEmpty() {
+        return false;
+    }
     private String principal;
     private List<String> roles;
     private UserType type;
     private Map<String, Object> attributes;
-    private Boolean isSitter;
-    private Boolean isOwner;
+    private String isSitter;
+    private String isOwner;
+    private Boolean isDeleted = false;
+
 
     //TODO: add isOwner and isSitter to tell if the user can sign in as an owner or sitter,
     //and a cookie will be set to be used for the switch to owner/sitter button on the dash
@@ -32,7 +37,6 @@ public class UserDto implements Momento<String> {
     public String getCity(){
         return city;
     }
-
     private UserDto() {
 
     }
@@ -44,7 +48,7 @@ public class UserDto implements Momento<String> {
     }
 
     public UserDto(String principal, List<String> roles, UserType type, String phoneNumber, String firstName, String lastName,
-                   String address, Map<String, Object> attributes) {
+                   String address, String city, String isSitter, String isOwner, Map<String, Object> attributes) {
         setPrincipal(principal);
         setPhoneNumber(phoneNumber);
         setFirstName(firstName);
@@ -53,6 +57,9 @@ public class UserDto implements Momento<String> {
         setRoles(roles);
         setType(type);
         setAttributes(attributes);
+        setCity(city);
+        setOwner(isOwner);
+        setSitter(isSitter);
     }
 
     public String getPrincipal() {
@@ -74,6 +81,9 @@ public class UserDto implements Momento<String> {
         return temp;
     }
 
+    public Boolean getDeleted() { return isDeleted; }
+
+    public void setDeleted(Boolean deleted) { isDeleted = deleted; }
 
     public String getPhoneNumber() {
         return phoneNumber;
@@ -120,6 +130,22 @@ public class UserDto implements Momento<String> {
 
     public void setAddress(String address) {
         this.address = address;
+    }
+
+    public String getSitter() {
+        return isSitter;
+    }
+
+    public void setSitter(String isSitter) {
+        this.isSitter = isSitter;
+    }
+
+    public String getOwner() {
+        return isOwner;
+    }
+
+    public void setOwner(String isOwner) {
+        this.isOwner = isOwner;
     }
 
 
