@@ -26,13 +26,15 @@ public class SitterTest {
             petIds.add(8L);
             currentBookings.add(69L);
             pastBookings.add(420L);
-            SitterDto ownerDto = new SitterDto(principal, currentBookings, pastBookings);
+            Long[] ccurrentBookings = currentBookings.toArray(new Long[0]);
+            Long[] ppastBookings = pastBookings.toArray(new Long[0]);
+            SitterDto ownerDto = new SitterDto(principal, ccurrentBookings, ppastBookings);
             assertAll(
                     ()-> assertNotNull(ownerDto),
                     ()-> assertEquals(principal, ownerDto.getPrincipal()),
                     ()-> assertEquals(principal, ownerDto.getMomento()),
-                    ()-> assertEquals(currentBookings, ownerDto.getCurrentBookings()),
-                    ()-> assertEquals(pastBookings, ownerDto.getPastBookings())
+                    ()-> assertArrayEquals(ccurrentBookings, ownerDto.getCurrentBookings()),
+                    ()-> assertArrayEquals(ppastBookings, ownerDto.getPastBookings())
             );
         }
 
@@ -48,7 +50,9 @@ public class SitterTest {
             petIds.add(8L);
             currentBookings.add(69L);
             pastBookings.add(420L);
-            SitterDto ownerDto = new SitterDto(principal, currentBookings, pastBookings);
+            Long[] ccurrentBookings = currentBookings.toArray(new Long[0]);
+            Long[] ppastBookings =  pastBookings.toArray(new Long[0]);
+            SitterDto ownerDto = new SitterDto(principal, ccurrentBookings, ppastBookings);
 
             assertAll(
                     ()-> assertThrows(IllegalArgumentException.class, ()-> {

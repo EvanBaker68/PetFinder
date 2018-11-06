@@ -26,15 +26,17 @@ public class OwnerTest {
             petIds.add(8L);
             currentBookings.add(69L);
             pastBookings.add(420L);
-            OwnerDto ownerDto = new OwnerDto(principal, currentBookings, pastBookings, petIds, numPets);
+            Long[] ccurrentBookings = currentBookings.toArray(new Long[0]);
+            Long[] ppastBookings = pastBookings.toArray(new Long[0]);
+            Long[] ppetIds = petIds.toArray(new Long[0]);
+            OwnerDto ownerDto = new OwnerDto(principal, ccurrentBookings, ppastBookings, ppetIds);
             assertAll(
                     ()-> assertNotNull(ownerDto),
                     ()-> assertEquals(principal, ownerDto.getPrincipal()),
                     ()-> assertEquals(principal, ownerDto.getMomento()),
-                    ()-> assertEquals(currentBookings, ownerDto.getCurrentBookings()),
-                    ()-> assertEquals(pastBookings, ownerDto.getPastBookings()),
-                    ()-> assertEquals(petIds, ownerDto.getPetIds()),
-                    ()-> assertEquals(numPets, ownerDto.getPetIds().size())
+                    ()-> assertArrayEquals(ccurrentBookings, ownerDto.getCurrentBookings()),
+                    ()-> assertArrayEquals(ppastBookings, ownerDto.getPastBookings()),
+                    ()-> assertArrayEquals(ppetIds, ownerDto.getIds())
             );
         }
 
@@ -50,7 +52,10 @@ public class OwnerTest {
             petIds.add(8L);
             currentBookings.add(69L);
             pastBookings.add(420L);
-            OwnerDto ownerDto = new OwnerDto(principal, currentBookings, pastBookings, petIds, numPets);
+            Long[] ccurrentBookings = currentBookings.toArray(new Long[0]);
+            Long[] ppastBookings = pastBookings.toArray(new Long[0]);
+            Long[] ppetIds = petIds.toArray(new Long[0]);
+            OwnerDto ownerDto = new OwnerDto(principal, ccurrentBookings, ppastBookings, ppetIds);
 
             assertAll(
                     ()-> assertThrows(IllegalArgumentException.class, ()-> {
@@ -63,7 +68,7 @@ public class OwnerTest {
                         ownerDto.setPastBookings(null);
                     }),
                     ()-> assertThrows(IllegalArgumentException.class, ()-> {
-                        ownerDto.setPetIds(null);
+                        ownerDto.setIds(null);
                     }),
                     ()-> assertThrows(IllegalArgumentException.class, ()-> {
                         ownerDto.setNumPets(-1);

@@ -31,21 +31,21 @@ public class PetTest {
                 pet.setName(null);
             });
             assertThrows(IllegalArgumentException.class, () -> {
-                pet.setOwnerPrinciple(null);
+                pet.setOwnerPrincipal(null);
             });
             assertThrows(IllegalArgumentException.class, () -> {
-                pet.setPetId(null);
+                pet.setId(null);
             });
             assertThrows(IllegalArgumentException.class, () -> {
                 pet.setPetType(null);
             });
 
             assertThrows(IllegalArgumentException.class, () -> {
-                pet.setPetId(-1L);
+                pet.setId(-1L);
             });
 
             assertThrows(IllegalArgumentException.class, () -> {
-                pet.setOwnerPrinciple("yeet");
+                pet.setOwnerPrincipal("yeet");
             });
 
             assertThrows(IllegalArgumentException.class, () -> {
@@ -59,7 +59,7 @@ public class PetTest {
             PetDto pet = new PetDto(1L, "drewb97@gmail.com", "coco", "mcdog");
             assertAll("All should be true",
                     () -> assertEquals((Long)1L, pet.getId()),
-                    () -> assertEquals("drewb97@gmail.com", pet.getownerPrincipal()),
+                    () -> assertEquals("drewb97@gmail.com", pet.getOwnerPrincipal()),
                     () -> assertEquals("coco", pet.getName()),
                     () -> assertEquals("mcdog", pet.getPetType())
                     );

@@ -29,7 +29,7 @@ public class UserTest {
             String firstName = "Andrew";
             String lastName = "Bury";
             String address = "1025 la salle house 1";
-            UserDto userDto = new UserDto(principal, listRoles, userType, phoneNumber, firstName,lastName, address, swag);
+            UserDto userDto = new UserDto(principal, listRoles, phoneNumber, firstName,lastName, address, swag);
             assertAll(
                     ()-> assertNotNull(userDto),
                     ()-> assertEquals(principal, userDto.getPrincipal()),
@@ -58,7 +58,7 @@ public class UserTest {
             String firstName = "Andrew";
             String lastName = "Bury";
             String address = "1025 la salle house 1";
-            UserDto userDto = new UserDto(principal, listRoles, userType, phoneNumber, firstName,lastName, address, swag);
+            UserDto userDto = new UserDto(principal, listRoles, phoneNumber, firstName,lastName, address, swag);
             assertAll(
                     ()-> assertThrows(IllegalArgumentException.class, ()-> {
                         userDto.setPrincipal(null);
@@ -70,25 +70,10 @@ public class UserTest {
                         userDto.setFirstName(null);
                     }),
                     ()-> assertThrows(IllegalArgumentException.class, ()-> {
-                        userDto.setFirstName("");
-                    }),
-                    ()-> assertThrows(IllegalArgumentException.class, ()-> {
                         userDto.setLastName(null);
                     }),
                     ()-> assertThrows(IllegalArgumentException.class, ()-> {
-                        userDto.setLastName("");
-                    }),
-                    ()-> assertThrows(IllegalArgumentException.class, ()-> {
                         userDto.setAddress(null);
-                    }),
-                    ()-> assertThrows(IllegalArgumentException.class, ()-> {
-                        userDto.setAddress("");
-                    }),
-                    ()-> assertThrows(IllegalArgumentException.class, ()-> {
-                        userDto.setPhoneNumber(null);
-                    }),
-                    ()-> assertThrows(IllegalArgumentException.class, ()-> {
-                        userDto.setPhoneNumber("");
                     })
             );
         }
