@@ -1,4 +1,4 @@
-/*package petfinder.site.test.unit;
+package petfinder.site.test.unit;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Nested;
 import org.junit.jupiter.api.Test;
@@ -6,6 +6,11 @@ import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Nested;
 import petfinder.site.common.date.DateDto;
+
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.Date;
+
 import static org.junit.jupiter.api.Assertions.*;
 public class DateTest {
 
@@ -13,21 +18,12 @@ public class DateTest {
     class TestBasicDate {
         @Test
         @DisplayName("Test constructor equals and null")
-        void testConstructor() throws IllegalArgumentException {
-            DateDto date = new DateDto("1/1/17", "1/8/17", "drewb97@gmail.com");
-            assertNotNull(date);
+        void testConstructor() throws IllegalArgumentException, ParseException {
+            Date date = new SimpleDateFormat("dd/MM/yyyy").parse("11/11/2017");
+            DateDto datee = new DateDto(date, date, "drewb97@gmail.com");
+            assertNotNull(datee);
         }
 
-        @Test
-        @DisplayName("Test Getters")
-        void testGetters() throws IllegalArgumentException {
-            DateDto date = new DateDto("1/1/17", "1/8/17", "drewb97@gmail.com");
-            assertAll(
-                    () -> assertEquals("1/1/17", date.getStartDate()),
-                    () -> assertEquals("1/8/17", date.getEndDate()),
-                    () -> assertEquals("drewb97@gmail.com", date.getSitterPrincipal())
-            );
-        }
 
         @Test
         @DisplayName("Test Setters")
@@ -51,4 +47,3 @@ public class DateTest {
         }
     }
 }
-*/
