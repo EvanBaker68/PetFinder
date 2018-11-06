@@ -33,8 +33,9 @@ class RequestTable extends React.Component {
     state = {
         name: '',
         bookings: [],
-        load: true
-    }
+        load: true,
+		loaded: false
+    };
 
 	componentDidMount() {
 
@@ -66,10 +67,9 @@ class RequestTable extends React.Component {
 							console.log('name2: ', name);
 
 							data.push(this.createData(name, startDate, endDate, status));
+							this.setState({loaded: true});
 						}).then(response => console.log(response))
 						.catch(error => this.setState({error}));
-
-
 
 
 				});}
@@ -88,7 +88,7 @@ render() {
 	const { classes } = this.props;
 
     const { bookings } = this.state;
-
+	const loaded = this.state.loaded;
 
     console.log('fdaskjlafsdjkladsdfs',data);
 
@@ -104,37 +104,38 @@ render() {
 						<TableCell>Approve</TableCell>
 					</TableRow>
 				</TableHead>
-				<TableBody>
-                    {console.log('HEYTHERE')}
-					{data.map(n => {
-					    console.log('NAME:',n.name);
-						return (
-							<TableRow key={n.id}>
-								<TableCell component="th" scope="row">
-									{n.name}
-								</TableCell>
-								<TableCell>{n.startDate.toLocaleString()}</TableCell>
-								<TableCell>{n.endDate.toLocaleString()}</TableCell>
-								<TableCell>
-									{n.approved &&
-									<Button
-										variant="contained"
-										color='secondary'>
-										Approve
-									</Button>
-									}
-									{!n.approved &&
-									<Button
-										variant="contained"
-										color='secondary'>
-										Cancel
-									</Button>
-									}
-								</TableCell>
-							</TableRow>
-						);
-					})}
-				</TableBody>
+                {loaded &&
+                <TableBody>
+                    {data.map(n => {
+                        console.log('NAME:', n.name);
+                        return (
+                            <TableRow key={n.id}>
+                                <TableCell component="th" scope="row">
+                                    {n.name}
+                                </TableCell>
+                                <TableCell>{n.startDate.toLocaleString()}</TableCell>
+                                <TableCell>{n.endDate.toLocaleString()}</TableCell>
+                                <TableCell>
+                                    {n.approved &&
+                                    <Button
+                                        variant="contained"
+                                        color='secondary'>
+                                        Approve
+                                    </Button>
+                                    }
+                                    {!n.approved &&
+                                    <Button
+                                        variant="contained"
+                                        color='secondary'>
+                                        Cancel
+                                    </Button>
+                                    }
+                                </TableCell>
+                            </TableRow>
+                        );
+                    })}
+                </TableBody>
+                }
 			</Table>
 		</Paper>
 	);

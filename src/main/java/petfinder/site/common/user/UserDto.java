@@ -31,9 +31,6 @@ public class UserDto implements Momento<String> {
     private String city;
 
     public void setCity(String city){
-        if(city == null){
-            throw new IllegalArgumentException("setCity\t was given a null");
-        }
         this.city = city;
     }
 
@@ -94,9 +91,6 @@ public class UserDto implements Momento<String> {
     public Boolean getDeleted() { return isDeleted; }
 
     public void setDeleted(Boolean deleted) throws IllegalArgumentException {
-        if(deleted == null){
-            throw new IllegalArgumentException("setDeleted\t was given a null");
-        }
         isDeleted = deleted; }
 
     public String getPhoneNumber() {
@@ -110,17 +104,11 @@ public class UserDto implements Momento<String> {
     public String getFirstName() { return firstName; }
 
     public void setFirstName(String firstName) throws IllegalArgumentException{
-        if(firstName == null){
-            throw new IllegalArgumentException("setFirstName\t was given a null");
-        }
         this.firstName = firstName; }
 
     public String getLastName() { return lastName; }
 
     public void setLastName(String lastName) throws IllegalArgumentException {
-        if(lastName == null){
-            throw new IllegalArgumentException("setLastName\t was given a null");
-        }
         this.lastName = lastName; }
 
     @JsonIgnore
@@ -139,38 +127,23 @@ public class UserDto implements Momento<String> {
     }
 
     public void setRoles(List<String> roles) throws IllegalArgumentException {
-        if(roles == null){
-            throw new IllegalArgumentException("setRoles\t was given a null");
-        }
         this.roles = roles;
     }
 
     public void setType(UserType type) throws IllegalArgumentException {
-        if(type == null){
-            throw new IllegalArgumentException("setType\t was given a null");
-        }
         this.type = type;
     }
 
     public void setAttributes(Map<String, Object> attributes)throws IllegalArgumentException {
-        if(attributes == null){
-            throw new IllegalArgumentException("setAttributes\t was given a null");
-        }
         this.attributes = attributes;
     }
 
 
     private void setPhoneNumber(String phoneNumber) throws IllegalArgumentException {
-        if(phoneNumber == null){
-            throw new IllegalArgumentException("setPhoneNumber was given a null");
-        }
         this.phoneNumber = phoneNumber;
     }
 
     public void setAddress(String address) throws IllegalArgumentException {
-        if(address == null){
-            throw new IllegalArgumentException("setAddress\t was given a null");
-        }
         this.address = address;
     }
 
