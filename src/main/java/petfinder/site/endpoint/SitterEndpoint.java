@@ -10,7 +10,7 @@ import java.util.Optional;
 import org.springframework.beans.factory.annotation.Autowired;
 
 @RestController
-@RequestMapping(value = "/sitter")
+@RequestMapping(value = "/api/sitter")
 public class SitterEndpoint {
 
     @Autowired

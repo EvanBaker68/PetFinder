@@ -8,7 +8,7 @@ import petfinder.site.common.owner.OwnerService;
 import java.util.Optional;
 
 @RestController
-@RequestMapping(value = "/owner")
+@RequestMapping(value = "/api/owner")
 public class OwnerEndpoint {
     @Autowired
     OwnerService ownerService;

@@ -58,48 +58,37 @@ class SignInForm extends React.Component{
 		sitter: false,
 		redirectOwner: false,
 		redirectSitter: false,
+        extraState: false,
 		callFunc: this.setRedirect
 	}
 
 	setowner = () => {
-        console.log('begin setowner');
 		this.setState({
             hasLoggedIn: true
 		});
-		//cookies.set('hasLoggedIn', 'true');
 		cookies.set('ownerButton', 'true');
 		cookies.set('sitterButton', 'false');
-        console.log('end setowner');
 	}
 
 
 	setsitter = () => {
-        console.log('begin setsitter');
 		this.setState({
             hasLoggedIn: true
 		});
-		//cookies.set('hasLoggedIn', 'true');
         cookies.set('ownerButton', 'false');
         cookies.set('sitterButton', 'true');
-         console.log('end setsitter');
 	}
 
 	setRedirect = () => {
-        // console.log('begin setRedirect');
-		//console.log(this.state.owner);
 		if(cookies.get('sitterButton') === 'true'){
-            // console.log('in if of setRedirect');
 			this.setState({
 				redirectSitter: true
 			});
-            // console.log('end if of setRedirect');
 		}
 		else if(cookies.get('ownerButton') === 'true'){
-            // console.log('in else of setRedirect');
 			this.setState({
 				redirectOwner: true
 			});
-            // console.log('end else of setRedirect');
 		}
 	}
 
@@ -108,55 +97,86 @@ class SignInForm extends React.Component{
         console.log('sitter button: ' + cookies.get('sitterButton'));
         console.log('owner button: ' + cookies.get('ownerButton'));
 		return this.props.authenticate(principal, password);
-		/*if(cookies.get('loggedIn') === 'true'){
-
-        }*/
     };
 
 	render() {
-         console.log('re-rendering');
 
 		const { classes } = this.props;
 		let { handleSubmit, submitting } = this.props;
-        console.log('sitter button2: ' + cookies.get('sitterButton'));
-        console.log('owner button2: ' + cookies.get('ownerButton'));
         if(this.state.hasLoggedIn) {
-		console.log('hasLoggedIn = true');
-         //    console.log(cookies.get('loggedIn'));
-
             if (cookies.get('loggedIn') === 'true') {
-                 console.log('loggedIn = true');
-
                 axios.get('/api/user')
                     .then(res => {
                         console.log('AAAAAAAA', res.sitter);
                         cookies.set('owner', res.owner);
                         cookies.set('sitter', res.sitter);
-                        // console.log('sitter: ' + res.sitter);
-                        // console.log('owner: ' + res.owner);
                         console.log('sitter button: ' + cookies.get('sitterButton'));
                         console.log('owner button: ' + cookies.get('ownerButton'));
 
+                        //this.setState({extraState: true});
+
                     }).then(response => console.log(response))
+                    /*.then(res => {
+                        console.log('inside of the then clause');
+                        if (cookies.get('ownerButton') === 'true') {
+                            if (cookies.get('owner') === 'true') {
+                                console.log('owner is true');
+
+                                return <div><Redirect to='/ownerDash'/></div>;
+                                //this.props.history.push({ pathname: '/ownerDash',});
+                            }
+                            else {
+                                console.log('owner is not true');
+                                alert('This account is not registered as an owner.');
+                                //this.setState({owner: false});
+                                //cookies.set('ownerButton', 'false');
+                            }
+                        }
+                        else if(cookies.get('sitterButton') === 'true') {
+                            if (cookies.get('sitter') === 'true') {
+                                console.log('sitter is true');
+
+                                return <div><Redirect to='/sitterDash'/></div>;
+                                //this.props.history.push({ pathname: '/sitterDash',});
+                            }
+                            else {
+                                alert('This account is not registered as a sitter.');
+                                console.log('sitter is not true');
+                                console.log('BBBBBBBBBB', cookies.get('sitter'));
+                                //this.setState({sitter: false});
+                                //cookies.set('sitterButton', 'false');
+                            }
+                        }
+                        else {
+                            console.log('Neither state.sitter nor state.owner is true');
+                            alert('This account does not exist 1.');
+                            cookies.set('loggedIn', 'false');
+                        }
+                    })*/
                     .catch(error => this.setState({error}));
 
                 if (cookies.get('ownerButton') === 'true') {
-                    if (cookies.get('owner') === 'true')
-                        return <div><Redirect to='/ownerDash'/></div>;
+                    if (cookies.get('owner') === 'true') {
+                        console.log('owner is true');
 
+                        return <div><Redirect to='/ownerDash'/></div>;
+                    }
                     else {
+                        console.log('owner is not true');
                         alert('This account is not registered as an owner.');
                         //this.setState({owner: false});
                         //cookies.set('ownerButton', 'false');
                     }
                 }
-
                 else if(cookies.get('sitterButton') === 'true') {
-                    if (cookies.get('sitter') === 'true')
-                        return <div><Redirect to='/sitterDash'/></div>;
+                    if (cookies.get('sitter') === 'true') {
+                        console.log('sitter is true');
 
+                        return <div><Redirect to='/sitterDash'/></div>;
+                    }
                     else {
                         alert('This account is not registered as a sitter.');
+                        console.log('sitter is not true');
                         console.log('BBBBBBBBBB', cookies.get('sitter'));
                         //this.setState({sitter: false});
                         //cookies.set('sitterButton', 'false');
@@ -173,7 +193,6 @@ class SignInForm extends React.Component{
                 console.log('loggedIn = FALSE');
             }
 		}
-
 
         return (
 
@@ -206,12 +225,6 @@ class SignInForm extends React.Component{
                                 color="secondary"
                                 className={classes.submit}
                                 onClick={this.setsitter}
-                                /*onClick={() => {
-                                    sitter=true;
-                                    this.setState({
-                                        hasLoggedIn: true
-                                    });
-                                }}*/
                             >
                                 Continue as Pet Sitter
                             </Button>
@@ -225,13 +238,6 @@ class SignInForm extends React.Component{
                                 color="primary"
                                 className={classes.submit}
                                 onClick={this.setowner}
-                                /*onClick={() => {
-                                    owner=true;
-                                    this.setState({
-                                        hasLoggedIn: true
-                                    });
-                                }}*/
-
                             >
                                 Continue as Pet Owner
                             </Button>
