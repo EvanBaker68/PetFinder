@@ -3,6 +3,7 @@ package petfinder.site.common.date;
 import alloy.util.Identifiable;
 
 import java.util.Date;
+import java.util.Random;
 
 
 public class DateDto implements Identifiable {
@@ -11,7 +12,15 @@ public class DateDto implements Identifiable {
     private Date startDate;
     private Date endDate;
     private String sitterPrincipal;
-    private Boolean isDeleted;
+    private Boolean isDeleted = false;
+
+    public void setId(Long id) { this.id = id; }
+
+    public Boolean getDeleted() { return isDeleted; }
+
+    public void setDeleted(Boolean deleted) { isDeleted = deleted; }
+
+
 
     public DateDto(Date startDate, Date endDate, String sitterPrincipal) {
         this.startDate = startDate;
@@ -20,7 +29,9 @@ public class DateDto implements Identifiable {
     }
 
     public DateDto() {
-        Long randomId = new Long(100);
+        Random randomno = new Random();
+
+        Long randomId = randomno.nextLong();
         this.id = randomId;
     }
 

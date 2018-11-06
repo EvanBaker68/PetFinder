@@ -52,33 +52,33 @@ const styles = theme => ({
 class SignInForm extends React.Component{
 
 	state = {
-		isOwner: false,
-		isSitter: false,
+		owner: false,
+		sitter: false,
 		redirectOwner: false,
 		redirectSitter: false,
 		callFunc: this.setRedirect
 	}
 
-	setIsOwner = () => {
+	setowner = () => {
 		this.setState({
-			isOwner: true
+			owner: true
 		});
 	}
 
-	setIsSitter = () => {
+	setsitter = () => {
 		this.setState({
-			isSitter: true
+			sitter: true
 		});
 	}
 
 	setRedirect = () => {
-		console.log(this.state.isOwner);
-		if(this.state.isSitter){
+		console.log(this.state.owner);
+		if(this.state.sitter){
 			this.setState({
 				redirectSitter: true
 			});
 		}
-		else if(this.state.isOwner){
+		else if(this.state.owner){
 			this.setState({
 				redirectOwner: true
 			});
@@ -99,14 +99,14 @@ class SignInForm extends React.Component{
 
 		if (cookies.get('loggedIn') == 'true') {
 
-			if(this.state.isOwner) {
-				cookies.set('isOwner', 'true', {path: '/'});
+			if(this.state.owner) {
+				cookies.set('owner', 'true', {path: '/'});
 				return <div><Redirect to='/ownerDash'/></div>;
 			}
 
 
-			else if(this.state.isSitter) {
-				cookies.set('isSitter', 'true', {path: '/'});
+			else if(this.state.sitter) {
+				cookies.set('sitter', 'true', {path: '/'});
 				return <div><Redirect to='/sitterDash'/></div>;
 			}
 		}
@@ -144,7 +144,7 @@ class SignInForm extends React.Component{
                                 color="secondary"
                                 className={classes.submit}
 								onClick={
-									this.setIsSitter}
+									this.setsitter}
                             >
                                 Continue as Pet Sitter
                             </Button>
@@ -157,7 +157,7 @@ class SignInForm extends React.Component{
                                 variant="raised"
                                 color="primary"
                                 className={classes.submit}
-								onClick={this.setIsOwner}
+								onClick={this.setowner}
                             >
                                 Continue as Pet Owner
                             </Button>

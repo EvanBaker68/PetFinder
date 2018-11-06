@@ -119,7 +119,7 @@ class Dashboard extends React.Component {
         const { classes } = this.props;
 
 		const cookies = new Cookies();
-		if( cookies.get('isSitter') !== 'true' ) {
+		if( cookies.get('sitter') !== 'true' ) {
 			return <div><Redirect to='/'/></div>;
 		}
 
