@@ -124,6 +124,7 @@ class FormDialog extends React.Component {
                             type="datetime-local"
                             defaultValue={this.state.start}
                             value={this.state.start}
+                            onChange={this.handleChange('start')}
                             className={classes.textField}
                             InputLabelProps={{
                                 shrink: true,
@@ -135,9 +136,10 @@ class FormDialog extends React.Component {
                             id="datetime-local"
                             label="Next appointment"
                             type="datetime-local"
-                            defaultValue={this.state.start}
-                            value={this.state.start}
+                            defaultValue={this.state.end}
+                            value={this.state.end}
                             className={classes.textField}
+                            onChange={this.handleChange('end')}
                             InputLabelProps={{
                                 shrink: true,
                             }}
