@@ -11,8 +11,9 @@ public class BookingService {
     @Autowired
     BookingDao bookingDao;
 
-    public Optional<BookingDto> findBooking(Long id) {
-        return bookingDao.findBooking(id);
+    public BookingDto findBooking(Long id) {
+        Optional<BookingDto> dummy = bookingDao.findBooking(id);
+        return dummy.get();
     }
 
 

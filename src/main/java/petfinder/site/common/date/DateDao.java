@@ -6,7 +6,11 @@ import petfinder.site.elasticsearch.DateElasticSearchRepository;
 import alloy.elasticsearch.ElasticSearchClientProvider;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
+
+import java.util.List;
 import java.util.Optional;
+import java.util.stream.Collectors;
+
 import org.elasticsearch.search.builder.SearchSourceBuilder;
 
 @Repository
@@ -21,14 +25,14 @@ public class DateDao {
         return dateElasticsearchRepository.find(id);
     }
 
-    public Optional<DateDto> findDateBySitter(String sitterPrincipal){
+    public List<Optional<DateDto>> findDateBySitter(String sitterPrincipal){
         SearchSourceBuilder searchSourceBuilder = new SearchSourceBuilder();
 
         String queryString = String.format("user.principal=\"%s\"", sitterPrincipal.replace("\"", ""));
-
         searchSourceBuilder.query(QueryBuilders.queryStringQuery(queryString));
 
-        return dateElasticsearchRepository.search(searchSourceBuilder).stream().findFirst();
+        return dateElasticsearchRepository.search(searchSourceBuilder).stream().map(Optional::ofNullable)
+                .collect(Collectors.toList());
     }
 
     public void saveDate(DateDto dateDto){
