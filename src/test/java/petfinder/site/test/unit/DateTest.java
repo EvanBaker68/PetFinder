@@ -1,4 +1,4 @@
-/*package petfinder.site.test.unit;
+package petfinder.site.test.unit;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Nested;
 import org.junit.jupiter.api.Test;
@@ -25,7 +25,7 @@ public class DateTest {
             assertAll(
                     () -> assertEquals("1/1/17", date.getStartDate()),
                     () -> assertEquals("1/8/17", date.getEndDate()),
-                    () -> assertEquals("drewb97@gmail.com", date.getSitterPrincipal())
+                    () -> assertEquals("drewb97@gmail.com", date.getSitterPrinciple())
             );
         }
 
@@ -34,11 +34,11 @@ public class DateTest {
         void testSetters() throws IllegalArgumentException {
             DateDto date = new DateDto();
             assertThrows(IllegalArgumentException.class, () -> {
-                date.setSitterPrincipal("yeet");
+                date.setSitterPrinciple("yeet");
             });
 
             assertThrows(IllegalArgumentException.class, () -> {
-                date.setSitterPrincipal(null);
+                date.setSitterPrinciple(null);
             });
 
             assertThrows(IllegalArgumentException.class, () -> {
@@ -51,4 +51,3 @@ public class DateTest {
         }
     }
 }
-*/
