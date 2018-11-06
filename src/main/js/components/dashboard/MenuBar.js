@@ -1,6 +1,6 @@
 import Toolbar from '@material-ui/core/Toolbar/Toolbar';
 import IconButton from '@material-ui/core/IconButton/IconButton';
-import MenuIcon from '@material-ui/core/SvgIcon/SvgIcon';
+import MenuIcon from '@material-ui/icons/Menu';
 import Typography from '@material-ui/core/Typography/Typography';
 import Button from '@material-ui/core/Button/Button';
 import Badge from '@material-ui/core/Badge/Badge';
@@ -11,6 +11,7 @@ import PropTypes from 'prop-types';
 import {withStyles} from '@material-ui/core';
 import NotificationsIcon from '@material-ui/icons/Notifications';
 import Notification from 'js/components/dashboard/notifications';
+import { Link } from 'react-router-dom';
 
 const drawerWidth = 240;
 
@@ -136,9 +137,9 @@ class MenuBar extends React.Component {
                 <Typography variant="display2" color="inherit" noWrap className={classes.title}>
                     {this.state.title}
                 </Typography>
+                <Link to="/">
                 <Button
                     type="submit"
-
                     variant="raised"
                     color="secondary"
                     className={classes.submit}
@@ -146,6 +147,7 @@ class MenuBar extends React.Component {
                 >
                     Home Page
                 </Button>
+                </Link>
                 <Notification/>
             </Toolbar>
         </AppBar>

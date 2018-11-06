@@ -24,6 +24,7 @@ import Image from 'js/images/homeDog.jpg';
 import SitterProfileForm from 'js/components/profile/sitterProfileForm';
 import Cookies from 'universal-cookie';
 import {Redirect} from 'react-router-dom';
+import MenuBar from 'js/components/dashboard/MenuBar';
 
 const drawerWidth = 240;
 
@@ -126,32 +127,7 @@ class Profile extends React.Component {
             <React.Fragment>
                 <CssBaseline />
                 <div className={classes.root}>
-                    <AppBar
-                        position="absolute"
-                        className={classNames(classes.appBar, this.state.open && classes.appBarShift)}
-                    >
-                        <Toolbar disableGutters={!this.state.open} className={classes.toolbar}>
-                            <IconButton
-                                color="inherit"
-                                aria-label="Open drawer"
-                                onClick={this.handleDrawerOpen}
-                                className={classNames(
-                                    classes.menuButton,
-                                    this.state.open && classes.menuButtonHidden,
-                                )}
-                            >
-                                <MenuIcon />
-                            </IconButton>
-                            <Typography variant="display2" color="inherit" noWrap className={classes.title} >
-                                Sitter Profile
-                            </Typography>
-                            <IconButton color="inherit">
-                                <Badge badgeContent={4} color="secondary">
-                                    <NotificationsIcon />
-                                </Badge>
-                            </IconButton>
-                        </Toolbar>
-                    </AppBar>
+                    <MenuBar title='Profile'/>
                     <Drawer
                         variant="permanent"
                         classes={{
