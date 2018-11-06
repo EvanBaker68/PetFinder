@@ -20,64 +20,99 @@ const styles = {
 };
 
 let id = 0;
-function createData(name, date, timeStart, timeEnd, approved) {
+function createData(name, date, timeStart, timeEnd, status) {
     id += 1;
-    return { id, name, date, timeStart, timeEnd, approved };
+    return { id, name, date, timeStart, timeEnd, status };
 }
 
 const data = [
-    createData('Bob', '09/20/2018', '1:00pm', '5:00pm', true),
-    createData('Cheryl', '09/28/2018', '1:00pm', '5:00pm', false),
+    createData('Bob', '09/20/2018', '1:00pm', '5:00pm', 'approved'),
+    createData('Cheryl', '09/28/2018', '1:00pm', '5:00pm', 'pending'),
 ];
 
-function RequestTable(props) {
-    const { classes } = props;
+class RequestTable extends React.Component {
 
-    return (
-        <Paper className={classes.root}>
-            <Table className={classes.table}>
-                <TableHead>
-                    <TableRow>
-                        <TableCell>Owner</TableCell>
-                        <TableCell>Date</TableCell>
-                        <TableCell>Start</TableCell>
-                        <TableCell>End</TableCell>
-                        <TableCell>Approve</TableCell>
-                    </TableRow>
-                </TableHead>
-                <TableBody>
-                    {data.map(n => {
-                        return (
-                            <TableRow key={n.id}>
-                                <TableCell component="th" scope="row">
-                                    {n.name}
-                                </TableCell>
-                                <TableCell>{n.date}</TableCell>
-                                <TableCell>{n.timeStart}</TableCell>
-                                <TableCell>{n.timeEnd}</TableCell>
-                                <TableCell>
-                                    {n.approved &&
-                                    <Button
-                                        variant="contained"
-                                        color='secondary'>
-                                        Approve
-                                    </Button>
-                                    }
-                                    {!n.approved &&
-                                    <Button
-                                        variant="contained"
-                                        color='secondary'>
-                                        Cancel
-                                    </Button>
-                                    }
-                                </TableCell>
-                            </TableRow>
-                        );
-                    })}
-                </TableBody>
-            </Table>
-        </Paper>
-    );
+    constructor(props) {
+        super(props);
+        this.state = {
+            bookings: null
+        };
+
+        //get upcoming bookings using current username as sitter principle
+        //axios.get('booking/getRequests', cookies.username)
+
+    }
+
+    cancelBooking(id) {
+        //TODO: set status to denied
+    }
+
+    approveBooking(id) {
+        //TODO: set status to approved
+    }
+
+    render() {
+        const {classes} = this.props;
+
+        return (
+            <Paper className={classes.root}>
+                <Table className={classes.table}>
+                    <TableHead>
+                        <TableRow>
+                            <TableCell>Owner</TableCell>
+                            <TableCell>Date</TableCell>
+                            <TableCell>Start</TableCell>
+                            <TableCell>End</TableCell>
+                            <TableCell>Approve</TableCell>
+                        </TableRow>
+                    </TableHead>
+                    <TableBody>
+                        {data.map(n => {
+                            return (
+                                <TableRow key={n.id}>
+                                    <TableCell component="th" scope="row">
+                                        {n.name}
+                                    </TableCell>
+                                    <TableCell>{n.date}</TableCell>
+                                    <TableCell>{n.timeStart}</TableCell>
+                                    <TableCell>{n.timeEnd}</TableCell>
+                                    <TableCell>
+                                        {n.status === 'pending' &&
+                                            <div>
+                                        <Button
+                                            variant="contained"
+                                            color='secondary'
+                                            onClick={this.approveBooking(n.id)}
+                                            >
+                                            Approve
+                                        </Button>
+                                        <Button
+                                            variant="contained"
+                                            color='secondary'
+                                            onClick={this.cancelBooking(n.id)}
+                                            >
+                                            Deny
+                                            </Button>
+                                            </div>
+                                        }
+                                        {n.status === 'approved' &&
+                                        <Button
+                                            variant="contained"
+                                            color='secondary'
+                                            onClick={this.cancelBooking(n.id)}
+                                        >
+                                            Cancel
+                                        </Button>
+                                        }
+                                    </TableCell>
+                                </TableRow>
+                            );
+                        })}
+                    </TableBody>
+                </Table>
+            </Paper>
+        );
+    }
 }
 
 RequestTable.propTypes = {

@@ -20,59 +20,77 @@ const styles = {
 };
 
 let id = 0;
-function createData(name, date, timeStart, timeEnd, approved) {
+function createData(principal, name, timeStart, timeEnd, approved) {
     id += 1;
-    return { id, name, date, timeStart, timeEnd, approved };
+    return { id, principal, name, timeStart, timeEnd, approved };
 }
 
 const data = [
-    createData('Bob', '09/20/2018', '1:00pm', '5:00pm', 'pending'),
-    createData('Cheryl', '09/28/2018', '1:00pm', '5:00pm', 'accepted'),
+    createData('bob@gmail.com', 'Bob', '11/20/2018 1:00', '11/20/2018 3:00', 'pending'),
+    createData('1', 'Bob', '11/20/2018 1:00', '11/20/2018 3:00', 'accepted'),
 ];
 
 //covert to component
-function RequestTable(props) {
-    const { classes } = props;
+class RequestTable extends React.Component {
 
-    //get upcoming booking from database
-    return (
-        <Paper className={classes.root}>
-            <Table className={classes.table}>
-                <TableHead>
-                    <TableRow>
-                        <TableCell>Sitter</TableCell>
-                        <TableCell>Date</TableCell>
-                        <TableCell>Start</TableCell>
-                        <TableCell>End</TableCell>
-                        <TableCell>Staus</TableCell>
-                        <TableCell>Cancel</TableCell>
-                    </TableRow>
-                </TableHead>
-                <TableBody>
-                    {data.map(n => {
-                        return (
-                            <TableRow key={n.id}>
-                                <TableCell component="th" scope="row">
-                                    {n.name}
-                                </TableCell>
-                                <TableCell>{n.date}</TableCell>
-                                <TableCell>{n.timeStart}</TableCell>
-                                <TableCell>{n.timeEnd}</TableCell>
-                                <TableCell>{n.approved}</TableCell>
-                                <TableCell>
-                                    <Button
-                                        variant="contained"
-                                        color='secondary'>
-                                        Cancel
-                                    </Button>
-                                </TableCell>
-                            </TableRow>
-                        );
-                    })}
-                </TableBody>
-            </Table>
-        </Paper>
-    );
+    constructor(props) {
+        super(props);
+        this.state = {
+            bookings: null
+        };
+        //axios.get('/booking/getUpcoming', cookies.username)
+        //this.setSate(bookings: createData(...))
+    }
+
+    cancelBooking(principal) {
+        //axios.post('/booking/cancel/', prinipal)
+    }
+
+    render() {
+        const {classes} = this.props;
+
+        return (
+            <Paper className={classes.root}>
+                <Table className={classes.table}>
+                    <TableHead>
+                        <TableRow>
+                            <TableCell>Sitter</TableCell>
+                            <TableCell>Date</TableCell>
+                            <TableCell>Start</TableCell>
+                            <TableCell>End</TableCell>
+                            <TableCell>Staus</TableCell>
+                            <TableCell>Cancel</TableCell>
+                        </TableRow>
+                    </TableHead>
+                    <TableBody>
+                        {/*change data to this.state.bookings*/}
+                        {data.map(n => {
+                            return (
+                                <TableRow key={n.id}>
+                                    <TableCell component="th" scope="row">
+                                        {n.name}
+                                    </TableCell>
+                                    <TableCell>{n.date}</TableCell>
+                                    <TableCell>{n.timeStart}</TableCell>
+                                    <TableCell>{n.timeEnd}</TableCell>
+                                    <TableCell>{n.approved}</TableCell>
+                                    <TableCell>
+                                        <Button
+                                            variant="contained"
+                                            color='secondary'
+                                            onClick={this.cancelBooking(n.principal)}
+                                        >
+                                            Cancel
+                                        </Button>
+                                    </TableCell>
+                                </TableRow>
+                            );
+                        })}
+                    </TableBody>
+                </Table>
+            </Paper>
+        );
+    }
 }
 
 RequestTable.propTypes = {
