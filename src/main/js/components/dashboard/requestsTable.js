@@ -39,6 +39,7 @@ class RequestTable extends React.Component {
 
 		axios.get('/booking/sitter/' + cookies.get('username'), cookies.get('username'))
 			.then(res => {
+			    console.log(res);
 				this.setState({
 					bookings: res});
 			}).then(response => console.log(response))
@@ -65,9 +66,11 @@ render() {
         const status = booking.status;
         const ownerPrincipal = booking.ownerPrincipal;
         var name = '';
+        console.log('heybuckaroo');
 
 		axios.get('/api/user/' + ownerPrincipal, ownerPrincipal)
 			.then(res => {
+			    console.log('user: ', res);
 				name = res.firstName + ' ' + res.lastName;
 			}).then(response => console.log(response))
 			.catch(error => this.setState({error}));
@@ -97,8 +100,8 @@ render() {
 								<TableCell component="th" scope="row">
 									{n.name}
 								</TableCell>
-								<TableCell>{n.startDate}</TableCell>
-								<TableCell>{n.endDate}</TableCell>
+								<TableCell>{n.startDate.toLocaleString()}</TableCell>
+								<TableCell>{n.endDate.toLocaleString()}</TableCell>
 								<TableCell>
 									{n.approved &&
 									<Button

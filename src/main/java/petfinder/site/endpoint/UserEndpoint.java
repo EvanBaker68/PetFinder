@@ -28,7 +28,7 @@ public class UserEndpoint {
 		return userService.findUserByPrincipal(principal);
 	}
 
-	@GetMapping(value = "{sitterPrincipal:.+}", produces = "application/json")
+	@GetMapping(value = "/{sitterPrincipal:.+}", produces = "application/json")
 	@ResponseBody
 	public Optional<UserDto> getSitterDetails(@PathVariable("sitterPrincipal") String sitterPrincipal) {
 
