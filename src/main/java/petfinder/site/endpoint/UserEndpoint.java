@@ -28,6 +28,13 @@ public class UserEndpoint {
 		return userService.findUserByPrincipal(principal);
 	}
 
+	@GetMapping(value = "{sitterPrincipal:.+}", produces = "application/json")
+	@ResponseBody
+	public Optional<UserDto> getSitterDetails(@PathVariable("sitterPrincipal") String sitterPrincipal) {
+
+		return userService.findUserByPrincipal(sitterPrincipal);
+	}
+
 	@PostMapping(value = "/register", produces = "application/json", consumes = "application/json")
 	public UserDto register(@RequestBody RegistrationRequest request) {
 		return userService.register(request);
