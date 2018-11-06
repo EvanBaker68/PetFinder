@@ -22,6 +22,7 @@ import Button from '@material-ui/core/Button';
 import  { Redirect } from 'react-router-dom';
 import Cookies from 'universal-cookie';
 import MenuBar from 'js/components/dashboard/MenuBar';
+import axios from 'axios/index';
 
 const drawerWidth = 240;
 
@@ -104,6 +105,8 @@ class Dashboard extends React.Component {
         open: true,
     };
 
+
+
     handleDrawerOpen = () => {
         this.setState({ open: true });
     };
@@ -120,7 +123,7 @@ class Dashboard extends React.Component {
         const { classes } = this.props;
 
 		const cookies = new Cookies();
-		if( cookies.get('isSitter') !== 'true' ) {
+		if( cookies.get('sitter') !== 'true' ) {
 			return <div><Redirect to='/'/></div>;
 		}
 
@@ -155,7 +158,7 @@ class Dashboard extends React.Component {
                             Requests
                         </Typography>
                         <div className={classes.tableContainer}>
-                            <RequestsTable />
+                            <RequestsTable/>
                         </div>
                         <div className={classes.appBarSpacer} />
                         <Typography variant="display1" gutterBottom>

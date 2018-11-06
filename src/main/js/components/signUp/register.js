@@ -65,8 +65,8 @@ class RegisterForm extends React.Component{
         super(props);
         console.log(this.props);
         this.state = {
-        	isOwner: false,
-			isSitter: false,
+        	owner: false,
+			sitter: false,
 			redirectOwner: false,
 			redirectSitter: false,
 			callfunc: this.setRedirect,
@@ -84,25 +84,25 @@ class RegisterForm extends React.Component{
         this.setState({redirect: false, redirectSitter: false});
     }
 
-	setIsOwner = () => {
+	setowner = () => {
 		this.setState({
-			isOwner: true
+			owner: true
 		});
 	}
 
-	setIsSitter = () => {
+	setsitter = () => {
 		this.setState({
-			isSitter: true
+			sitter: true
 		});
 	}
 
 	setRedirect = () => {
-		if(this.state.isSitter){
+		if(this.state.sitter){
 			this.setState({
 				redirectSitter: true
 			});
 		}
-		else if(this.state.isOwner){
+		else if(this.state.owner){
 			this.setState({
 				redirectOwner: true
 			});
@@ -126,14 +126,14 @@ class RegisterForm extends React.Component{
 
 		if (cookies.get('loggedIn') == 'true') {
 
-			if(this.state.isOwner) {
-				cookies.set('isOwner', 'true', {path: '/'});
+			if(this.state.owner) {
+				cookies.set('owner', 'true', {path: '/'});
 				return <div><Redirect to='/ownerCompleteRegistration'/></div>;
 			}
 
 
-			else if(this.state.isSitter) {
-				cookies.set('isSitter', 'true', {path: '/'});
+			else if(this.state.sitter) {
+				cookies.set('sitter', 'true', {path: '/'});
 				return <div><Redirect to='/sitterCompleteRegistration'/></div>;
 			}
 		}
@@ -170,7 +170,7 @@ class RegisterForm extends React.Component{
                                 variant="raised"
                                 color="secondary"
                                 className={classes.submit}
-								onClick={this.setIsSitter}
+								onClick={this.setsitter}
                             >
                                 Continue as Pet Sitter
                             </Button>
@@ -181,7 +181,7 @@ class RegisterForm extends React.Component{
                                 variant="raised"
                                 color="primary"
                                 className={classes.submit}
-								onClick={this.setIsOwner}
+								onClick={this.setowner}
 
                             >
                                 Continue as Pet Owner

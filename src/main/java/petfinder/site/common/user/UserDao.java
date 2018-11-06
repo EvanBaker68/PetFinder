@@ -53,17 +53,19 @@ public class UserDao {
 		userInfoElasticSearchRepository.save(userDto);
 	}
 	public List<Optional<UserAuthenticationDto>> findByCity(String city, String type) {
-		Boolean isSitter = false;
-		Boolean isOwner = false;
+		Boolean sitter = false;
+		Boolean owner = false;
 		SearchSourceBuilder searchSourceBuilder = new SearchSourceBuilder();
 		String queryString = "";
 		if(type.equals("sitter")){
-			isSitter = true;
-//			queryString = String.format("user.city=\"%s\"&user.isSitter=\"true\"", city.replace("\"", ""));
+			sitter = true;
+			System.out.println("fdsajkladfs;");
+			System.out.println(city);
+//			queryString = String.format("user.city=\"%s\"&user.sitter=\"true\"", city.replace("\"", ""));
 			queryString = String.format("user.city=\"%s\"", city.replace("\"", ""));
 		} else if(type.equals("owner")){
-			isOwner = true;
-//			queryString = String.format("user.city=\"%s\"&user.isOwner=\"true\"", city.replace("\"", ""));
+			owner = true;
+//			queryString = String.format("user.city=\"%s\"&user.owner=\"true\"", city.replace("\"", ""));
 			queryString = String.format("user.city=\"%s\"&user.owner=\"true\"Z", city.replace("\"", ""));
 
 		}

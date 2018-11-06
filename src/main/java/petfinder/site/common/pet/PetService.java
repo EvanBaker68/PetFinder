@@ -1,5 +1,6 @@
 package petfinder.site.common.pet;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
@@ -20,9 +21,14 @@ public class PetService {
 
 	public List<Optional<PetDto>> findPetByPrincipal(String ownerPrincipal) {
 		List<Optional<PetDto>> theList =  petDao.findPetByPrincipal(ownerPrincipal);
-		for(Optional<PetDto> pet : theList)
-			System.out.println(pet.get().getId());
-		return theList;
+		List<Optional<PetDto>> newList = new ArrayList<>();
+		for(Optional<PetDto> pet : theList){
+			if(!pet.get().getDeleted()){
+				newList.add(pet);
+			}
+		}
+
+		return newList;
 	}
 
 	public void save(PetDto pet) {

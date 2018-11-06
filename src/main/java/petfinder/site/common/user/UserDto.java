@@ -15,12 +15,12 @@ public class UserDto implements Momento<String> {
     private List<String> roles;
     private UserType type;
     private Map<String, Object> attributes;
-    private String isSitter;
-    private String isOwner;
+    private String sitter;
+    private String owner;
     private Boolean isDeleted = false;
 
 
-    //TODO: add isOwner and isSitter to tell if the user can sign in as an owner or sitter,
+    //TODO: add owner and sitter to tell if the user can sign in as an owner or sitter,
     //and a cookie will be set to be used for the switch to owner/sitter button on the dash
 
     //TODO: separate address into zip, city, state, and address
@@ -57,7 +57,8 @@ public class UserDto implements Momento<String> {
 
 
     public UserDto(String principal, List<String> roles, UserType type, String phoneNumber, String firstName, String lastName,
-                   String address, String city, String isSitter, String isOwner, Map<String, Object> attributes) throws IllegalArgumentException{
+
+                   String address, String city, String sitter, String owner, Map<String, Object> attributes) {
         setPrincipal(principal);
         setPhoneNumber(phoneNumber);
         setFirstName(firstName);
@@ -67,8 +68,8 @@ public class UserDto implements Momento<String> {
         setType(type);
         setAttributes(attributes);
         setCity(city);
-        setOwner(isOwner);
-        setSitter(isSitter);
+        setOwner(owner);
+        setSitter(sitter);
     }
 
     public String getPrincipal() {
@@ -174,19 +175,19 @@ public class UserDto implements Momento<String> {
     }
 
     public String getSitter() {
-        return isSitter;
+        return sitter;
     }
 
-    public void setSitter(String isSitter) {
-        this.isSitter = isSitter;
+    public void setSitter(String sitter) {
+        this.sitter = sitter;
     }
 
     public String getOwner() {
-        return isOwner;
+        return owner;
     }
 
-    public void setOwner(String isOwner) {
-        this.isOwner = isOwner;
+    public void setOwner(String owner) {
+        this.owner = owner;
     }
 
 
