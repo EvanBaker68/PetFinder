@@ -74,6 +74,8 @@ Actions.authenticate = (username, password) => {
 			    cookies.set('auth', authentication);
 			    cookies.set('loggedIn', 'true');
 				console.log('made it in');
+                console.log('sitter button: ' + cookies.get('sitterButton'));
+                console.log('owner button: ' + cookies.get('ownerButton'));
 			    // callFunc();
                 //console.log(cookies.get('loggedIn'));
                 //console.log(username);
@@ -93,13 +95,14 @@ Actions.shortHandAuthenticate = (username, password) => {
 	return (dispatch) => {
 		return authenticate(username, password).then(
 			authentication => {
+                console.log('in authenticate now');
 
 				const cookies = new Cookies();
 				cookies.set('username', username);
 				cookies.set('password', password);
 				cookies.set('auth', authentication);
 				cookies.set('loggedIn', 'true');
-				console.log('made it in');
+				console.log('loggedIn should be true now (inside authenticate)');
 				// callFunc();
 				//console.log(cookies.get('loggedIn'));
 				//console.log(username);
@@ -123,6 +126,7 @@ Actions.logout = () => {
 	return (dispatch) => {
 		const cookies = new Cookies();
 	    cookies.set('loggedIn', 'false');
+        cookies.set('hasLoggedIn', 'false');
 		cookies.set('sitter', 'false');
 		cookies.set('owner', 'false');
 		cookies.set('password', '');
