@@ -1,7 +1,6 @@
 package petfinder.site.endpoint;
 
-import java.util.List;
-import java.util.Optional;
+import java.util.*;
 
 import java.util.logging.Logger;
 import org.slf4j.LoggerFactory;
@@ -33,18 +32,18 @@ public class PetEndpoint {
 	@GetMapping(value = "/pets/{ownerPrincipal:.+}", produces = "application/json")
 	@ResponseBody
 	public List<Optional<PetDto>> getPets(@PathVariable("ownerPrincipal") String ownerPrincipal) {
-		/*
+
 		if (ownerPrincipal.equals(SecurityContextHolder.getContext().getAuthentication().getName())) {
 			return petService.findPetByPrincipal(ownerPrincipal);
 		}
 		else {
 			Optional<PetDto> returnVal = Optional.empty();
-			List<Optional<PetDto>> returnList = new List<Optional<PetDto>>;
+			List<Optional<PetDto>> returnList = new ArrayList<>();
 			returnList.add(returnVal);
 
 			return returnList;
-		}*/
-		return petService.findPetByPrincipal(ownerPrincipal);
+		}
+		//return petService.findPetByPrincipal(ownerPrincipal);
 	}
 
 

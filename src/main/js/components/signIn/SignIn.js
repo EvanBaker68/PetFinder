@@ -168,7 +168,6 @@ class SignInForm extends React.Component{
                     cookies.set('loggedIn', 'false');
                 }
 
-
             }
             else {
                 console.log('loggedIn = FALSE');
