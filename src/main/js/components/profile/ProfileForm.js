@@ -53,8 +53,8 @@ class ProfileForm extends React.Component {
 			phoneNumber: this.state.phoneNumber,
 			city: this.state.city,
 			address: this.state.address,
-			isSitter: cookies.get('isSitter'),
-			isOwner: cookies.get('isOwner')
+			sitter: cookies.get('sitter'),
+			owner: cookies.get('owner')
 		};
 		return this.props.register(user);
 	}

@@ -72,6 +72,7 @@ Actions.authenticate = (username, password) => {
 			    cookies.set('username', username);
 			    cookies.set('password', password);
 			    cookies.set('auth', authentication);
+			    cookies.set('authRefresh', authentication);
 			    cookies.set('loggedIn', 'true');
 				console.log('made it in');
 			    // callFunc();
@@ -89,28 +90,6 @@ Actions.authenticate = (username, password) => {
 	};
 };
 
-Actions.shortHandAuthenticate = (username, password) => {
-	return (dispatch) => {
-		return authenticate(username, password).then(
-			authentication => {
-
-				const cookies = new Cookies();
-				cookies.set('username', username);
-				cookies.set('password', password);
-				cookies.set('auth', authentication);
-				cookies.set('loggedIn', 'true');
-				console.log('made it in');
-				// callFunc();
-				//console.log(cookies.get('loggedIn'));
-				//console.log(username);
-				//console.log(authentication);
-				dispatch(Actions.setAuthentication(authentication));
-
-			}
-		)
-			.catch( function(e) { console.log('catching error authenticating'); });
-	};
-};
 
 Actions.refreshUser = () => { return (dispatch) => {
 	return getUserDetails().then(user => {
@@ -123,9 +102,12 @@ Actions.logout = () => {
 	return (dispatch) => {
 		const cookies = new Cookies();
 	    cookies.set('loggedIn', 'false');
-		cookies.set('isSitter', 'false');
-		cookies.set('isOwner', 'false');
+		cookies.set('sitter', 'false');
+		cookies.set('owner', 'false');
 		cookies.set('password', '');
+		cookies.set('auth', '');
+		cookies.set('authRefresh', '');
+
 		dispatch(Actions.setAuthentication(null));
 		dispatch(Actions.setUser(null));
 	};

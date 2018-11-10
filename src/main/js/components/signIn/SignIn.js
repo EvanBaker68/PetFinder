@@ -49,93 +49,174 @@ const styles = theme => ({
     },
 });
 
+const cookies = new Cookies();
+
 class SignInForm extends React.Component{
 
-	state = {
-		isOwner: false,
-		isSitter: false,
-		redirectOwner: false,
-		redirectSitter: false,
-		callFunc: this.setRedirect
-	}
+    state = {
+        owner: false,
+        sitter: false,
+        redirectOwner: false,
+        redirectSitter: false,
+        extraState: false,
+        callFunc: this.setRedirect
+    }
 
-	setIsOwner = () => {
-		this.setState({
-			isOwner: true
-		});
-	}
-
-	setIsSitter = () => {
-		this.setState({
-			isSitter: true
-		});
-	}
-
-	setRedirect = () => {
-		console.log(this.state.isOwner);
-		if(this.state.isSitter){
-			this.setState({
-				redirectSitter: true
-			});
-		}
-		else if(this.state.isOwner){
-			this.setState({
-				redirectOwner: true
-			});
-		}
-	}
-
-	onSubmit = ({principal, password}) => {
-		return this.props.authenticate(principal, password);
-	};
-
-	render() {
-
-		const { classes } = this.props;
-		let { handleSubmit, submitting } = this.props;
+    setowner = () => {
+        this.setState({
+            hasLoggedIn: true
+        });
+        cookies.set('ownerButton', 'true');
+        cookies.set('sitterButton', 'false');
+    }
 
 
-		const cookies = new Cookies();
+    setsitter = () => {
+        this.setState({
+            hasLoggedIn: true
+        });
+        cookies.set('ownerButton', 'false');
+        cookies.set('sitterButton', 'true');
+    }
 
-		if (cookies.get('loggedIn') == 'true') {
+    setRedirect = () => {
+        if(cookies.get('sitterButton') === 'true'){
+            this.setState({
+                redirectSitter: true
+            });
+        }
+        else if(cookies.get('ownerButton') === 'true'){
+            this.setState({
+                redirectOwner: true
+            });
+        }
+    }
 
-			if(this.state.isOwner) {
-				cookies.set('isOwner', 'true', {path: '/'});
-				return <div><Redirect to='/ownerDash'/></div>;
-			}
+    onSubmit = ({principal, password}) => {
+        console.log('in onSubmit');
+        console.log('sitter button: ' + cookies.get('sitterButton'));
+        console.log('owner button: ' + cookies.get('ownerButton'));
+        return this.props.authenticate(principal, password);
+    };
 
+    render() {
 
-			else if(this.state.isSitter) {
-				cookies.set('isSitter', 'true', {path: '/'});
-				return <div><Redirect to='/sitterDash'/></div>;
-			}
-		}
+        const { classes } = this.props;
+        let { handleSubmit, submitting } = this.props;
+        if(this.state.hasLoggedIn) {
+            if (cookies.get('loggedIn') === 'true') {
+                axios.get('/api/user')
+                    .then(res => {
+                        console.log('AAAAAAAA', res.sitter);
+                        cookies.set('owner', res.owner);
+                        cookies.set('sitter', res.sitter);
+                        console.log('sitter button: ' + cookies.get('sitterButton'));
+                        console.log('owner button: ' + cookies.get('ownerButton'));
 
+                        //this.setState({extraState: true});
 
+                    }).then(response => console.log(response))
+                /*.then(res => {
+                    console.log('inside of the then clause');
+                    if (cookies.get('ownerButton') === 'true') {
+                        if (cookies.get('owner') === 'true') {
+                            console.log('owner is true');
+
+                            return <div><Redirect to='/ownerDash'/></div>;
+                            //this.props.history.push({ pathname: '/ownerDash',});
+                        }
+                        else {
+                            console.log('owner is not true');
+                            alert('This account is not registered as an owner.');
+                            //this.setState({owner: false});
+                            //cookies.set('ownerButton', 'false');
+                        }
+                    }
+                    else if(cookies.get('sitterButton') === 'true') {
+                        if (cookies.get('sitter') === 'true') {
+                            console.log('sitter is true');
+
+                            return <div><Redirect to='/sitterDash'/></div>;
+                            //this.props.history.push({ pathname: '/sitterDash',});
+                        }
+                        else {
+                            alert('This account is not registered as a sitter.');
+                            console.log('sitter is not true');
+                            console.log('BBBBBBBBBB', cookies.get('sitter'));
+                            //this.setState({sitter: false});
+                            //cookies.set('sitterButton', 'false');
+                        }
+                    }
+                    else {
+                        console.log('Neither state.sitter nor state.owner is true');
+                        alert('This account does not exist 1.');
+                        cookies.set('loggedIn', 'false');
+                    }
+                })*/
+                    .catch(error => this.setState({error}));
+
+                if (cookies.get('ownerButton') === 'true') {
+                    if (cookies.get('owner') === 'true') {
+                        console.log('owner is true');
+
+                        return <div><Redirect to='/ownerDash'/></div>;
+                    }
+                    else {
+                        console.log('owner is not true');
+                        alert('This account is not registered as an owner.');
+                        //this.setState({owner: false});
+                        //cookies.set('ownerButton', 'false');
+                    }
+                }
+                else if(cookies.get('sitterButton') === 'true') {
+                    if (cookies.get('sitter') === 'true') {
+                        console.log('sitter is true');
+
+                        return <div><Redirect to='/sitterDash'/></div>;
+                    }
+                    else {
+                        alert('This account is not registered as a sitter.');
+                        console.log('sitter is not true');
+                        console.log('BBBBBBBBBB', cookies.get('sitter'));
+                        //this.setState({sitter: false});
+                        //cookies.set('sitterButton', 'false');
+                    }
+                }
+                else {
+                    console.log('Neither state.sitter nor state.owner is true');
+                    alert('This account does not exist 1.');
+                    cookies.set('loggedIn', 'false');
+                }
+
+            }
+            else {
+                console.log('loggedIn = FALSE');
+            }
+        }
 
         return (
 
-                <main className={classes.layout}>
-                    <Paper className={classes.paper}>
-                        <Typography variant="display1">SignIn</Typography>
-                        <form className={classes.form}
-                              onSubmit={handleSubmit(form => this.onSubmit(form))}>
-                            <FormControl margin="normal" required fullWidth>
-                                <Bessemer.Field name="principal" friendlyName="email"
-                                                validators={[Validation.requiredValidator, Validation.emailValidator]}
-												autoComplete="email" autoFocus/>
-                            </FormControl>
-                            <FormControl margin="normal" required fullWidth>
-                                <Bessemer.Field
-                                    name="password"
-                                    type="password"
-                                    friendlyName="password"
-                                    validators={[Validation.requiredValidator, Validation.passwordValidator]}
-                                    field={<input className="form-control" type="password" />}
-                                    autoComplete="current-password"
-                                />
-                            </FormControl>
-                            <div>
+            <main className={classes.layout}>
+                <Paper className={classes.paper}>
+                    <Typography variant="display1">SignIn</Typography>
+                    <form className={classes.form}
+                          onSubmit={handleSubmit(form => this.onSubmit(form))}>
+                        <FormControl margin="normal" required fullWidth>
+                            <Bessemer.Field name="principal" friendlyName="email"
+                                            validators={[Validation.requiredValidator, Validation.emailValidator]}
+                                            autoComplete="email" autoFocus/>
+                        </FormControl>
+                        <FormControl margin="normal" required fullWidth>
+                            <Bessemer.Field
+                                name="password"
+                                type="password"
+                                friendlyName="password"
+                                validators={[Validation.requiredValidator, Validation.passwordValidator]}
+                                field={<input className="form-control" type="password" />}
+                                autoComplete="current-password"
+                            />
+                        </FormControl>
+                        <div>
                             <Button
                                 type="submit"
                                 loading="submitting"
@@ -143,28 +224,27 @@ class SignInForm extends React.Component{
                                 variant="raised"
                                 color="secondary"
                                 className={classes.submit}
-								onClick={
-									this.setIsSitter}
+                                onClick={this.setsitter}
                             >
                                 Continue as Pet Sitter
                             </Button>
-                            </div>
+                        </div>
 
-							<div>
+                        <div>
                             <Button
                                 type="submit"
                                 fullWidth
                                 variant="raised"
                                 color="primary"
                                 className={classes.submit}
-								onClick={this.setIsOwner}
+                                onClick={this.setowner}
                             >
                                 Continue as Pet Owner
                             </Button>
-                            </div>
-                        </form>
-                    </Paper>
-                </main>
+                        </div>
+                    </form>
+                </Paper>
+            </main>
         );
     }
 }
@@ -177,13 +257,13 @@ SignInForm = connect(
 
     }),
     dispatch => (
-		{
-		authenticate: (principal, password) => dispatch(Users.Actions.authenticate(principal, password))
-    })
+        {
+            authenticate: (principal, password) => dispatch(Users.Actions.authenticate(principal, password))
+        })
 )(SignInForm);
 
 SignInForm.propTypes = {
-	classes: PropTypes.object.isRequired,
+    classes: PropTypes.object.isRequired,
 };
 
 

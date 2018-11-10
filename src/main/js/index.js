@@ -15,6 +15,9 @@ export default class Index extends React.Component {
     constructor(props){
         super(props);
         const cookies = new Cookies();
+        if(cookies.get('authRefresh')){
+        	cookies.set('auth', cookies.get('authRefresh'));
+		}
         // console.log(this.props);
         // console.log(cookies.get('loggedIn'));
 		// this.s

@@ -14,11 +14,20 @@ export default class Calender extends React.Component
         this.state = {
             start: new Date(),
             end: new Date(),
+            dates: [],
             loaded: true,
             open: false
         };
 
-        //get for this.props.priciple
+		axios.get('/sitter/get-dates/' + this.props.principal, this.props.principal)
+			.then(res => {
+				console.log(res);
+				this.setState({
+					dates: res,
+					loaded: true
+				});
+				console.log('Start:', this.state.start, 'End:', this.state.end);
+			}).catch(error => this.setState({error}));
     }
 
     handleClickOpen = () => {
@@ -35,6 +44,18 @@ export default class Calender extends React.Component
         const endD = this.state.end;
         const loaded = this.state.loaded;
         console.log(endD);
+        const { dates } = this.state;
+        var theArray = [];
+
+		if(dates)
+		{dates.forEach(({startDate, endDate}) => {
+			console.log('DAFSHKDASJKFDSLA;', new Date(startDate));
+			console.log('SAKSAKASKSAKAS', endDate);
+			theArray.push(
+				{start: new Date(startDate), end: new Date(endDate)});
+		});
+		}
+
 
         if (loaded === true) {
             return (
@@ -46,7 +67,7 @@ export default class Calender extends React.Component
                         aria-labelledby="form-dialog-title"
                         fullWidth={true}
                     >
-                        <Typograhpy>We recommand that you only request a time that the sitter is available</Typograhpy>
+                        <Typograhpy>We recommend that you only request a time that the sitter is available</Typograhpy>
                     <AvailableTimes
                         weekStartsOn="monday"
                         calendars={[
@@ -70,9 +91,7 @@ export default class Calender extends React.Component
                         onEventsRequested={({calendarId, start, end, callback}) => {
                             //loadMoreEvents(calendarId, start, end).then(callback);
                         }}
-                        initialSelections={[
-                            {start: startD, end: endD}
-                        ]}
+                        initialSelections={theArray}
                         height={400}
                         recurring={false}
                         availableDays={['monday', 'tuesday', 'wednesday', 'thursday', 'friday', 'saturday', 'sunday']}

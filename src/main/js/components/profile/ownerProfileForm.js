@@ -72,7 +72,7 @@ class ProfileForm extends React.Component {
         const { classes } = this.props;
 
         const cookies = new Cookies();
-		if( cookies.get('isOwner') !== 'true' ) {
+		if( cookies.get('owner') !== 'true' ) {
 			return <div><Redirect to='/'/></div>;
 		}
 

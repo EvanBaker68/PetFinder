@@ -38,7 +38,7 @@ export const SitterMenuList = (
                 <ListItemText primary="Change Schedule" />
             </ListItem>
         </Link>
-        {cookies.get('isOwner') == 'true' &&
+        {cookies.get('owner') == 'true' &&
         <Link to="/ownerDash">
             <ListItem button>
                 <ListItemIcon>

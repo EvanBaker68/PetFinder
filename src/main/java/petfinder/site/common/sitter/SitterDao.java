@@ -16,7 +16,12 @@ public class SitterDao {
     private SitterElasticSearchRepository repository;
 
     public Optional<SitterDto> findSitter(String principal){
-        return repository.find(principal);
+        SearchSourceBuilder searchSourceBuilder = new SearchSourceBuilder();
+
+        String queryString = String.format("sitter.principal=\"%s\"", principal.replace("\"", ""));
+        searchSourceBuilder.query(QueryBuilders.queryStringQuery(queryString));
+
+        return repository.search(searchSourceBuilder).stream().findFirst();
     }
 
     public void save(SitterDto sitterDto){
