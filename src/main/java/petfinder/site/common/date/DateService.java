@@ -25,7 +25,6 @@ public class DateService {
     public List<DateDto> findDateBySitter(String sitterPrincipal) {
         List<Optional<DateDto>> dummy = dateDao.findDateBySitter(sitterPrincipal);
         List<DateDto> dateDto = dummy.stream().filter(Optional::isPresent).map(Optional::get).collect(Collectors.toList());
-        ;
         return dateDto;
     }
 /*
