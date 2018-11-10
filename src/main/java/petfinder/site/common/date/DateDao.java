@@ -30,7 +30,6 @@ public class DateDao {
 
         String queryString = String.format("user.principal=\"%s\"", sitterPrincipal.replace("\"", ""));
         searchSourceBuilder.query(QueryBuilders.queryStringQuery(queryString));
-
         return dateElasticsearchRepository.search(searchSourceBuilder).stream().map(Optional::ofNullable)
                 .collect(Collectors.toList());
     }
