@@ -29,8 +29,11 @@ public class BookingDao {
     }
 
     public List<Optional<BookingDto>> findBookingBySitterPrincipal(String sitterPrincipal) {
+        System.out.println("Sitter Principal: " + sitterPrincipal);
         SearchSourceBuilder searchSourceBuilder = new SearchSourceBuilder();
         String queryString = "";
+        String principalString = sitterPrincipal.replace("\"", "");
+        System.out.println("principalString: " + principalString);
         queryString = String.format("booking.sitterPrincipal=\"%s\"", sitterPrincipal.replace("\"", ""));
 
         searchSourceBuilder.query(QueryBuilders.queryStringQuery(queryString));

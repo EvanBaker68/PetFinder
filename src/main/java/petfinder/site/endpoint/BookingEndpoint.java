@@ -23,7 +23,11 @@ public class BookingEndpoint {
     @GetMapping(value = "/sitter/{sitterPrincipal:.+}", produces = "application/json")
     @ResponseBody
     public List<Optional<BookingDto>> getBookingsBySitterPrincipal(@PathVariable("sitterPrincipal") String sitterPrincipal) {
-        return bookingService.findBookingsBySitterPrincipal(sitterPrincipal);
+        List<Optional<BookingDto>> theList = bookingService.findBookingsBySitterPrincipal(sitterPrincipal);
+        for(Optional<BookingDto> b : theList){
+            System.out.println("SITTER: " + b.get().getSitterPrincipal());
+        }
+        return theList;
     }
 
     @GetMapping(value = "/owner/{ownerPrincipal:.+}", produces = "application/json")

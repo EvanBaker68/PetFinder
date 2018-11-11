@@ -141,7 +141,7 @@ public class UserService {
 		List<UserAuthenticationDto> filteredUsers = listDtos.stream().filter(Optional::isPresent).map(Optional::get).collect(Collectors.toList());
 		List<UserDto> newList = new ArrayList<>();
 		for(UserAuthenticationDto i : filteredUsers){
-			if(i.getUser().getSitter().equals("true") && !i.getUser().getDeleted())
+			if(i.getUser().getSitter().equals("true"))
 			newList.add(i.getUser());
 		}
 		return newList;

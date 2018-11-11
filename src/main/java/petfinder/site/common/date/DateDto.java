@@ -28,7 +28,6 @@ public class DateDto implements Identifiable {
         this.sitterPrincipal = sitterPrincipal;
     }
 
-
     public DateDto() {
         Random randomno = new Random();
 

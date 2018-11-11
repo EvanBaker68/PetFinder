@@ -63,6 +63,8 @@ Actions.register = (user) => {
 };
 
 Actions.authenticate = (username, password) => {
+	console.log('username: ', username);
+	console.log('password: ', password);
 	return (dispatch) => {
 		console.log('heyyyy', username, password);
 		return authenticate(username, password).then(
@@ -114,6 +116,8 @@ Actions.logout = () => {
 };
 
 Actions.setAuthentication = authentication => {
+	console.log('WTF');
+	console.log(authentication);
 	return {type: Actions.Types.SET_AUTHENTICATION, authentication};
 };
 

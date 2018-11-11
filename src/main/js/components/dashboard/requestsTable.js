@@ -23,22 +23,58 @@ const styles = {
 
 let id = 0;
 
+let data = [];
+
+let name = '';
 
 class RequestTable extends React.Component {
 
     state = {
         name: '',
-        bookings: []
-    }
+        bookings: [],
+        load: true,
+		loaded: false
+    };
 
 	componentDidMount() {
-
+		data = [];
 		const cookies = new Cookies();
 
 		axios.get('/booking/sitter/' + cookies.get('username'), cookies.get('username'))
 			.then(res => {
+			    console.log('Results: ', res);
 				this.setState({
 					bookings: res});
+				if(this.state.bookings)
+				{this.state.bookings.map(booking => {
+
+					const startDate = new Date(booking.startDate);
+					const endDate = new Date(booking.finishDate);
+					const status = booking.status;
+					const ownerPrincipal = booking.ownerPrincipal;
+
+					console.log('startDate: ', startDate);
+					console.log('endDate: ', endDate);
+
+					if(booking.sitterPrincipal === cookies.get('username'))
+					axios.get('/api/user/' + ownerPrincipal, ownerPrincipal)
+						.then(res => {
+							console.log('name: ', res.firstName);
+							console.log('startDate', startDate);
+							console.log('endDate', endDate);
+							console.log('status', status);
+							console.log('data1:',data);
+							name = res.firstName;
+							console.log('name2: ', name);
+
+							data.push(this.createData(name, startDate, endDate, status));
+							this.setState({loaded: true});
+						}).then(response => console.log(response))
+						.catch(error => this.setState({error}));
+
+
+				});}
+
 			}).then(response => console.log(response))
 			.catch(error => this.setState({error}));
 		}
@@ -50,31 +86,12 @@ class RequestTable extends React.Component {
 	}
 
 render() {
+	const { classes } = this.props;
 
     const { bookings } = this.state;
-    const { classes } = this.props;
-	const data = [];
+	const loaded = this.state.loaded;
 
-
-	if(bookings)
-	{bookings.map(booking => {
-		const startDate = new Date(booking.startDate);
-		const endDate = new Date(booking.endDate);
-        const status = booking.status;
-        const ownerPrincipal = booking.ownerPrincipal;
-        var name = '';
-
-		axios.get('/api/user/' + ownerPrincipal, ownerPrincipal)
-			.then(res => {
-				name = res.firstName + ' ' + res.lastName;
-			}).then(response => console.log(response))
-			.catch(error => this.setState({error}));
-
-		data.push(this.createData(name, startDate, endDate, status));
-
-
-	});}
-
+    console.log('fdaskjlafsdjkladsdfs',data);
 
 
 	return (
@@ -88,35 +105,38 @@ render() {
 						<TableCell>Approve</TableCell>
 					</TableRow>
 				</TableHead>
-				<TableBody>
-					{data.map(n => {
-						return (
-							<TableRow key={n.id}>
-								<TableCell component="th" scope="row">
-									{n.name}
-								</TableCell>
-								<TableCell>{n.startDate}</TableCell>
-								<TableCell>{n.endDate}</TableCell>
-								<TableCell>
-									{n.approved &&
-									<Button
-										variant="contained"
-										color='secondary'>
-										Approve
-									</Button>
-									}
-									{!n.approved &&
-									<Button
-										variant="contained"
-										color='secondary'>
-										Cancel
-									</Button>
-									}
-								</TableCell>
-							</TableRow>
-						);
-					})}
-				</TableBody>
+                {loaded &&
+                <TableBody>
+                    {data.map(n => {
+                        console.log('NAME:', n.name);
+                        return (
+                            <TableRow key={n.id}>
+                                <TableCell component="th" scope="row">
+                                    {n.name}
+                                </TableCell>
+                                <TableCell>{n.startDate.toLocaleString()}</TableCell>
+                                <TableCell>{n.endDate.toLocaleString()}</TableCell>
+                                <TableCell>
+                                    {n.approved &&
+                                    <Button
+                                        variant="contained"
+                                        color='secondary'>
+                                        Approve
+                                    </Button>
+                                    }
+                                    {!n.approved &&
+                                    <Button
+                                        variant="contained"
+                                        color='secondary'>
+                                        Cancel
+                                    </Button>
+                                    }
+                                </TableCell>
+                            </TableRow>
+                        );
+                    })}
+                </TableBody>
+                }
 			</Table>
 		</Paper>
 	);
