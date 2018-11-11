@@ -12,6 +12,7 @@ export function register(user) {
 }
 
 export function authenticate(username, password) {
+	console.log('WHYYYY');
 	return axios(
 		{
 			method: 'post',
@@ -65,6 +66,8 @@ Actions.register = (user) => {
 Actions.authenticate = (username, password) => {
 	console.log('username: ', username);
 	console.log('password: ', password);
+	cookies.set('auth', '');
+	cookies.set('loggedIn', 'false');
 	return (dispatch) => {
 		console.log('heyyyy', username, password);
 		return authenticate(username, password).then(
@@ -139,7 +142,7 @@ Reducers.authentication = (authentication = cookies.get('auth') , action) => {
 			return action.authentication;
 		}
 		default: {
-			console.log(authentication);
+			console.log('Authentication: ', authentication);
 			return authentication;
 		}
 	}

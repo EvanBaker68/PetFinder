@@ -59,16 +59,45 @@ class SignInForm extends React.Component{
         sitter: false,
         redirectOwner: false,
         redirectSitter: false,
-        extraState: false,
-        callFunc: this.setRedirect
+        extraState: false
+        // callFunc: this.setRedirect
     }
 
+
+
     setowner = () => {
-        this.setState({
-            hasLoggedIn: true
-        });
-        cookies.set('ownerButton', 'true');
-        cookies.set('sitterButton', 'false');
+		axios.get('/api/user')
+			.then(res => {
+				console.log('AAAAAAAA', res.sitter);
+				cookies.set('owner', res.owner);
+				cookies.set('sitter', res.sitter);
+				console.log('sitter button: ' + cookies.get('sitterButton'));
+				console.log('owner button: ' + cookies.get('ownerButton'));
+				console.log('OWNER: ', res.owner);
+
+				if(cookies.get('loggedIn') === 'true'){
+					if(res.owner === 'true'){
+						console.log('BARF');
+						this.setState({
+							redirectOwner: true
+						});
+						return <div><Redirect to='/ownerDash'/></div>;
+
+					}
+					else{
+						this.setState({owner: false});
+						console.log('owner is not true');
+						alert('This account is not registered as an owner.');
+					}
+				}
+				//this.setState({extraState: true});
+
+			}).then(response => console.log(response))
+			.catch(error => this.setState({error}));
+
+
+		cookies.set('ownerButton', 'false');
+		cookies.set('sitterButton', 'true');
     }
 
 
@@ -88,14 +117,16 @@ class SignInForm extends React.Component{
 				if(cookies.get('loggedIn') === 'true'){
 				    if(res.sitter === 'true'){
 				        console.log('BARF');
-						returnValue = <div><Redirect to='/ownerDash'/></div>;
 						this.setState({
-						    hasLoggedIn: true
+							redirectSitter: true
 						});
+						return <div><Redirect to='/ownerDash'/></div>;
+
 					}
 					else{
+				        this.setState({sitter: false});
 						console.log('owner is not true');
-						alert('This account is not registered as an owner.');
+						alert('This account is not registered as a sitter.');
                     }
                 }
 				//this.setState({extraState: true});
@@ -108,31 +139,51 @@ class SignInForm extends React.Component{
         cookies.set('sitterButton', 'true');
     }
 
-    setRedirect = () => {
-        if(cookies.get('sitterButton') === 'true'){
-            this.setState({
-                redirectSitter: true
-            });
-        }
-        else if(cookies.get('ownerButton') === 'true'){
-            this.setState({
-                redirectOwner: true
-            });
-        }
+    setSitterState = () => {
+        this.setState({sitter: true});
     }
+
+	setOwnerState = () => {
+		this.setState({owner: true});
+	}
+
+    // setRedirect = () => {
+    //     if(cookies.get('sitterButton') === 'true'){
+    //         this.setState({
+    //             redirectSitter: true
+    //         });
+    //     }
+    //     else if(cookies.get('ownerButton') === 'true'){
+    //         this.setState({
+    //             redirectOwner: true
+    //         });
+    //     }
+    // }
 
     onSubmit = ({principal, password}) => {
         console.log('in onSubmit');
-        console.log('sitter button: ' + cookies.get('sitterButton'));
-        console.log('owner button: ' + cookies.get('ownerButton'));
-        return this.props.authenticate(principal, password);
+        console.log('redirectSitter: ' + this.state.redirectSitter);
+        console.log('redirectOwner: ' + this.state.redirectOwner);
+        this.props.authenticate(principal, password).then( () =>
+            {
+                console.log('MESSSSSAAAAGGEEEEE');
+                if(this.state.owner)
+                this.setowner();
+                else if(this.state.sitter)
+                this.setsitter();
+            }
+        );
+
     };
 
     render() {
 
         const { classes } = this.props;
         let { handleSubmit, submitting } = this.props;
-        const loggedIn = this.state.hasLoggedIn;
+        const redirectOwner = this.state.redirectOwner;
+        const redirectSitter = this.state.redirectSitter;
+		console.log('redirectSitter: ' + redirectOwner);
+		console.log('redirectOwner: ' + redirectSitter);
 
         // if(this.state.hasLoggedIn) {
         //     if (cookies.get('loggedIn') === 'true') {
@@ -227,10 +278,9 @@ class SignInForm extends React.Component{
 
         return (
 
-
-
             <main className={classes.layout}>
-                {loggedIn && <div><Redirect to='/sitterDash'/></div>}
+                {redirectSitter && <div><Redirect to='/sitterDash'/></div>}
+                {redirectOwner && <div><Redirect to='/ownerDash'/></div>}
                 <Paper className={classes.paper}>
                     <Typography variant="display1">SignIn</Typography>
                     <form className={classes.form}
@@ -258,7 +308,7 @@ class SignInForm extends React.Component{
                                 variant="raised"
                                 color="secondary"
                                 className={classes.submit}
-                                onClick={this.setsitter}
+                                onClick={this.setSitterState}
                             >
                                 Continue as Pet Sitter
                             </Button>
@@ -271,7 +321,7 @@ class SignInForm extends React.Component{
                                 variant="raised"
                                 color="primary"
                                 className={classes.submit}
-                                onClick={this.setowner}
+                                onClick={this.setOwnerState}
                             >
                                 Continue as Pet Owner
                             </Button>
