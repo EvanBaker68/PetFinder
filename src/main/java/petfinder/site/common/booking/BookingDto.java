@@ -4,6 +4,8 @@ import alloy.util.Identifiable;
 import alloy.util.Momento;
 import org.codehaus.jackson.annotate.JsonIgnore;
 import java.util.Date;
+import java.util.Random;
+
 public class BookingDto implements Identifiable{
     private Long id;
     private String sitterPrincipal; //can possibly be array
@@ -15,6 +17,8 @@ public class BookingDto implements Identifiable{
     private String reviewBySitter;
     private Integer scoreBySitter;
     private Boolean isDeleted = false;
+    private Boolean isRated = false;
+    private Boolean isReviewed = false;
     private String status;
 
     public String getStatus() {
@@ -26,7 +30,10 @@ public class BookingDto implements Identifiable{
     }
 
     public BookingDto() {
+        Random randomno = new Random();
 
+        Long randomId = randomno.nextLong();
+        this.id = randomId;
     }
 
     public BookingDto(Long id, String sitterPrincipal, String ownerPrincipal, Date startDate, Date finishDate, String reviewByOwner, String reviewBySitter, Integer scoreByOwner, Integer scoreBySitter) {
@@ -60,6 +67,14 @@ public class BookingDto implements Identifiable{
     public Long getId() {
         return id;
     }
+
+    public Boolean getRated() { return isRated; }
+
+    public void setRated(Boolean rated) { isRated = rated; }
+
+    public Boolean getReviewed() { return isReviewed; }
+
+    public void setReviewed(Boolean reviewed) { isReviewed = reviewed; }
 
     public Boolean getDeleted() { return isDeleted; }
 

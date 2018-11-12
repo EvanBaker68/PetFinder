@@ -14,6 +14,8 @@ public class SitterDto implements Momento<String> {
     private Long[] pendingBookings;
     private Long[] datesAvailable;
     private Double rate;
+    private Double rating;
+    private int ratingCount;
     private Boolean isDeleted = false;
 
 
@@ -27,6 +29,22 @@ public class SitterDto implements Momento<String> {
 
     public SitterDto(String principal) throws IllegalArgumentException {
         setPrincipal(principal);
+    }
+
+    public Double getRating() {
+        return rating;
+    }
+
+    public void setRating(Double rating) {
+        this.rating = rating;
+    }
+
+    public int getRatingCount() {
+        return ratingCount;
+    }
+
+    public void setRatingCount(int ratingCount) {
+        this.ratingCount = ratingCount;
     }
 
     //Temporary until we get rid of Availability

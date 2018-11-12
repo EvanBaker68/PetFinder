@@ -21,8 +21,6 @@ const styles = {
     },
 };
 
-let id = 0;
-
 let data = [];
 
 let name = '';
@@ -51,12 +49,14 @@ class RequestTable extends React.Component {
 					const startDate = new Date(booking.startDate);
 					const endDate = new Date(booking.finishDate);
 					const status = booking.status;
+					const id = booking.id;
 					const ownerPrincipal = booking.ownerPrincipal;
 
 					console.log('startDate: ', startDate);
 					console.log('endDate: ', endDate);
 
-					if(booking.sitterPrincipal === cookies.get('username'))
+					if(booking.sitterPrincipal === cookies.get('username')
+					&& booking.status === 'pending')
 					axios.get('/api/user/' + ownerPrincipal, ownerPrincipal)
 						.then(res => {
 							console.log('name: ', res.firstName);
@@ -67,7 +67,7 @@ class RequestTable extends React.Component {
 							name = res.firstName;
 							console.log('name2: ', name);
 
-							data.push(this.createData(name, startDate, endDate, status));
+							data.push(this.createData(id, name, startDate, endDate, status));
 							this.setState({loaded: true});
 						}).then(response => console.log(response))
 						.catch(error => this.setState({error}));
@@ -80,8 +80,7 @@ class RequestTable extends React.Component {
 		}
 
 
-	createData = (name, startDate, endDate, approved) => {
-		id += 1;
+	createData = (id, name, startDate, endDate, approved) => {
 		return { id, name, startDate, endDate, approved };
 	}
 
@@ -103,6 +102,7 @@ render() {
 						<TableCell>Start Date</TableCell>
 						<TableCell>End Date</TableCell>
 						<TableCell>Approve</TableCell>
+						<TableCell>Cancel</TableCell>
 					</TableRow>
 				</TableHead>
                 {loaded &&
@@ -117,20 +117,16 @@ render() {
                                 <TableCell>{n.startDate.toLocaleString()}</TableCell>
                                 <TableCell>{n.endDate.toLocaleString()}</TableCell>
                                 <TableCell>
-                                    {n.approved &&
                                     <Button
                                         variant="contained"
                                         color='secondary'>
                                         Approve
                                     </Button>
-                                    }
-                                    {!n.approved &&
                                     <Button
                                         variant="contained"
                                         color='secondary'>
                                         Cancel
                                     </Button>
-                                    }
                                 </TableCell>
                             </TableRow>
                         );

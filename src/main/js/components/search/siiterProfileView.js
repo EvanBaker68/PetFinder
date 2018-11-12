@@ -51,7 +51,7 @@ class FormDialog extends React.Component {
             num: props.number,
             principal: props.principal,
             name: props.name,
-            cost: '',
+            rate: '',
             city: props.city,
             open: false,
             start: new Date(),
@@ -67,6 +67,10 @@ class FormDialog extends React.Component {
 		axios.get('/api/user/' + this.props.principal, this.props.principal)
 			.then(res => {
 				this.setState({ city: res.city });
+				axios.get('/sitter/' + this.props.principal, this.props.principal).then(res => {
+				    this.setState({ rate: res.rate });
+                }).then(response => console.log(response))
+					.catch(error => this.setState({error}));
 			}).then(response => console.log(response))
 			.catch(error => this.setState({error}));
 
@@ -138,7 +142,7 @@ class FormDialog extends React.Component {
                 >
                     <DialogTitle id="form-dialog-title">{this.state.name}</DialogTitle>
                     <Typography>Rating</Typography>
-                    <Typography>Cost Per Hour: </Typography>
+                    <Typography>Cost Per Hour: ${this.state.rate}</Typography>
                     <Typography variant="text">City : {this.state.city}</Typography>
                     <SitterCalender principal={this.state.principal}/>
                     <form className={classes.container} noValidate>

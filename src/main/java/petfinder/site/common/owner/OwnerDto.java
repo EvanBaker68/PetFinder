@@ -3,52 +3,58 @@ package petfinder.site.common.owner;
 import alloy.util.Momento;
 import org.codehaus.jackson.annotate.JsonIgnore;
 
+import java.util.Date;
 
 
 public class OwnerDto implements Momento<String> {
 
     private String principal;
     private int numPets;
-    private Long[] currentBookings;
-    private Long[] pastBookings;
-    private Long[] ids;
+    private double rating = 0.0;
+    private int ratingCount = 0;
     private Boolean isDeleted;
 
     public OwnerDto() {
     }
 
-    public OwnerDto(String principal, Long[] currentBookings, Long[] pastBookings, Long[] ids, int numPets) throws IllegalArgumentException{
+    public OwnerDto(String principal, Long[] currentBookings, Long[] pastBookings, Long[] ids, int numPets, int rating) throws IllegalArgumentException{
         setPrincipal(principal);
-        setCurrentBookings(currentBookings);
-        setPastBookings(pastBookings);
-        setIds(ids);
         setNumPets(numPets);
+        setRating(rating);
     }
 
-    public OwnerDto(String principal, Long[] currentBookings, Long[] pastBookings, Long[] ids) throws IllegalArgumentException {
+    public OwnerDto(String principal, double rating) throws IllegalArgumentException {
         setPrincipal(principal);
-        setCurrentBookings(currentBookings);
-        setPastBookings(pastBookings);
-        setIds(ids);
+        setRating(rating);
+    }
+
+    public double getRating() {
+        return rating;
+    }
+
+    public void setRating(double rating) {
+        this.rating = rating;
+    }
+
+    public int getRatingCount() {
+        return ratingCount;
+    }
+
+    public void setRatingCount(int ratingCount) {
+        this.ratingCount = ratingCount;
+    }
+
+    public Boolean getDeleted() {
+        return isDeleted;
+    }
+
+    public void setDeleted(Boolean deleted) {
+        isDeleted = deleted;
     }
 
     public String getPrincipal() {
         return principal;
     }
-
-
-    public Long[] getCurrentBookings() {
-        return currentBookings;
-    }
-
-    public Long[] getPastBookings() {
-        return pastBookings;
-    }
-
-    public Long[] getIds() {
-        return ids;
-    }
-
 
     public int getNumPets() { return numPets; }
 
@@ -58,46 +64,7 @@ public class OwnerDto implements Momento<String> {
         }
         this.numPets = numPets; }
 
-    public void setIds(Long[] ids) {
-        if(ids == null){
-            throw new IllegalArgumentException("setIds\t was given a null");
-        } else {
-            for(Long i : ids){
-                if(i < 0L){
-                    throw new IllegalArgumentException("setIds\t was given a bad id val");
-                }
-            }
-        }
-        this.ids = ids;
-    }
-
-    public void setCurrentBookings(Long[] currentBookings) throws IllegalArgumentException{
-        if(currentBookings == null){
-            throw new IllegalArgumentException("setCurrentBookings\t given a null");
-        } else {
-            for(Long i: currentBookings){
-                if(i < 0L){
-                    throw new IllegalArgumentException("setCurrentBookings\t given a bad value");
-                }
-            }
-        }
-        this.currentBookings = currentBookings;
-    }
-
-    public void setPastBookings(Long[] pastBookings) throws IllegalArgumentException{
-        if(pastBookings == null){
-            throw new IllegalArgumentException("setPastBookings\t given a bad value");
-        } else{
-            for(Long i: pastBookings){
-                if(i < 0L){
-                    throw new IllegalArgumentException("setPastBookings\t given a bad value");
-                }
-            }
-        }
-        this.pastBookings = pastBookings;
-    }
-
-    public void setPrincipal(String principal)throws IllegalArgumentException{
+        public void setPrincipal(String principal)throws IllegalArgumentException{
         if(principal == null){
             throw new IllegalArgumentException("setPrincipal\t given a null");
         }
