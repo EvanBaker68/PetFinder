@@ -31,7 +31,7 @@ public class PetEndpoint {
 
 	@GetMapping(value = "/pets/{ownerPrincipal:.+}", produces = "application/json")
 	@ResponseBody
-	public List<Optional<PetDto>> getPets(@PathVariable("ownerPrincipal") String ownerPrincipal) {
+	public List<PetDto> getPets(@PathVariable("ownerPrincipal") String ownerPrincipal) {
 		return petService.findPetByPrincipal(ownerPrincipal);
 	}
 

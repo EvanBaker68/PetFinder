@@ -41,6 +41,14 @@ public class UserDto implements Momento<String> {
 
     }
 
+    public UserDto(String principal, String phoneNumber, String firstName, String lastName, String address){
+        setLastName(lastName);
+        setFirstName(firstName);
+        setPhoneNumber(phoneNumber);
+        setPrincipal(principal);
+        setAddress(address);
+    }
+
     public UserDto(String principal, List<String> roles, String phoneNumber, String firstName, String lastName, String address, Map<String, Object> attributes) throws IllegalArgumentException {
         setPrincipal(principal);
         setRoles(roles);
