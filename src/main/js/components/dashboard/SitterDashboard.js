@@ -21,6 +21,8 @@ import RequestsTable from 'js/components/dashboard/requestsTable';
 import Button from '@material-ui/core/Button';
 import  { Redirect } from 'react-router-dom';
 import Cookies from 'universal-cookie';
+import MenuBar from 'js/components/dashboard/MenuBar';
+import axios from 'axios/index';
 
 const drawerWidth = 240;
 
@@ -103,6 +105,8 @@ class Dashboard extends React.Component {
         open: true,
     };
 
+
+
     handleDrawerOpen = () => {
         this.setState({ open: true });
     };
@@ -132,42 +136,7 @@ class Dashboard extends React.Component {
             <React.Fragment>
                 <CssBaseline />
                 <div className={classes.root}>
-                    <AppBar
-                        position="absolute"
-                        className={classNames(classes.appBar, this.state.open && classes.appBarShift)}
-                    >
-                        <Toolbar disableGutters={!this.state.open} className={classes.toolbar}>
-                            <IconButton
-                                color="inherit"
-                                aria-label="Open drawer"
-                                onClick={this.handleDrawerOpen}
-                                className={classNames(
-                                    classes.menuButton,
-                                    this.state.open && classes.menuButtonHidden,
-                                )}
-                            >
-                                <MenuIcon />
-                            </IconButton>
-                            <Typography variant="display2" color="inherit" noWrap className={classes.title}>
-                                Sitter Dashboard
-                            </Typography>
-							<Button
-								type="submit"
-
-								variant="raised"
-								color="secondary"
-								className={classes.submit}
-								onClick={this.handleHome}
-							>
-								Home Page
-							</Button>
-                            <IconButton color="inherit">
-                                <Badge badgeContent={4} color="secondary">
-                                    <NotificationsIcon />
-                                </Badge>
-                            </IconButton>
-                        </Toolbar>
-                    </AppBar>
+                    <MenuBar title='Sitter Dashboard'/>
                     <Drawer
                         variant="permanent"
                         classes={{
@@ -189,7 +158,7 @@ class Dashboard extends React.Component {
                             Requests
                         </Typography>
                         <div className={classes.tableContainer}>
-                            <RequestsTable />
+                            <RequestsTable/>
                         </div>
                         <div className={classes.appBarSpacer} />
                         <Typography variant="display1" gutterBottom>

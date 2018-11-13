@@ -34,11 +34,19 @@ axios.defaults.headers.put['Content-Type'] = 'application/json';
 
 
 axios.interceptors.request.use(request => {
-	let authentication = Users.State.getAuthentication(store.getState());
-	if(_.isDefined(authentication)) {
-		request.headers.common['Authorization'] = 'Bearer ' + authentication['access_token'];
-		// request.headers.common['Authorization'] = cookies.get('auth');
-	}
+	// let authentication = cookies.get('auth');
+	// if(cookies.get('auth') !== '') {
+	// 	Users.Actions.setAuthentication(cookies.get('auth'));
+	// 	console.log('HYEH THERE BUDDY');
+	//
+
+		// let authentication = Users.State.getAuthentication(store.getState());
+		// console.log('HYEH THERE BUDDY');
+	if(cookies.get('auth') !== '') {
+			request.headers.common['Authorization'] = 'Bearer ' + cookies.get('auth')['access_token'];
+			// request.headers.common['Authorization'] = cookies.get('auth');
+		}
+
 
 	return request;
 }, error => Promise.reject(error));

@@ -22,7 +22,7 @@ import UpcomingTable from 'js/components/dashboard/upcomingTable';
 import Button from '@material-ui/core/Button';
 import  { Redirect } from 'react-router-dom';
 import Cookies from 'universal-cookie';
-
+import MenuBar from 'js/components/dashboard/MenuBar';
 
 
 const drawerWidth = 240;
@@ -118,10 +118,6 @@ class Dashboard extends React.Component {
         this.setState({ open: false });
     };
 
-    handleHome = () => {
-        this.setState({ redirect: true });
-    }
-
     render() {
         const { classes } = this.props;
 
@@ -130,50 +126,11 @@ class Dashboard extends React.Component {
 			return <div><Redirect to='/'/></div>;
 		}
 
-        if(this.state.redirect){
-			return <div><Redirect to='/'/></div>;
-        }
-
         return (
             <React.Fragment>
                 <CssBaseline />
                 <div className={classes.root}>
-                    <AppBar
-                        position="absolute"
-                        className={classNames(classes.appBar, this.state.open && classes.appBarShift)}
-                    >
-                        <Toolbar disableGutters={!this.state.open} className={classes.toolbar}>
-                            <IconButton
-                                color="inherit"
-                                aria-label="Open drawer"
-                                onClick={this.handleDrawerOpen}
-                                className={classNames(
-                                    classes.menuButton,
-                                    this.state.open && classes.menuButtonHidden,
-                                )}
-                            >
-                                <MenuIcon />
-                            </IconButton>
-                            <Typography variant="display2" color="inherit" noWrap className={classes.title}>
-                                Owner Dashboard
-                            </Typography>
-							<Button
-								type="submit"
-
-								variant="raised"
-								color="secondary"
-								className={classes.submit}
-								onClick={this.handleHome}
-							>
-                                Home Page
-                            </Button>
-                            <IconButton color="inherit">
-                                <Badge badgeContent={2} color="secondary">
-                                    <NotificationsIcon />
-                                </Badge>
-                            </IconButton>
-                        </Toolbar>
-                    </AppBar>
+                    <MenuBar title='Owner Dash'/>
                     <Drawer
                         variant="permanent"
                         classes={{

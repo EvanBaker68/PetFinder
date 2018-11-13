@@ -59,6 +59,7 @@ public class UserDao {
 		String queryString = "";
 		if(type.equals("sitter")){
 			sitter = true;
+
 //			queryString = String.format("user.city=\"%s\"&user.sitter=\"true\"", city.replace("\"", ""));
 			queryString = String.format("user.city=\"%s\"", city.replace("\"", ""));
 		} else if(type.equals("owner")){

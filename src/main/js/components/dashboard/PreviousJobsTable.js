@@ -8,6 +8,7 @@ import TableHead from '@material-ui/core/TableHead';
 import TableRow from '@material-ui/core/TableRow';
 import Paper from '@material-ui/core/Paper';
 import Button from '@material-ui/core/Button';
+import RateSitter from 'js/components/ratings/rateSitter';
 
 const styles = {
     root: {
@@ -54,11 +55,7 @@ function SimpleTable(props) {
                                 <TableCell>{n.date}</TableCell>
                                 <TableCell>{n.pets}</TableCell>
                                 <TableCell>
-                                    <Button
-                                        variant="contained"
-                                        color='secondary'>
-                                        Rate
-                                    </Button>
+                                    <RateSitter name={n.name}/>
                                 </TableCell>
                                 <TableCell>
                                     <Button

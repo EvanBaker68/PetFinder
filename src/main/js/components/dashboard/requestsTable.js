@@ -8,6 +8,8 @@ import TableHead from '@material-ui/core/TableHead';
 import TableRow from '@material-ui/core/TableRow';
 import Paper from '@material-ui/core/Paper';
 import Button from '@material-ui/core/Button';
+import axios from 'axios/index';
+import Cookies from 'universal-cookie';
 
 const styles = {
     root: {
@@ -20,41 +22,100 @@ const styles = {
 };
 
 let id = 0;
-function createData(name, date, timeStart, timeEnd, approved) {
-    id += 1;
-    return { id, name, date, timeStart, timeEnd, approved };
-}
 
-const data = [
-    createData('Bob', '09/20/2018', '1:00pm', '5:00pm', true),
-    createData('Cheryl', '09/28/2018', '1:00pm', '5:00pm', false),
-];
+let data = [];
 
-function RequestTable(props) {
-    const { classes } = props;
+let name = '';
 
-    return (
-        <Paper className={classes.root}>
-            <Table className={classes.table}>
-                <TableHead>
-                    <TableRow>
-                        <TableCell>Owner</TableCell>
-                        <TableCell>Date</TableCell>
-                        <TableCell>Start</TableCell>
-                        <TableCell>End</TableCell>
-                        <TableCell>Approve</TableCell>
-                    </TableRow>
-                </TableHead>
+class RequestTable extends React.Component {
+
+    state = {
+        name: '',
+        bookings: [],
+        load: true,
+		loaded: false
+    };
+
+	componentDidMount() {
+		data = [];
+		const cookies = new Cookies();
+
+		axios.get('/booking/sitter/' + cookies.get('username'), cookies.get('username'))
+			.then(res => {
+			    console.log('Results: ', res);
+				this.setState({
+					bookings: res});
+				if(this.state.bookings)
+				{this.state.bookings.map(booking => {
+
+					const startDate = new Date(booking.startDate);
+					const endDate = new Date(booking.finishDate);
+					const status = booking.status;
+					const ownerPrincipal = booking.ownerPrincipal;
+
+					console.log('startDate: ', startDate);
+					console.log('endDate: ', endDate);
+
+					if(booking.sitterPrincipal === cookies.get('username'))
+					axios.get('/api/user/' + ownerPrincipal, ownerPrincipal)
+						.then(res => {
+							console.log('name: ', res.firstName);
+							console.log('startDate', startDate);
+							console.log('endDate', endDate);
+							console.log('status', status);
+							console.log('data1:',data);
+							name = res.firstName;
+							console.log('name2: ', name);
+
+							data.push(this.createData(name, startDate, endDate, status));
+							this.setState({loaded: true});
+						}).then(response => console.log(response))
+						.catch(error => this.setState({error}));
+
+
+				});}
+
+			}).then(response => console.log(response))
+			.catch(error => this.setState({error}));
+		}
+
+
+	createData = (name, startDate, endDate, approved) => {
+		id += 1;
+		return { id, name, startDate, endDate, approved };
+	}
+
+render() {
+	const { classes } = this.props;
+
+    const { bookings } = this.state;
+	const loaded = this.state.loaded;
+
+    console.log('fdaskjlafsdjkladsdfs',data);
+
+
+	return (
+		<Paper className={classes.root}>
+			<Table className={classes.table}>
+				<TableHead>
+					<TableRow>
+						<TableCell>Owner</TableCell>
+						<TableCell>Start Date</TableCell>
+						<TableCell>End Date</TableCell>
+						<TableCell>Approve</TableCell>
+					</TableRow>
+				</TableHead>
+                {loaded &&
                 <TableBody>
                     {data.map(n => {
+                        console.log('NAME:', n.name);
                         return (
                             <TableRow key={n.id}>
                                 <TableCell component="th" scope="row">
                                     {n.name}
                                 </TableCell>
-                                <TableCell>{n.date}</TableCell>
-                                <TableCell>{n.timeStart}</TableCell>
-                                <TableCell>{n.timeEnd}</TableCell>
+                                <TableCell>{n.startDate.toLocaleString()}</TableCell>
+                                <TableCell>{n.endDate.toLocaleString()}</TableCell>
                                 <TableCell>
                                     {n.approved &&
                                     <Button
@@ -75,10 +136,14 @@ function RequestTable(props) {
                         );
                     })}
                 </TableBody>
-            </Table>
-        </Paper>
-    );
+                }
+			</Table>
+		</Paper>
+	);
 }
+
+}
+
 
 RequestTable.propTypes = {
     classes: PropTypes.object.isRequired,

@@ -6,6 +6,9 @@ import petfinder.site.common.date.DateDto;
 import petfinder.site.common.date.DateService;
 import petfinder.site.common.sitter.SitterService;
 import petfinder.site.common.sitter.SitterDto;
+
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Optional;
 import org.springframework.beans.factory.annotation.Autowired;
 
@@ -45,15 +48,19 @@ public class SitterEndpoint {
         return date;
     }
 
-    @GetMapping(value = "/get-dates/{sitterPrincipal}", produces = "application/json")
+    @GetMapping(value = "/get-dates/{sitterPrincipal:.+}", produces = "application/json")
     @ResponseBody
-    public Optional<DateDto> getDates(@PathVariable("sitterPrincipal") String sitterPrincipal) {
+    public List<Optional<DateDto>> getDates(@PathVariable("sitterPrincipal") String sitterPrincipal) {
         System.out.println("made to endpoint");
         if (sitterPrincipal.equals(SecurityContextHolder.getContext().getAuthentication().getName())) {
             return dateService.findDateBySitter(sitterPrincipal);
         }
         else {
-            return Optional.empty();
+            Optional<DateDto> returnVal = Optional.empty();
+            List<Optional<DateDto>> returnList = new ArrayList<>();
+            returnList.add(returnVal);
+
+            return returnList;
         }
     }
 }

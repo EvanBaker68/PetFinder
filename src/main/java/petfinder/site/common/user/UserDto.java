@@ -41,14 +41,21 @@ public class UserDto implements Momento<String> {
 
     }
 
-    public UserDto(String principal, List<String> roles, UserType type, Map<String, Object> attributes) {
+    public UserDto(String principal, List<String> roles, String phoneNumber, String firstName, String lastName, String address, Map<String, Object> attributes) throws IllegalArgumentException {
         setPrincipal(principal);
         setRoles(roles);
+        setRoles(roles);
+        setPhoneNumber(phoneNumber);
         setAttributes(attributes);
+        setFirstName(firstName);
+        setLastName(lastName);
+        setAddress(address);
     }
+
 
     public UserDto(String principal, List<String> roles, UserType type, String phoneNumber, String firstName, String lastName,
                    String address, String city, String sitter, String owner, Map<String, Object> attributes) {
+
         setPrincipal(principal);
         setPhoneNumber(phoneNumber);
         setFirstName(firstName);
@@ -83,7 +90,8 @@ public class UserDto implements Momento<String> {
 
     public Boolean getDeleted() { return isDeleted; }
 
-    public void setDeleted(Boolean deleted) { isDeleted = deleted; }
+    public void setDeleted(Boolean deleted) throws IllegalArgumentException {
+        isDeleted = deleted; }
 
     public String getPhoneNumber() {
         return phoneNumber;
@@ -95,11 +103,13 @@ public class UserDto implements Momento<String> {
 
     public String getFirstName() { return firstName; }
 
-    public void setFirstName(String firstName) { this.firstName = firstName; }
+    public void setFirstName(String firstName) throws IllegalArgumentException{
+        this.firstName = firstName; }
 
     public String getLastName() { return lastName; }
 
-    public void setLastName(String lastName) { this.lastName = lastName; }
+    public void setLastName(String lastName) throws IllegalArgumentException {
+        this.lastName = lastName; }
 
     @JsonIgnore
     @Override
@@ -107,28 +117,33 @@ public class UserDto implements Momento<String> {
         return principal;
     }
 
-    public void setPrincipal(String principal) {
+    public void setPrincipal(String principal) throws IllegalArgumentException {
+        if(principal == null){
+            throw new IllegalArgumentException("setPrincipal\t was given a null");
+        }else if(principal == ""){
+            throw new IllegalArgumentException("setPrincipal\t given an empty string");
+        }
         this.principal = principal;
     }
 
-    public void setRoles(List<String> roles) {
+    public void setRoles(List<String> roles) throws IllegalArgumentException {
         this.roles = roles;
     }
 
-    public void setType(UserType type) {
+    public void setType(UserType type) throws IllegalArgumentException {
         this.type = type;
     }
 
-    public void setAttributes(Map<String, Object> attributes) {
+    public void setAttributes(Map<String, Object> attributes)throws IllegalArgumentException {
         this.attributes = attributes;
     }
 
 
-    private void setPhoneNumber(String phoneNumber) {
+    private void setPhoneNumber(String phoneNumber) throws IllegalArgumentException {
         this.phoneNumber = phoneNumber;
     }
 
-    public void setAddress(String address) {
+    public void setAddress(String address) throws IllegalArgumentException {
         this.address = address;
     }
 

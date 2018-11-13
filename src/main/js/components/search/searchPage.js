@@ -162,7 +162,9 @@ class SearchPage extends React.Component {
         const sitters = this.state.sitter;
         var sitterItems;
         if (sitters) {
+
              sitterItems = sitters.map((sitter) =>
+                 (sitter.principal !== cookies.get('username')) &&
                 <div key={sitter.principal}>
                     <li>{sitter.firstName}</li>
                     <SitterView principal={sitter.principal} name={sitter.firstName+' '+sitter.lastName}

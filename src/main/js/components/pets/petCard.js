@@ -10,6 +10,8 @@ import Button from '@material-ui/core/Button';
 import Typography from '@material-ui/core/Typography';
 import Image from 'js/images/dog1.jpeg';
 import EditPet from 'js/components/pets/editPetForm';
+import axios from 'axios/index';
+import Cookies from 'universal-cookie';
 
 const styles = {
     card: {
@@ -21,37 +23,62 @@ const styles = {
     },
 };
 
-function PetCard(props) {
-    const { classes } = props;
+class PetCard extends React.Component{
 
-    return (
-        <Card className={classes.card}>
-            <CardActionArea>
-                <CardMedia
-                    component="img"
-                    className={classes.media}
-                    height="140"
-                    image={Image}
-                    title="Contemplative Reptile"
-                />
-                <CardContent>
-                    <Typography gutterBottom variant="headline" component="h2">
-                        {props.name}
-						{console.log(props.id)}
-                    </Typography>
-                    <Typography component="p">
-                        {props.type}, {props.breed}
-                    </Typography>
-                </CardContent>
-            </CardActionArea>
-            <CardActions>
-                <EditPet id={props.id}/>
-                <Button size="small" color="secondary">
-                    Delete
-                </Button>
-            </CardActions>
-        </Card>
-    );
+    state = {
+        refresh: false
+    }
+
+	handleDelete = () => {
+		const cookies = new Cookies();
+		console.log(cookies.get('username'));
+		const pet = {
+			id: this.props.id,
+            isDeleted: true
+		};
+		console.log(this.state.name);
+		axios.post('/pet/add-pet', pet)
+			.then(res => {
+				console.log(res);
+				console.log(res.data);
+			})
+			.catch(error => {
+				console.log(error.response);
+			});
+	};
+
+    render() {
+		const {classes} = this.props;
+
+		return (
+			<Card className={classes.card}>
+				<CardActionArea>
+					<CardMedia
+						component="img"
+						className={classes.media}
+						height="140"
+						image={Image}
+						title="Contemplative Reptile"
+					/>
+					<CardContent>
+						<Typography gutterBottom variant="headline" component="h2">
+							{this.props.name}
+							{console.log(this.props.id)}
+						</Typography>
+						<Typography component="p">
+							{this.props.type}, {this.props.breed}
+						</Typography>
+					</CardContent>
+				</CardActionArea>
+				<CardActions>
+					<EditPet id={this.props.id}/>
+					<Button onClick={this.handleDelete} color="secondary">
+						Delete
+					</Button>
+				</CardActions>
+			</Card>
+		);
+	}
 }
 
 PetCard.propTypes = {

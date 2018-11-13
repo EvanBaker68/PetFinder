@@ -2,14 +2,14 @@ package petfinder.site.test.unit;
 import org.junit.jupiter.api.Nested;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.DisplayName;
-import petfinder.site.common.owner.OwnerDto;
+import petfinder.site.common.sitter.SitterDto;
 
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.*;
-public class OwnerTest {
+public class SitterTest {
 
     @Nested
     @DisplayName("Testing Owner Basics")
@@ -28,15 +28,13 @@ public class OwnerTest {
             pastBookings.add(420L);
             Long[] ccurrentBookings = currentBookings.toArray(new Long[0]);
             Long[] ppastBookings = pastBookings.toArray(new Long[0]);
-            Long[] ppetIds = petIds.toArray(new Long[0]);
-            OwnerDto ownerDto = new OwnerDto(principal, ccurrentBookings, ppastBookings, ppetIds);
+            SitterDto ownerDto = new SitterDto(principal, ccurrentBookings, ppastBookings);
             assertAll(
                     ()-> assertNotNull(ownerDto),
                     ()-> assertEquals(principal, ownerDto.getPrincipal()),
                     ()-> assertEquals(principal, ownerDto.getMomento()),
                     ()-> assertArrayEquals(ccurrentBookings, ownerDto.getCurrentBookings()),
-                    ()-> assertArrayEquals(ppastBookings, ownerDto.getPastBookings()),
-                    ()-> assertArrayEquals(ppetIds, ownerDto.getIds())
+                    ()-> assertArrayEquals(ppastBookings, ownerDto.getPastBookings())
             );
         }
 
@@ -53,9 +51,8 @@ public class OwnerTest {
             currentBookings.add(69L);
             pastBookings.add(420L);
             Long[] ccurrentBookings = currentBookings.toArray(new Long[0]);
-            Long[] ppastBookings = pastBookings.toArray(new Long[0]);
-            Long[] ppetIds = petIds.toArray(new Long[0]);
-            OwnerDto ownerDto = new OwnerDto(principal, ccurrentBookings, ppastBookings, ppetIds);
+            Long[] ppastBookings =  pastBookings.toArray(new Long[0]);
+            SitterDto ownerDto = new SitterDto(principal, ccurrentBookings, ppastBookings);
 
             assertAll(
                     ()-> assertThrows(IllegalArgumentException.class, ()-> {
@@ -66,16 +63,8 @@ public class OwnerTest {
                     }),
                     ()-> assertThrows(IllegalArgumentException.class, ()-> {
                         ownerDto.setPastBookings(null);
-                    }),
-                    ()-> assertThrows(IllegalArgumentException.class, ()-> {
-                        ownerDto.setIds(null);
-                    }),
-                    ()-> assertThrows(IllegalArgumentException.class, ()-> {
-                        ownerDto.setNumPets(-1);
                     })
             );
         }
     }
-
-
 }

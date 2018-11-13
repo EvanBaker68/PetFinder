@@ -61,6 +61,28 @@ class FormDialog extends React.Component {
         //load sitter information
     }
 
+
+	componentDidMount() {
+
+		axios.get('/api/user/' + this.props.principal, this.props.principal)
+			.then(res => {
+				this.setState({ city: res.city });
+			}).then(response => console.log(response))
+			.catch(error => this.setState({error}));
+
+
+		//
+		// axios.get('/pet/pets/' + cookies.get('username'), cookies.get('username'))
+		// 	.then(res => {
+		// 		this.setState({
+		// 			pets: res
+		// 		});
+		// 		console.log(res);
+		// 	}).then(response => console.log(response))
+		// 	.catch(error => this.setState({error}));
+	}
+
+
     saveBooking = () => {
         const cookies = new Cookies();
         console.log(cookies.get('username'));
@@ -73,6 +95,8 @@ class FormDialog extends React.Component {
             status: 'pending'
         };
         console.log(this.state.name);
+        console.log(this.state.start);
+        console.log(this.state.end);
         axios.post('/booking/add-booking', booking)
             .then(res => {
                 console.log(res);
@@ -116,14 +140,15 @@ class FormDialog extends React.Component {
                     <Typography>Rating</Typography>
                     <Typography>Cost Per Hour: </Typography>
                     <Typography variant="text">City : {this.state.city}</Typography>
-                    <SitterCalender/>
+                    <SitterCalender principal={this.state.principal}/>
                     <form className={classes.container} noValidate>
                         <TextField
                             id="datetime-local"
-                            label="Next appointment"
+                            label="Start of appointment"
                             type="datetime-local"
                             defaultValue={this.state.start}
                             value={this.state.start}
+                            onChange={this.handleChange('start')}
                             className={classes.textField}
                             InputLabelProps={{
                                 shrink: true,
@@ -133,11 +158,12 @@ class FormDialog extends React.Component {
                     <form className={classes.container} noValidate>
                         <TextField
                             id="datetime-local"
-                            label="Next appointment"
+                            label="End of appointment"
                             type="datetime-local"
-                            defaultValue={this.state.start}
-                            value={this.state.start}
+                            defaultValue={this.state.end}
+                            value={this.state.end}
                             className={classes.textField}
+                            onChange={this.handleChange('end')}
                             InputLabelProps={{
                                 shrink: true,
                             }}
