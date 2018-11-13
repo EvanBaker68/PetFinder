@@ -68,7 +68,8 @@ class FormDialog extends React.Component {
                     <DialogTitle id="form-dialog-title">Rate {this.state.name}</DialogTitle>
                     <div>
                         <Rating
-                            onChange={(value) => console.log(`Rated with value ${value}`)}
+                            // onChange={(value) => console.log(`Rated with value ${value}`)}
+                            value={5}
                         />
                         <Button onClick={this.handleClose} >Done</Button>
                     </div>

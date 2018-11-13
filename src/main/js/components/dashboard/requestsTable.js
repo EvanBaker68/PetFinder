@@ -80,8 +80,40 @@ class RequestTable extends React.Component {
 		}
 
 
-	createData = (id, name, startDate, endDate, approved) => {
-		return { id, name, startDate, endDate, approved };
+	createData = (id, name, startDate, endDate, status) => {
+		return { id, name, startDate, endDate, status };
+	}
+
+	cancelBooking(id) {
+		axios.get('/booking/' + id, id)
+			.then(res => {
+				var booking = res;
+				booking.status = 'canceled';
+				axios.post('/booking/add-booking', booking)
+					.then(res => {
+						console.log(res);
+					})
+					.catch(error => {
+						console.log(error.response);
+					});
+			}).then(response => console.log(response))
+			.catch(error => this.setState({error}));
+	}
+
+	approveBooking(id) {
+		axios.get('/booking/' + id, id)
+			.then(res => {
+				var booking = res;
+				booking.status = 'past';
+				axios.post('/booking/add-booking', booking)
+					.then(res => {
+						console.log(res);
+					})
+					.catch(error => {
+						console.log(error.response);
+					});
+			}).then(response => console.log(response))
+			.catch(error => this.setState({error}));
 	}
 
 render() {
@@ -101,6 +133,7 @@ render() {
 						<TableCell>Owner</TableCell>
 						<TableCell>Start Date</TableCell>
 						<TableCell>End Date</TableCell>
+						<TableCell>Status</TableCell>
 						<TableCell>Approve</TableCell>
 						<TableCell>Cancel</TableCell>
 					</TableRow>
@@ -116,18 +149,23 @@ render() {
                                 </TableCell>
                                 <TableCell>{n.startDate.toLocaleString()}</TableCell>
                                 <TableCell>{n.endDate.toLocaleString()}</TableCell>
+								<TableCell>{n.status}</TableCell>
                                 <TableCell>
                                     <Button
                                         variant="contained"
-                                        color='secondary'>
-                                        Approve
+                                        color='secondary'
+										onClick={this.approveBooking.bind(this, n.id)}>
+										Approve
                                     </Button>
-                                    <Button
-                                        variant="contained"
-                                        color='secondary'>
-                                        Cancel
-                                    </Button>
-                                </TableCell>
+								</TableCell>
+								<TableCell>
+									<Button
+										variant="contained"
+										color='secondary'
+										onClick={this.cancelBooking.bind(this, n.id)}>
+										Cancel
+									</Button>
+								</TableCell>
                             </TableRow>
                         );
                     })}
