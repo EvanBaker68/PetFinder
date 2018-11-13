@@ -79,9 +79,9 @@ Actions.authenticate = (username, password) => {
 			    cookies.set('auth', authentication);
 			    cookies.set('authRefresh', authentication);
 			    cookies.set('loggedIn', 'true');
-				console.log('made it in');
-                console.log('sitter button: ' + cookies.get('sitterButton'));
-                console.log('owner button: ' + cookies.get('ownerButton'));
+				//console.log('made it in');
+                //console.log('sitter button: ' + cookies.get('sitterButton'));
+                //console.log('owner button: ' + cookies.get('ownerButton'));
 			    // callFunc();
                 //console.log(cookies.get('loggedIn'));
                 //console.log(username);
@@ -137,6 +137,8 @@ Actions.logout = () => {
 		cookies.set('password', '');
 		cookies.set('auth', '');
 		cookies.set('authRefresh', '');
+		cookies.set('username', '');
+		cookies.set('password', '');
 
 		dispatch(Actions.setAuthentication(null));
 		dispatch(Actions.setUser(null));

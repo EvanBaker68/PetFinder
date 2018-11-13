@@ -76,6 +76,14 @@ class SignInForm extends React.Component{
 					}
 					else{
 						this.setState({owner: false});
+                        cookies.set('loggedIn', 'false');
+                        cookies.set('sitter', '');
+                        cookies.set('owner', '');
+                        cookies.set('password', '');
+                        cookies.set('auth', '');
+                        cookies.set('authRefresh', '');
+                        cookies.set('username', '');
+                        cookies.set('password', '');
 						alert('This account is not registered as an owner.');
 					}
 				}
