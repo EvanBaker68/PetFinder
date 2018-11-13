@@ -67,7 +67,7 @@ class FormDialog extends React.Component {
 
                     axios.get('/api/user/' + ownerPrincipal, ownerPrincipal)
                         .then(res => {
-                            name = res.firstName;
+                            name = res.firstName + ' ' + res.lastName;
                             console.log('name2: ', name);
 
                             data.push(this.createData(name));

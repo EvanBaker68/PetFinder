@@ -64,7 +64,7 @@ class RequestTable extends React.Component {
 							console.log('endDate', endDate);
 							console.log('status', status);
 							console.log('data1:',data);
-							name = res.firstName;
+							name = res.firstName + ' ' + res.lastName;
 							console.log('name2: ', name);
 
 							data.push(this.createData(id, name, startDate, endDate, status));

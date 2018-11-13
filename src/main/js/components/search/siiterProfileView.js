@@ -107,6 +107,7 @@ class FormDialog extends React.Component {
                 console.log(res);
                 console.log(res.data);
                 this.setState({open: false});
+                this.onClose();
             })
             .catch(error => {
                 console.log(error.response);
@@ -116,6 +117,10 @@ class FormDialog extends React.Component {
     handleClickOpen = () => {
         this.setState({ open: true });
     };
+
+    onClose = () => {
+
+	};
 
     handleClose = () => {
         this.setState({ open: false });

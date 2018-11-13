@@ -65,7 +65,7 @@ class SimpleTable extends React.Component{
 								console.log('endDate', endDate);
 								console.log('status', status);
 								console.log('data1:',data);
-								name = res.firstName;
+								name = res.firstName + ' ' + res.lastName;
 								console.log('name2: ', name);
 
 								data.push(this.createData(id, name, startDate, endDate));
@@ -129,8 +129,8 @@ class SimpleTable extends React.Component{
 					<TableHead>
 						<TableRow>
 							<TableCell>Owner</TableCell>
-                            <TableCell>StartDate</TableCell>
-							<TableCell>EndDate</TableCell>
+                            <TableCell>Start Date</TableCell>
+							<TableCell>End Date</TableCell>
 							<TableCell>Rate Owner</TableCell>
 							<TableCell>Public Comment</TableCell>
 						</TableRow>
