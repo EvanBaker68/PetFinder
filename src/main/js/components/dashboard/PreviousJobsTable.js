@@ -11,6 +11,7 @@ import Button from '@material-ui/core/Button';
 import RateSitter from 'js/components/ratings/rateSitter';
 import Cookies from 'universal-cookie';
 import axios from 'axios/index';
+import Comment from 'js/components/ratings/OwnerComment';
 
 const styles = {
     root: {
@@ -148,7 +149,7 @@ class SimpleTable extends React.Component{
 										<RateSitter name={n.name}/>
 									</TableCell>
 									<TableCell>
-                                        hey
+                                        <Comment/>
 									</TableCell>
 								</TableRow>
 							);

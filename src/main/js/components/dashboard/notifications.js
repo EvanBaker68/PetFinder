@@ -113,6 +113,9 @@ class FormDialog extends React.Component {
                     fullWidth={true}
                 >
                     <DialogTitle id="form-dialog-title">Notifications</DialogTitle>
+                    <DialogContentText>Recent Ratings</DialogContentText>
+                    <DialogContentText>Recent Cancelations</DialogContentText>
+                    <DialogContentText>Recent Requests</DialogContentText>
                     {loaded &&
                     <ul>
                         {data.map(n => {
