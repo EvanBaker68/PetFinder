@@ -6,7 +6,9 @@ import java.util.Optional;
 import java.util.stream.Collectors;
 
 import org.elasticsearch.action.search.SearchRequest;
+import org.elasticsearch.action.search.SearchResponse;
 import org.elasticsearch.client.RestHighLevelClient;
+import org.elasticsearch.index.query.QueryBuilder;
 import org.elasticsearch.index.query.QueryBuilders;
 import org.elasticsearch.search.builder.SearchSourceBuilder;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -29,8 +31,10 @@ public class BookingDao {
     }
 
     public List<Optional<BookingDto>> findBookingBySitterPrincipal(String sitterPrincipal) {
+
         System.out.println("Sitter Principal: " + sitterPrincipal);
         SearchSourceBuilder searchSourceBuilder = new SearchSourceBuilder();
+
         String queryString = "";
         String principalString = sitterPrincipal.replace("\"", "");
         System.out.println("principalString: " + principalString);
@@ -41,7 +45,12 @@ public class BookingDao {
         //TODO: add thrown exception
 
         return repository.search(searchSourceBuilder).stream().map(Optional::ofNullable)
-                .collect(Collectors.toList());
+                .collect(Collectors.toList());*/
+        SearchRequest searchRequest = new SearchRequest();
+        QueryBuilder queryBuilder = QueryBuilders.matchPhraseQuery("sitterPrincipal", sitterPrincipal);
+        SearchSourceBuilder searchSourceBuilder = new SearchSourceBuilder();
+        searchSourceBuilder.query(queryBuilder);
+        return repository.search(searchSourceBuilder).stream().map(Optional::ofNullable).collect(Collectors.toList());
     }
 
     public List<Optional<BookingDto>> findBookingByOwnerPrincipal(String ownerPrincipal) {

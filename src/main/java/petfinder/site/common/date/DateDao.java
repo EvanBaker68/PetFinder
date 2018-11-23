@@ -28,10 +28,10 @@ public class DateDao {
     public List<Optional<DateDto>> findDateBySitter(String sitterPrincipal){
         SearchSourceBuilder searchSourceBuilder = new SearchSourceBuilder();
 
+
         String queryString = String.format("date.sitterPrincipal=\"%s\"", sitterPrincipal.replace("\"", ""));
 
         searchSourceBuilder.query(QueryBuilders.queryStringQuery(queryString));
-
         return dateElasticsearchRepository.search(searchSourceBuilder).stream().map(Optional::ofNullable)
                 .collect(Collectors.toList());
     }
