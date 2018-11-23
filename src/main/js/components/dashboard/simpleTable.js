@@ -99,6 +99,8 @@ class SimpleTable extends React.Component {
 							<TableCell>Sitter</TableCell>
 							<TableCell>Start Date</TableCell>
 							<TableCell>End Date</TableCell>
+							<TableCell>Rate</TableCell>
+							<TableCell>Leave Comment</TableCell>
 							<TableCell>Book Again</TableCell>
 						</TableRow>
 					</TableHead>
