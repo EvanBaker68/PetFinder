@@ -9,6 +9,8 @@ import TableRow from '@material-ui/core/TableRow';
 import Paper from '@material-ui/core/Paper';
 import Button from '@material-ui/core/Button';
 import SitterView from 'js/components/search/siiterProfileView';
+import RateSitter from 'js/components/ratings/rateSitter';
+
 import Cookies from 'universal-cookie';
 import axios from 'axios/index';
 
@@ -47,12 +49,16 @@ class SimpleTable extends React.Component {
 					bookings: res});
 				if(this.state.bookings)
 				{this.state.bookings.map(booking => {
+					console.log(booking);
 
 					const startDate = new Date(booking.startDate);
 					const endDate = new Date(booking.finishDate);
 					const status = booking.status;
 					const id = booking.id;
 					const sitterPrincipal = booking.sitterPrincipal;
+					const reviewedByOwner = booking.isReviewedByOwner;
+					const ratedByOwner = booking.isRatedByOwner;
+					const rating = booking.scoreByOwner;
 
 					console.log('startDate: ', startDate);
 					console.log('endDate: ', endDate);
@@ -65,7 +71,7 @@ class SimpleTable extends React.Component {
 								name = res.firstName + ' ' + res.lastName;
 								console.log('name2: ', name);
 
-								data.push(this.createData(id, name, sitterPrincipal, city, startDate, endDate));
+								data.push(this.createData(id, name, sitterPrincipal, city, startDate, endDate, ratedByOwner, rating));
 								this.setState({loaded: true});
 							}).then(response => console.log(response))
 							.catch(error => this.setState({error}));
@@ -81,8 +87,8 @@ class SimpleTable extends React.Component {
 		this.setState({rand: true});
 	}
 
-	createData = (id, name, principal, city, startDate, endDate) => {
-		return { id, name, principal, city, startDate, endDate};
+	createData = (id, name, principal, city, startDate, endDate, ratedByOwner, rating) => {
+		return { id, name, principal, city, startDate, endDate, ratedByOwner, rating};
 	}
 
 
@@ -99,6 +105,8 @@ class SimpleTable extends React.Component {
 							<TableCell>Sitter</TableCell>
 							<TableCell>Start Date</TableCell>
 							<TableCell>End Date</TableCell>
+							<TableCell>Rate</TableCell>
+							<TableCell>Review Sitter</TableCell>
 							<TableCell>Book Again</TableCell>
 						</TableRow>
 					</TableHead>
@@ -112,8 +120,25 @@ class SimpleTable extends React.Component {
 									<TableCell>{n.startDate.toLocaleString()}</TableCell>
 									<TableCell>{n.endDate.toLocaleString()}</TableCell>
 									<TableCell>
-										<SitterView principal={n.principal} name={n.name}
-													city={n.city} onClose={this.setRand}/>
+										{!n.ratedByOwner &&
+											<RateSitter name={n.name} principal={n.principal} id={n.id}/>
+										}
+										{
+										 n.ratedByOwner &&
+											 n.rating
+										}
+									</TableCell>
+									<TableCell>
+										<Button
+											variant="contained"
+											color="secondary"
+											className={classes.button}>
+											Review
+										</Button>
+									</TableCell>
+									<TableCell>
+										<SitterView id={n.id} principal={n.principal} name={n.name}
+													city={n.city}/>
 									</TableCell>
 								</TableRow>
 							);

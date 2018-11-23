@@ -8,7 +8,7 @@ import TableHead from '@material-ui/core/TableHead';
 import TableRow from '@material-ui/core/TableRow';
 import Paper from '@material-ui/core/Paper';
 import Button from '@material-ui/core/Button';
-import RateSitter from 'js/components/ratings/rateSitter';
+import RateOwner from 'js/components/ratings/rateOwner';
 import Cookies from 'universal-cookie';
 import axios from 'axios/index';
 
@@ -68,7 +68,7 @@ class SimpleTable extends React.Component{
 								name = res.firstName + ' ' + res.lastName;
 								console.log('name2: ', name);
 
-								data.push(this.createData(id, name, startDate, endDate));
+								data.push(this.createData(id, name, ownerPrincipal, startDate, endDate));
 								this.setState({loaded: true});
 							}).then(response => console.log(response))
 							.catch(error => this.setState({error}));
@@ -81,8 +81,8 @@ class SimpleTable extends React.Component{
 	}
 
 
-	createData = (id, name, startDate, endDate) => {
-		return { id, name, startDate, endDate};
+	createData = (id, name, principal, startDate, endDate) => {
+		return { id, name, principal, startDate, endDate};
 	}
 
 	cancelBooking(id) {
@@ -132,7 +132,7 @@ class SimpleTable extends React.Component{
                             <TableCell>Start Date</TableCell>
 							<TableCell>End Date</TableCell>
 							<TableCell>Rate Owner</TableCell>
-							<TableCell>Public Comment</TableCell>
+							<TableCell>Review Owner</TableCell>
 						</TableRow>
 					</TableHead>
 					<TableBody>
@@ -145,10 +145,15 @@ class SimpleTable extends React.Component{
 									<TableCell>{n.startDate.toLocaleString()}</TableCell>
 									<TableCell>{n.endDate.toLocaleString()}</TableCell>
 									<TableCell>
-										<RateSitter name={n.name}/>
+										<RateOwner name={n.name} principal={n.principal} id={n.id}/>
 									</TableCell>
 									<TableCell>
-                                        hey
+										<Button
+											variant="contained"
+											color="secondary"
+											className={classes.button}>
+											Review
+										</Button>
 									</TableCell>
 								</TableRow>
 							);

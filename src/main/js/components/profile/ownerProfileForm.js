@@ -5,6 +5,7 @@ import { withStyles } from '@material-ui/core/styles';
 import MenuItem from '@material-ui/core/MenuItem';
 import TextField from '@material-ui/core/TextField';
 import Button from '@material-ui/core/Button';
+import Typography from '@material-ui/core/Typography';
 import axios from 'axios/index';
 import Cookies from 'universal-cookie';
 import  { Redirect } from 'react-router-dom';
@@ -80,14 +81,9 @@ class ProfileForm extends React.Component {
 		return (
             <div>
                 <form className={classes.container} noValidate autoComplete="off">
-                    <TextField
-                        id="standard-name"
-                        label="Number of Pets"
-                        className={classes.textField}
-                        value={this.state.numPets}
-                        onChange={this.handleChange('numPets')}
-                        margin="normal"
-                    />
+					<Typography>
+						Rating: {this.state.rating}
+					</Typography>
                 </form>
                 <Button onClick={this.handleAddClose}>Save Owner Info</Button>
             </div>

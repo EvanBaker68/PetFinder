@@ -17,8 +17,10 @@ public class BookingDto implements Identifiable{
     private String reviewBySitter;
     private Integer scoreBySitter;
     private Boolean isDeleted = false;
-    private Boolean isRated = false;
-    private Boolean isReviewed = false;
+    private Boolean isRatedByOwner = false;
+    private Boolean isRatedBySitter = false;
+    private Boolean isReviewedByOwner = false;
+    private Boolean isReviewedBySitter = false;
     private String status;
 
     public String getStatus() {
@@ -68,13 +70,21 @@ public class BookingDto implements Identifiable{
         return id;
     }
 
-    public Boolean getRated() { return isRated; }
+    public Boolean getRatedByOwner() { return isRatedByOwner; }
 
-    public void setRated(Boolean rated) { isRated = rated; }
+    public void setRatedByOwner(Boolean ratedByOwner) { isRatedByOwner = ratedByOwner; }
 
-    public Boolean getReviewed() { return isReviewed; }
+    public Boolean getRatedBySitter() { return isRatedBySitter; }
 
-    public void setReviewed(Boolean reviewed) { isReviewed = reviewed; }
+    public void setRatedBySitter(Boolean ratedBySitter) { isRatedBySitter = ratedBySitter; }
+
+    public Boolean getReviewedByOwner() { return isReviewedByOwner; }
+
+    public void setReviewedByOwner(Boolean reviewedByOwner) { isReviewedByOwner = reviewedByOwner; }
+
+    public Boolean getReviewedBySitter() { return isReviewedBySitter; }
+
+    public void setReviewedBySitter(Boolean reviewedBySitter) { isReviewedBySitter = reviewedBySitter; }
 
     public Boolean getDeleted() { return isDeleted; }
 
