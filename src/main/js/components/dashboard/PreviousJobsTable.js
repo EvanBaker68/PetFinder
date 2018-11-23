@@ -11,6 +11,7 @@ import Button from '@material-ui/core/Button';
 import RateOwner from 'js/components/ratings/rateOwner';
 import Cookies from 'universal-cookie';
 import axios from 'axios/index';
+import Comment from 'js/components/ratings/OwnerComment';
 
 const styles = {
     root: {
@@ -148,12 +149,7 @@ class SimpleTable extends React.Component{
 										<RateOwner name={n.name} principal={n.principal} id={n.id}/>
 									</TableCell>
 									<TableCell>
-										<Button
-											variant="contained"
-											color="secondary"
-											className={classes.button}>
-											Review
-										</Button>
+                                        <Comment/>
 									</TableCell>
 								</TableRow>
 							);

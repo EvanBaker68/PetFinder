@@ -26,6 +26,7 @@ import SitterView from 'js/components/search/siiterProfileView';
 import axios from 'axios';
 import Cookies from 'universal-cookie';
 import {Redirect} from 'react-router-dom';
+import Chip from '@material-ui/core/Chip';
 
 const drawerWidth = 240;
 
@@ -220,11 +221,19 @@ class SearchPage extends React.Component {
                     </Drawer>
                     <main className={classes.content}>
                         <div className={classes.appBarSpacer} />
+                        {this.state.searched &&
+                        <div>
+                            <Typography variant="display1" align="center">Matched Sitters</Typography>
+                            <ul>
+                                {sitterItems}
+                            </ul>
+                        </div>
+                        }
                         <Typography
                             variant="display1"
                             gutterBottom
                             align='center'>
-                            Enter your city...
+                            Enter a new city...
                         </Typography>
                         <TextField
                             id="standard-name"
@@ -235,14 +244,6 @@ class SearchPage extends React.Component {
                             margin="normal"
                         />
                         <Button  onClick={this.handleSearch}>Continue</Button>
-                    {this.state.searched &&
-                        <div>
-                            <Typography variant="display1" align="center">Matched Sitters</Typography>
-                            <ul>
-                                {sitterItems}
-                            </ul>
-                        </div>
-                    }
                     </main>
                 </div>
             </React.Fragment>
