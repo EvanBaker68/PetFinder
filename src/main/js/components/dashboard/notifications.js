@@ -13,6 +13,7 @@ import {withStyles} from '@material-ui/core';
 import Badge from '@material-ui/core/Badge/Badge';
 import NotificationsIcon from '@material-ui/icons/Notifications';
 import IconButton from '@material-ui/core/IconButton/IconButton';
+import CancelIcon from '@material-ui/icons/Cancel';
 
 let id = 0;
 
@@ -94,6 +95,9 @@ class FormDialog extends React.Component {
         this.setState({ open: false });
     };
 
+    handleCancel = () => {
+        //remove notification
+    };
 
     render() {
         const { bookings } = this.state;
@@ -114,6 +118,13 @@ class FormDialog extends React.Component {
                 >
                     <DialogTitle id="form-dialog-title">Notifications</DialogTitle>
                     <DialogContentText>Recent Ratings</DialogContentText>
+                    <ui>
+                            <li>Here is a notification
+                                <IconButton color="inherit" onClick={this.handleCancel}>
+                                    <CancelIcon/>
+                                </IconButton>
+                            </li>
+                    </ui>
                     <DialogContentText>Recent Cancelations</DialogContentText>
                     <DialogContentText>Recent Requests</DialogContentText>
                     {loaded &&
@@ -121,7 +132,11 @@ class FormDialog extends React.Component {
                         {data.map(n => {
                             console.log('NAME:', n.name);
                             return (
-                                <li>{n.name} has requested you as a sitter</li>
+                                <li>{n.name} has requested you as a sitter
+                                    <IconButton color="inherit" onClick={this.handleCancel}>
+                                        <CancelIcon/>
+                                    </IconButton>
+                                </li>
                             );
                         })}
                     </ul>
