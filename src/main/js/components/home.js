@@ -41,7 +41,6 @@ export default class HomePage extends React.Component{
 			<div>
 				<Paper style={styles.paperContainer1}>
 					<NavBar />
-					<Comment/>
 				</Paper>
 				<Paper style={styles.aboutContainer}>
 					<Grid alignContent="center">

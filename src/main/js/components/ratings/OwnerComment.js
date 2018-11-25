@@ -44,10 +44,10 @@ export default class FormDialog extends React.Component {
                     onClose={this.handleClose}
                     aria-labelledby="form-dialog-title"
                 >
-                    <DialogTitle id="form-dialog-title">Rate "NAME"</DialogTitle>
+                    <DialogTitle id="form-dialog-title">Rate {this.props.name}</DialogTitle>
                     <DialogContent>
                         <DialogContentText>
-                            Leave a comment about your experience sitting for "NAME"
+                            Leave a comment about your experience sitting for {this.props.name}
                         </DialogContentText>
                         <TextField
                             multiline={true}

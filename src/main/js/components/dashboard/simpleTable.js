@@ -10,6 +10,8 @@ import Paper from '@material-ui/core/Paper';
 import Button from '@material-ui/core/Button';
 import SitterView from 'js/components/search/siiterProfileView';
 import RateSitter from 'js/components/ratings/rateSitter';
+import Comment from 'js/components/ratings/OwnerComment';
+
 
 import Cookies from 'universal-cookie';
 import axios from 'axios/index';
@@ -129,12 +131,7 @@ class SimpleTable extends React.Component {
 										}
 									</TableCell>
 									<TableCell>
-										<Button
-											variant="contained"
-											color="secondary"
-											className={classes.button}>
-											Review
-										</Button>
+										<Comment name={n.name}/>
 									</TableCell>
 									<TableCell>
 										<SitterView id={n.id} principal={n.principal} name={n.name}

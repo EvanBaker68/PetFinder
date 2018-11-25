@@ -120,27 +120,18 @@ const styles = theme => ({
 class PetPage extends React.Component {
     state = {
         open: true,
-        pets: []
+        pets: [],
+        reload: false
     };
 
+    constructor(props){
+		super(props);
+
+		this.stateChangeHandler = this.stateChangeHandler.bind(this);
+    }
+
     componentDidMount() {
-        const id = 1;
-        const endpoint = '/pet/' + id;
         const cookies = new Cookies();
-
-        axios.get('/pet/' + id, id)
-            .then(res => {
-                this.setState({
-                    name: res.name,
-                    age: res.age,
-                    dogBreed: res.dogBreed,
-                    id: res.id,
-                    ownerPrincipal: res.ownerPrincipal,
-                    petType: res.petType});
-            }).then(response => console.log(response))
-            .catch(error => this.setState({error}));
-
-
 
 		axios.get('/pet/pets/' + cookies.get('username'), cookies.get('username'))
             .then(res => {
@@ -163,9 +154,41 @@ class PetPage extends React.Component {
         this.setState({ open: false });
     };
 
+    handler = () => {
+        if(this.state.reload === false)
+		this.setState({reload: true});
+        else
+            this.setState({reload: false});
+	}
+
+    stateChangeHandler = () => {
+		const cookies = new Cookies();
+
+		axios.get('/pet/pets/' + cookies.get('username'), cookies.get('username'))
+			.then(res => {
+				this.setState({
+					pets: res
+				});
+				console.log(res);
+			}).then(response => console.log(response))
+			.catch(error => this.setState({error}));
+		this.handler();
+        // console.log(this.state.reload);
+        // if(this.state.reload === false) {
+        //     console.log('unfofrtdsa');
+			// this.setState({ reload: true });
+			// console.log(this.state.reload);
+        // }
+        // else
+			// this.setState({ reload: false });
+        // console.log('HEYYYYY');
+    }
+
     render() {
         const { classes } = this.props;
         const { pets } = this.state;
+
+        console.log('Reload: ', this.state.reload);
 
         var petItems;
         if(pets)
@@ -173,7 +196,7 @@ class PetPage extends React.Component {
 			const {name, age, dogBreed, petType, id} = pet;
 			return (
 				<div key={(((1+Math.random())*0x10000)|0)}>
-				<PetCard id={id} name={name} type={petType} breed={dogBreed} age={age}/>
+				<PetCard handler={this.stateChangeHandler} id={id} name={name} type={petType} breed={dogBreed} age={age}/>
 				</div>
 			);
 		});}
@@ -209,7 +232,7 @@ class PetPage extends React.Component {
                         {petItems}
 						<div className={classes.divider}/>
 
-							<AddPet/>
+							<AddPet handler={this.stateChangeHandler}/>
 
                         {/*<PetCard/>*/}
 

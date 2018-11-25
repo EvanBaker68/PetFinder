@@ -149,7 +149,7 @@ class SimpleTable extends React.Component{
 										<RateOwner name={n.name} principal={n.principal} id={n.id}/>
 									</TableCell>
 									<TableCell>
-                                        <Comment/>
+                                        <Comment name={n.name}/>
 									</TableCell>
 								</TableRow>
 							);
