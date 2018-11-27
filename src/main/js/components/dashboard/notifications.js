@@ -67,7 +67,7 @@ class FormDialog extends React.Component {
 
                     axios.get('/api/user/' + ownerPrincipal, ownerPrincipal)
                         .then(res => {
-                            name = res.firstName;
+                            name = res.firstName + ' ' + res.lastName;
                             console.log('name2: ', name);
 
                             data.push(this.createData(name));
@@ -113,6 +113,9 @@ class FormDialog extends React.Component {
                     fullWidth={true}
                 >
                     <DialogTitle id="form-dialog-title">Notifications</DialogTitle>
+                    <DialogContentText>Recent Ratings</DialogContentText>
+                    <DialogContentText>Recent Cancelations</DialogContentText>
+                    <DialogContentText>Recent Requests</DialogContentText>
                     {loaded &&
                     <ul>
                         {data.map(n => {

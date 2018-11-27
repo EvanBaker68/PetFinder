@@ -72,20 +72,12 @@ public class PetDto implements Identifiable {
 
 
     public void setId(Long id) throws IllegalArgumentException{
-        if(id == null){
-            throw new IllegalArgumentException("setId\t given a null");
-        }else if(id < 0L){
-            throw new IllegalArgumentException("setId\t given negative num");
-        }
+
         this.id = id;
     }
 
     public void setOwnerPrincipal(String ownerPrincipal) throws IllegalArgumentException{
-        if(ownerPrincipal == null){
-            throw new IllegalArgumentException("setOwnerPrincipal\t given a null");
-        } else if(!ownerPrincipal.matches("^(.+)@(.+)$")){
-            throw new IllegalArgumentException("setOwnerPrincipal\t was given a bad principal");
-        }
+
         this.ownerPrincipal = ownerPrincipal;
     }
 

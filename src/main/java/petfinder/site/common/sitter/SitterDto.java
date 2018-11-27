@@ -9,11 +9,9 @@ import java.time.LocalDateTime;
 public class SitterDto implements Momento<String> {
 
     private String principal;
-    private Long[] currentBookings;
-    private Long[] pastBookings;
-    private Long[] pendingBookings;
-    private Long[] datesAvailable;
     private Double rate;
+    private Double rating;
+    private int ratingCount;
     private Boolean isDeleted = false;
 
 
@@ -25,31 +23,25 @@ public class SitterDto implements Momento<String> {
 
     public SitterDto() {}
 
-    public SitterDto(String principal) throws IllegalArgumentException {
-        setPrincipal(principal);
+    public Double getRating() {
+        return rating;
+    }
+
+    public void setRating(Double rating) {
+        this.rating = rating;
+    }
+
+    public int getRatingCount() {
+        return ratingCount;
+    }
+
+    public void setRatingCount(int ratingCount) {
+        this.ratingCount = ratingCount;
     }
 
     //Temporary until we get rid of Availability
-    public SitterDto(String principal, Long[] currentBookings, Long[] pastBookings) throws IllegalArgumentException{
+    public SitterDto(String principal) throws IllegalArgumentException{
         setPrincipal(principal);
-        setCurrentBookings(currentBookings);
-        setPastBookings(pastBookings);
-    }
-
-
-    public Long[] getPendingBookings() { return pendingBookings; }
-
-    public void setPendingBookings(Long[] pendingBookings) throws IllegalArgumentException{
-        if(pendingBookings == null){
-            throw new IllegalArgumentException("setPendingBookings\t was given a null");
-        } else{
-            for(Long i : pendingBookings){
-                if(i < 0L){
-                    throw new IllegalArgumentException("setPendingBookings\t given a bad booking");
-                }
-            }
-        }
-        this.pendingBookings = pendingBookings;
     }
 
     public void setRate(Double rate) throws IllegalArgumentException{
@@ -70,14 +62,6 @@ public class SitterDto implements Momento<String> {
         isDeleted = deleted;
     }
 
-    public Long[] getCurrentBookings() {
-        return currentBookings;
-    }
-
-    public Long[] getPastBookings() {
-        return pastBookings;
-    }
-
     public String getPrincipal() {
         return principal;
     }
@@ -89,32 +73,6 @@ public class SitterDto implements Momento<String> {
             throw new IllegalArgumentException("setRate\t given a negative value");
         }
         this.rate = rate; }
-
-    public void setCurrentBookings(Long[] currentBookings)throws IllegalArgumentException {
-        if(currentBookings == null) {
-            throw new IllegalArgumentException("setCurrentBookings\t was given a null");
-        }else{
-            for(Long i : currentBookings){
-                if(i < 0L){
-                    throw new IllegalArgumentException("setCurrentBookings\t was given a null");
-                }
-            }
-        }
-        this.currentBookings = currentBookings;
-    }
-
-    public void setPastBookings(Long[] pastBookings) throws IllegalArgumentException{
-        if(pastBookings == null){
-            throw new IllegalArgumentException("setPastBookings\t was given a null");
-        }else {
-            for(Long j : pastBookings) {
-                if (j < 0L) {
-                    throw new IllegalArgumentException("setPastBookings\t was given a bad val");
-                }
-            }
-        }
-        this.pastBookings = pastBookings;
-    }
 
     public void setPrincipal(String principal) throws IllegalArgumentException {
         if(principal == null){
@@ -130,15 +88,5 @@ public class SitterDto implements Momento<String> {
         return principal;
     }
 
-    public Long[] getDatesAvailable() {
-        return datesAvailable;
-    }
-
-    public void setDatesAvailable(Long[] datesAvailable) throws IllegalArgumentException{
-        if(datesAvailable == null){
-            throw new IllegalArgumentException("setDatesAvailable\t was given a null");
-        }
-        this.datesAvailable = datesAvailable;
-    }
 }
 

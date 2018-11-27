@@ -23,6 +23,7 @@ import Button from '@material-ui/core/Button';
 import  { Redirect } from 'react-router-dom';
 import Cookies from 'universal-cookie';
 import MenuBar from 'js/components/dashboard/MenuBar';
+import OwnerPendingTable from 'js/components/dashboard/OwnerPendingTable';
 
 
 const drawerWidth = 240;
@@ -148,20 +149,11 @@ class Dashboard extends React.Component {
                     </Drawer>
                     <main className={classes.content}>
                         <div className={classes.appBarSpacer} />
-                        <Typography
-                            variant="display1"
-                            gutterBottom
-                            align='center'>
-                            Enter your city to begin matching with a sitter
+                        <Typography variant="display1" gutterBottom>
+                            Pending Bookings
                         </Typography>
-                        <div className={classes.search}>
-                            <Input
-                                placeholder="Search…"
-                                classes={{
-                                    root: classes.inputRoot,
-                                    input: classes.inputInput,
-                                }}
-                            />
+                        <div className={classes.tableContainer}>
+                            <OwnerPendingTable/>
                         </div>
                         <Typography variant="display1" gutterBottom>
                             Upcoming Bookings

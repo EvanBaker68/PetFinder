@@ -43,10 +43,12 @@ export default class FormDialog extends React.Component {
 				console.log(res);
 				console.log(res.data);
 				this.setState({open: false});
-			})
+
+			}).then(() => {this.props.handler();})
 			.catch(error => {
 				console.log(error.response);
 			});
+		// this.props.handler();
 	};
 
 	handleChange = name => event => {

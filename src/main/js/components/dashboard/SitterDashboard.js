@@ -23,6 +23,7 @@ import  { Redirect } from 'react-router-dom';
 import Cookies from 'universal-cookie';
 import MenuBar from 'js/components/dashboard/MenuBar';
 import axios from 'axios/index';
+import SitterUpcomingTable from './SitterUpcoming';
 
 const drawerWidth = 240;
 
@@ -160,7 +161,12 @@ class Dashboard extends React.Component {
                         <div className={classes.tableContainer}>
                             <RequestsTable/>
                         </div>
-                        <div className={classes.appBarSpacer} />
+                        <Typography variant="display1" gutterBottom>
+                            Upcoming Jobs
+                        </Typography>
+                        <div className={classes.tableContainer}>
+                            <SitterUpcomingTable/>
+                        </div>
                         <Typography variant="display1" gutterBottom>
                             Previous Jobs
                         </Typography>

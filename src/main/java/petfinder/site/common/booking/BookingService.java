@@ -24,6 +24,7 @@ public class BookingService {
         List<Optional<BookingDto>> newList = new ArrayList<>();
         for(Optional<BookingDto> booking : theList){
             if(!booking.get().getDeleted()){
+                System.out.println(booking.get().getSitterPrincipal());
                 newList.add(booking);
             }
         }
