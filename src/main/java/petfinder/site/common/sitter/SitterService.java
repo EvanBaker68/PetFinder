@@ -23,7 +23,7 @@ public class SitterService {
     public List<SitterDto> findSitterInCityWithRating(String city){
         List<Optional<SitterDto>> temp = sitterDao.findSittersByCity(city);
         List<SitterDto> tempNoOptional = temp.stream().filter(Optional::isPresent).map(Optional::get).collect(Collectors.toList());;
-        List<SitterDto> arr = ShellSort.shellSort(tempNoOptional);
+        List<SitterDto> arr = ShellSort.sort(tempNoOptional);
         return arr;
     }
 

@@ -2,26 +2,17 @@ package petfinder.site.strategy;
 
 import petfinder.site.common.sitter.SitterDto;
 
+import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Collectors;
 
 //NEED to use generics with this but have a copy with out it written down
 //text drew 5126946416 to get picture of algorithm without generics
 public class ShellSort {
 
 
-    public static List<SitterDto> shellSort(List<SitterDto> arr){
-        int n = arr.size();
-        for(int gap = n / 2; gap > 0; gap /= 2){
-            for(int i = gap; i < n; i++){
-                SitterDto temp = arr.get(i);
-                int j;
-                for(j = i; j >= gap && arr.get(j - gap).getRate() > temp.getRate(); j -= gap){
-                    arr.set(i, arr.get(j - gap));
-                    arr.set(j, temp);
-                }
-            }
-        }
-        return arr;
+    public static List<SitterDto> sort(List<SitterDto> arr){
+        return arr.stream().sorted((SitterDto o1,SitterDto o2) -> o1.getRate().compareTo(o2.getRate())).collect(Collectors.toList());
     }
 
 

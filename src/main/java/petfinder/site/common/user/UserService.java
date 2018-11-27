@@ -135,7 +135,6 @@ public class UserService {
 		return userAuthentication.getUser();
 	}
 	public List<UserDto> getSittersByCity(String city) {
-		System.out.println("IN THE CITY");
 		List<Optional<UserAuthenticationDto>> listDtos = userDao.findByCity(city, "sitter");
 		//return userDao.findByCity(city, "sitter");
 		List<UserAuthenticationDto> filteredUsers = listDtos.stream().filter(Optional::isPresent).map(Optional::get).collect(Collectors.toList());
