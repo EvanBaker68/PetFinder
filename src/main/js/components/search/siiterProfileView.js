@@ -221,7 +221,7 @@ class FormDialog extends React.Component {
 						<FormControl className={classes.formControl}>
 							<InputLabel htmlFor="pet-simple">Pet to book for</InputLabel>
 							<Select
-								value={this.state.pet}
+								value={this.state.id}
 								onChange={this.handleChange('id')}
 								inputProps={{
 									name: 'pet',
