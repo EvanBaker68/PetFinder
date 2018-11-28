@@ -58,7 +58,7 @@ class SimpleTable extends React.Component{
 					console.log('endDate: ', endDate);
 
 					if(booking.sitterPrincipal === cookies.get('username')
-						&& booking.status === 'past')
+						&& booking.status === 'approved' && (endDate < new Date()))
 						axios.get('/api/user/' + ownerPrincipal, ownerPrincipal)
 							.then(res => {
 								console.log('name: ', res.firstName);
@@ -122,7 +122,7 @@ class SimpleTable extends React.Component{
 
 
 		const {classes} = this.props;
-
+		console.log('Data: ', data);
 
 		return (
 			<Paper className={classes.root}>
