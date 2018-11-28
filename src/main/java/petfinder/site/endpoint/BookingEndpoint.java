@@ -16,23 +16,20 @@ public class BookingEndpoint {
 
     @GetMapping(value = "/{id}", produces = "application/json")
     @ResponseBody
-    public Optional<BookingDto> getBooking(@PathVariable("id") Long id) {
+    public BookingDto getBooking(@PathVariable("id") Long id) {
         return bookingService.findBooking(id);
     }
 
     @GetMapping(value = "/sitter/{sitterPrincipal:.+}", produces = "application/json")
     @ResponseBody
-    public List<Optional<BookingDto>> getBookingsBySitterPrincipal(@PathVariable("sitterPrincipal") String sitterPrincipal) {
-        List<Optional<BookingDto>> theList = bookingService.findBookingsBySitterPrincipal(sitterPrincipal);
-        for(Optional<BookingDto> b : theList){
-            System.out.println("SITTER: " + b.get().getSitterPrincipal());
-        }
+    public List<BookingDto> getBookingsBySitterPrincipal(@PathVariable("sitterPrincipal") String sitterPrincipal) {
+        List<BookingDto> theList = bookingService.findBookingsBySitterPrincipal(sitterPrincipal);
         return theList;
     }
 
     @GetMapping(value = "/owner/{ownerPrincipal:.+}", produces = "application/json")
     @ResponseBody
-    public List<Optional<BookingDto>> getBookingsByOwnerPrincipal(@PathVariable("ownerPrincipal") String ownerPrincipal) {
+    public List<BookingDto> getBookingsByOwnerPrincipal(@PathVariable("ownerPrincipal") String ownerPrincipal) {
         return bookingService.findBookingsByOwnerPrincipal(ownerPrincipal);
     }
 

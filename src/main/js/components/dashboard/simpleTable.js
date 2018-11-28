@@ -108,7 +108,6 @@ class SimpleTable extends React.Component {
 							<TableCell>Start Date</TableCell>
 							<TableCell>End Date</TableCell>
 							<TableCell>Rate</TableCell>
-							<TableCell>Leave Comment</TableCell>
 							<TableCell>Book Again</TableCell>
 						</TableRow>
 					</TableHead>
@@ -129,9 +128,6 @@ class SimpleTable extends React.Component {
 										 n.ratedByOwner &&
 											 n.rating
 										}
-									</TableCell>
-									<TableCell>
-										<Comment name={n.name}/>
 									</TableCell>
 									<TableCell>
 										<SitterView id={n.id} principal={n.principal} name={n.name}

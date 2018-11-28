@@ -19,6 +19,8 @@ import FormHelperText from '@material-ui/core/FormHelperText';
 import FormControl from '@material-ui/core/FormControl';
 import Select from '@material-ui/core/Select';
 import SitterCalender from './sitterCalender';
+import Select from '@material-ui/core/Select';
+import MenuItem from '@material-ui/core/MenuItem';
 
 function DateAndTimePickers(props) {
     const { classes } = props;
@@ -99,6 +101,15 @@ class FormDialog extends React.Component {
 			}).then(response => console.log(response))
 			.catch(error => this.setState({error}));
 
+        axios.get('/pet/pets/' + cookies.get('username'), cookies.get('username'))
+            .then(res => {
+                this.setState({
+                    pets: res
+                });
+                console.log(res);
+            }).then(response => console.log(response))
+            .catch(error => this.setState({error}));
+        this.handler();
 
 		axios.get('/pet/pets/' + cookies.get('username'), cookies.get('username'))
 			.then(res => {
@@ -189,6 +200,19 @@ class FormDialog extends React.Component {
                     <Typography>Cost Per Hour: ${this.state.rate}</Typography>
                     <Typography variant="text">City : {this.state.city}</Typography>
                     <SitterCalender principal={this.state.principal}/>
+                    <Select
+                        value={this.state.age}
+                        onChange={this.handleChange}
+                        inputProps={{
+                            name: 'age',
+                            id: 'age-simple',
+                        }}
+                    >
+                        <MenuItem value=""/>
+                        <MenuItem value={10}>Ten</MenuItem>
+                        <MenuItem value={20}>Twenty</MenuItem>
+                        <MenuItem value={30}>Thirty</MenuItem>
+                    </Select>
                     <form className={classes.container} noValidate>
                         <TextField
                             id="datetime-local"

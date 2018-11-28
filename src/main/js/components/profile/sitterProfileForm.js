@@ -9,6 +9,7 @@ import Button from '@material-ui/core/Button';
 import Cookies from 'universal-cookie';
 import axios from 'axios/index';
 import {Redirect} from 'react-router-dom';
+import Grid from '@material-ui/core/Grid';
 
 const styles = theme => ({
     container: {
@@ -88,9 +89,12 @@ class ProfileForm extends React.Component {
                         onChange={this.handleChange('rate')}
                         margin="normal"
                     />
-					<Typography>
+                    <Grid>
+					<Typography variant="display2">
 						Rating: {this.state.rating}
 					</Typography>
+                    </Grid>
+
                 </form>
                 <Button onClick={this.handleAddClose}>Save Sitter Info</Button>
             </div>

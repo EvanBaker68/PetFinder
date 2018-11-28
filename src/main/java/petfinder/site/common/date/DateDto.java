@@ -35,7 +35,6 @@ public class DateDto implements Identifiable {
         this.id = randomId;
     }
 
-
     @Override
     public Long getId() {
         return id;

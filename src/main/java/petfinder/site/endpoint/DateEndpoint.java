@@ -5,6 +5,7 @@ import org.springframework.web.bind.annotation.*;
 import petfinder.site.common.date.DateDto;
 import petfinder.site.common.date.DateService;
 
+import java.util.List;
 import java.util.Optional;
 
 @RestController
@@ -15,7 +16,7 @@ public class DateEndpoint {
 
     @GetMapping(value = "/{id}", produces = "application/json")
     @ResponseBody
-    public Optional<DateDto> getDate(@PathVariable("id") Long id) { return dateService.findDate(id);}
+    public DateDto getDate(@PathVariable("id") Long id) { return dateService.findDate(id);}
 
     @PostMapping(value = "/add-date", produces = "application/json", consumes = "application/json")
     @ResponseBody

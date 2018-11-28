@@ -48,11 +48,11 @@ export default class Calender extends React.Component
         var theArray = [];
 
 		if(dates)
-		{dates.forEach(({startDate, endDate}) => {
+		{dates.forEach(({startDate, endDate, id}) => {
 			console.log('DAFSHKDASJKFDSLA;', new Date(startDate));
 			console.log('SAKSAKASKSAKAS', endDate);
 			theArray.push(
-				{start: new Date(startDate), end: new Date(endDate)});
+				{start: new Date(startDate), end: new Date(endDate), id: id });
 		});
 		}
 
