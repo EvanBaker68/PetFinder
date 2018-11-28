@@ -1,12 +1,22 @@
 package petfinder.site.common.date;
 
+import org.elasticsearch.action.search.SearchRequest;
+import org.elasticsearch.client.ElasticsearchClient;
+import org.elasticsearch.client.transport.TransportClient;
+import org.elasticsearch.common.settings.Settings;
+import org.elasticsearch.common.transport.TransportAddress;
+import org.elasticsearch.index.query.QueryBuilder;
 import org.elasticsearch.index.query.QueryBuilders;
+import org.elasticsearch.index.reindex.BulkByScrollResponse;
+import org.elasticsearch.index.reindex.DeleteByQueryAction;
+import org.elasticsearch.index.reindex.DeleteByQueryRequest;
 import org.elasticsearch.search.builder.SearchSourceBuilder;
 import petfinder.site.elasticsearch.DateElasticSearchRepository;
 import alloy.elasticsearch.ElasticSearchClientProvider;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
+import java.net.InetAddress;
 import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
@@ -37,6 +47,17 @@ public class DateDao {
     }
 
     public void saveDate(DateDto dateDto){
+
+
+
+
+
+
+        /*DeleteByQueryAction.INSTANCE.
+                .filter(QueryBuilders.matchQuery("sitterPrincipal", dateDto.getSitterPrincipal()))
+                .source("date")
+                .get();*/
+
         dateElasticsearchRepository.save(dateDto);
     }
 
