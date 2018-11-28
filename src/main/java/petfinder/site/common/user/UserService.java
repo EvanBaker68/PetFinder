@@ -141,7 +141,7 @@ public class UserService {
 		List<UserDto> newList = new ArrayList<>();
 		for(UserAuthenticationDto i : filteredUsers){
 			if(i.getUser().getSitter().equals("true"))
-			newList.add(i.getUser());
+				newList.add(i.getUser());
 		}
 		return newList;
 	}
