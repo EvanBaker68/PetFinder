@@ -1,6 +1,8 @@
 package petfinder.site.common.date;
 
+import org.elasticsearch.client.ElasticsearchClient;
 import org.elasticsearch.index.query.QueryBuilders;
+import org.elasticsearch.index.reindex.DeleteByQueryAction;
 import org.elasticsearch.search.builder.SearchSourceBuilder;
 import petfinder.site.elasticsearch.DateElasticSearchRepository;
 import alloy.elasticsearch.ElasticSearchClientProvider;
@@ -38,6 +40,12 @@ public class DateDao {
 
     public void saveDate(DateDto dateDto){
         System.out.println("Heyyo");
+
+        List<Optional<DateDto>> list = findDateBySitter(dateDto.getSitterPrincipal());
+        for (Optional<DateDto> date : list) {
+            dateElasticsearchRepository.delete(date.get().getId());
+        }
+
         dateElasticsearchRepository.save(dateDto);
         System.out.println("pass");
     }
