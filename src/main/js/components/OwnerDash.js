@@ -14,7 +14,7 @@ import Badge from '@material-ui/core/Badge';
 import MenuIcon from '@material-ui/icons/Menu';
 import ChevronLeftIcon from '@material-ui/icons/ChevronLeft';
 import NotificationsIcon from '@material-ui/icons/Notifications';
-import { mainListItems, secondaryListItems } from 'js/components/dashboard/listItems';
+import MainListItems from 'js/components/dashboard/listItems';
 import SimpleTable from 'js/components/dashboard/simpleTable';
 import Input from '@material-ui/core/Input';
 import SearchIcon from '@material-ui/icons/Search';
@@ -126,6 +126,10 @@ class Dashboard extends React.Component {
 			return <div><Redirect to='/'/></div>;
 		}
 
+		if( cookies.get('sitter') === 'true' && cookies.get('owner') === 'true'){
+		    console.log('fasdfadsjkl;');
+        }
+
         return (
             <React.Fragment>
                 <CssBaseline />
@@ -144,7 +148,7 @@ class Dashboard extends React.Component {
                             </IconButton>
                         </div>
                         <Divider />
-                        <List>{mainListItems}</List>
+                        <MainListItems/>
                     </Drawer>
                     <main className={classes.content}>
                         <div className={classes.appBarSpacer} />

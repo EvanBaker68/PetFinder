@@ -80,12 +80,7 @@ Actions.authenticate = (username, password) => {
 			    cookies.set('authRefresh', authentication);
 			    cookies.set('loggedIn', 'true');
 				//console.log('made it in');
-                //console.log('sitter button: ' + cookies.get('sitterButton'));
-                //console.log('owner button: ' + cookies.get('ownerButton'));
 			    // callFunc();
-                //console.log(cookies.get('loggedIn'));
-                //console.log(username);
-                //console.log(authentication);
 				dispatch(Actions.setAuthentication(authentication));
 
 				return getUserDetails().then(user => {
@@ -139,6 +134,8 @@ Actions.logout = () => {
 		cookies.set('authRefresh', '');
 		cookies.set('username', '');
 		cookies.set('password', '');
+		cookies.set('ownerButton', '');
+		cookies.set('sitterButton', '');
 
 		dispatch(Actions.setAuthentication(null));
 		dispatch(Actions.setUser(null));
