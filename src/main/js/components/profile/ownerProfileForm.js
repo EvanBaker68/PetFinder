@@ -48,7 +48,8 @@ class ProfileForm extends React.Component {
 		axios.get('/owner/' + principal, principal)
 			.then(res => {
 				this.setState({
-					numPets: res.numPets});
+					numPets: res.numPets,
+					rating: res.rating});
 			}).then(response => console.log(response))
 			.catch(error => this.setState({error}));
 	}

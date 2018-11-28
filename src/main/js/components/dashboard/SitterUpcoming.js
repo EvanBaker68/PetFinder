@@ -56,7 +56,7 @@ class SitterUpcomingTable extends React.Component {
                     console.log('endDate: ', endDate);
 
                     if(booking.sitterPrincipal === cookies.get('username')
-                        && booking.status === 'pending')
+                        && booking.status === 'approved'  && (endDate >= new Date()))
                         axios.get('/api/user/' + ownerPrincipal, ownerPrincipal)
                             .then(res => {
                                 console.log('name: ', res.firstName);
@@ -131,7 +131,6 @@ class SitterUpcomingTable extends React.Component {
                             <TableCell>Owner</TableCell>
                             <TableCell>Start Date</TableCell>
                             <TableCell>End Date</TableCell>
-                            <TableCell>Cancel</TableCell>
                         </TableRow>
                     </TableHead>
                     {loaded &&
@@ -145,14 +144,6 @@ class SitterUpcomingTable extends React.Component {
                                     </TableCell>
                                     <TableCell>{n.startDate.toLocaleString()}</TableCell>
                                     <TableCell>{n.endDate.toLocaleString()}</TableCell>
-                                    <TableCell>
-                                        <Button
-                                            variant="contained"
-                                            color='secondary'
-                                            onClick={this.cancelBooking.bind(this, n.id)}>
-                                            Cancel
-                                        </Button>
-                                    </TableCell>
                                 </TableRow>
                             );
                         })}

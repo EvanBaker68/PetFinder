@@ -10,6 +10,14 @@ import DialogTitle from '@material-ui/core/DialogTitle';
 import axios from 'axios';
 import Cookies from 'universal-cookie';
 import {withStyles} from '@material-ui/core';
+import Input from '@material-ui/core/Input';
+import OutlinedInput from '@material-ui/core/OutlinedInput';
+import FilledInput from '@material-ui/core/FilledInput';
+import InputLabel from '@material-ui/core/InputLabel';
+import MenuItem from '@material-ui/core/MenuItem';
+import FormHelperText from '@material-ui/core/FormHelperText';
+import FormControl from '@material-ui/core/FormControl';
+import Select from '@material-ui/core/Select';
 import SitterCalender from './sitterCalender';
 
 function DateAndTimePickers(props) {
@@ -32,6 +40,10 @@ function DateAndTimePickers(props) {
 }
 
 const styles = theme => ({
+	root: {
+		display: 'flex',
+		flexWrap: 'wrap',
+	},
     container: {
         display: 'flex',
         flexWrap: 'wrap',
@@ -41,6 +53,13 @@ const styles = theme => ({
         marginRight: theme.spacing.unit,
         width: 400,
     },
+	formControl: {
+		margin: theme.spacing.unit,
+		minWidth: 120,
+	},
+	selectEmpty: {
+		marginTop: theme.spacing.unit * 2,
+	},
 });
 
 
@@ -53,10 +72,14 @@ class FormDialog extends React.Component {
             principal: props.principal,
             name: props.name,
             rate: '',
+			rating: 0,
             city: props.city,
             open: false,
             start: new Date(),
-            end: new Date()
+            end: new Date(),
+			id: 'null',
+			pets: [],
+			pet: ''
         };
 
         //load sitter information
@@ -65,26 +88,27 @@ class FormDialog extends React.Component {
 
 	componentDidMount() {
 
+    	const cookies = new Cookies();
+
 		axios.get('/api/user/' + this.props.principal, this.props.principal)
 			.then(res => {
 				this.setState({ city: res.city });
 				axios.get('/sitter/' + this.props.principal, this.props.principal).then(res => {
-				    this.setState({ rate: res.rate });
+				    this.setState({ rate: res.rate,
+									rating: res.rating });
                 }).then(response => console.log(response))
 					.catch(error => this.setState({error}));
 			}).then(response => console.log(response))
 			.catch(error => this.setState({error}));
 
-
-		//
-		// axios.get('/pet/pets/' + cookies.get('username'), cookies.get('username'))
-		// 	.then(res => {
-		// 		this.setState({
-		// 			pets: res
-		// 		});
-		// 		console.log(res);
-		// 	}).then(response => console.log(response))
-		// 	.catch(error => this.setState({error}));
+		axios.get('/pet/pets/' + cookies.get('username'), cookies.get('username'))
+			.then(res => {
+				this.setState({
+					pets: res
+				});
+				console.log(res);
+			}).then(response => console.log(response))
+			.catch(error => this.setState({error}));
 	}
 
 
@@ -97,7 +121,8 @@ class FormDialog extends React.Component {
             sitterPrincipal: this.state.principal,
             startDate: this.state.start,
             finishDate: this.state.end,
-            status: 'pending'
+            status: 'pending',
+			petId: this.state.id
         };
         console.log(this.state.name);
         console.log(this.state.start);
@@ -130,12 +155,27 @@ class FormDialog extends React.Component {
         this.setState({
             [name]: event.target.value,
         });
+        // console.log(event.target.value);
     };
 
     render() {
         //num should eventually be sitter details
         //const principal = this.state.principal;
         const { classes } = this.props;
+		const { pets } = this.state;
+
+		console.log('PETID: ', this.state.id);
+
+        var petItems;
+
+        if(pets){
+        	petItems = pets.map(pet => {
+				const {name, id} = pet;
+				return (
+					<MenuItem value={id}>{name}</MenuItem>
+				);
+			});
+		}
 
         return (
             <div>
@@ -147,7 +187,7 @@ class FormDialog extends React.Component {
                     fullWidth={true}
                 >
                     <DialogTitle id="form-dialog-title">{this.state.name}</DialogTitle>
-                    <Typography>Rating</Typography>
+                    <Typography>Rating: {this.state.rating} </Typography>
                     <Typography>Cost Per Hour: ${this.state.rate}</Typography>
                     <Typography variant="text">City : {this.state.city}</Typography>
                     <SitterCalender principal={this.state.principal}/>
@@ -179,13 +219,33 @@ class FormDialog extends React.Component {
                             }}
                         />
                     </form>
+					<form className={classes.root} autoComplete="off">
+						<FormControl className={classes.formControl}>
+							<InputLabel htmlFor="pet-simple">Pet to book for</InputLabel>
+							<Select
+								value={this.state.id}
+								onChange={this.handleChange('id')}
+								inputProps={{
+									name: 'pet',
+									id: 'pet-simple',
+								}}
+							>
+								<MenuItem value='null'>
+									<em>None</em>
+								</MenuItem>
+								{petItems}
+							</Select>
+						</FormControl>
+                    </form>
                     <DialogActions>
                         <Button onClick={this.handleClose} color="primary">
                             Cancel
                         </Button>
-                        <Button onClick={this.saveBooking}>
-                            Book
-                        </Button>
+						{this.state.id !== 'null' &&
+							<Button onClick={this.saveBooking}>
+								Book
+							</Button>
+						}
                     </DialogActions>
                 </Dialog>
             </div>

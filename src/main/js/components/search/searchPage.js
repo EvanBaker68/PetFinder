@@ -169,7 +169,7 @@ class SearchPage extends React.Component {
              sitterItems = sitters.map((sitter) =>
                  (sitter.principal !== cookies.get('username')) &&
                 <div key={sitter.principal}>
-                    <li>{sitter.firstName}</li>
+                    <li>{sitter.firstName} {sitter.lastName}</li>
                     <SitterView principal={sitter.principal} name={sitter.firstName+' '+sitter.lastName}
                         city={sitter.city}/>
                 </div>
