@@ -88,8 +88,6 @@ class FormDialog extends React.Component {
                 console.log(res);
             }).then(response => console.log(response))
             .catch(error => this.setState({error}));
-        this.handler();
-
 		//
 		// axios.get('/pet/pets/' + cookies.get('username'), cookies.get('username'))
 		// 	.then(res => {
@@ -115,6 +113,16 @@ class FormDialog extends React.Component {
         };
 
         let message = booking.ownerPrincipal + ' has requested a booking starting at ' + booking.startDate;
+
+        var notification = {
+            message: message,
+            sitterPrincipal: booking.sitterPrincipal
+        };
+
+        axios.post('/notification/add-notification/', notification)
+            .then(res => {
+                console.log(res);
+            });
 
         console.log(this.state.name);
         console.log(this.state.start);
@@ -168,26 +176,12 @@ class FormDialog extends React.Component {
                     <Typography>Cost Per Hour: ${this.state.rate}</Typography>
                     <Typography variant="text">City : {this.state.city}</Typography>
                     <SitterCalender principal={this.state.principal}/>
-                    <Select
-                        value={this.state.age}
-                        onChange={this.handleChange}
-                        inputProps={{
-                            name: 'age',
-                            id: 'age-simple',
-                        }}
-                    >
-                        <MenuItem value=""/>
-                        <MenuItem value={10}>Ten</MenuItem>
-                        <MenuItem value={20}>Twenty</MenuItem>
-                        <MenuItem value={30}>Thirty</MenuItem>
-                    </Select>
+                    <SitterCalender principal={this.state.principal}/>
                     <form className={classes.container} noValidate>
                         <TextField
                             id="datetime-local"
                             label="Start of appointment"
                             type="datetime-local"
-                            defaultValue={this.state.start}
-                            value={this.state.start}
                             onChange={this.handleChange('start')}
                             className={classes.textField}
                             InputLabelProps={{

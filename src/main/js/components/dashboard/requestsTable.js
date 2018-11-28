@@ -99,10 +99,18 @@ class RequestTable extends React.Component {
                 let message = booking.sitterPrincipal + ' has canceled the booking on ' + booking.startDate;
                 var notification = {
                     message: message,
-                    principal: booking.ownerPrincipal
+                    ownerPrincipal: booking.ownerPrincipal
                 };
-                //axois.post();
-			}).then(response => console.log(response))
+
+                axios.post('/notification/add-notification', notification)
+                    .then(res => {
+                        console.log(res);
+                    })
+                    .catch(error => {
+                        console.log(res);
+                    });
+
+            }).then(response => console.log(response))
 			.catch(error => this.setState({error}));
 	}
 
@@ -120,6 +128,19 @@ class RequestTable extends React.Component {
 					});
 
                 let message = booking.sitterPrincipal + ' has approved the booking starting at ' + booking.startDate;
+
+                var notification = {
+                    message: message,
+                    ownerPrincipal: booking.ownerPrincipal
+                };
+
+                axios.post('/notification/add-notification', notification)
+                    .then(res => {
+                        console.log(res);
+                    })
+                    .catch(error => {
+                        console.log(res);
+                    });
 			}).then(response => console.log(response))
 			.catch(error => this.setState({error}));
 	}

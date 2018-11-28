@@ -25,10 +25,22 @@ public class NotoficationDao {
         repository.save(notificationDto);
     }
 
-    public List<Optional<NotificationDto>> findByOwnerPrincipal(String ownerPrincipal){
+    public List<Optional<NotificationDto>> findByOwnerPrincipal(String ownerPrincipal) {
         SearchSourceBuilder searchSourceBuilder = new SearchSourceBuilder();
         String queryString = "";
-        queryString = String.format("booking.ownerPrincipal=\"%s\"", ownerPrincipal.replace("\"", ""));
+        queryString = String.format("notification.ownerPrincipal=\"%s\"", ownerPrincipal.replace("\"", ""));
+
+        searchSourceBuilder.query(QueryBuilders.queryStringQuery(queryString));
+
+
+        return repository.search(searchSourceBuilder).stream().map(Optional::ofNullable)
+                .collect(Collectors.toList());
+    }
+
+    public List<Optional<NotificationDto>> findBySitterPrincipal(String sitterPrincipal){
+        SearchSourceBuilder searchSourceBuilder = new SearchSourceBuilder();
+        String queryString = "";
+        queryString = String.format("notification.sitterPrincipal=\"%s\"", sitterPrincipal.replace("\"", ""));
 
         searchSourceBuilder.query(QueryBuilders.queryStringQuery(queryString));
 
@@ -36,14 +48,6 @@ public class NotoficationDao {
 
         return repository.search(searchSourceBuilder).stream().map(Optional::ofNullable)
                 .collect(Collectors.toList());
-    }
-
-    public List<Optional<NotificationDto>> findBySitterPrincipal(String sitterPrincipal){
-        SearchRequest searchRequest = new SearchRequest();
-        QueryBuilder queryBuilder = QueryBuilders.matchPhraseQuery("sitterPrincipal", sitterPrincipal);
-        SearchSourceBuilder searchSourceBuilder = new SearchSourceBuilder();
-        searchSourceBuilder.query(queryBuilder);
-        return repository.search(searchSourceBuilder).stream().map(Optional::ofNullable).collect(Collectors.toList());
     }
 
 }

@@ -21,7 +21,7 @@ public class NotificationEndpoint {
     }
 
 
-    @GetMapping(value = "/getbysitterprincipal/{sitterPrincipal:.+}", produces = "application/json", consumes = "application/json")
+    @GetMapping(value = "/getbysitterprincipal/{sitterPrincipal:.+}", produces = "application/json")
     @ResponseBody
     public List<NotificationDto> getBySitterPrincipal(@PathVariable("sitterPrincipal") String sitterPrincipal){
         return notificationService.findBySitterPrincipal(sitterPrincipal);

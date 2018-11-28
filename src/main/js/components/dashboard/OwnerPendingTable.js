@@ -99,12 +99,19 @@ class OwnerPendingTable extends React.Component {
                     .catch(error => {
                         console.log(error.response);
                     });
-                let message = booking.ownerPrincipal + ' has canceled the booking on ' + booking.startDate;
+                let message = (booking.ownerPrincipal + ' has canceled the booking on ' + booking.startDate);
                 var notification = {
                     message: message,
-                    principal: booking.sitterPrincipal
+                    sitterPrincipal: booking.sitterPrincipal
                 };
-                //axois.post();
+
+                axios.post('/notification/add-notification', notification)
+                    .then(res => {
+                        console.log(res);
+                    })
+                    .catch(error => {
+                        console.log(res);
+                    });
 
             }).then(response => console.log(response))
             .catch(error => this.setState({error}));
@@ -113,8 +120,6 @@ class OwnerPendingTable extends React.Component {
     render() {
         const {classes} = this.props;
         const loaded = this.state.loaded;
-
-        console.log('DATAAAAA: ', data);
 
         return (
             <Paper className={classes.root}>
