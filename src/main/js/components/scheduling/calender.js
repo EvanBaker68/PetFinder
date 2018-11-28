@@ -124,7 +124,7 @@ export default class Calender extends React.Component
                         });
                         selections.forEach(({start, end}) => {
                             const cookies = new Cookies();
-                            console.log('Start:', start, 'End:', end);
+                            console.log('Start:', start, 'End:', end, 'ID':, id)
                             const date = {
                                 startDate: start,
                                 endDate: end,
