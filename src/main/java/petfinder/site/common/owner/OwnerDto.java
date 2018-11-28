@@ -62,9 +62,9 @@ public class OwnerDto implements Momento<String> {
         if(numPets < 0){
             throw new IllegalArgumentException("setNumPets\t given a bad value");
         }
-        this.numPets = numPets; }
-
-        public void setPrincipal(String principal)throws IllegalArgumentException{
+        this.numPets = numPets;
+    }
+    public void setPrincipal(String principal)throws IllegalArgumentException{
         if(principal == null){
             throw new IllegalArgumentException("setPrincipal\t given a null");
         }
