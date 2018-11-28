@@ -37,7 +37,9 @@ public class DateDao {
     }
 
     public void saveDate(DateDto dateDto){
+        System.out.println("Heyyo");
         dateElasticsearchRepository.save(dateDto);
+        System.out.println("pass");
     }
 
 
