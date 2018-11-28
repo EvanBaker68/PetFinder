@@ -14,7 +14,7 @@ public class OwnerEndpoint {
 
     @GetMapping(value = "/{principal:.+}", produces = "application/json")
     @ResponseBody
-    public Optional<OwnerDto> getOwner(@PathVariable("principal") String principal) {
+    public OwnerDto getOwner(@PathVariable("principal") String principal) {
         return ownerService.findOwner(principal);
     }
 

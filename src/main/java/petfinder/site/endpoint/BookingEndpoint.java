@@ -24,9 +24,6 @@ public class BookingEndpoint {
     @ResponseBody
     public List<BookingDto> getBookingsBySitterPrincipal(@PathVariable("sitterPrincipal") String sitterPrincipal) {
         List<BookingDto> theList = bookingService.findBookingsBySitterPrincipal(sitterPrincipal);
-        for(Optional<BookingDto> b : theList){
-            System.out.println("SITTER: " + b.get().getSitterPrincipal());
-        }
         return theList;
     }
 

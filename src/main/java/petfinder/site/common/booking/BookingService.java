@@ -17,36 +17,45 @@ public class BookingService {
     BookingDao bookingDao;
 
     public BookingDto findBooking(Long id) {
-        return bookingDao.findBooking(id);
+        Optional<BookingDto> bookingDto = bookingDao.findBooking(id);
+        if(bookingDto.isPresent()){
+            return bookingDto.get();
+        }
+        //return bookingDao.findBooking(id);
+        return null;
     }
 
     public List<BookingDto> findBookingsBySitterPrincipal(String sitterPrincipal) {
         List<Optional<BookingDto>> theList =  bookingDao.findBookingBySitterPrincipal(sitterPrincipal);
         //List<BookingDto> newList = theList.stream().filter(Optional::isPresent).collect(Collectors.toList());
-        List<Optional<BookingDto>> newList = new ArrayList<>();
+        /*List<Optional<BookingDto>> newList = new ArrayList<>();
         for(Optional<BookingDto> booking : theList){
             if(!booking.get().getDeleted()){
                 System.out.println(booking.get().getSitterPrincipal());
                 newList.add(booking);
             }
-        }
+        }*/
+
+        List<BookingDto> newList = theList.stream().filter(Optional::isPresent).map(Optional::get).collect(Collectors.toList());
 
         return newList;
     }
 
-    public List<Optional<BookingDto>> findBookingsByOwnerPrincipal(String ownerPrincipal) {
+    public List<BookingDto> findBookingsByOwnerPrincipal(String ownerPrincipal) {
         List<Optional<BookingDto>> theList =  bookingDao.findBookingByOwnerPrincipal(ownerPrincipal);
-        List<Optional<BookingDto>> newList = new ArrayList<>();
+        /*List<Optional<BookingDto>> newList = new ArrayList<>();
         for(Optional<BookingDto> booking : theList){
             if(!booking.get().getDeleted()){
                 newList.add(booking);
             }
         }
 
-        return newList;
+        return newList;*/
+        return theList.stream().filter(Optional::isPresent).map(Optional::get).collect(Collectors.toList());
     }
 
     public void save(BookingDto bookingDto) {
+        //SEEING IF EVERYTHING IS GOOD
         bookingDao.save(bookingDto);
     }
 }
