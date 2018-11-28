@@ -26,4 +26,8 @@ public class NotificationService {
     public List<NotificationDto> findByOwnerPrincipal(String sitterPrincipal){
         return notoficationDao.findByOwnerPrincipal(sitterPrincipal).stream().filter(Optional::isPresent).map(Optional::get).collect(Collectors.toList());
     }
+
+    public void saveNotification(NotificationDto notificationDto){
+        notoficationDao.save(notificationDto);
+    }
 }
