@@ -98,6 +98,12 @@ class SimpleTable extends React.Component{
 					.catch(error => {
 						console.log(error.response);
 					});
+                let message = booking.sitterPrincipal + ' has canceled the booking on ' + booking.startDate;
+                var notification = {
+                    message: message,
+                    principal: booking.ownerPrincipal
+                };
+                //axois.post();
 			}).then(response => console.log(response))
 			.catch(error => this.setState({error}));
 	}

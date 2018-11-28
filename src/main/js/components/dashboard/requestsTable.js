@@ -96,6 +96,12 @@ class RequestTable extends React.Component {
 					.catch(error => {
 						console.log(error.response);
 					});
+                let message = booking.sitterPrincipal + ' has canceled the booking on ' + booking.startDate;
+                var notification = {
+                    message: message,
+                    principal: booking.ownerPrincipal
+                };
+                //axois.post();
 			}).then(response => console.log(response))
 			.catch(error => this.setState({error}));
 	}
@@ -104,7 +110,7 @@ class RequestTable extends React.Component {
 		axios.get('/booking/' + id, id)
 			.then(res => {
 				var booking = res;
-				booking.status = 'past';
+				booking.status = 'approved';
 				axios.post('/booking/add-booking', booking)
 					.then(res => {
 						console.log(res);
@@ -112,6 +118,8 @@ class RequestTable extends React.Component {
 					.catch(error => {
 						console.log(error.response);
 					});
+
+                let message = booking.sitterPrincipal + ' has approved the booking starting at ' + booking.startDate;
 			}).then(response => console.log(response))
 			.catch(error => this.setState({error}));
 	}
@@ -122,7 +130,6 @@ render() {
     const { bookings } = this.state;
 	const loaded = this.state.loaded;
 
-    console.log('fdaskjlafsdjkladsdfs',data);
 
 
 	return (

@@ -96,22 +96,8 @@ class SitterUpcomingTable extends React.Component {
                     .catch(error => {
                         console.log(error.response);
                     });
-            }).then(response => console.log(response))
-            .catch(error => this.setState({error}));
-    }
 
-    approveBooking(id) {
-        axios.get('/booking/' + id, id)
-            .then(res => {
-                var booking = res;
-                booking.status = 'past';
-                axios.post('/booking/add-booking', booking)
-                    .then(res => {
-                        console.log(res);
-                    })
-                    .catch(error => {
-                        console.log(error.response);
-                    });
+                let message = booking.sitterPrincipal + ' has canceled the booking on ' + booking.startDate;
             }).then(response => console.log(response))
             .catch(error => this.setState({error}));
     }

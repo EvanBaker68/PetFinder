@@ -113,6 +113,9 @@ class FormDialog extends React.Component {
             finishDate: this.state.end,
             status: 'pending'
         };
+
+        let message = booking.ownerPrincipal + ' has requested a booking starting at ' + booking.startDate;
+
         console.log(this.state.name);
         console.log(this.state.start);
         console.log(this.state.end);
