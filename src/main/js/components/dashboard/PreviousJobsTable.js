@@ -133,7 +133,6 @@ class SimpleTable extends React.Component{
                             <TableCell>Start Date</TableCell>
 							<TableCell>End Date</TableCell>
 							<TableCell>Rate Owner</TableCell>
-							<TableCell>Review Owner</TableCell>
 						</TableRow>
 					</TableHead>
 					<TableBody>
@@ -147,9 +146,6 @@ class SimpleTable extends React.Component{
 									<TableCell>{n.endDate.toLocaleString()}</TableCell>
 									<TableCell>
 										<RateOwner name={n.name} principal={n.principal} id={n.id}/>
-									</TableCell>
-									<TableCell>
-                                        <Comment name={n.name}/>
 									</TableCell>
 								</TableRow>
 							);

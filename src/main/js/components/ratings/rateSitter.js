@@ -117,6 +117,7 @@ class FormDialog extends React.Component {
                     <div>
                         <Rating
                             onChange={(value) => {this.setState({value: value});}}
+                            initialRating={this.state.value}
                             // value={5}
                         />
                         <Button onClick={this.handleClose} >Done</Button>

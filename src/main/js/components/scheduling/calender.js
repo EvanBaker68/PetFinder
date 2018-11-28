@@ -128,7 +128,8 @@ export default class Calender extends React.Component
                             const date = {
                                 startDate: start,
                                 endDate: end,
-                                sitterPrincipal: cookies.get('username')
+                                sitterPrincipal: cookies.get('username'),
+                                id: cookies.get('id')
                             };
 
                         });
