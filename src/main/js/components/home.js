@@ -48,11 +48,13 @@ export default class HomePage extends React.Component{
 							Why Pet.ty?
 						</Typography>
 					</Grid>
-					<Typography variant="body1" align="center" >
-						Pet.ty is a pet matching service designed to match pet
-						owners and pet sitter together. Unlike other services we
-						consider location, time and experience when matching.
-					</Typography>
+					<Grid>
+						<Typography variant="body1" align="center" >
+							Pet.ty is a pet matching service designed to match pet
+							owners and pet sitter together. Unlike other services we
+							consider location, time and experience when matching.
+						</Typography>
+					</Grid>
 				</Paper>
 				<Paper style={styles.paperContainer2}/>
 				<Paper style={styles.aboutContainer2}/>
