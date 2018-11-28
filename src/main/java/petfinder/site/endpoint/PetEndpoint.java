@@ -1,12 +1,12 @@
 package petfinder.site.endpoint;
 
-import java.util.List;
-import java.util.Optional;
+import java.util.*;
 
 import java.util.logging.Logger;
 import org.slf4j.LoggerFactory;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.web.bind.annotation.*;
 
 import petfinder.site.common.pet.PetDto;
@@ -17,7 +17,7 @@ import petfinder.site.common.pet.PetService;
  */
 @RestController
 
-@RequestMapping("/pet")
+@RequestMapping("/api/pet")
 public class PetEndpoint {
 
 	@Autowired
@@ -31,10 +31,10 @@ public class PetEndpoint {
 
 	@GetMapping(value = "/pets/{ownerPrincipal:.+}", produces = "application/json")
 	@ResponseBody
+
 	public List<PetDto> getPets(@PathVariable("ownerPrincipal") String ownerPrincipal) {
 		return petService.findPetByPrincipal(ownerPrincipal);
 	}
-
 
 	@PostMapping(value = "/add-pet", consumes = "application/json", produces = "application/json")
 	@ResponseBody

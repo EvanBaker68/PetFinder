@@ -14,7 +14,7 @@ import Badge from '@material-ui/core/Badge';
 import MenuIcon from '@material-ui/icons/Menu';
 import ChevronLeftIcon from '@material-ui/icons/ChevronLeft';
 import NotificationsIcon from '@material-ui/icons/Notifications';
-import { mainListItems, secondaryListItems } from 'js/components/dashboard/listItems';
+import MainListItems from 'js/components/dashboard/listItems';
 import PetCard from 'js/components/pets/petCard';
 import AddPet from 'js/components/pets/addPetForm';
 import CardActionArea from '@material-ui/core/CardActionArea/CardActionArea';
@@ -221,7 +221,7 @@ class PetPage extends React.Component {
                             </IconButton>
                         </div>
                         <Divider />
-                        <List>{mainListItems}</List>
+                        <MainListItems/>
                     </Drawer>
                     <main className={classes.content}>
                         {/*<Card className={classes.card}>*/}

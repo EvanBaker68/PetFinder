@@ -79,11 +79,8 @@ Actions.authenticate = (username, password) => {
 			    cookies.set('auth', authentication);
 			    cookies.set('authRefresh', authentication);
 			    cookies.set('loggedIn', 'true');
-				console.log('made it in');
+				//console.log('made it in');
 			    // callFunc();
-                //console.log(cookies.get('loggedIn'));
-                //console.log(username);
-                //console.log(authentication);
 				dispatch(Actions.setAuthentication(authentication));
 
 				return getUserDetails().then(user => {
@@ -95,6 +92,29 @@ Actions.authenticate = (username, password) => {
 	};
 };
 
+Actions.shortHandAuthenticate = (username, password) => {
+	return (dispatch) => {
+		return authenticate(username, password).then(
+			authentication => {
+                console.log('in authenticate now');
+
+				const cookies = new Cookies();
+				cookies.set('username', username);
+				cookies.set('password', password);
+				cookies.set('auth', authentication);
+				cookies.set('loggedIn', 'true');
+				console.log('loggedIn should be true now (inside authenticate)');
+				// callFunc();
+				//console.log(cookies.get('loggedIn'));
+				//console.log(username);
+				//console.log(authentication);
+				dispatch(Actions.setAuthentication(authentication));
+
+			}
+		)
+			.catch( function(e) { console.log('catching error authenticating'); });
+	};
+};
 
 Actions.refreshUser = () => { return (dispatch) => {
 	return getUserDetails().then(user => {
@@ -112,6 +132,10 @@ Actions.logout = () => {
 		cookies.set('password', '');
 		cookies.set('auth', '');
 		cookies.set('authRefresh', '');
+		cookies.set('username', '');
+		cookies.set('password', '');
+		cookies.set('ownerButton', '');
+		cookies.set('sitterButton', '');
 
 		dispatch(Actions.setAuthentication(null));
 		dispatch(Actions.setUser(null));

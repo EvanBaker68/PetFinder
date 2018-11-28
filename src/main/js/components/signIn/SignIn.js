@@ -50,7 +50,6 @@ const styles = theme => ({
 });
 
 const cookies = new Cookies();
-var returnValue = '';
 
 class SignInForm extends React.Component{
 
@@ -64,15 +63,11 @@ class SignInForm extends React.Component{
 	}
 
 
-
 	setowner = () => {
 		axios.get('/api/user')
 			.then(res => {
-				console.log('AAAAAAAA', res.sitter);
 				cookies.set('owner', res.owner);
 				cookies.set('sitter', res.sitter);
-				console.log('sitter button: ' + cookies.get('sitterButton'));
-				console.log('owner button: ' + cookies.get('ownerButton'));
 				console.log('OWNER: ', res.owner);
 
 				if(cookies.get('loggedIn') === 'true'){
@@ -81,17 +76,20 @@ class SignInForm extends React.Component{
 						this.setState({
 							redirectOwner: true
 						});
-						return <div><Redirect to='/ownerDash'/></div>;
-
 					}
 					else{
 						this.setState({owner: false});
-						console.log('owner is not true');
+                        cookies.set('loggedIn', 'false');
+                        cookies.set('sitter', '');
+                        cookies.set('owner', '');
+                        cookies.set('password', '');
+                        cookies.set('auth', '');
+                        cookies.set('authRefresh', '');
+                        cookies.set('username', '');
+                        cookies.set('password', '');
 						alert('This account is not registered as an owner.');
 					}
 				}
-				//this.setState({extraState: true});
-
 			}).then(response => console.log(response))
 			.catch(error => this.setState({error}));
 
@@ -107,11 +105,8 @@ class SignInForm extends React.Component{
 		// });
 		axios.get('/api/user')
 			.then(res => {
-				console.log('AAAAAAAA', res.sitter);
 				cookies.set('owner', res.owner);
 				cookies.set('sitter', res.sitter);
-				console.log('sitter button: ' + cookies.get('sitterButton'));
-				console.log('owner button: ' + cookies.get('ownerButton'));
 				console.log('SITTER: ', res.sitter);
 
 				if(cookies.get('loggedIn') === 'true'){
@@ -120,10 +115,9 @@ class SignInForm extends React.Component{
 						this.setState({
 							redirectSitter: true
 						});
-						return <div><Redirect to='/ownerDash'/></div>;
-
 					}
 					else{
+
 						this.setState({sitter: false});
 						console.log('owner is not true');
 						alert('This account is not registered as a sitter.');
@@ -146,6 +140,7 @@ class SignInForm extends React.Component{
 	setOwnerState = () => {
 		this.setState({owner: true});
 	}
+
 
 	// setRedirect = () => {
 	//     if(cookies.get('sitterButton') === 'true'){
