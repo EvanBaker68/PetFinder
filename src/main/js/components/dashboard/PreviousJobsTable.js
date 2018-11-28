@@ -58,7 +58,7 @@ class SimpleTable extends React.Component{
 					console.log('endDate: ', endDate);
 
 					if(booking.sitterPrincipal === cookies.get('username')
-						&& booking.status === 'past')
+						&& booking.status === 'approved' && (endDate < new Date()))
 						axios.get('/api/user/' + ownerPrincipal, ownerPrincipal)
 							.then(res => {
 								console.log('name: ', res.firstName);
@@ -122,7 +122,7 @@ class SimpleTable extends React.Component{
 
 
 		const {classes} = this.props;
-
+		console.log('Data: ', data);
 
 		return (
 			<Paper className={classes.root}>
@@ -133,7 +133,6 @@ class SimpleTable extends React.Component{
                             <TableCell>Start Date</TableCell>
 							<TableCell>End Date</TableCell>
 							<TableCell>Rate Owner</TableCell>
-							<TableCell>Review Owner</TableCell>
 						</TableRow>
 					</TableHead>
 					<TableBody>
@@ -147,9 +146,6 @@ class SimpleTable extends React.Component{
 									<TableCell>{n.endDate.toLocaleString()}</TableCell>
 									<TableCell>
 										<RateOwner name={n.name} principal={n.principal} id={n.id}/>
-									</TableCell>
-									<TableCell>
-                                        <Comment name={n.name}/>
 									</TableCell>
 								</TableRow>
 							);

@@ -104,7 +104,7 @@ class RequestTable extends React.Component {
 		axios.get('/booking/' + id, id)
 			.then(res => {
 				var booking = res;
-				booking.status = 'past';
+				booking.status = 'approved';
 				axios.post('/booking/add-booking', booking)
 					.then(res => {
 						console.log(res);
