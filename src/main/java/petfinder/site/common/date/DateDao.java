@@ -1,14 +1,14 @@
 package petfinder.site.common.date;
 
-import org.elasticsearch.client.ElasticsearchClient;
 import org.elasticsearch.index.query.QueryBuilders;
-import org.elasticsearch.index.reindex.DeleteByQueryAction;
+
 import org.elasticsearch.search.builder.SearchSourceBuilder;
 import petfinder.site.elasticsearch.DateElasticSearchRepository;
 import alloy.elasticsearch.ElasticSearchClientProvider;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
+import java.net.InetAddress;
 import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
@@ -39,13 +39,10 @@ public class DateDao {
     }
 
     public void saveDate(DateDto dateDto){
-        System.out.println("Heyyo");
-
         List<Optional<DateDto>> list = findDateBySitter(dateDto.getSitterPrincipal());
         for (Optional<DateDto> date : list) {
             dateElasticsearchRepository.delete(date.get().getId());
         }
-
         dateElasticsearchRepository.save(dateDto);
         System.out.println("pass");
     }

@@ -1,4 +1,4 @@
-package petfinder.site.test.functional;
+package petfinder.site.test.functional.userTest;
 
 import petfinder.site.common.user.UserAuthenticationDto;
 import petfinder.site.common.user.UserDto;

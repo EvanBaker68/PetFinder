@@ -1,6 +1,5 @@
-package petfinder.site.test.functional;
+package petfinder.site.test.functional.userTest;
 
-import org.springframework.security.core.userdetails.User;
 import petfinder.site.common.user.UserDto;
 
 public class MockUserEndpoint {
