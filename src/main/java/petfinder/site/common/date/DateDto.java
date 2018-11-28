@@ -26,13 +26,25 @@ public class DateDto implements Identifiable {
         this.startDate = startDate;
         this.endDate = endDate;
         this.sitterPrincipal = sitterPrincipal;
+        Random randomno = new Random();
+        Long randomId = randomno.nextLong();
+        this.id = randomId;
     }
 
-    public DateDto() {
+    /*public DateDto() {
         Random randomno = new Random();
 
         Long randomId = randomno.nextLong();
         this.id = randomId;
+    }*/
+
+    public DateDto(Long id, Date startDate, Date endDate, String sitterPrincipal)throws IllegalArgumentException
+
+    {
+        this.startDate = startDate;
+        this.endDate = endDate;
+        this.sitterPrincipal = sitterPrincipal;
+        this.id = id;
     }
 
 

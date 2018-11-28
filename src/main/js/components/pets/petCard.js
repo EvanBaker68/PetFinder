@@ -41,7 +41,7 @@ class PetCard extends React.Component{
 			.then(res => {
 				console.log(res);
 				console.log(res.data);
-			})
+			}).then(() => {this.props.handler();})
 			.catch(error => {
 				console.log(error.response);
 			});
@@ -72,7 +72,7 @@ class PetCard extends React.Component{
 				</CardActionArea>
 				<CardActions>
 					<EditPet id={this.props.id}/>
-					<Button onClick={this.handleDelete} color="secondary">
+					<Button onClick={this.handleDelete} padding="10" color="secondary" variant="contained">
 						Delete
 					</Button>
 				</CardActions>
