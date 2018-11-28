@@ -174,8 +174,6 @@ class RegisterForm extends React.Component{
 
 	onSubmit = (user) => {
 
-        //return this.props.register(user);
-
             this.props.authenticate(user.principal, user.password).then( res => {
                 console.log('in then clause');
 
@@ -200,7 +198,19 @@ class RegisterForm extends React.Component{
                                 }
                                 else {
                                     this.setState({redirectOwner: true});
-                                    return this.props.register(user);
+                                    const newUser = {
+                                        principal: res.principal,
+                                        password: user.password,
+                                        firstName: res.firstName,
+                                        lastName: res.lastName,
+                                        phoneNumber: res.phoneNumber,
+                                        city: res.city,
+                                        address: res.address,
+                                        sitter: cookies.get('sitter'),
+                                        owner: cookies.get('owner')
+                                    };
+                                    console.log('New user', newUser);
+                                    return this.props.register(newUser);
                                 }
                             }
                             else if (cookies.get('sitterButton') === 'true') {
@@ -218,7 +228,19 @@ class RegisterForm extends React.Component{
                                 }
                                 else {
                                     this.setState({redirectSitter: true});
-                                    return this.props.register(user);
+                                    const newUser = {
+                                        principal: res.principal,
+                                        password: user.password,
+                                        firstName: res.firstName,
+                                        lastName: res.lastName,
+                                        phoneNumber: res.phoneNumber,
+                                        city: res.city,
+                                        address: res.address,
+                                        sitter: cookies.get('sitter'),
+                                        owner: cookies.get('owner')
+                                    };
+                                    console.log('New user', newUser);
+                                    return this.props.register(newUser);
                                 }
                             }
                         });

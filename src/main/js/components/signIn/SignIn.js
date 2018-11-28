@@ -58,8 +58,6 @@ class SignInForm extends React.Component{
 		sitter: false,
 		redirectOwner: false,
 		redirectSitter: false,
-		extraState: false
-		// callFunc: this.setRedirect
 	}
 
 
@@ -100,9 +98,6 @@ class SignInForm extends React.Component{
 
 
 	setsitter = () => {
-		// this.setState({
-		//     hasLoggedIn: true
-		// });
 		axios.get('/api/user')
 			.then(res => {
 				cookies.set('owner', res.owner);
@@ -123,11 +118,9 @@ class SignInForm extends React.Component{
 						alert('This account is not registered as a sitter.');
 					}
 				}
-				//this.setState({extraState: true});
 
 			}).then(response => console.log(response))
 			.catch(error => this.setState({error}));
-
 
 		cookies.set('ownerButton', 'false');
 		cookies.set('sitterButton', 'true');

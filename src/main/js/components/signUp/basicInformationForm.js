@@ -61,6 +61,24 @@ class OutlinedTextFields extends React.Component {
 		return this.props.register(user);
 	}
 
+    componentDidMount() {
+        const cookies = new Cookies();
+
+        // this.setAuthentication(username, password);
+        axios.get('/api/user')
+            .then(res => {
+                this.setState({
+                    firstName: res.firstName,
+                    lastName: res.lastName,
+                    address: res.address,
+                    phoneNumber: res.phoneNumber,
+                    city: res.city
+                });
+                console.log('After the axios.get', res);
+            }).then(response => console.log(response))
+            .catch(error => this.setState({error}));
+    }
+
 
 	render() {
         const { classes } = this.props;
@@ -71,7 +89,7 @@ class OutlinedTextFields extends React.Component {
                     id="outlined-name"
                     label="First Name"
                     className={classes.textField}
-                    value={this.state.name}
+                    value={this.state.firstName}
                     onChange={this.handleChange('firstName')}
                     margin="normal"
                     variant="standard"
@@ -80,7 +98,7 @@ class OutlinedTextFields extends React.Component {
                     id="outlined-name"
                     label="Last Name"
                     className={classes.textField}
-                    value={this.state.name}
+                    value={this.state.lastName}
                     onChange={this.handleChange('lastName')}
                     margin="normal"
                     variant="standard"
@@ -89,7 +107,7 @@ class OutlinedTextFields extends React.Component {
                     id="outlined-name"
                     label="Street Address"
                     className={classes.textField}
-                    value={this.state.name}
+                    value={this.state.address}
                     onChange={this.handleChange('address')}
                     margin="normal"
                     variant="standard"
@@ -98,7 +116,7 @@ class OutlinedTextFields extends React.Component {
                     id="outlined-name"
                     label="City"
                     className={classes.city}
-                    value={this.state.name}
+                    value={this.state.city}
                     onChange={this.handleChange('city')}
                     margin="normal"
                     variant="standard"
@@ -107,7 +125,7 @@ class OutlinedTextFields extends React.Component {
                     id="outlined-name"
                     label="Phone Number"
                     className={classes.textField}
-                    value={this.state.name}
+                    value={this.state.phoneNumber}
                     onChange={this.handleChange('phoneNumber')}
                     margin="normal"
                     variant="standard"
