@@ -10,6 +10,14 @@ import DialogTitle from '@material-ui/core/DialogTitle';
 import axios from 'axios';
 import Cookies from 'universal-cookie';
 import {withStyles} from '@material-ui/core';
+import Input from '@material-ui/core/Input';
+import OutlinedInput from '@material-ui/core/OutlinedInput';
+import FilledInput from '@material-ui/core/FilledInput';
+import InputLabel from '@material-ui/core/InputLabel';
+import MenuItem from '@material-ui/core/MenuItem';
+import FormHelperText from '@material-ui/core/FormHelperText';
+import FormControl from '@material-ui/core/FormControl';
+import Select from '@material-ui/core/Select';
 import SitterCalender from './sitterCalender';
 
 function DateAndTimePickers(props) {
@@ -32,6 +40,10 @@ function DateAndTimePickers(props) {
 }
 
 const styles = theme => ({
+	root: {
+		display: 'flex',
+		flexWrap: 'wrap',
+	},
     container: {
         display: 'flex',
         flexWrap: 'wrap',
@@ -41,6 +53,13 @@ const styles = theme => ({
         marginRight: theme.spacing.unit,
         width: 400,
     },
+	formControl: {
+		margin: theme.spacing.unit,
+		minWidth: 120,
+	},
+	selectEmpty: {
+		marginTop: theme.spacing.unit * 2,
+	},
 });
 
 
@@ -56,7 +75,10 @@ class FormDialog extends React.Component {
             city: props.city,
             open: false,
             start: new Date(),
-            end: new Date()
+            end: new Date(),
+			id: 'null',
+			pets: [],
+			pet: ''
         };
 
         //load sitter information
@@ -64,6 +86,8 @@ class FormDialog extends React.Component {
 
 
 	componentDidMount() {
+
+    	const cookies = new Cookies();
 
 		axios.get('/api/user/' + this.props.principal, this.props.principal)
 			.then(res => {
@@ -76,15 +100,14 @@ class FormDialog extends React.Component {
 			.catch(error => this.setState({error}));
 
 
-		//
-		// axios.get('/pet/pets/' + cookies.get('username'), cookies.get('username'))
-		// 	.then(res => {
-		// 		this.setState({
-		// 			pets: res
-		// 		});
-		// 		console.log(res);
-		// 	}).then(response => console.log(response))
-		// 	.catch(error => this.setState({error}));
+		axios.get('/pet/pets/' + cookies.get('username'), cookies.get('username'))
+			.then(res => {
+				this.setState({
+					pets: res
+				});
+				console.log(res);
+			}).then(response => console.log(response))
+			.catch(error => this.setState({error}));
 	}
 
 
@@ -130,12 +153,27 @@ class FormDialog extends React.Component {
         this.setState({
             [name]: event.target.value,
         });
+        // console.log(event.target.value);
     };
 
     render() {
         //num should eventually be sitter details
         //const principal = this.state.principal;
         const { classes } = this.props;
+		const { pets } = this.state;
+
+		console.log('PETID: ', this.state.id);
+
+        var petItems;
+
+        if(pets){
+        	petItems = pets.map(pet => {
+				const {name, id} = pet;
+				return (
+					<MenuItem value={id}>{name}</MenuItem>
+				);
+			});
+		}
 
         return (
             <div>
@@ -179,13 +217,33 @@ class FormDialog extends React.Component {
                             }}
                         />
                     </form>
+					<form className={classes.root} autoComplete="off">
+						<FormControl className={classes.formControl}>
+							<InputLabel htmlFor="pet-simple">Pet to book for</InputLabel>
+							<Select
+								value={this.state.pet}
+								onChange={this.handleChange('id')}
+								inputProps={{
+									name: 'pet',
+									id: 'pet-simple',
+								}}
+							>
+								<MenuItem value='null'>
+									<em>None</em>
+								</MenuItem>
+								{petItems}
+							</Select>
+						</FormControl>
+                    </form>
                     <DialogActions>
                         <Button onClick={this.handleClose} color="primary">
                             Cancel
                         </Button>
-                        <Button onClick={this.saveBooking}>
-                            Book
-                        </Button>
+						{this.state.id !== 'null' &&
+							<Button onClick={this.saveBooking}>
+								Book
+							</Button>
+						}
                     </DialogActions>
                 </Dialog>
             </div>

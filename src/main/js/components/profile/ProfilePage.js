@@ -23,6 +23,7 @@ import Paper from '@material-ui/core/Paper';
 import Image from 'js/images/homeDog.jpg';
 import OwnerProfileForm from 'js/components/profile/ownerProfileForm';
 import MenuBar from 'js/components/dashboard/MenuBar';
+import axios from 'axios/index';
 
 const drawerWidth = 240;
 
@@ -103,6 +104,8 @@ const styles = theme => ({
 class Profile extends React.Component {
     state = {
         open: true,
+        firstName: '',
+        lastName: ''
     };
 
     handleDrawerOpen = () => {
@@ -113,8 +116,21 @@ class Profile extends React.Component {
         this.setState({ open: false });
     };
 
+	componentDidMount = () => {
+		axios.get('/api/user')
+			.then(res => {
+				this.setState({
+					firstName: res.firstName,
+					lastName: res.lastName,
+				});
+			}).then(response => console.log(response))
+			.catch(error => this.setState({error}));
+	}
+
     render() {
         const { classes } = this.props;
+		const { firstName, lastName } = this.state;
+		const name = firstName + ' ' + lastName;
 
         return (
             <React.Fragment>
@@ -142,7 +158,7 @@ class Profile extends React.Component {
                             variant="display1"
                             gutterBottom
                             align='center'>
-                            Bobby
+                            {name}
                         </Typography>
                         <ProfileForm/>
                         <OwnerProfileForm/>

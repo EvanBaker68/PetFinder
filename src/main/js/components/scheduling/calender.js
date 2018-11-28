@@ -50,20 +50,7 @@ export default class Calender extends React.Component
 					console.log(error.response);
 				});
 		});
-		// this.state.dates.forEach((date) => {
-		// 	date.deleted = true;
-		// 	// console.log(date);
-		//
-		// 	console.log('deleting old dates');
-		// 	axios.post('/sitter/add-date', date)
-		// 		.then(res => {
-		// 			console.log(res);
-		// 			console.log(res.data);
-		// 		})
-		// 		.catch(error => {
-		// 			console.log(error.response);
-		// 		});
-		// });
+
     }
 
     render()
