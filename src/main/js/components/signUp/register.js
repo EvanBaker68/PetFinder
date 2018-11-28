@@ -86,69 +86,6 @@ class RegisterForm extends React.Component{
         this.setState({redirect: false, redirectSitter: false});
     }
 
-    setowner = () => {
-        axios.get('/api/user')
-            .then(res => {
-                cookies.set('owner', res.owner);
-                cookies.set('sitter', res.sitter);
-                console.log('OWNER: ', res.owner);
-
-                if(cookies.get('loggedIn') === 'true'){
-                    if(cookies.get('owner') === 'true'){
-                        console.log('Owner account exists');
-                        this.setState({ownerAccountExists: true});
-                        alert('Cannot register as owner: account already exists.');
-                    }
-                    else{
-                        console.log('Owner account does not exist');
-                        this.setState({owner: false});
-                    }
-                    /*cookies.set('loggedIn', 'false');
-                    cookies.set('sitter', '');
-                    cookies.set('owner', '');
-                    cookies.set('password', '');
-                    cookies.set('auth', '');
-                    cookies.set('authRefresh', '');
-                    cookies.set('username', '');
-                    cookies.set('password', '');*/
-                }
-            }).then(response => console.log(response))
-            .catch(error => this.setState({error}));
-    }
-
-
-    setsitter = () => {
-        axios.get('/api/user')
-            .then(res => {
-                console.log(res);
-                cookies.set('owner', res.owner);
-                cookies.set('sitter', res.sitter);
-                console.log('SITTER: ', res.sitter);
-
-                if(cookies.get('loggedIn') === 'true'){
-                    if(cookies.get('sitter') === 'true'){
-                        console.log('Sitter account exists');
-                        this.setState({sitterAccountExists: true});
-                        alert('Cannot register as sitter: account already exists.');
-                    }
-                    else{
-                        console.log('Sitter account does not exist');
-                        this.setState({sitter: false});
-                    }
-                    cookies.set('loggedIn', 'false');
-                    cookies.set('sitter', '');
-                    cookies.set('owner', '');
-                    cookies.set('password', '');
-                    cookies.set('auth', '');
-                    cookies.set('authRefresh', '');
-                    cookies.set('username', '');
-                    cookies.set('password', '');
-                }
-
-            }).then(response => console.log(response))
-            .catch(error => this.setState({error}));
-    }
-
     setSitterState = () => {
         //this.setState({sitter: true});
         cookies.set('sitterButton', 'true');
@@ -175,7 +112,6 @@ class RegisterForm extends React.Component{
 	onSubmit = (user) => {
 
             this.props.authenticate(user.principal, user.password).then( res => {
-                console.log('in then clause');
 
                 if (cookies.get('loggedIn') === 'true') {
                     axios.get('/api/user')
@@ -209,7 +145,6 @@ class RegisterForm extends React.Component{
                                         sitter: cookies.get('sitter'),
                                         owner: cookies.get('owner')
                                     };
-                                    console.log('New user', newUser);
                                     return this.props.register(newUser);
                                 }
                             }
@@ -239,7 +174,6 @@ class RegisterForm extends React.Component{
                                         sitter: cookies.get('sitter'),
                                         owner: cookies.get('owner')
                                     };
-                                    console.log('New user', newUser);
                                     return this.props.register(newUser);
                                 }
                             }
@@ -345,9 +279,6 @@ RegisterForm = connect(
 
     }),
     dispatch => ({
-		//TODO: In complete registration, set a field in user specifying if it is an owner,
-		//sitter, or both. Then, if you try to log in as something you're not, you will
-		//be refused access.
         register: (user) => dispatch(Users.Actions.register(user)),
 
         authenticate: (principal, password) => dispatch(Users.Actions.authenticate(principal, password))

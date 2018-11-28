@@ -2,17 +2,11 @@ import axios from 'axios';
 import Cookies from 'universal-cookie';
 export function register(user) {
     var temp = axios.post('/api/user/register', user);
-    //const cookies = new Cookies();
-    //cookies.set('loggedIn', 'false', { path: '/' });
-    //console.log(cookies.get('loggedIn'));
-
 
     return temp;
-	//return axios.post('/api/user/register', user);
 }
 
 export function authenticate(username, password) {
-	console.log('WHYYYY');
 	return axios(
 		{
 			method: 'post',
@@ -54,8 +48,6 @@ Actions.Types = {
 };
 
 Actions.register = (user) => {
-	console.log(user.principal);
-	console.log('in register');
 	return (dispatch) => {
 		return register(user).then(() => {
 			return dispatch(Actions.authenticate(user.principal, user.password));
@@ -64,12 +56,9 @@ Actions.register = (user) => {
 };
 
 Actions.authenticate = (username, password) => {
-	console.log('username: ', username);
-	console.log('password: ', password);
 	cookies.set('auth', '');
 	cookies.set('loggedIn', 'false');
 	return (dispatch) => {
-		console.log('heyyyy', username, password);
 		return authenticate(username, password).then(
 			authentication => {
 
@@ -79,8 +68,6 @@ Actions.authenticate = (username, password) => {
 			    cookies.set('auth', authentication);
 			    cookies.set('authRefresh', authentication);
 			    cookies.set('loggedIn', 'true');
-				//console.log('made it in');
-			    // callFunc();
 				dispatch(Actions.setAuthentication(authentication));
 
 				return getUserDetails().then(user => {
@@ -96,18 +83,13 @@ Actions.shortHandAuthenticate = (username, password) => {
 	return (dispatch) => {
 		return authenticate(username, password).then(
 			authentication => {
-                console.log('in authenticate now');
 
 				const cookies = new Cookies();
 				cookies.set('username', username);
 				cookies.set('password', password);
 				cookies.set('auth', authentication);
 				cookies.set('loggedIn', 'true');
-				console.log('loggedIn should be true now (inside authenticate)');
-				// callFunc();
-				//console.log(cookies.get('loggedIn'));
-				//console.log(username);
-				//console.log(authentication);
+
 				dispatch(Actions.setAuthentication(authentication));
 
 			}
@@ -143,8 +125,6 @@ Actions.logout = () => {
 };
 
 Actions.setAuthentication = authentication => {
-	console.log('WTF');
-	console.log(authentication);
 	return {type: Actions.Types.SET_AUTHENTICATION, authentication};
 };
 
@@ -161,12 +141,9 @@ const cookies = new Cookies();
 Reducers.authentication = (authentication = cookies.get('auth') , action) => {
 	switch (action.type) {
 		case Actions.Types.SET_AUTHENTICATION: {
-			console.log('setting authentication');
-			console.log(authentication);
 			return action.authentication;
 		}
 		default: {
-			console.log('Authentication: ', authentication);
 			return authentication;
 		}
 	}

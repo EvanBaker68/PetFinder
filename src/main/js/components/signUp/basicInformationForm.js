@@ -9,6 +9,10 @@ import axios from 'axios/index';
 import {connect} from 'react-redux';
 import * as Users from 'js/users';
 import Button from '@material-ui/core/Button';
+import * as Bessemer from 'js/alloy/bessemer/components';
+import * as Validation from 'js/alloy/utils/validation';
+import FormControl from '@material-ui/core/es/FormControl/FormControl';
+import * as ReduxForm from 'redux-form';
 
 const styles = theme => ({
     container: {
@@ -35,7 +39,7 @@ class OutlinedTextFields extends React.Component {
             lastName: '',
             address: '',
             city: '',
-            phoneNumber: '(000)000-0000'
+            phoneNumber: '(000) 000-0000'
         };
     }
 
@@ -62,9 +66,7 @@ class OutlinedTextFields extends React.Component {
 	}
 
     componentDidMount() {
-        const cookies = new Cookies();
 
-        // this.setAuthentication(username, password);
         axios.get('/api/user')
             .then(res => {
                 this.setState({
@@ -74,7 +76,6 @@ class OutlinedTextFields extends React.Component {
                     phoneNumber: res.phoneNumber,
                     city: res.city
                 });
-                console.log('After the axios.get', res);
             }).then(response => console.log(response))
             .catch(error => this.setState({error}));
     }
@@ -84,6 +85,92 @@ class OutlinedTextFields extends React.Component {
         const { classes } = this.props;
 
         return (
+            <form className={classes.container}>
+                <FormControl margin="normal" required fullWidth>
+                    <Bessemer.Field
+                        id="outlined-name"
+                        name="firstName"
+                        friendlyName="First Name"
+                        className={classes.textField}
+                        placeholder={this.state.firstName}
+                        onChange={this.handleChange('firstName')}
+                        margin="normal"
+                        variant="standard"
+
+                        validators={[Validation.requiredValidator, Validation.requiredValidator]}
+                    />
+                </FormControl>
+                <FormControl margin="normal" required fullWidth>
+                    <Bessemer.Field
+                        id="outlined-name"
+                        name="lastName"
+                        friendlyName="Last Name"
+                        className={classes.textField}
+                        placeholder={this.state.lastName}
+                        onChange={this.handleChange('lastName')}
+                        margin="normal"
+                        variant="standard"
+
+                        validators={[Validation.requiredValidator, Validation.requiredValidator]}
+                    />
+                </FormControl>
+                <FormControl margin="normal" required fullWidth>
+                    <Bessemer.Field
+                        id="outlined-name"
+                        name="address"
+                        friendlyName="Street Address"
+                        className={classes.textField}
+                        placeholder={this.state.address}
+                        onChange={this.handleChange('address')}
+                        margin="normal"
+                        variant="standard"
+
+                        validators={[Validation.requiredValidator, Validation.requiredValidator]}
+                    />
+                </FormControl>
+                <FormControl margin="normal" required fullWidth>
+                    <Bessemer.Field
+                        id="outlined-name"
+                        name="city"
+                        friendlyName="City"
+                        className={classes.city}
+                        placeholder={this.state.city}
+                        onChange={this.handleChange('city')}
+                        margin="normal"
+                        variant="standard"
+
+                        validators={[Validation.requiredValidator, Validation.requiredValidator]}
+                    />
+                </FormControl>
+                <FormControl margin="normal" required fullWidth>
+                    <Bessemer.Field
+                        id="outlined-name"
+                        name="phoneNumber"
+                        friendlyName="Phone Number"
+                        className={classes.textField}
+                        placeholder={this.state.phoneNumber}
+                        onChange={this.handleChange('phoneNumber')}
+                        margin="normal"
+                        variant="standard"
+
+                        validators={[Validation.requiredValidator, Validation.requiredValidator]}
+                    />
+                </FormControl>
+
+                <div>
+                    <Button
+                        type="submit"
+                        fullWidth
+                        variant="raised"
+                        color="primary"
+                        className={classes.submit}
+                        onClick={this.handleNext}
+                    >
+                        Save
+                    </Button>
+                </div>
+            </form>
+            /*
             <form className={classes.container} noValidate autoComplete="off">
                 <TextField
                     id="outlined-name"
@@ -140,11 +227,12 @@ class OutlinedTextFields extends React.Component {
 				>
 					Save
 				</Button>
-            </form>
+            </form>*/
         );
     }
 }
 
+OutlinedTextFields = ReduxForm.reduxForm({form: 'OutlinedTextFields'})(OutlinedTextFields);
 
 OutlinedTextFields = connect(
 	state => ({
