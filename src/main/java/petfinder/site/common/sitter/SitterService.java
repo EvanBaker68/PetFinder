@@ -5,6 +5,8 @@ import org.springframework.stereotype.Service;
 import petfinder.site.common.strategey.Sort;
 import petfinder.site.strategy.ShellSort;
 import petfinder.site.strategy.ShellSort;
+
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
@@ -30,5 +32,14 @@ public class SitterService {
 
     public void save(SitterDto sitterDto) {
         sitterDao.save(sitterDto);
+    }
+
+    public List<SitterDto> findSitterInCityWithRecommended(String city){
+        List<SitterDto> listy = findSitterInCityWithRating(city);
+        List<SitterDto> newList = new ArrayList<>();
+        newList.add(listy.get(0));
+        newList.add(listy.get(1));
+        newList.add(listy.get(2));
+        return newList;
     }
 }
