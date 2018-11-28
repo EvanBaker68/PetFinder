@@ -55,6 +55,7 @@ public class BookingService {
     }
 
     public void save(BookingDto bookingDto) {
+        //SEEING IF EVERYTHING IS GOOD
         bookingDao.save(bookingDto);
     }
 }
