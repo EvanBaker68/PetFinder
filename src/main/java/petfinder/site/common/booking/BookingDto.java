@@ -22,6 +22,8 @@ public class BookingDto implements Identifiable{
     private Boolean isReviewedByOwner = false;
     private Boolean isReviewedBySitter = false;
     private String status;
+    private Long petId;
+
 
     public String getStatus() {
         return status;
@@ -48,6 +50,19 @@ public class BookingDto implements Identifiable{
         setReviewBySitter(reviewBySitter);
         setScoreByOwner(scoreByOwner);
         setScoreBySitter(scoreBySitter);
+    }
+
+    public BookingDto(Long id, String sitterPrincipal, String ownerPrincipal, Date startDate, Date finishDate, String reviewByOwner, String reviewBySitter, Integer scoreByOwner, Integer scoreBySitter, Long petId) {
+        setId(id);
+        setOwnerPrincipal(ownerPrincipal);
+        setSitterPrincipal(sitterPrincipal);
+        setFinishDate(finishDate);
+        setStartDate(startDate);
+        setReviewByOwner(reviewByOwner);
+        setReviewBySitter(reviewBySitter);
+        setScoreByOwner(scoreByOwner);
+        setScoreBySitter(scoreBySitter);
+        setPetId(petId);
     }
 
     public BookingDto(Long id, String sitterPrincipal, String ownerPrincipal, Date startDate, Date finishDate){
@@ -162,5 +177,13 @@ public class BookingDto implements Identifiable{
     //Range of scores is 1-5 inclusive
     public void setScoreBySitter(Integer scoreBySitter) {
         this.scoreBySitter = scoreBySitter;
+    }
+
+    public Long getPetId() {
+        return petId;
+    }
+
+    public void setPetId(Long petId) {
+        this.petId = petId;
     }
 }
