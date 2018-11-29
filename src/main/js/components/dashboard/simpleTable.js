@@ -122,7 +122,7 @@ class SimpleTable extends React.Component {
 									<TableCell>{new Date(n.startDate.setHours(n.startDate.getHours() -6)).toLocaleString()}</TableCell>
 									<TableCell>{new Date(n.endDate.setHours(n.endDate.getHours() -6)).toLocaleString()}</TableCell>
 									<TableCell>
-										{!n.ratedByOwner &&
+										{n.rating === null &&
 											<RateSitter name={n.name} principal={n.principal} id={n.id}/>
 										}
 										{

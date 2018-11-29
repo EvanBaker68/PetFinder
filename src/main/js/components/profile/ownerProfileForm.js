@@ -85,7 +85,6 @@ class ProfileForm extends React.Component {
 						Rating: {this.state.rating}
 					</Typography>
                 </form>
-                <Button onClick={this.handleAddClose}>Save Owner Info</Button>
             </div>
         );
     }
