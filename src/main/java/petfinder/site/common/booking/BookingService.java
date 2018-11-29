@@ -51,7 +51,9 @@ public class BookingService {
         }
 
         return newList;*/
-        return theList.stream().filter(Optional::isPresent).map(Optional::get).collect(Collectors.toList());
+        List<BookingDto> newList = theList.stream().filter(Optional::isPresent).map(Optional::get).collect(Collectors.toList());
+
+        return newList;
     }
 
     public void save(BookingDto bookingDto) {

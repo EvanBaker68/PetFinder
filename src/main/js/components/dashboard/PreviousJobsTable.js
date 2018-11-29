@@ -48,6 +48,7 @@ class SimpleTable extends React.Component{
 				if(this.state.bookings)
 				{this.state.bookings.map(booking => {
 
+					console.log('BOOKING: ', booking);
 					const startDate = new Date(booking.startDate);
 					const endDate = new Date(booking.finishDate);
 					const status = booking.status;

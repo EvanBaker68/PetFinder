@@ -19,14 +19,15 @@ export default class Calender extends React.Component
             open: false
         };
 
+		const cookies = new Cookies();
+		console.log('PRINICPAL: ', this.props.principal);
 		axios.get('/api/sitter/get-dates/' + this.props.principal, this.props.principal)
 			.then(res => {
-				console.log(res);
+			    console.log('SITTER DATES: ', res);
 				this.setState({
 					dates: res,
 					loaded: true
 				});
-				console.log('Start:', this.state.start, 'End:', this.state.end);
 			}).catch(error => this.setState({error}));
     }
 
@@ -48,11 +49,9 @@ export default class Calender extends React.Component
         var theArray = [];
 
 		if(dates)
-		{dates.forEach(({startDate, endDate, id}) => {
-			console.log('DAFSHKDASJKFDSLA;', new Date(startDate));
-			console.log('SAKSAKASKSAKAS', endDate);
+		{dates.forEach(({startDate, endDate}) => {
 			theArray.push(
-				{start: new Date(startDate), end: new Date(endDate), id: id });
+				{start: new Date(startDate), end: new Date(endDate)});
 		});
 		}
 

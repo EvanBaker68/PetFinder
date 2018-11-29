@@ -232,7 +232,7 @@ class SearchPage extends React.Component {
                         }
                         {this.state.searched &&
                         <div>
-                            <Typography variant="display1" align="center">Matched Sitters</Typography>
+                            <Typography variant="display1" align="center">Sitters in Your City</Typography>
                             <ul>
                                 {sitterItems}
                             </ul>
