@@ -69,7 +69,7 @@ class SimpleTable extends React.Component{
 								name = res.firstName + ' ' + res.lastName;
 								console.log('name2: ', name);
 
-								data.push(this.createData(id, name, ownerPrincipal, startDate, endDate));
+								data.push(this.createData(id, name, ownerPrincipal, startDate, endDate, res.isOwnerRated));
 								this.setState({loaded: true});
 							}).then(response => console.log(response))
 							.catch(error => this.setState({error}));
@@ -82,8 +82,8 @@ class SimpleTable extends React.Component{
 	}
 
 
-	createData = (id, name, principal, startDate, endDate) => {
-		return { id, name, principal, startDate, endDate};
+	createData = (id, name, principal, startDate, endDate, isRated) => {
+		return { id, name, principal, startDate, endDate, isRated};
 	}
 
 	cancelBooking(id) {

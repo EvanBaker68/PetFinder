@@ -31,7 +31,8 @@ class OwnerPendingTable extends React.Component {
         super(props);
         this.state = {
             bookings: null,
-            loaded: false
+            loaded: false,
+            change: false
         };
         //axios.get('/booking/getUpcoming', cookies.username)
         //this.setSate(bookings: createData(...))
@@ -95,6 +96,7 @@ class OwnerPendingTable extends React.Component {
                 axios.post('/booking/add-booking', booking)
                     .then(res => {
                         console.log(res);
+                        this.setState({change: true});
                     })
                     .catch(error => {
                         console.log(error.response);
@@ -120,6 +122,9 @@ class OwnerPendingTable extends React.Component {
     render() {
         const {classes} = this.props;
         const loaded = this.state.loaded;
+        if (this.state.change === true) {
+            this.state.change = false;
+        }
 
         return (
             <Paper className={classes.root}>
