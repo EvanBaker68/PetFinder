@@ -55,7 +55,7 @@ class OutlinedTextFields extends React.Component {
 
 	componentDidMount() {
 		const cookies = new Cookies();
-		axios.get('/owner/' + cookies.get('username').replace(/@/g, '%40'), cookies.get('username').replace(/@/g, '%40'))
+		axios.get('/api/owner/' + cookies.get('username').replace(/@/g, '%40'), cookies.get('username').replace(/@/g, '%40'))
 			.then(res => {
 				this.setState({
 					numPets: res.numPets});

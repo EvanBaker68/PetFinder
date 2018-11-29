@@ -22,8 +22,6 @@ public class PetService {
 
 	public List<PetDto> findPetByPrincipal(String ownerPrincipal) {
 		List<Optional<PetDto>> theList = petDao.findPetByPrincipal(ownerPrincipal);
-		/*for(Optional<PetDto> pet : theList)
-			System.out.println(pet.get().getId());*/
 		List<PetDto> dummy = theList.stream().filter(Optional::isPresent).map(Optional::get).collect(Collectors.toList());
 		return dummy;
 	}

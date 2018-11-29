@@ -64,7 +64,6 @@ public class UserDto implements Momento<String> {
     public UserDto(String principal, List<String> roles, UserType type, String phoneNumber, String firstName, String lastName,
                    String address, String city, String sitter, String owner, Map<String, Object> attributes) {
 
-
         setPrincipal(principal);
         setPhoneNumber(phoneNumber);
         setFirstName(firstName);

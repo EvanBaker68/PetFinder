@@ -19,7 +19,7 @@ export default class Calender extends React.Component
             open: false
         };
 
-		axios.get('/sitter/get-dates/' + this.props.principal, this.props.principal)
+		axios.get('/api/sitter/get-dates/' + this.props.principal, this.props.principal)
 			.then(res => {
 				console.log(res);
 				this.setState({

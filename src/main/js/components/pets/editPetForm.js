@@ -30,7 +30,7 @@ export default class FormDialog extends React.Component {
 		let { name, age, id, dogBreed, petType, ownerPrincipal } = this.props;
 		const endpoint = '/pet/' + id;
 
-		axios.get('/pet/' + id, id)
+		axios.get('/api/pet/' + id, id)
 			.then(res => {
 				this.setState({
 				name: res.name,

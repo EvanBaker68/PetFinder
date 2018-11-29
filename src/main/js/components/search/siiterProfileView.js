@@ -93,7 +93,7 @@ class FormDialog extends React.Component {
 		axios.get('/api/user/' + this.props.principal, this.props.principal)
 			.then(res => {
 				this.setState({ city: res.city });
-				axios.get('/sitter/' + this.props.principal, this.props.principal).then(res => {
+				axios.get('/api/sitter/' + this.props.principal, this.props.principal).then(res => {
 				    this.setState({ rate: res.rate,
 									rating: res.rating });
                 }).then(response => console.log(response))
@@ -101,7 +101,7 @@ class FormDialog extends React.Component {
 			}).then(response => console.log(response))
 			.catch(error => this.setState({error}));
 
-		axios.get('/pet/pets/' + cookies.get('username'), cookies.get('username'))
+		axios.get('/api/pet/pets/' + cookies.get('username'), cookies.get('username'))
 			.then(res => {
 				this.setState({
 					pets: res

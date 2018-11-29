@@ -18,7 +18,7 @@ export default class Calender extends React.Component
 
 
         const cookies = new Cookies();
-        axios.get('/sitter/get-dates/' + cookies.get('username'), cookies.get('username'))
+        axios.get('/api/sitter/get-dates/' + cookies.get('username'), cookies.get('username'))
             .then(res => {
                 this.setState({
                     dates: res,
