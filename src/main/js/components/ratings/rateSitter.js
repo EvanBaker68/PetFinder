@@ -48,7 +48,7 @@ class FormDialog extends React.Component {
 
 		console.log('jfdklsjfaklafdskl;');
 		console.log(this.state.principal);
-		axios.get('/sitter/' + this.state.principal, this.state.principal).then(
+		axios.get('/api/sitter/' + this.state.principal, this.state.principal).then(
 			res => {
 				console.log(res);
 				const sitter = res;

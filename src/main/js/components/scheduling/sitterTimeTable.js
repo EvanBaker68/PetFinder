@@ -14,7 +14,7 @@ import Badge from '@material-ui/core/Badge';
 import MenuIcon from '@material-ui/icons/Menu';
 import ChevronLeftIcon from '@material-ui/icons/ChevronLeft';
 import NotificationsIcon from '@material-ui/icons/Notifications';
-import {SitterMenuList} from 'js/components/dashboard/SitterMenuList';
+import SitterMenuList from 'js/components/dashboard/SitterMenuList';
 import SimpleTable from 'js/components/dashboard/simpleTable';
 import Input from '@material-ui/core/Input';
 import SearchIcon from '@material-ui/icons/Search';
@@ -138,7 +138,7 @@ class Profile extends React.Component {
                             </IconButton>
                         </div>
                         <Divider />
-                        <List>{SitterMenuList}</List>
+                        <SitterMenuList/>
                     </Drawer>
                     <main className={classes.content}>
                         <div className={classes.appBarSpacer} />

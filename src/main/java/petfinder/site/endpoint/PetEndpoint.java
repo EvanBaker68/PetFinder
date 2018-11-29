@@ -39,11 +39,6 @@ public class PetEndpoint {
 	@PostMapping(value = "/add-pet", consumes = "application/json", produces = "application/json")
 	@ResponseBody
 	public PetDto savePet(@RequestBody PetDto pet) {
-		System.out.println("made it to endpoint");
-		System.out.println(pet.getAge());
-		System.out.println(pet.getName());
-		System.out.println(pet.getOwnerPrincipal());
-		System.out.println(pet.getId());
 		petService.save(pet);
 		return pet;
 	}

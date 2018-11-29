@@ -44,7 +44,6 @@ public class DateDao {
             dateElasticsearchRepository.delete(date.get().getId());
         }
         dateElasticsearchRepository.save(dateDto);
-        System.out.println("pass");
     }
 
 

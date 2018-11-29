@@ -133,7 +133,7 @@ class PetPage extends React.Component {
     componentDidMount() {
         const cookies = new Cookies();
 
-		axios.get('/pet/pets/' + cookies.get('username'), cookies.get('username'))
+		axios.get('/api/pet/pets/' + cookies.get('username'), cookies.get('username'))
             .then(res => {
                 this.setState({
                     pets: res
@@ -164,7 +164,7 @@ class PetPage extends React.Component {
     stateChangeHandler = () => {
 		const cookies = new Cookies();
 
-		axios.get('/pet/pets/' + cookies.get('username'), cookies.get('username'))
+		axios.get('/api/pet/pets/' + cookies.get('username'), cookies.get('username'))
 			.then(res => {
 				this.setState({
 					pets: res

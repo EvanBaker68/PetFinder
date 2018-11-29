@@ -13,6 +13,7 @@ import * as Bessemer from 'js/alloy/bessemer/components';
 import * as Validation from 'js/alloy/utils/validation';
 import FormControl from '@material-ui/core/es/FormControl/FormControl';
 import * as ReduxForm from 'redux-form';
+import {Redirect} from 'react-router-dom';
 
 const styles = theme => ({
     container: {
@@ -43,6 +44,11 @@ class OutlinedTextFields extends React.Component {
         };
     }
 
+    state = {
+        redirectOwner: false,
+        redirectSitter: false,
+    }
+
     handleChange = name => event => {
         this.setState({
             [name]: event.target.value,
@@ -62,7 +68,45 @@ class OutlinedTextFields extends React.Component {
 			sitter: cookies.get('sitter'),
 			owner: cookies.get('owner')
 		};
-		return this.props.register(user);
+
+        this.props.register(user).then(res => {
+            if(cookies.get('owner') === 'true') {
+                const owner = {
+                    principal: cookies.get('username').replace(/@/g, '%40'),
+                };
+                axios.post('/api/owner/add-owner', owner)
+                    .then(res => {
+                        console.log(res);
+                        console.log(res.data);
+                    })
+                    .then(res => {
+                        this.setState({
+                            redirectOwner: true
+                        });
+                    })
+                    .catch(error => {
+                        console.log(error.response);
+                    });
+            }
+            else if(cookies.get('sitter') === 'true') {
+                const sitter = {
+                    principal: cookies.get('username'),
+                };
+                axios.post('/api/sitter/add-sitter', sitter)
+                    .then(res => {
+                        console.log(res);
+                        console.log(res.data);
+                    })
+                    .then(res => {
+                        this.setState({
+                            redirectSitter: true
+                        });
+                    })
+                    .catch(error => {
+                        console.log(error.response);
+                    });
+            }
+        });
 	}
 
     componentDidMount() {
@@ -80,84 +124,62 @@ class OutlinedTextFields extends React.Component {
             .catch(error => this.setState({error}));
     }
 
-
 	render() {
         const { classes } = this.props;
+        const redirectOwner = this.state.redirectOwner;
+        const redirectSitter = this.state.redirectSitter;
 
         return (
-            <form className={classes.container}>
-                <FormControl margin="normal" required fullWidth>
-                    <Bessemer.Field
+
+            <main>
+                {redirectSitter && <div><Redirect to='/sitterDash'/></div>}
+                {redirectOwner && <div><Redirect to='/ownerDash'/></div>}
+                <form className={classes.container} noValidate autoComplete="off">
+                    <TextField
                         id="outlined-name"
-                        name="firstName"
-                        friendlyName="First Name"
+                        label="First Name"
                         className={classes.textField}
-                        placeholder={this.state.firstName}
+                        value={this.state.firstName}
                         onChange={this.handleChange('firstName')}
                         margin="normal"
                         variant="standard"
-
-                        validators={[Validation.requiredValidator, Validation.requiredValidator]}
                     />
-                </FormControl>
-                <FormControl margin="normal" required fullWidth>
-                    <Bessemer.Field
+                    <TextField
                         id="outlined-name"
-                        name="lastName"
-                        friendlyName="Last Name"
+                        label="Last Name"
                         className={classes.textField}
-                        placeholder={this.state.lastName}
+                        value={this.state.lastName}
                         onChange={this.handleChange('lastName')}
                         margin="normal"
                         variant="standard"
-
-                        validators={[Validation.requiredValidator, Validation.requiredValidator]}
                     />
-                </FormControl>
-                <FormControl margin="normal" required fullWidth>
-                    <Bessemer.Field
+                    <TextField
                         id="outlined-name"
-                        name="address"
-                        friendlyName="Street Address"
+                        label="Street Address"
                         className={classes.textField}
-                        placeholder={this.state.address}
+                        value={this.state.address}
                         onChange={this.handleChange('address')}
                         margin="normal"
                         variant="standard"
-
-                        validators={[Validation.requiredValidator, Validation.requiredValidator]}
                     />
-                </FormControl>
-                <FormControl margin="normal" required fullWidth>
-                    <Bessemer.Field
+                    <TextField
                         id="outlined-name"
-                        name="city"
-                        friendlyName="City"
+                        label="City"
                         className={classes.city}
-                        placeholder={this.state.city}
+                        value={this.state.city}
                         onChange={this.handleChange('city')}
                         margin="normal"
                         variant="standard"
-
-                        validators={[Validation.requiredValidator, Validation.requiredValidator]}
                     />
-                </FormControl>
-                <FormControl margin="normal" required fullWidth>
-                    <Bessemer.Field
+                    <TextField
                         id="outlined-name"
-                        name="phoneNumber"
-                        friendlyName="Phone Number"
+                        label="Phone Number"
                         className={classes.textField}
-                        placeholder={this.state.phoneNumber}
+                        value={this.state.phoneNumber}
                         onChange={this.handleChange('phoneNumber')}
                         margin="normal"
                         variant="standard"
-
-                        validators={[Validation.requiredValidator, Validation.requiredValidator]}
                     />
-                </FormControl>
-
-                <div>
                     <Button
                         type="submit"
                         fullWidth
@@ -168,66 +190,8 @@ class OutlinedTextFields extends React.Component {
                     >
                         Save
                     </Button>
-                </div>
-            </form>
-            /*
-            <form className={classes.container} noValidate autoComplete="off">
-                <TextField
-                    id="outlined-name"
-                    label="First Name"
-                    className={classes.textField}
-                    value={this.state.firstName}
-                    onChange={this.handleChange('firstName')}
-                    margin="normal"
-                    variant="standard"
-                />
-                <TextField
-                    id="outlined-name"
-                    label="Last Name"
-                    className={classes.textField}
-                    value={this.state.lastName}
-                    onChange={this.handleChange('lastName')}
-                    margin="normal"
-                    variant="standard"
-                />
-                <TextField
-                    id="outlined-name"
-                    label="Street Address"
-                    className={classes.textField}
-                    value={this.state.address}
-                    onChange={this.handleChange('address')}
-                    margin="normal"
-                    variant="standard"
-                />
-                <TextField
-                    id="outlined-name"
-                    label="City"
-                    className={classes.city}
-                    value={this.state.city}
-                    onChange={this.handleChange('city')}
-                    margin="normal"
-                    variant="standard"
-                />
-                <TextField
-                    id="outlined-name"
-                    label="Phone Number"
-                    className={classes.textField}
-                    value={this.state.phoneNumber}
-                    onChange={this.handleChange('phoneNumber')}
-                    margin="normal"
-                    variant="standard"
-                />
-				<Button
-					type="submit"
-					fullWidth
-					variant="raised"
-					color="primary"
-					className={classes.submit}
-					onClick={this.handleNext}
-				>
-					Save
-				</Button>
-            </form>*/
+                </form>
+            </main>
         );
     }
 }
@@ -239,11 +203,7 @@ OutlinedTextFields = connect(
 
 	}),
 	dispatch => ({
-		//TODO: In complete registration, set a field in user specifying if it is an owner,
-		//sitter, or both. Then, if you try to log in as something you're not, you will
-		//be refused access.
 		register: (user) => dispatch(Users.Actions.register(user))
-		// register: (user) => dispatch(Users.Actions.register(user))
 	})
 )(OutlinedTextFields);
 
