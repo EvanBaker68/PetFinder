@@ -56,7 +56,23 @@ class ProfileForm extends React.Component {
 			.catch(error => this.setState({error}));
 	}
 
+    validateForm() {
+        let hasErrors = false;
+
+        if(!(this.state.rate >= 0)) {
+            hasErrors = true;
+            alert('Invalid rate.');
+        }
+
+        return !hasErrors;
+    }
+
 	handleAddClose = () => {
+        if (!this.validateForm()) {
+            //return if not valid
+            return;
+        }
+
 		const cookies = new Cookies();
 		const sitter = {
 			principal: cookies.get('username'),
@@ -86,6 +102,7 @@ class ProfileForm extends React.Component {
                         id="outlined-name"
                         label="Rate per hour"
                         className={classes.textField}
+                        //value={'$ ' + ((this.state.rate).toFixed(2)).toString()}
                         value={this.state.rate}
                         onChange={this.handleChange('rate')}
                         margin="normal"
