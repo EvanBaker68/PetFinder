@@ -44,7 +44,7 @@ class SimpleTable extends React.Component {
 		data = [];
 		const cookies = new Cookies();
 
-		axios.get('/booking/owner/' + cookies.get('username'), cookies.get('username'))
+		axios.get('/api/booking/owner/' + cookies.get('username'), cookies.get('username'))
 			.then(res => {
 				console.log('Results: ', res);
 				this.setState({
@@ -119,8 +119,8 @@ class SimpleTable extends React.Component {
 									<TableCell component="th" scope="row">
 										{n.name}
 									</TableCell>
-									<TableCell>{n.startDate.toLocaleString()}</TableCell>
-									<TableCell>{n.endDate.toLocaleString()}</TableCell>
+									<TableCell>{new Date(n.startDate.setHours(n.startDate.getHours() -6)).toLocaleString()}</TableCell>
+									<TableCell>{new Date(n.endDate.setHours(n.endDate.getHours() -6)).toLocaleString()}</TableCell>
 									<TableCell>
 										{!n.ratedByOwner &&
 											<RateSitter name={n.name} principal={n.principal} id={n.id}/>

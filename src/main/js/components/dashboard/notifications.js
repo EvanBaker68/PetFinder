@@ -51,7 +51,7 @@ class FormDialog extends React.Component {
 
         const cookies = new Cookies();
 
-        axios.get('/booking/sitter/' + cookies.get('username'), cookies.get('username'))
+        axios.get('/api/booking/sitter/' + cookies.get('username'), cookies.get('username'))
             .then(res => {
                 console.log(res);
                 this.setState({

@@ -62,7 +62,7 @@ export default class FormDialog extends React.Component {
 			dogBreed: this.state.dogBreed,
 			age: this.state.age
 		};
-		axios.post('/pet/add-pet', pet)
+		axios.post('/api/pet/add-pet', pet)
 			.then(res => {
 				console.log(res);
 				console.log(res.data);

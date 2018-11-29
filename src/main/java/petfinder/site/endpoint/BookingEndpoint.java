@@ -10,7 +10,7 @@ import java.util.List;
 import java.util.Optional;
 
 @RestController
-@RequestMapping(value = "/booking")
+@RequestMapping(value = "/api/booking")
 public class BookingEndpoint {
     @Autowired
     BookingService bookingService;

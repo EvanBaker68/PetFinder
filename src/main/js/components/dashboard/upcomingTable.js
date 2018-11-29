@@ -33,7 +33,7 @@ class RequestTable extends React.Component {
             bookings: null,
             loaded: false
         };
-        //axios.get('/booking/getUpcoming', cookies.username)
+        //axios.get('/api/booking/getUpcoming', cookies.username)
         //this.setSate(bookings: createData(...))
     }
 
@@ -41,7 +41,7 @@ class RequestTable extends React.Component {
 		data = [];
 		const cookies = new Cookies();
 
-		axios.get('/booking/owner/' + cookies.get('username'), cookies.get('username'))
+		axios.get('/api/booking/owner/' + cookies.get('username'), cookies.get('username'))
 			.then(res => {
 				console.log('Results: ', res);
 				this.setState({
@@ -87,11 +87,11 @@ class RequestTable extends React.Component {
 	}
 
 	cancelBooking(id) {
-		axios.get('/booking/' + id, id)
+		axios.get('/api/booking/' + id, id)
 			.then(res => {
 				var booking = res;
 				booking.status = 'canceled';
-				axios.post('/booking/add-booking', booking)
+				axios.post('/api/booking/add-booking', booking)
 					.then(res => {
 						console.log(res);
 					})
@@ -129,8 +129,8 @@ class RequestTable extends React.Component {
 									<TableCell component="th" scope="row">
 										{n.name}
 									</TableCell>
-									<TableCell>{n.startDate.toLocaleString()}</TableCell>
-									<TableCell>{n.endDate.toLocaleString()}</TableCell>
+									<TableCell>{new Date(n.startDate.setHours(n.startDate.getHours() -6)).toLocaleString()}</TableCell>
+									<TableCell>{new Date(n.endDate.setHours(n.endDate.getHours() -6)).toLocaleString()}</TableCell>
 									<TableCell>{n.status}</TableCell>
 								</TableRow>
 							);

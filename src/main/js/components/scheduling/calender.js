@@ -30,15 +30,17 @@ export default class Calender extends React.Component
     onSave = () => {
 		const cookies = new Cookies();
 		var a = Math.random();
-		this.state.selectedDates.forEach(({start, end}) => {
-			const date = {
-				startDate: start,
-				endDate: end,
-				sitterPrincipal: cookies.get('username'),
-			};
-			console.log('start: ' + date.startDate);
+		this.state.selectedDates.forEach((date) => {
+			// const date = {
+			// 	startDate: start,
+			// 	endDate: end,
+			// 	sitterPrincipal: cookies.get('username'),
+			// };
+			console.log('startDate: ' + date.startDate);
+			console.log('endDate: ' + date.endDate);
 
-                axios.post('/sitter/add-date', date)
+
+			axios.post('/api/sitter/add-date', date)
                     .then(res => {
                         console.log('Posting new dates');
                     })
@@ -100,12 +102,11 @@ export default class Calender extends React.Component
                         },
                     ]}
                     onChange={(selections) => {
-                        this.setState({
-                            selectedDates: selections,
-                        });
+
                         let array = [];
                         selections.forEach(({start, end}) => {
                             console.log('start: ' + start);
+                            console.log('end: ', end);
                             const cookies = new Cookies();
                             const date = {
                                 startDate: start,
@@ -114,6 +115,9 @@ export default class Calender extends React.Component
                             };
                             array.push(date);
                         });
+						this.setState({
+							selectedDates: array,
+						});
                     }}
                     onEventsRequested={({calendarId, start, end, callback}) => {
                         //loadMoreEvents(calendarId, start, end).then(callback);

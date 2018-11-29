@@ -43,7 +43,7 @@ class OutlinedTextFields extends React.Component {
 			principal: cookies.get('username'),
 			rate: this.state.rate
 		};
-		axios.post('/sitter/add-sitter', sitter)
+		axios.post('/api/sitter/add-sitter', sitter)
 			.then(res => {
 				console.log(res);
 				console.log(res.data);
