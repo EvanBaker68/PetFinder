@@ -11,6 +11,8 @@ import axios from 'axios';
 import Cookies from 'universal-cookie';
 import {withStyles} from '@material-ui/core';
 import SitterCalender from './sitterCalender';
+import Select from '@material-ui/core/Select';
+import MenuItem from '@material-ui/core/MenuItem';
 
 function DateAndTimePickers(props) {
     const { classes } = props;
@@ -43,6 +45,7 @@ const styles = theme => ({
     },
 });
 
+
 class FormDialog extends React.Component {
     constructor(props) {
         super(props);
@@ -51,11 +54,12 @@ class FormDialog extends React.Component {
             num: props.number,
             principal: props.principal,
             name: props.name,
-            cost: '',
+            rate: '',
             city: props.city,
             open: false,
             start: new Date(),
-            end: new Date()
+            end: new Date(),
+            pets: []
         };
 
         //load sitter information
@@ -64,13 +68,26 @@ class FormDialog extends React.Component {
 
 	componentDidMount() {
 
+        const cookies = new Cookies();
+
 		axios.get('/api/user/' + this.props.principal, this.props.principal)
 			.then(res => {
 				this.setState({ city: res.city });
+				axios.get('/sitter/' + this.props.principal, this.props.principal).then(res => {
+				    this.setState({ rate: res.rate });
+                }).then(response => console.log(response))
+					.catch(error => this.setState({error}));
 			}).then(response => console.log(response))
 			.catch(error => this.setState({error}));
 
-
+        axios.get('/pet/pets/' + cookies.get('username'), cookies.get('username'))
+            .then(res => {
+                this.setState({
+                    pets: res
+                });
+                console.log(res);
+            }).then(response => console.log(response))
+            .catch(error => this.setState({error}));
 		//
 		// axios.get('/pet/pets/' + cookies.get('username'), cookies.get('username'))
 		// 	.then(res => {
@@ -94,6 +111,19 @@ class FormDialog extends React.Component {
             finishDate: this.state.end,
             status: 'pending'
         };
+
+        let message = booking.ownerPrincipal + ' has requested a booking starting at ' + booking.startDate;
+
+        var notification = {
+            message: message,
+            sitterPrincipal: booking.sitterPrincipal
+        };
+
+        axios.post('/notification/add-notification/', notification)
+            .then(res => {
+                console.log(res);
+            });
+
         console.log(this.state.name);
         console.log(this.state.start);
         console.log(this.state.end);
@@ -102,6 +132,7 @@ class FormDialog extends React.Component {
                 console.log(res);
                 console.log(res.data);
                 this.setState({open: false});
+                this.onClose();
             })
             .catch(error => {
                 console.log(error.response);
@@ -111,6 +142,10 @@ class FormDialog extends React.Component {
     handleClickOpen = () => {
         this.setState({ open: true });
     };
+
+    onClose = () => {
+
+	};
 
     handleClose = () => {
         this.setState({ open: false });
@@ -138,16 +173,15 @@ class FormDialog extends React.Component {
                 >
                     <DialogTitle id="form-dialog-title">{this.state.name}</DialogTitle>
                     <Typography>Rating</Typography>
-                    <Typography>Cost Per Hour: </Typography>
+                    <Typography>Cost Per Hour: ${this.state.rate}</Typography>
                     <Typography variant="text">City : {this.state.city}</Typography>
+                    <SitterCalender principal={this.state.principal}/>
                     <SitterCalender principal={this.state.principal}/>
                     <form className={classes.container} noValidate>
                         <TextField
                             id="datetime-local"
                             label="Start of appointment"
                             type="datetime-local"
-                            defaultValue={this.state.start}
-                            value={this.state.start}
                             onChange={this.handleChange('start')}
                             className={classes.textField}
                             InputLabelProps={{

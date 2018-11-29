@@ -135,14 +135,15 @@ public class UserService {
 		return userAuthentication.getUser();
 	}
 	public List<UserDto> getSittersByCity(String city) {
-		System.out.println("IN THE CITY");
 		List<Optional<UserAuthenticationDto>> listDtos = userDao.findByCity(city, "sitter");
 		//return userDao.findByCity(city, "sitter");
 		List<UserAuthenticationDto> filteredUsers = listDtos.stream().filter(Optional::isPresent).map(Optional::get).collect(Collectors.toList());
 		List<UserDto> newList = new ArrayList<>();
 		for(UserAuthenticationDto i : filteredUsers){
-			if(i.getUser().getSitter().equals("true"))
-			newList.add(i.getUser());
+			System.out.println(i.getUser().getPrincipal());
+			if (i.getUser().getSitter() != null) {
+				newList.add(i.getUser());
+			}
 		}
 		return newList;
 	}

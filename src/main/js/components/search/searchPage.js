@@ -26,6 +26,9 @@ import SitterView from 'js/components/search/siiterProfileView';
 import axios from 'axios';
 import Cookies from 'universal-cookie';
 import {Redirect} from 'react-router-dom';
+import Chip from '@material-ui/core/Chip';
+import MenuBar from 'js/components/dashboard/MenuBar';
+
 
 const drawerWidth = 240;
 
@@ -110,7 +113,8 @@ class SearchPage extends React.Component {
             open: true,
             city: '',
             searched: false,
-            sitter: []
+            sitter: [],
+            recommended: []
         };
 
         //fill city with current owner information
@@ -138,8 +142,22 @@ class SearchPage extends React.Component {
                 this.setState({sitter: res});
             }).then(response => console.log(response))
 			.catch(error => this.setState({error}));
-            this.setState({searched: true});
     };
+
+    componentWillMount() {
+        axios.get('/api/user')
+            .then(res => {
+                const city = res.city;
+                axios.get('/api/user/getSittersInCity/' + city, city)
+                    .then(res =>{
+                        console.log(res);
+                        this.setState({sitter: res});
+                    }).then(response => console.log(response))
+                    .catch(error => this.setState({error}));
+                this.setState({searched: true});
+            }).then(response => console.log(response))
+            .catch(error => this.setState({error}));
+    }
 
     render() {
 
@@ -162,7 +180,6 @@ class SearchPage extends React.Component {
         const sitters = this.state.sitter;
         var sitterItems;
         if (sitters) {
-
              sitterItems = sitters.map((sitter) =>
                  (sitter.principal !== cookies.get('username')) &&
                 <div key={sitter.principal}>
@@ -173,36 +190,24 @@ class SearchPage extends React.Component {
             );
         }
 
+        const recommended = this.state.recommended;
+        var recommendedItems;
+        if (recommended) {
+            recommendedItems = recommended.map((sitter) =>
+                (sitter.principal !== cookies.get('username')) &&
+                <div key={sitter.principal}>
+                    <li>{sitter.firstName}</li>
+                    <SitterView principal={sitter.principal} name={sitter.firstName+' '+sitter.lastName}
+                                city={sitter.city}/>
+                </div>
+            );
+        }
+
         return (
             <React.Fragment>
                 <CssBaseline />
                 <div className={classes.root}>
-                    <AppBar
-                        position="absolute"
-                        className={classNames(classes.appBar, this.state.open && classes.appBarShift)}
-                    >
-                        <Toolbar disableGutters={!this.state.open} className={classes.toolbar}>
-                            <IconButton
-                                color="inherit"
-                                aria-label="Open drawer"
-                                onClick={this.handleDrawerOpen}
-                                className={classNames(
-                                    classes.menuButton,
-                                    this.state.open && classes.menuButtonHidden,
-                                )}
-                            >
-                                <MenuIcon />
-                            </IconButton>
-                            <Typography variant="display2" color="inherit" noWrap className={classes.title}>
-                                Search and Match
-                            </Typography>
-                            <IconButton color="inherit">
-                                <Badge badgeContent={4} color="secondary">
-                                    <NotificationsIcon />
-                                </Badge>
-                            </IconButton>
-                        </Toolbar>
-                    </AppBar>
+					<MenuBar title='Search and Match'/>
                     <Drawer
                         variant="permanent"
                         classes={{
@@ -220,11 +225,24 @@ class SearchPage extends React.Component {
                     </Drawer>
                     <main className={classes.content}>
                         <div className={classes.appBarSpacer} />
+                        {!this.state.searched &&
+                            <ul>
+                                {recommendedItems}
+                            </ul>
+                        }
+                        {this.state.searched &&
+                        <div>
+                            <Typography variant="display1" align="center">Matched Sitters</Typography>
+                            <ul>
+                                {sitterItems}
+                            </ul>
+                        </div>
+                        }
                         <Typography
                             variant="display1"
                             gutterBottom
                             align='center'>
-                            Enter your city...
+                            Enter a new city...
                         </Typography>
                         <TextField
                             id="standard-name"
@@ -235,14 +253,6 @@ class SearchPage extends React.Component {
                             margin="normal"
                         />
                         <Button  onClick={this.handleSearch}>Continue</Button>
-                    {this.state.searched &&
-                        <div>
-                            <Typography variant="display1" align="center">Matched Sitters</Typography>
-                            <ul>
-                                {sitterItems}
-                            </ul>
-                        </div>
-                    }
                     </main>
                 </div>
             </React.Fragment>

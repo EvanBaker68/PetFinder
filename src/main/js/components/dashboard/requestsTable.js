@@ -21,8 +21,6 @@ const styles = {
     },
 };
 
-let id = 0;
-
 let data = [];
 
 let name = '';
@@ -51,12 +49,14 @@ class RequestTable extends React.Component {
 					const startDate = new Date(booking.startDate);
 					const endDate = new Date(booking.finishDate);
 					const status = booking.status;
+					const id = booking.id;
 					const ownerPrincipal = booking.ownerPrincipal;
 
 					console.log('startDate: ', startDate);
 					console.log('endDate: ', endDate);
 
-					if(booking.sitterPrincipal === cookies.get('username'))
+					if(booking.sitterPrincipal === cookies.get('username')
+					&& booking.status === 'pending')
 					axios.get('/api/user/' + ownerPrincipal, ownerPrincipal)
 						.then(res => {
 							console.log('name: ', res.firstName);
@@ -64,10 +64,10 @@ class RequestTable extends React.Component {
 							console.log('endDate', endDate);
 							console.log('status', status);
 							console.log('data1:',data);
-							name = res.firstName;
+							name = res.firstName + ' ' + res.lastName;
 							console.log('name2: ', name);
 
-							data.push(this.createData(name, startDate, endDate, status));
+							data.push(this.createData(id, name, startDate, endDate, status));
 							this.setState({loaded: true});
 						}).then(response => console.log(response))
 						.catch(error => this.setState({error}));
@@ -80,9 +80,69 @@ class RequestTable extends React.Component {
 		}
 
 
-	createData = (name, startDate, endDate, approved) => {
-		id += 1;
-		return { id, name, startDate, endDate, approved };
+	createData = (id, name, startDate, endDate, status) => {
+		return { id, name, startDate, endDate, status };
+	}
+
+	cancelBooking(id) {
+		axios.get('/booking/' + id, id)
+			.then(res => {
+				var booking = res;
+				booking.status = 'canceled';
+				axios.post('/booking/add-booking', booking)
+					.then(res => {
+						console.log(res);
+					})
+					.catch(error => {
+						console.log(error.response);
+					});
+                let message = booking.sitterPrincipal + ' has canceled the booking on ' + booking.startDate;
+                var notification = {
+                    message: message,
+                    ownerPrincipal: booking.ownerPrincipal
+                };
+
+                axios.post('/notification/add-notification', notification)
+                    .then(res => {
+                        console.log(res);
+                    })
+                    .catch(error => {
+                        console.log(res);
+                    });
+
+            }).then(response => console.log(response))
+			.catch(error => this.setState({error}));
+	}
+
+	approveBooking(id) {
+		axios.get('/booking/' + id, id)
+			.then(res => {
+				var booking = res;
+				booking.status = 'approved';
+				axios.post('/booking/add-booking', booking)
+					.then(res => {
+						console.log(res);
+					})
+					.catch(error => {
+						console.log(error.response);
+					});
+
+                let message = booking.sitterPrincipal + ' has approved the booking starting at ' + booking.startDate;
+
+                var notification = {
+                    message: message,
+                    ownerPrincipal: booking.ownerPrincipal
+                };
+
+                axios.post('/notification/add-notification', notification)
+                    .then(res => {
+                        console.log(res);
+                    })
+                    .catch(error => {
+                        console.log(res);
+                    });
+			}).then(response => console.log(response))
+			.catch(error => this.setState({error}));
 	}
 
 render() {
@@ -91,7 +151,6 @@ render() {
     const { bookings } = this.state;
 	const loaded = this.state.loaded;
 
-    console.log('fdaskjlafsdjkladsdfs',data);
 
 
 	return (
@@ -102,7 +161,9 @@ render() {
 						<TableCell>Owner</TableCell>
 						<TableCell>Start Date</TableCell>
 						<TableCell>End Date</TableCell>
+						<TableCell>Status</TableCell>
 						<TableCell>Approve</TableCell>
+						<TableCell>Cancel</TableCell>
 					</TableRow>
 				</TableHead>
                 {loaded &&
@@ -116,22 +177,23 @@ render() {
                                 </TableCell>
                                 <TableCell>{n.startDate.toLocaleString()}</TableCell>
                                 <TableCell>{n.endDate.toLocaleString()}</TableCell>
+								<TableCell>{n.status}</TableCell>
                                 <TableCell>
-                                    {n.approved &&
                                     <Button
                                         variant="contained"
-                                        color='secondary'>
-                                        Approve
+                                        color='secondary'
+										onClick={this.approveBooking.bind(this, n.id)}>
+										Approve
                                     </Button>
-                                    }
-                                    {!n.approved &&
-                                    <Button
-                                        variant="contained"
-                                        color='secondary'>
-                                        Cancel
-                                    </Button>
-                                    }
-                                </TableCell>
+								</TableCell>
+								<TableCell>
+									<Button
+										variant="contained"
+										color='secondary'
+										onClick={this.cancelBooking.bind(this, n.id)}>
+										Cancel
+									</Button>
+								</TableCell>
                             </TableRow>
                         );
                     })}

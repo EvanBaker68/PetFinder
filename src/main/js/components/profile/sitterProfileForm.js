@@ -4,10 +4,12 @@ import classNames from 'classnames';
 import { withStyles } from '@material-ui/core/styles';
 import MenuItem from '@material-ui/core/MenuItem';
 import TextField from '@material-ui/core/TextField';
+import Typography from '@material-ui/core/Typography';
 import Button from '@material-ui/core/Button';
 import Cookies from 'universal-cookie';
 import axios from 'axios/index';
 import {Redirect} from 'react-router-dom';
+import Grid from '@material-ui/core/Grid';
 
 const styles = theme => ({
     container: {
@@ -46,7 +48,8 @@ class ProfileForm extends React.Component {
 		axios.get('/sitter/' + principal, principal)
 			.then(res => {
 				this.setState({
-					rate: res.rate});
+					rate: res.rate,
+					rating: res.rating});
 			}).then(response => console.log(response))
 			.catch(error => this.setState({error}));
 	}
@@ -86,6 +89,12 @@ class ProfileForm extends React.Component {
                         onChange={this.handleChange('rate')}
                         margin="normal"
                     />
+                    <Grid>
+					<Typography variant="display2">
+						Rating: {this.state.rating}
+					</Typography>
+                    </Grid>
+
                 </form>
                 <Button onClick={this.handleAddClose}>Save Sitter Info</Button>
             </div>

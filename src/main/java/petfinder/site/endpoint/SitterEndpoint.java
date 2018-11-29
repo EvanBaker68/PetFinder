@@ -22,7 +22,7 @@ public class SitterEndpoint {
 
     @GetMapping(value = "/{principal:.+}", produces = "application/json")
     @ResponseBody
-    public Optional<SitterDto> getSitter(@PathVariable("principal") String principal) {
+    public SitterDto getSitter(@PathVariable("principal") String principal) {
         return sitterService.findSitter(principal);
     }
 
@@ -43,8 +43,21 @@ public class SitterEndpoint {
 
     @GetMapping(value = "/get-dates/{sitterPrincipal:.+}", produces = "application/json")
     @ResponseBody
-    public List<Optional<DateDto>> getDates(@PathVariable("sitterPrincipal") String sitterPrincipal) {
+    public List<DateDto> getDates(@PathVariable("sitterPrincipal") String sitterPrincipal) {
         System.out.println("made to endpoint");
         return dateService.findDateBySitter(sitterPrincipal);
+    }
+
+
+    @GetMapping(value = "/getsittersbycity/{city:.+}", produces = "application/json")
+    @ResponseBody
+    public List<SitterDto> getSittersByCity(@PathVariable("city") String city){
+        return sitterService.findSitterInCityWithRating(city);
+    }
+/**/
+    @GetMapping(value = "/getsittersbycityrecommended/{city:.+}", produces = "application/json")
+    @ResponseBody
+    public List<SitterDto> getSittersByCityRecommended(@PathVariable("city") String city){
+        return sitterService.findSitterInCityWithRecommended(city);
     }
 }

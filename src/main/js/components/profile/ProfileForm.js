@@ -54,7 +54,7 @@ class ProfileForm extends React.Component {
 			city: this.state.city,
 			address: this.state.address,
 			sitter: cookies.get('sitter'),
-			owner: cookies.get('owner')
+			owner: cookies.get('owner'),
 		};
 		return this.props.register(user);
 	}
@@ -72,7 +72,8 @@ class ProfileForm extends React.Component {
                     lastName: res.lastName,
                     address: res.address,
                     phoneNumber: res.phoneNumber,
-					city: res.city});
+					city: res.city
+				});
 			}).then(response => console.log(response))
 			.catch(error => this.setState({error}));
 	}

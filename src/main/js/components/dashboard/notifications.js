@@ -13,6 +13,7 @@ import {withStyles} from '@material-ui/core';
 import Badge from '@material-ui/core/Badge/Badge';
 import NotificationsIcon from '@material-ui/icons/Notifications';
 import IconButton from '@material-ui/core/IconButton/IconButton';
+import CancelIcon from '@material-ui/icons/Cancel';
 
 let id = 0;
 
@@ -37,7 +38,7 @@ class FormDialog extends React.Component {
         super(props);
         console.log(props);
         this.state = {
-            booking: [],
+            notifications: [],
             open: false,
             start: new Date(),
             end: new Date()
@@ -50,40 +51,13 @@ class FormDialog extends React.Component {
 
         const cookies = new Cookies();
 
-        axios.get('/booking/sitter/' + cookies.get('username'), cookies.get('username'))
-            .then(res => {
-                console.log(res);
-                this.setState({
-                    bookings: res});
-                if(this.state.bookings)
-                {this.state.bookings.map(booking => {
-                    const startDate = new Date(booking.startDate);
-                    const endDate = new Date(booking.finishDate);
-                    const status = booking.status;
-                    const ownerPrincipal = booking.ownerPrincipal;
-
-                    console.log('startDate: ', startDate);
-                    console.log('endDate: ', endDate);
-
-                    axios.get('/api/user/' + ownerPrincipal, ownerPrincipal)
-                        .then(res => {
-                            name = res.firstName;
-                            console.log('name2: ', name);
-
-                            data.push(this.createData(name));
-                            this.setState({loaded: true});
-                        }).then(response => console.log(response))
-                        .catch(error => this.setState({error}));
-
-
-                });}
-
-            }).then(response => console.log(response))
-            .catch(error => this.setState({error}));
-    }
-
-    createData = (name) => {
-        return { name};
+        // axios.get('/notification/getbysitterprincipal/' + cookies.get('username'), cookies.get('username'))
+        //     .then(res => {
+        //         this.setState( {
+        //             notifications: res.data
+        //         });
+		//
+        //     });
     }
 
     handleClickOpen = () => {
@@ -94,10 +68,25 @@ class FormDialog extends React.Component {
         this.setState({ open: false });
     };
 
+    handleCancel = () => {
+        //remove notification
+    };
 
     render() {
-        const { bookings } = this.state;
+        const notifications = this.state.notifications;
         const loaded = this.state.loaded;
+        let list = '';
+        if (notifications) {
+            list = notifications.map(notification => {
+                return (
+                    <li>{notification.message}
+                        <IconButton color="inherit" onClick={this.handleCancel}>
+                            <CancelIcon/>
+                        </IconButton>
+                    </li>
+                );
+            });
+        }
 
         return (
             <div>
@@ -113,16 +102,7 @@ class FormDialog extends React.Component {
                     fullWidth={true}
                 >
                     <DialogTitle id="form-dialog-title">Notifications</DialogTitle>
-                    {loaded &&
-                    <ul>
-                        {data.map(n => {
-                            console.log('NAME:', n.name);
-                            return (
-                                <li>{n.name} has requested you as a sitter</li>
-                            );
-                        })}
-                    </ul>
-                    }
+                    {list}
                 </Dialog>
             </div>
         );
