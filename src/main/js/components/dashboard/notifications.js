@@ -58,6 +58,40 @@ class FormDialog extends React.Component {
         //         });
 		//
         //     });
+        // axios.get('/api/booking/sitter/' + cookies.get('username'), cookies.get('username'))
+        //     .then(res => {
+        //         console.log(res);
+        //         this.setState({
+        //             bookings: res});
+        //         if(this.state.bookings)
+        //         {this.state.bookings.map(booking => {
+        //             const startDate = new Date(booking.startDate);
+        //             const endDate = new Date(booking.finishDate);
+        //             const status = booking.status;
+        //             const ownerPrincipal = booking.ownerPrincipal;
+		//
+        //             console.log('startDate: ', startDate);
+        //             console.log('endDate: ', endDate);
+		//
+        //             axios.get('/api/user/' + ownerPrincipal, ownerPrincipal)
+        //                 .then(res => {
+        //                     name = res.firstName + ' ' + res.lastName;
+        //                     console.log('name2: ', name);
+		//
+        //                     data.push(this.createData(name));
+        //                     this.setState({loaded: true});
+        //                 }).then(response => console.log(response))
+        //                 .catch(error => this.setState({error}));
+		//
+		//
+        //         });}
+		//
+        //     }).then(response => console.log(response))
+        //     .catch(error => this.setState({error}));
+    }
+
+    createData = (name) => {
+        return { name};
     }
 
     handleClickOpen = () => {

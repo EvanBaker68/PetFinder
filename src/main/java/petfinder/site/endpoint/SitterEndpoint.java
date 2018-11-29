@@ -1,17 +1,19 @@
 package petfinder.site.endpoint;
 
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.web.bind.annotation.*;
 import petfinder.site.common.date.DateDto;
 import petfinder.site.common.date.DateService;
 import petfinder.site.common.sitter.SitterService;
 import petfinder.site.common.sitter.SitterDto;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 import org.springframework.beans.factory.annotation.Autowired;
 
 @RestController
-@RequestMapping(value = "/sitter")
+@RequestMapping(value = "/api/sitter")
 public class SitterEndpoint {
 
     @Autowired
@@ -22,6 +24,7 @@ public class SitterEndpoint {
 
     @GetMapping(value = "/{principal:.+}", produces = "application/json")
     @ResponseBody
+
     public SitterDto getSitter(@PathVariable("principal") String principal) {
         return sitterService.findSitter(principal);
     }
@@ -44,8 +47,14 @@ public class SitterEndpoint {
     @GetMapping(value = "/get-dates/{sitterPrincipal:.+}", produces = "application/json")
     @ResponseBody
     public List<DateDto> getDates(@PathVariable("sitterPrincipal") String sitterPrincipal) {
-        System.out.println("made to endpoint");
-        return dateService.findDateBySitter(sitterPrincipal);
+        if (sitterPrincipal.equals(SecurityContextHolder.getContext().getAuthentication().getName())) {
+            return dateService.findDateBySitter(sitterPrincipal);
+        }
+        else {
+            List<DateDto> returnList = new ArrayList<>();
+
+            return returnList;
+        }
     }
 
 

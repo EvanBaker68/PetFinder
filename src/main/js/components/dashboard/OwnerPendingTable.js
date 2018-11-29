@@ -12,13 +12,13 @@ import Cookies from 'universal-cookie';
 import axios from 'axios/index';
 
 const styles = {
-    root: {
-        width: '100%',
-        overflowX: 'auto',
-    },
-    table: {
-        minWidth: 700,
-    },
+	root: {
+		width: '100%',
+		overflowX: 'auto',
+	},
+	table: {
+		minWidth: 700,
+	},
 };
 
 var data = [];
@@ -27,152 +27,167 @@ var name = '';
 //covert to component
 class OwnerPendingTable extends React.Component {
 
-    constructor(props) {
-        super(props);
-        this.state = {
-            bookings: null,
-            loaded: false,
-            change: false
-        };
-        //axios.get('/booking/getUpcoming', cookies.username)
-        //this.setSate(bookings: createData(...))
-    }
+	constructor(props) {
+		super(props);
+		this.state = {
+			bookings: null,
+			loaded: false,
+			reload: false
+		};
+		//axios.get('/api/booking/getUpcoming', cookies.username)
+		//this.setSate(bookings: createData(...))
+	}
 
-    componentDidMount() {
-        data = [];
-        const cookies = new Cookies();
+	componentDidMount() {
+		data = [];
+		const cookies = new Cookies();
 
-        axios.get('/booking/owner/' + cookies.get('username'), cookies.get('username'))
-            .then(res => {
-                console.log('Results: ', res);
-                this.setState({
-                    bookings: res});
-                if(this.state.bookings)
-                {this.state.bookings.map(booking => {
+		axios.get('/api/booking/owner/' + cookies.get('username'), cookies.get('username'))
+			.then(res => {
+				console.log('Results: ', res);
+				this.setState({
+					bookings: res});
+				if(this.state.bookings)
+				{this.state.bookings.map(booking => {
 
-                    const startDate = new Date(booking.startDate);
-                    const endDate = new Date(booking.finishDate);
-                    const status = booking.status;
-                    const id = booking.id;
-                    const sitterPrincipal = booking.sitterPrincipal;
+					const startDate = new Date(booking.startDate);
+					const endDate = new Date(booking.finishDate);
+					const status = booking.status;
+					const id = booking.id;
+					const sitterPrincipal = booking.sitterPrincipal;
 
-                    console.log('startDate: ', startDate);
-                    console.log('endDate: ', endDate);
+					if(booking.ownerPrincipal === cookies.get('username')
+						&& booking.status === 'pending')
+						axios.get('/api/user/' + sitterPrincipal, sitterPrincipal)
+							.then(res => {
 
-                    if(booking.ownerPrincipal === cookies.get('username')
-                        && booking.status === 'pending')
-                        axios.get('/api/user/' + sitterPrincipal, sitterPrincipal)
-                            .then(res => {
-                                console.log('name: ', res.firstName);
-                                console.log('startDate', startDate);
-                                console.log('endDate', endDate);
-                                console.log('status', status);
-                                console.log('data1:',data);
-                                name = res.firstName + ' ' + res.lastName;
-                                console.log('name2: ', name);
+								name = res.firstName + ' ' + res.lastName;
 
-                                data.push(this.createData(id, name, startDate, endDate, status));
-                                this.setState({loaded: true});
-                            }).then(response => console.log(response))
-                            .catch(error => this.setState({error}));
+								data.push(this.createData(id, name, startDate, endDate, status));
+								this.setState({loaded: true});
+							}).then(response => console.log(response))
+							.catch(error => this.setState({error}));
+				});}
+
+			}).then(response => console.log(response))
+			.catch(error => this.setState({error}));
+	}
+
+	createData = (id, name, startDate, endDate, status) => {
+		return { id, name, startDate, endDate, status };
+	};
+
+	cancelBooking(id) {
+		axios.get('/api/booking/' + id, id)
+			.then(res => {
+				var booking = res;
+				booking.status = 'canceled';
+				axios.post('/api/booking/add-booking', booking)
+					.then(res => {
+
+						data = [];
+						const cookies = new Cookies();
+
+						axios.get('/api/booking/owner/' + cookies.get('username'), cookies.get('username'))
+							.then(res => {
+								console.log('Results: ', res);
+								this.setState({
+									bookings: res});
+								if(this.state.bookings)
+								{this.state.bookings.map(booking => {
+
+									const startDate = new Date(booking.startDate);
+									const endDate = new Date(booking.finishDate);
+									const status = booking.status;
+									const id = booking.id;
+									const sitterPrincipal = booking.sitterPrincipal;
+
+									if(booking.ownerPrincipal === cookies.get('username')
+										&& booking.status === 'pending')
+										axios.get('/api/user/' + sitterPrincipal, sitterPrincipal)
+											.then(res => {
+
+												name = res.firstName + ' ' + res.lastName;
+
+												data.push(this.createData(id, name, startDate, endDate, status));
+
+											}).then(response => {
+											if(this.state.reload === false)
+												this.setState({ reload: true });
+											else
+												this.setState({ reload: false });
+											console.log(response);
+										})
+											.catch(error => this.setState({error}));
+								});}
+
+							}).then(response => console.log(response))
+							.catch(error => this.setState({error}));
+
+						console.log(res);
+					})
+					.catch(error => {
+						console.log(error.response);
+					});
+			}).then(response => console.log(response))
+			.catch(error => this.setState({error}));
 
 
-                });}
+	}
 
-            }).then(response => console.log(response))
-            .catch(error => this.setState({error}));
-    }
+	render() {
+		const {classes} = this.props;
+		const loaded = this.state.loaded;
 
-    createData = (id, name, startDate, endDate, status) => {
-        return { id, name, startDate, endDate, status };
-    };
+		console.log('DATAAAAA: ', data);
 
-    cancelBooking(id) {
-        var booking = null;
-        axios.get('/booking/' + id, id)
-            .then(res => {
-                booking = res;
-                booking.status = 'canceled';
-                axios.post('/booking/add-booking', booking)
-                    .then(res => {
-                        console.log(res);
-                        this.setState({change: true});
-                    })
-                    .catch(error => {
-                        console.log(error.response);
-                    });
-                let message = (booking.ownerPrincipal + ' has canceled the booking on ' + booking.startDate);
-                var notification = {
-                    message: message,
-                    sitterPrincipal: booking.sitterPrincipal
-                };
+		return (
+			<Paper className={classes.root}>
+				<Table className={classes.table}>
+					<TableHead>
+						<TableRow>
+							<TableCell>Sitter</TableCell>
+							<TableCell>Start Date</TableCell>
+							<TableCell>End Date</TableCell>
+							<TableCell>Status</TableCell>
+							<TableCell>Cancel</TableCell>
+						</TableRow>
+					</TableHead>
+					{loaded &&
 
-                axios.post('/notification/add-notification', notification)
-                    .then(res => {
-                        console.log(res);
-                    })
-                    .catch(error => {
-                        console.log(res);
-                    });
-
-            }).then(response => console.log(response))
-            .catch(error => this.setState({error}));
-    }
-
-    render() {
-        const {classes} = this.props;
-        const loaded = this.state.loaded;
-        if (this.state.change === true) {
-            this.state.change = false;
-        }
-
-        return (
-            <Paper className={classes.root}>
-                <Table className={classes.table}>
-                    <TableHead>
-                        <TableRow>
-                            <TableCell>Sitter</TableCell>
-                            <TableCell>Start Date</TableCell>
-                            <TableCell>End Date</TableCell>
-                            <TableCell>Status</TableCell>
-                            <TableCell>Cancel</TableCell>
-                        </TableRow>
-                    </TableHead>
-                    {loaded &&
-
-                    <TableBody>
-                        {/*change data to this.state.bookings*/}
-                        {data.map(n => {
-                            return (
-                                <TableRow key={n.id}>
-                                    <TableCell component="th" scope="row">
-                                        {n.name}
-                                    </TableCell>
-                                    <TableCell>{n.startDate.toLocaleString()}</TableCell>
-                                    <TableCell>{n.endDate.toLocaleString()}</TableCell>
-                                    <TableCell>{n.status}</TableCell>
-                                    <TableCell>
-                                        <Button
-                                            variant="contained"
-                                            color='secondary'
-                                            onClick={this.cancelBooking.bind(this, n.id)}
-                                        >
-                                            Cancel
-                                        </Button>
-                                    </TableCell>
-                                </TableRow>
-                            );
-                        })}
-                    </TableBody>
-                    }
-                </Table>
-            </Paper>
-        );
-    }
+					<TableBody>
+						{/*change data to this.state.bookings*/}
+						{data.map(n => {
+							return (
+								<TableRow key={n.id}>
+									<TableCell component="th" scope="row">
+										{n.name}
+									</TableCell>
+									<TableCell>{new Date(n.startDate.setHours(n.startDate.getHours() -6)).toLocaleString()}</TableCell>
+									<TableCell>{new Date(n.endDate.setHours(n.endDate.getHours() -6)).toLocaleString()}</TableCell>
+									<TableCell>{n.status}</TableCell>
+									<TableCell>
+										<Button
+											variant="contained"
+											color='secondary'
+											onClick={this.cancelBooking.bind(this, n.id)}
+										>
+											Cancel
+										</Button>
+									</TableCell>
+								</TableRow>
+							);
+						})}
+					</TableBody>
+					}
+				</Table>
+			</Paper>
+		);
+	}
 }
 
 OwnerPendingTable.propTypes = {
-    classes: PropTypes.object.isRequired,
+	classes: PropTypes.object.isRequired,
 };
 
 export default withStyles(styles)(OwnerPendingTable);

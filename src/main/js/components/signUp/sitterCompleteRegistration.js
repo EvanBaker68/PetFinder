@@ -69,8 +69,6 @@ class SitterCompleteRegistration extends React.Component {
                         <Typography variant="display1">Register</Typography>
                         <Typography variant="headline">Basic Information</Typography>
                         <BasicInfoFields/>
-                        <Typography variant="headline">Preferences</Typography>
-                        <SitterInfoFields/>
                     </Paper>
                 </main>
             </React.Fragment>

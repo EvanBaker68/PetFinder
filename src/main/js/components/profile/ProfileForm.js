@@ -64,7 +64,6 @@ class ProfileForm extends React.Component {
 		const username = cookies.get('username');
 		const password = cookies.get('password');
 
-		// this.setAuthentication(username, password);
 		axios.get('/api/user')
 			.then(res => {
 				this.setState({

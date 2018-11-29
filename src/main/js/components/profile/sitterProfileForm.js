@@ -45,7 +45,7 @@ class ProfileForm extends React.Component {
 		const principal = cookies.get('username');
 		var formattedPrincipal = principal.replace(/@/g, '%40');
 
-		axios.get('/sitter/' + principal, principal)
+		axios.get('/api/sitter/' + principal, principal)
 			.then(res => {
 				this.setState({
 					rate: res.rate,
@@ -60,7 +60,7 @@ class ProfileForm extends React.Component {
 			principal: cookies.get('username'),
 			numPets: this.state.numPets
 		};
-		axios.post('/sitter/add-sitter', sitter)
+		axios.post('/api/sitter/add-sitter', sitter)
 			.then(res => {
 				console.log(res);
 				console.log(res.data);

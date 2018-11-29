@@ -30,7 +30,7 @@ export default class FormDialog extends React.Component {
 		let { name, age, id, dogBreed, petType, ownerPrincipal } = this.props;
 		const endpoint = '/pet/' + id;
 
-		axios.get('/pet/' + id, id)
+		axios.get('/api/pet/' + id, id)
 			.then(res => {
 				this.setState({
 				name: res.name,
@@ -62,7 +62,7 @@ export default class FormDialog extends React.Component {
 			dogBreed: this.state.dogBreed,
 			age: this.state.age
 		};
-		axios.post('/pet/add-pet', pet)
+		axios.post('/api/pet/add-pet', pet)
 			.then(res => {
 				console.log(res);
 				console.log(res.data);
