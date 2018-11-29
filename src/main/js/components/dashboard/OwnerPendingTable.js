@@ -38,10 +38,6 @@ class OwnerPendingTable extends React.Component {
         //this.setSate(bookings: createData(...))
     }
 
-    shouldComponentUpdate() {
-        return change;
-    }
-
     componentDidMount() {
         data = [];
         const cookies = new Cookies();
@@ -82,6 +78,7 @@ class OwnerPendingTable extends React.Component {
     };
 
     cancelBooking(id) {
+        var booking;
         axios.get('/api/booking/' + id, id)
             .then(res => {
                 booking = res;
