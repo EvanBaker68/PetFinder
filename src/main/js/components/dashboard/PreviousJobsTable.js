@@ -146,6 +146,43 @@ class SimpleTable extends React.Component{
 
     render() {
 
+		axios.get('/api/booking/sitter/' + cookies.get('username'), cookies.get('username'))
+			.then(res => {
+				console.log('Results: ', res);
+				this.setState({
+					bookings: res});
+				if(this.state.bookings)
+				{this.state.bookings.map(booking => {
+
+					console.log('BOOKING: ', booking);
+					const startDate = new Date(booking.startDate);
+					const endDate = new Date(booking.finishDate);
+					const status = booking.status;
+					const id = booking.id;
+					const rating = booking.scoreBySitter;
+					const ownerPrincipal = booking.ownerPrincipal;
+
+					console.log('startDate: ', startDate);
+					console.log('endDate: ', endDate);
+
+					if(booking.sitterPrincipal === cookies.get('username')
+						&& booking.status === 'approved' && (endDate < new Date()))
+						axios.get('/api/user/' + ownerPrincipal, ownerPrincipal)
+							.then(res => {
+								console.log('name: ', res.firstName);
+								console.log('startDate', startDate);
+								console.log('endDate', endDate);
+								console.log('status', status);
+								console.log('data1:',data);
+								name = res.firstName + ' ' + res.lastName;
+								console.log('name2: ', name);
+
+								data.push(this.createData(id, name, ownerPrincipal, startDate, endDate, rating));
+							}).then(response => console.log(response))
+							.catch(error => this.setState({error}));
+
+
+				});}
 
 		const {classes} = this.props;
 		console.log('Data: ', data);
