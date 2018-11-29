@@ -102,7 +102,7 @@ class ProfileForm extends React.Component {
                 </Button>
                 <div>
                     <Grid>
-                        <Typography variant="display2">
+                        <Typography variant="display1">
                             Rating: {this.state.rating}
                         </Typography>
                     </Grid>

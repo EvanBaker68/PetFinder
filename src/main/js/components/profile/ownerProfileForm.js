@@ -81,7 +81,7 @@ class ProfileForm extends React.Component {
 		return (
             <div>
                 <form className={classes.container} noValidate autoComplete="off">
-					<Typography variant="display2">
+					<Typography variant="display1">
 						Rating: {this.state.rating}
 					</Typography>
                 </form>

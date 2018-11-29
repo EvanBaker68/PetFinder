@@ -56,6 +56,7 @@ class FormDialog extends React.Component {
 				sitter.rating += this.state.value;
 				sitter.ratingCount += 1;
 				sitter.rating /= sitter.ratingCount;
+                sitter.rating = Math.round( sitter.rating * 10 ) / 10;
 
 				axios.post('/api/sitter/add-sitter', sitter)
 					.then(res => {
