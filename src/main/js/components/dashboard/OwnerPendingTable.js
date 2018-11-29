@@ -38,6 +38,10 @@ class OwnerPendingTable extends React.Component {
         //this.setSate(bookings: createData(...))
     }
 
+    shouldComponentUpdate() {
+        return change;
+    }
+
     componentDidMount() {
         data = [];
         const cookies = new Cookies();
@@ -88,6 +92,7 @@ class OwnerPendingTable extends React.Component {
     };
 
     cancelBooking(id) {
+
         var booking = null;
         axios.get('/booking/' + id, id)
             .then(res => {
@@ -96,7 +101,7 @@ class OwnerPendingTable extends React.Component {
                 axios.post('/booking/add-booking', booking)
                     .then(res => {
                         console.log(res);
-                        this.setState({change: true});
+                        this.forceUpdate();
                     })
                     .catch(error => {
                         console.log(error.response);
@@ -117,14 +122,13 @@ class OwnerPendingTable extends React.Component {
 
             }).then(response => console.log(response))
             .catch(error => this.setState({error}));
+        this.setState({change: true});
+        console.log('change');
     }
 
     render() {
         const {classes} = this.props;
         const loaded = this.state.loaded;
-        if (this.state.change === true) {
-            this.state.change = false;
-        }
 
         return (
             <Paper className={classes.root}>
@@ -150,7 +154,7 @@ class OwnerPendingTable extends React.Component {
                                     </TableCell>
                                     <TableCell>{n.startDate.toLocaleString()}</TableCell>
                                     <TableCell>{n.endDate.toLocaleString()}</TableCell>
-                                    <TableCell>{n.status}</TableCell>
+                                    <TableCell key={n.status}>{n.status}</TableCell>
                                     <TableCell>
                                         <Button
                                             variant="contained"

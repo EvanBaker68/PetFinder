@@ -69,7 +69,7 @@ class SimpleTable extends React.Component{
 								name = res.firstName + ' ' + res.lastName;
 								console.log('name2: ', name);
 
-								data.push(this.createData(id, name, ownerPrincipal, startDate, endDate, res.isOwnerRated));
+								data.push(this.createData(id, name, ownerPrincipal, startDate, endDate, res.isRatedBySitter));
 								this.setState({loaded: true});
 							}).then(response => console.log(response))
 							.catch(error => this.setState({error}));
@@ -151,7 +151,9 @@ class SimpleTable extends React.Component{
 									<TableCell>{n.startDate.toLocaleString()}</TableCell>
 									<TableCell>{n.endDate.toLocaleString()}</TableCell>
 									<TableCell>
-										<RateOwner name={n.name} principal={n.principal} id={n.id}/>
+                                        {n.isRated &&
+                                        	<RateOwner name={n.name} principal={n.principal} id={n.id}/>
+                                        }
 									</TableCell>
 								</TableRow>
 							);

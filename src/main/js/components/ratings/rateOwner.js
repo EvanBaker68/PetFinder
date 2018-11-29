@@ -46,7 +46,6 @@ class FormDialog extends React.Component {
 	handleClose = () => {
 		this.setState({ open: false });
 
-		console.log('jfdklsjfaklafdskl;');
 		console.log(this.state.principal);
 		axios.get('/owner/' + this.state.principal, this.state.principal).then(
 			res => {
