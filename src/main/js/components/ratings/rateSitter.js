@@ -83,6 +83,8 @@ class FormDialog extends React.Component {
 					.catch(error => {
 						console.log(error.response);
 					});
+
+                let message = booking.ownerPrincipal + ' rated you ' + this.state.value;
 			}).then(response => console.log(response))
 			.catch(error => this.setState({error}));
 

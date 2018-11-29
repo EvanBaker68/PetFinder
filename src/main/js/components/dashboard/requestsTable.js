@@ -97,7 +97,21 @@ class RequestTable extends React.Component {
 					.catch(error => {
 						console.log(error.response);
 					});
-			}).then(response => console.log(response))
+                let message = booking.sitterPrincipal + ' has canceled the booking on ' + booking.startDate;
+                var notification = {
+                    message: message,
+                    ownerPrincipal: booking.ownerPrincipal
+                };
+
+                axios.post('/notification/add-notification', notification)
+                    .then(res => {
+                        console.log(res);
+                    })
+                    .catch(error => {
+                        console.log(res);
+                    });
+
+            }).then(response => console.log(response))
 			.catch(error => this.setState({error}));
 
 		this.setState({ reload: true });
@@ -109,6 +123,7 @@ class RequestTable extends React.Component {
 			.then(res => {
 				var booking = res;
 				booking.status = 'approved';
+
 				axios.post('/api/booking/add-booking', booking)
 					.then(res => {
 						console.log(res);
@@ -116,6 +131,21 @@ class RequestTable extends React.Component {
 					.catch(error => {
 						console.log(error.response);
 					});
+
+                let message = booking.sitterPrincipal + ' has approved the booking starting at ' + booking.startDate;
+
+                var notification = {
+                    message: message,
+                    ownerPrincipal: booking.ownerPrincipal
+                };
+
+                axios.post('/notification/add-notification', notification)
+                    .then(res => {
+                        console.log(res);
+                    })
+                    .catch(error => {
+                        console.log(res);
+                    });
 			}).then(response => console.log(response))
 			.catch(error => this.setState({error}));
 
@@ -128,7 +158,6 @@ render() {
     const { bookings } = this.state;
 	const loaded = this.state.loaded;
 
-    console.log('fdaskjlafsdjkladsdfs',data);
 
 
 	return (

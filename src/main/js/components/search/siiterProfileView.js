@@ -124,6 +124,19 @@ class FormDialog extends React.Component {
             status: 'pending',
 			petId: this.state.id
         };
+
+        let message = booking.ownerPrincipal + ' has requested a booking starting at ' + booking.startDate;
+
+        var notification = {
+            message: message,
+            sitterPrincipal: booking.sitterPrincipal
+        };
+
+        axios.post('/notification/add-notification/', notification)
+            .then(res => {
+                console.log(res);
+            });
+
         console.log(this.state.name);
         console.log(this.state.start);
         console.log(this.state.end);
@@ -196,8 +209,6 @@ class FormDialog extends React.Component {
                             id="datetime-local"
                             label="Start of appointment"
                             type="datetime-local"
-                            defaultValue={this.state.start}
-                            value={this.state.start}
                             onChange={this.handleChange('start')}
                             className={classes.textField}
                             InputLabelProps={{

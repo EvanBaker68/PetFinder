@@ -20,6 +20,7 @@ public class NotificationService {
         return null;
     }
     public List<NotificationDto> findBySitterPrincipal(String sitterPrincipal){
+        System.out.println("finding sitter: "+sitterPrincipal);
         return notoficationDao.findBySitterPrincipal(sitterPrincipal).stream().filter(Optional::isPresent).map(Optional::get).collect(Collectors.toList());
     }
 

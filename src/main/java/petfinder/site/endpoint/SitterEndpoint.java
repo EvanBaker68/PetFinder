@@ -63,7 +63,7 @@ public class SitterEndpoint {
     public List<SitterDto> getSittersByCity(@PathVariable("city") String city){
         return sitterService.findSitterInCityWithRating(city);
     }
-
+/**/
     @GetMapping(value = "/getsittersbycityrecommended/{city:.+}", produces = "application/json")
     @ResponseBody
     public List<SitterDto> getSittersByCityRecommended(@PathVariable("city") String city){
