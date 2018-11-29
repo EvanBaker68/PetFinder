@@ -94,7 +94,7 @@ class FormDialog extends React.Component {
 						console.log(res);
 					});
 
-			}).then(response => console.log(response))
+			}).then(() => {this.props.handler();}).then(response => console.log(response))
 			.catch(error => this.setState({error}));
 
 	};

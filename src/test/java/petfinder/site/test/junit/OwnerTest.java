@@ -58,9 +58,6 @@ public class OwnerTest {
                     ()-> assertThrows(IllegalArgumentException.class, ()-> {
                         ownerDto.setPrincipal(null);
                     }),
-                    ()-> assertThrows(IllegalArgumentException.class, ()->{
-                        ownerDto.setDeleted(null);
-                    }),
                     ()-> assertThrows(IllegalArgumentException.class, ()-> {
                         ownerDto.setRating(-1.0);
                     })

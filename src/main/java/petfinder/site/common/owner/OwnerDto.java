@@ -12,7 +12,7 @@ public class OwnerDto implements Momento<String> {
     private int numPets;
     private double rating = 0.0;
     private int ratingCount = 0;
-    private Boolean isDeleted;
+    private Boolean isDeleted = false;
 
     public OwnerDto() {
     }
@@ -52,9 +52,7 @@ public class OwnerDto implements Momento<String> {
     }
 
     public void setDeleted(Boolean deleted) throws IllegalArgumentException{
-        if(deleted == null){
-            throw new IllegalArgumentException("setDeleted given a null");
-        }
+
         isDeleted = deleted;
     }
 

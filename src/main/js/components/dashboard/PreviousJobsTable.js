@@ -33,7 +33,8 @@ class SimpleTable extends React.Component{
 		name: '',
 		bookings: [],
 		load: true,
-		loaded: false
+		loaded: false,
+		reload: false
 	};
 
 	componentDidMount() {
@@ -81,6 +82,16 @@ class SimpleTable extends React.Component{
 
 			}).then(response => console.log(response))
 			.catch(error => this.setState({error}));
+	}
+
+	handler = () => {
+		console.log('BARF');
+		if(this.state.reload){
+			this.setState({ reload: false });
+		}
+		else{
+			this.setState({ reload: true });
+		}
 	}
 
 
@@ -167,7 +178,8 @@ class SimpleTable extends React.Component{
 									<TableCell>{newnewEndDate.toLocaleString()}</TableCell>
 									<TableCell>
                                         {n.rating == null &&
-                                        	<RateOwner name={n.name} principal={n.principal} id={n.id}/>
+                                        	<RateOwner name={n.name} principal={n.principal} id={n.id}
+											handler={this.handler}/>
                                         }
 									</TableCell>
 								</TableRow>

@@ -37,7 +37,8 @@ class SimpleTable extends React.Component {
 		bookings: [],
 		load: true,
 		loaded: false,
-		rand: false
+		rand: false,
+		reload: false
 	};
 
 	componentDidMount() {
@@ -85,6 +86,16 @@ class SimpleTable extends React.Component {
 			.catch(error => this.setState({error}));
 	}
 
+	handler = () => {
+		console.log('BARF');
+		if(this.state.reload){
+			this.setState({ reload: false });
+		}
+		else{
+			this.setState({ reload: true });
+		}
+	}
+
 	setRand = () => {
 		this.setState({rand: true});
 	}
@@ -128,7 +139,8 @@ class SimpleTable extends React.Component {
 									<TableCell>{newnewEndDate.toLocaleString()}</TableCell>
 									<TableCell>
 										{n.rating === null &&
-											<RateSitter name={n.name} principal={n.principal} id={n.id}/>
+											<RateSitter name={n.name} principal={n.principal} id={n.id}
+											handler={this.handler}/>
 										}
 										{
 										 n.ratedByOwner &&

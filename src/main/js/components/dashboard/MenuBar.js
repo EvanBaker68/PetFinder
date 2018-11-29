@@ -114,6 +114,15 @@ class MenuBar extends React.Component {
         this.setState({ redirect: true });
     };
 
+    handler = () => {
+        if(this.state.reload){
+            this.setState({ reload: false });
+        }
+        else{
+            this.setState({ reload: true });
+        }
+    }
+
     render() {
         const { classes } = this.props;
         return (
@@ -148,7 +157,7 @@ class MenuBar extends React.Component {
                     Home Page
                 </Button>
                 </Link>
-                <Notification/>
+                <Notification handler={this.handler}/>
             </Toolbar>
         </AppBar>
         </div>
