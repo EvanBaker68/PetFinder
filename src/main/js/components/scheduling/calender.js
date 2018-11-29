@@ -16,11 +16,14 @@ export default class Calender extends React.Component
             loaded: false
         };
 
-
         const cookies = new Cookies();
-        axios.get('/api/sitter/get-dates/' + cookies.get('username'), cookies.get('username'))
+		console.log('PRINCIPAL: ', cookies.get('username'));
+
+		axios.get('/api/sitter/get-dates/' + cookies.get('username'), cookies.get('username'))
             .then(res => {
-                this.setState({
+				console.log('SITTER DATES: ', res);
+
+				this.setState({
                     dates: res,
                     loaded: true
                 });

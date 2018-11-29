@@ -48,10 +48,12 @@ class SimpleTable extends React.Component{
 				if(this.state.bookings)
 				{this.state.bookings.map(booking => {
 
+					console.log('BOOKING: ', booking);
 					const startDate = new Date(booking.startDate);
 					const endDate = new Date(booking.finishDate);
 					const status = booking.status;
 					const id = booking.id;
+					const rating = booking.scoreBySitter;
 					const ownerPrincipal = booking.ownerPrincipal;
 
 					console.log('startDate: ', startDate);
@@ -69,7 +71,7 @@ class SimpleTable extends React.Component{
 								name = res.firstName + ' ' + res.lastName;
 								console.log('name2: ', name);
 
-								data.push(this.createData(id, name, ownerPrincipal, startDate, endDate, res.isOwnerRated));
+								data.push(this.createData(id, name, ownerPrincipal, startDate, endDate, rating));
 								this.setState({loaded: true});
 							}).then(response => console.log(response))
 							.catch(error => this.setState({error}));
@@ -82,8 +84,8 @@ class SimpleTable extends React.Component{
 	}
 
 
-	createData = (id, name, principal, startDate, endDate, isRated) => {
-		return { id, name, principal, startDate, endDate, isRated};
+	createData = (id, name, principal, startDate, endDate, rating) => {
+		return { id, name, principal, startDate, endDate, rating};
 	}
 
 	cancelBooking(id) {
@@ -151,7 +153,9 @@ class SimpleTable extends React.Component{
 									<TableCell>{new Date(n.startDate.setHours(n.startDate.getHours() -6)).toLocaleString()}</TableCell>
 									<TableCell>{new Date(n.endDate.setHours(n.endDate.getHours() -6)).toLocaleString()}</TableCell>
 									<TableCell>
-										<RateOwner name={n.name} principal={n.principal} id={n.id}/>
+                                        {n.rating == null &&
+                                        	<RateOwner name={n.name} principal={n.principal} id={n.id}/>
+                                        }
 									</TableCell>
 								</TableRow>
 							);
