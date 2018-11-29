@@ -14,7 +14,7 @@ import Badge from '@material-ui/core/Badge';
 import MenuIcon from '@material-ui/icons/Menu';
 import ChevronLeftIcon from '@material-ui/icons/ChevronLeft';
 import NotificationsIcon from '@material-ui/icons/Notifications';
-import {SitterMenuList} from 'js/components/dashboard/SitterMenuList';
+import SitterMenuList from 'js/components/dashboard/SitterMenuList';
 import SimpleTable from 'js/components/dashboard/simpleTable';
 import Input from '@material-ui/core/Input';
 import SearchIcon from '@material-ui/icons/Search';
@@ -25,6 +25,7 @@ import SitterProfileForm from 'js/components/profile/sitterProfileForm';
 import Cookies from 'universal-cookie';
 import {Redirect} from 'react-router-dom';
 import MenuBar from 'js/components/dashboard/MenuBar';
+import axios from 'axios/index';
 
 const drawerWidth = 240;
 
@@ -105,6 +106,8 @@ const styles = theme => ({
 class Profile extends React.Component {
     state = {
         open: true,
+        firstName: '',
+        lastName: ''
     };
 
     handleDrawerOpen = () => {
@@ -115,9 +118,21 @@ class Profile extends React.Component {
         this.setState({ open: false });
     };
 
+    componentDidMount = () => {
+		axios.get('/api/user')
+			.then(res => {
+				this.setState({
+					firstName: res.firstName,
+					lastName: res.lastName,
+				});
+			}).then(response => console.log(response))
+			.catch(error => this.setState({error}));
+    }
+
     render() {
         const { classes } = this.props;
-
+        const { firstName, lastName } = this.state;
+        const name = firstName + ' ' + lastName;
 		const cookies = new Cookies();
 		if( cookies.get('sitter') !== 'true' ) {
 			return <div><Redirect to='/'/></div>;
@@ -141,7 +156,7 @@ class Profile extends React.Component {
                             </IconButton>
                         </div>
                         <Divider />
-                        <List>{SitterMenuList}</List>
+                        <SitterMenuList/>
                     </Drawer>
                     <main className={classes.content}>
                         <div className={classes.appBarSpacer} />
@@ -149,7 +164,7 @@ class Profile extends React.Component {
                             variant="display1"
                             gutterBottom
                             align='center'>
-                            Bobby
+                            {name}
                         </Typography>
                         <ProfileForm/>
                         <SitterProfileForm/>

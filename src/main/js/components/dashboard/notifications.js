@@ -50,8 +50,9 @@ class FormDialog extends React.Component {
     componentDidMount() {
 
         const cookies = new Cookies();
-
+        
         axios.get('/notification/getbysitterprincipal/' + cookies.get('username'), cookies.get('username'))
+
             .then(res => {
                 this.setState( {
                     notifications: res.data

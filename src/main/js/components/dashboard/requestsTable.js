@@ -31,14 +31,15 @@ class RequestTable extends React.Component {
         name: '',
         bookings: [],
         load: true,
-		loaded: false
+		loaded: false,
+		reload: false
     };
 
 	componentDidMount() {
 		data = [];
 		const cookies = new Cookies();
 
-		axios.get('/booking/sitter/' + cookies.get('username'), cookies.get('username'))
+		axios.get('/api/booking/sitter/' + cookies.get('username'), cookies.get('username'))
 			.then(res => {
 			    console.log('Results: ', res);
 				this.setState({
@@ -85,11 +86,11 @@ class RequestTable extends React.Component {
 	}
 
 	cancelBooking(id) {
-		axios.get('/booking/' + id, id)
+		axios.get('/api/booking/' + id, id)
 			.then(res => {
 				var booking = res;
 				booking.status = 'canceled';
-				axios.post('/booking/add-booking', booking)
+				axios.post('/api/booking/add-booking', booking)
 					.then(res => {
 						console.log(res);
 					})
@@ -112,14 +113,18 @@ class RequestTable extends React.Component {
 
             }).then(response => console.log(response))
 			.catch(error => this.setState({error}));
+
+		this.setState({ reload: true });
+
 	}
 
 	approveBooking(id) {
-		axios.get('/booking/' + id, id)
+		axios.get('/api/booking/' + id, id)
 			.then(res => {
 				var booking = res;
 				booking.status = 'approved';
-				axios.post('/booking/add-booking', booking)
+
+				axios.post('/api/booking/add-booking', booking)
 					.then(res => {
 						console.log(res);
 					})
@@ -143,6 +148,8 @@ class RequestTable extends React.Component {
                     });
 			}).then(response => console.log(response))
 			.catch(error => this.setState({error}));
+
+		this.setState({ reload: true });
 	}
 
 render() {
@@ -175,8 +182,8 @@ render() {
                                 <TableCell component="th" scope="row">
                                     {n.name}
                                 </TableCell>
-                                <TableCell>{n.startDate.toLocaleString()}</TableCell>
-                                <TableCell>{n.endDate.toLocaleString()}</TableCell>
+                                <TableCell>{new Date(n.startDate.setHours(n.startDate.getHours() -6)).toLocaleString()}</TableCell>
+                                <TableCell>{new Date(n.endDate.setHours(n.endDate.getHours() -6)).toLocaleString()}</TableCell>
 								<TableCell>{n.status}</TableCell>
                                 <TableCell>
                                     <Button

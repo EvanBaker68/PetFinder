@@ -38,7 +38,7 @@ class SitterUpcomingTable extends React.Component {
         data = [];
         const cookies = new Cookies();
 
-        axios.get('/booking/sitter/' + cookies.get('username'), cookies.get('username'))
+        axios.get('/api/booking/sitter/' + cookies.get('username'), cookies.get('username'))
             .then(res => {
                 console.log('Results: ', res);
                 this.setState({
@@ -56,7 +56,7 @@ class SitterUpcomingTable extends React.Component {
                     console.log('endDate: ', endDate);
 
                     if(booking.sitterPrincipal === cookies.get('username')
-                        && booking.status === 'pending')
+                        && booking.status === 'approved'  && (endDate >= new Date()))
                         axios.get('/api/user/' + ownerPrincipal, ownerPrincipal)
                             .then(res => {
                                 console.log('name: ', res.firstName);
@@ -85,11 +85,11 @@ class SitterUpcomingTable extends React.Component {
     }
 
     cancelBooking(id) {
-        axios.get('/booking/' + id, id)
+        axios.get('/api/booking/' + id, id)
             .then(res => {
                 var booking = res;
                 booking.status = 'canceled';
-                axios.post('/booking/add-booking', booking)
+                axios.post('/api/booking/add-booking', booking)
                     .then(res => {
                         console.log(res);
                     })
@@ -97,7 +97,21 @@ class SitterUpcomingTable extends React.Component {
                         console.log(error.response);
                     });
 
-                let message = booking.sitterPrincipal + ' has canceled the booking on ' + booking.startDate;
+            });
+    }
+
+    approveBooking(id) {
+        axios.get('/api/booking/' + id, id)
+            .then(res => {
+                var booking = res;
+                booking.status = 'past';
+                axios.post('/api/booking/add-booking', booking)
+                    .then(res => {
+                        console.log(res);
+                    })
+                    .catch(error => {
+                        console.log(error.response);
+                    });
             }).then(response => console.log(response))
             .catch(error => this.setState({error}));
     }
@@ -117,7 +131,6 @@ class SitterUpcomingTable extends React.Component {
                             <TableCell>Owner</TableCell>
                             <TableCell>Start Date</TableCell>
                             <TableCell>End Date</TableCell>
-                            <TableCell>Cancel</TableCell>
                         </TableRow>
                     </TableHead>
                     {loaded &&
@@ -129,16 +142,8 @@ class SitterUpcomingTable extends React.Component {
                                     <TableCell component="th" scope="row">
                                         {n.name}
                                     </TableCell>
-                                    <TableCell>{n.startDate.toLocaleString()}</TableCell>
-                                    <TableCell>{n.endDate.toLocaleString()}</TableCell>
-                                    <TableCell>
-                                        <Button
-                                            variant="contained"
-                                            color='secondary'
-                                            onClick={this.cancelBooking.bind(this, n.id)}>
-                                            Cancel
-                                        </Button>
-                                    </TableCell>
+                                    <TableCell>{new Date(n.startDate.setHours(n.startDate.getHours() -6)).toLocaleString()}</TableCell>
+                                    <TableCell>{new Date(n.endDate.setHours(n.endDate.getHours() -6)).toLocaleString()}</TableCell>
                                 </TableRow>
                             );
                         })}

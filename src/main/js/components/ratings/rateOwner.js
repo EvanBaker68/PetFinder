@@ -47,7 +47,7 @@ class FormDialog extends React.Component {
 		this.setState({ open: false });
 
 		console.log(this.state.principal);
-		axios.get('/owner/' + this.state.principal, this.state.principal).then(
+		axios.get('/api/owner/' + this.state.principal, this.state.principal).then(
 			res => {
 				console.log(res);
 				const owner = res;
@@ -56,7 +56,7 @@ class FormDialog extends React.Component {
 				owner.ratingCount += 1;
 				owner.rating /= owner.ratingCount;
 
-				axios.post('/owner/add-owner', owner)
+				axios.post('/api/owner/add-owner', owner)
 					.then(res => {
 						console.log(res);
 						console.log(res.data);
@@ -68,12 +68,12 @@ class FormDialog extends React.Component {
 			.catch(error => this.setState({error}));
 
 
-		axios.get('/booking/' + this.state.id, this.state.id)
+		axios.get('/api/booking/' + this.state.id, this.state.id)
 			.then(res => {
 				var booking = res;
 				booking.isRatedBySitter = true;
 				booking.scoreBySitter = this.state.value;
-				axios.post('/booking/add-booking', booking)
+				axios.post('/api/booking/add-booking', booking)
 					.then(res => {
 						console.log(res);
 					})
