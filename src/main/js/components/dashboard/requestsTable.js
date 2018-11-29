@@ -162,7 +162,7 @@ render() {
 
     const { bookings } = this.state;
 	const loaded = this.state.loaded;
-
+	var newDate;
 
 
 	return (
@@ -182,12 +182,17 @@ render() {
                 <TableBody>
                     {data.map(n => {
                         console.log('NAME:', n.name);
+                        newDate = new Date(n.startDate);
+                        var newnewDate = new Date(newDate.getTime() - (350 * 60000));
+                        console.log('NEWDATE: ', newnewDate);
+
+                        // newDate.setHours(n.startDate.getHours() -6);
                         return (
                             <TableRow key={n.id}>
                                 <TableCell component="th" scope="row">
                                     {n.name}
                                 </TableCell>
-                                <TableCell>{new Date(n.startDate.setHours(n.startDate.getHours() -6)).toLocaleString()}</TableCell>
+                                <TableCell>{new Date(n.startDate).toLocaleString()}</TableCell>
                                 <TableCell>{new Date(n.endDate.setHours(n.endDate.getHours() -6)).toLocaleString()}</TableCell>
 								<TableCell>{n.status}</TableCell>
                                 <TableCell>
