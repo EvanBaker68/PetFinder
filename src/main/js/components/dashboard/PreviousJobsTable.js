@@ -40,7 +40,7 @@ class SimpleTable extends React.Component{
 		data = [];
 		const cookies = new Cookies();
 
-		axios.get('/booking/sitter/' + cookies.get('username'), cookies.get('username'))
+		axios.get('/api/booking/sitter/' + cookies.get('username'), cookies.get('username'))
 			.then(res => {
 				console.log('Results: ', res);
 				this.setState({
@@ -48,17 +48,19 @@ class SimpleTable extends React.Component{
 				if(this.state.bookings)
 				{this.state.bookings.map(booking => {
 
+					console.log('BOOKING: ', booking);
 					const startDate = new Date(booking.startDate);
 					const endDate = new Date(booking.finishDate);
 					const status = booking.status;
 					const id = booking.id;
+					const rating = booking.scoreBySitter;
 					const ownerPrincipal = booking.ownerPrincipal;
 
 					console.log('startDate: ', startDate);
 					console.log('endDate: ', endDate);
 
 					if(booking.sitterPrincipal === cookies.get('username')
-						&& booking.status === 'past')
+						&& booking.status === 'approved' && (endDate < new Date()))
 						axios.get('/api/user/' + ownerPrincipal, ownerPrincipal)
 							.then(res => {
 								console.log('name: ', res.firstName);
@@ -69,7 +71,7 @@ class SimpleTable extends React.Component{
 								name = res.firstName + ' ' + res.lastName;
 								console.log('name2: ', name);
 
-								data.push(this.createData(id, name, ownerPrincipal, startDate, endDate));
+								data.push(this.createData(id, name, ownerPrincipal, startDate, endDate, rating));
 								this.setState({loaded: true});
 							}).then(response => console.log(response))
 							.catch(error => this.setState({error}));
@@ -82,32 +84,39 @@ class SimpleTable extends React.Component{
 	}
 
 
-	createData = (id, name, principal, startDate, endDate) => {
-		return { id, name, principal, startDate, endDate};
+	createData = (id, name, principal, startDate, endDate, rating) => {
+		return { id, name, principal, startDate, endDate, rating};
 	}
 
 	cancelBooking(id) {
-		axios.get('/booking/' + id, id)
+		axios.get('/api/booking/' + id, id)
 			.then(res => {
 				var booking = res;
 				booking.status = 'canceled';
-				axios.post('/booking/add-booking', booking)
+				axios.post('/api/booking/add-booking', booking)
 					.then(res => {
 						console.log(res);
 					})
 					.catch(error => {
 						console.log(error.response);
 					});
+                let message = booking.sitterPrincipal + ' has canceled the booking on ' + new Date(booking.startDate);
+                var notification = {
+                    message: message,
+					sitterPrincipal: booking.sitterPrincipal,
+					ownerPrincipal: booking.ownerPrincipal
+                };
+                //axois.post();
 			}).then(response => console.log(response))
 			.catch(error => this.setState({error}));
 	}
 
 	approveBooking(id) {
-		axios.get('/booking/' + id, id)
+		axios.get('/api/booking/' + id, id)
 			.then(res => {
 				var booking = res;
 				booking.status = 'past';
-				axios.post('/booking/add-booking', booking)
+				axios.post('/api/booking/add-booking', booking)
 					.then(res => {
 						console.log(res);
 					})
@@ -122,7 +131,7 @@ class SimpleTable extends React.Component{
 
 
 		const {classes} = this.props;
-
+		console.log('Data: ', data);
 
 		return (
 			<Paper className={classes.root}>
@@ -142,10 +151,12 @@ class SimpleTable extends React.Component{
 									<TableCell component="th" scope="row">
 										{n.name}
 									</TableCell>
-									<TableCell>{n.startDate.toLocaleString()}</TableCell>
-									<TableCell>{n.endDate.toLocaleString()}</TableCell>
+									<TableCell>{new Date(n.startDate.setHours(n.startDate.getHours() -6)).toLocaleString()}</TableCell>
+									<TableCell>{new Date(n.endDate.setHours(n.endDate.getHours() -6)).toLocaleString()}</TableCell>
 									<TableCell>
-										<RateOwner name={n.name} principal={n.principal} id={n.id}/>
+                                        {n.rating == null &&
+                                        	<RateOwner name={n.name} principal={n.principal} id={n.id}/>
+                                        }
 									</TableCell>
 								</TableRow>
 							);

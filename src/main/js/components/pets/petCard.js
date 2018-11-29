@@ -37,7 +37,7 @@ class PetCard extends React.Component{
             isDeleted: true
 		};
 		console.log(this.state.name);
-		axios.post('/pet/add-pet', pet)
+		axios.post('/api/pet/add-pet', pet)
 			.then(res => {
 				console.log(res);
 				console.log(res.data);
@@ -52,24 +52,6 @@ class PetCard extends React.Component{
 
 		return (
 			<Card className={classes.card}>
-				<CardActionArea>
-					<CardMedia
-						component="img"
-						className={classes.media}
-						height="140"
-						image={Image}
-						title="Contemplative Reptile"
-					/>
-					<CardContent>
-						<Typography gutterBottom variant="headline" component="h2">
-							{this.props.name}
-							{console.log(this.props.id)}
-						</Typography>
-						<Typography component="p">
-							{this.props.type}, {this.props.breed}
-						</Typography>
-					</CardContent>
-				</CardActionArea>
 				<CardActions>
 					<EditPet id={this.props.id}/>
 					<Button onClick={this.handleDelete} padding="10" color="secondary" variant="contained">

@@ -24,6 +24,7 @@ public class BookingDao {
     }
 
     public List<Optional<BookingDto>> findBookingBySitterPrincipal(String sitterPrincipal) {
+
         /*SearchSourceBuilder searchSourceBuilder = new SearchSourceBuilder();
         String queryString = "";
         queryString = String.format("booking.sitterPrincipal=\"%s\"", sitterPrincipal.replace("\"", ""));
@@ -34,6 +35,7 @@ public class BookingDao {
 
         return repository.search(searchSourceBuilder).stream().map(Optional::ofNullable)
                 .collect(Collectors.toList());*/
+
         SearchRequest searchRequest = new SearchRequest();
         QueryBuilder queryBuilder = QueryBuilders.matchPhraseQuery("sitterPrincipal", sitterPrincipal);
         SearchSourceBuilder searchSourceBuilder = new SearchSourceBuilder();
@@ -42,16 +44,11 @@ public class BookingDao {
     }
 
     public List<Optional<BookingDto>> findBookingByOwnerPrincipal(String ownerPrincipal) {
+        SearchRequest searchRequest = new SearchRequest();
+        QueryBuilder queryBuilder = QueryBuilders.matchPhraseQuery("ownerPrincipal", ownerPrincipal);
         SearchSourceBuilder searchSourceBuilder = new SearchSourceBuilder();
-        String queryString = "";
-        queryString = String.format("booking.ownerPrincipal=\"%s\"", ownerPrincipal.replace("\"", ""));
-
-        searchSourceBuilder.query(QueryBuilders.queryStringQuery(queryString));
-
-        //TODO: add thrown exception
-
-        return repository.search(searchSourceBuilder).stream().map(Optional::ofNullable)
-                .collect(Collectors.toList());
+        searchSourceBuilder.query(queryBuilder);
+        return repository.search(searchSourceBuilder).stream().map(Optional::ofNullable).collect(Collectors.toList());
     }
 
     public void save(BookingDto bookingDto){

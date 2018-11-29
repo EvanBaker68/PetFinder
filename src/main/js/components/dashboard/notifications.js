@@ -38,7 +38,7 @@ class FormDialog extends React.Component {
         super(props);
         console.log(props);
         this.state = {
-            booking: [],
+            notifications: [],
             open: false,
             start: new Date(),
             end: new Date()
@@ -50,38 +50,60 @@ class FormDialog extends React.Component {
     componentDidMount() {
 
         const cookies = new Cookies();
-
-        axios.get('/booking/sitter/' + cookies.get('username'), cookies.get('username'))
+        var array1 = [];
+        var array2 = [];
+        axios.get('/notification/getbysitterprincipal/' + cookies.get('username'), cookies.get('username'))
             .then(res => {
-                console.log(res);
-                this.setState({
-                    bookings: res});
-                if(this.state.bookings)
-                {this.state.bookings.map(booking => {
-                    const startDate = new Date(booking.startDate);
-                    const endDate = new Date(booking.finishDate);
-                    const status = booking.status;
-                    const ownerPrincipal = booking.ownerPrincipal;
+                console.log('SITTERRES: ', res);
+                array1 = res;
 
-                    console.log('startDate: ', startDate);
-                    console.log('endDate: ', endDate);
+            }).then(() => {
 
-                    axios.get('/api/user/' + ownerPrincipal, ownerPrincipal)
-                        .then(res => {
-                            name = res.firstName + ' ' + res.lastName;
-                            console.log('name2: ', name);
-
-                            data.push(this.createData(name));
-                            this.setState({loaded: true});
-                        }).then(response => console.log(response))
-                        .catch(error => this.setState({error}));
+			axios.get('/notification/getbyownerprincipal/' + cookies.get('username'), cookies.get('username'))
+				.then(res => {
+					console.log('OWNERRES: ', res);
+					array2 = res;
+					console.log('ARRAY1: ', array1);
+					console.log('ARRAY2: ', array2);
+					array1.push.apply(array1, array2);
+					this.setState({ notifications: array1 });
+				});
+        });
 
 
-                });}
 
-            }).then(response => console.log(response))
-            .catch(error => this.setState({error}));
+        // axios.get('/api/booking/sitter/' + cookies.get('username'), cookies.get('username'))
+        //     .then(res => {
+        //         console.log(res);
+        //         this.setState({
+        //             bookings: res});
+        //         if(this.state.bookings)
+        //         {this.state.bookings.map(booking => {
+        //             const startDate = new Date(booking.startDate);
+        //             const endDate = new Date(booking.finishDate);
+        //             const status = booking.status;
+        //             const ownerPrincipal = booking.ownerPrincipal;
+		//
+        //             console.log('startDate: ', startDate);
+        //             console.log('endDate: ', endDate);
+		//
+        //             axios.get('/api/user/' + ownerPrincipal, ownerPrincipal)
+        //                 .then(res => {
+        //                     name = res.firstName + ' ' + res.lastName;
+        //                     console.log('name2: ', name);
+		//
+        //                     data.push(this.createData(name));
+        //                     this.setState({loaded: true});
+        //                 }).then(response => console.log(response))
+        //                 .catch(error => this.setState({error}));
+		//
+		//
+        //         });}
+		//
+        //     }).then(response => console.log(response))
+        //     .catch(error => this.setState({error}));
     }
+
 
     createData = (name) => {
         return { name};
@@ -100,13 +122,25 @@ class FormDialog extends React.Component {
     };
 
     render() {
-        const { bookings } = this.state;
+        const notifications = this.state.notifications;
         const loaded = this.state.loaded;
+        let list = '';
+        if (notifications) {
+            list = notifications.map(notification => {
+                return (
+                    <li>{notification.message}
+                        <IconButton color="inherit" onClick={this.handleCancel}>
+                            <CancelIcon/>
+                        </IconButton>
+                    </li>
+                );
+            });
+        }
 
         return (
             <div>
                 <IconButton color="inherit" onClick={this.handleClickOpen}>
-                    <Badge badgeContent={2} color="secondary">
+                    <Badge badgeContent={'!'} color="secondary">
                         <NotificationsIcon/>
                     </Badge>
                 </IconButton>
@@ -117,30 +151,7 @@ class FormDialog extends React.Component {
                     fullWidth={true}
                 >
                     <DialogTitle id="form-dialog-title">Notifications</DialogTitle>
-                    <DialogContentText>Recent Ratings</DialogContentText>
-                    <ui>
-                            <li>Here is a notification
-                                <IconButton color="inherit" onClick={this.handleCancel}>
-                                    <CancelIcon/>
-                                </IconButton>
-                            </li>
-                    </ui>
-                    <DialogContentText>Recent Cancelations</DialogContentText>
-                    <DialogContentText>Recent Requests</DialogContentText>
-                    {loaded &&
-                    <ul>
-                        {data.map(n => {
-                            console.log('NAME:', n.name);
-                            return (
-                                <li>{n.name} has requested you as a sitter
-                                    <IconButton color="inherit" onClick={this.handleCancel}>
-                                        <CancelIcon/>
-                                    </IconButton>
-                                </li>
-                            );
-                        })}
-                    </ul>
-                    }
+                    {list}
                 </Dialog>
             </div>
         );

@@ -27,7 +27,6 @@ public class UserService {
 	}
 
 	public Optional<UserDto> findUserByPrincipal(String principal) {
-		System.out.println("Finding by prinicpal" + principal);
 		return userDao.findUserByPrincipal(principal).map(UserAuthenticationDto::getUser);
 	}
 

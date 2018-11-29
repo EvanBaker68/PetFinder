@@ -30,9 +30,12 @@ const styles = theme => ({
 });
 
 class ProfileForm extends React.Component {
-    state = {
-        rate: 0,
-    };
+    constructor(props) {
+        super(props);
+        this.state = {
+            rate: 0,
+        };
+    }
 
     handleChange = name => event => {
         this.setState({
@@ -43,9 +46,8 @@ class ProfileForm extends React.Component {
 	componentDidMount() {
 		const cookies = new Cookies();
 		const principal = cookies.get('username');
-		var formattedPrincipal = principal.replace(/@/g, '%40');
 
-		axios.get('/sitter/' + principal, principal)
+		axios.get('/api/sitter/' + principal, principal)
 			.then(res => {
 				this.setState({
 					rate: res.rate,
@@ -54,13 +56,31 @@ class ProfileForm extends React.Component {
 			.catch(error => this.setState({error}));
 	}
 
+    validateForm() {
+        let hasErrors = false;
+
+        if(!(/^[0-9]+[.]?[0-9]{0,2}$/.test((this.state.rate).toString())) || !(this.state.rate >= 0)) {
+            hasErrors = true;
+            alert('Invalid rate.');
+        }
+
+        return !hasErrors;
+    }
+
 	handleAddClose = () => {
+        if (!this.validateForm()) {
+            //return if not valid
+            return;
+        }
+
 		const cookies = new Cookies();
 		const sitter = {
 			principal: cookies.get('username'),
-			numPets: this.state.numPets
+            rate: this.state.rate,
+            rating: this.state.rating,
+            ratingCount: this.state.ratingCount
 		};
-		axios.post('/sitter/add-sitter', sitter)
+		axios.post('/api/sitter/add-sitter', sitter)
 			.then(res => {
 				console.log(res);
 				console.log(res.data);
@@ -72,7 +92,6 @@ class ProfileForm extends React.Component {
 
     render() {
         const { classes } = this.props;
-
 		const cookies = new Cookies();
 		if( cookies.get('sitter') !== 'true' ) {
 			return <div><Redirect to='/'/></div>;
@@ -82,22 +101,33 @@ class ProfileForm extends React.Component {
             <div>
                 <form className={classes.container} noValidate autoComplete="off">
                     <TextField
-                        id="standard-name"
+                        id="outlined-name"
                         label="Rate per hour"
                         className={classes.textField}
+                        //value={'$ ' + ((this.state.rate).toFixed(2)).toString()}
                         value={this.state.rate}
                         onChange={this.handleChange('rate')}
                         margin="normal"
                     />
-                    <Grid>
-					<Typography variant="display2">
-						Rating: {this.state.rating}
-					</Typography>
-                    </Grid>
-
                 </form>
-                <Button onClick={this.handleAddClose}>Save Sitter Info</Button>
+                <Button
+                    onClick={this.handleAddClose}
+                    type="submit"
+                    variant="raised"
+                    color="primary"
+                    className={classes.submit}
+                >
+                    Update Rate
+                </Button>
+                <div>
+                    <Grid>
+                        <Typography variant="display1">
+                            Rating: {this.state.rating}
+                        </Typography>
+                    </Grid>
+                </div>
             </div>
+
         );
     }
 }

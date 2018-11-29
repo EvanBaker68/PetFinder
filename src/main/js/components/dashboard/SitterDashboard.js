@@ -14,9 +14,8 @@ import Badge from '@material-ui/core/Badge';
 import MenuIcon from '@material-ui/icons/Menu';
 import ChevronLeftIcon from '@material-ui/icons/ChevronLeft';
 import NotificationsIcon from '@material-ui/icons/Notifications';
-import { mainListItems, secondaryListItems } from 'js/components/dashboard/listItems';
 import PreviousJobsTable from 'js/components/dashboard/PreviousJobsTable';
-import {SitterMenuList} from 'js/components/dashboard/SitterMenuList';
+import SitterMenuList from 'js/components/dashboard/SitterMenuList';
 import RequestsTable from 'js/components/dashboard/requestsTable';
 import Button from '@material-ui/core/Button';
 import  { Redirect } from 'react-router-dom';
@@ -151,7 +150,7 @@ class Dashboard extends React.Component {
                             </IconButton>
                         </div>
                         <Divider />
-                        <List>{SitterMenuList}</List>
+                        <SitterMenuList/>
                     </Drawer>
                     <main className={classes.content}>
                         <div className={classes.appBarSpacer} />

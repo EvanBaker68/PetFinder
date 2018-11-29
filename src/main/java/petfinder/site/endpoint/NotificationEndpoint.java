@@ -21,13 +21,18 @@ public class NotificationEndpoint {
     }
 
 
-    @GetMapping(value = "/getbysitterprincipal/{sitterPrincipal:.+}", produces = "application/json", consumes = "application/json")
+    @GetMapping(value = "/getbysitterprincipal/{sitterPrincipal:.+}", produces = "application/json")
     @ResponseBody
     public List<NotificationDto> getBySitterPrincipal(@PathVariable("sitterPrincipal") String sitterPrincipal){
-        return notificationService.findBySitterPrincipal(sitterPrincipal);
+        List<NotificationDto> theList =  notificationService.findBySitterPrincipal(sitterPrincipal);
+        for(NotificationDto item : theList){
+            System.out.println("Heres the sitter: " + item.getSitterPrincipal());
+        }
+
+        return theList;
     }
 
-    @GetMapping(value = "/getbyownerprincipal/{ownerPrincipal:.+}", produces = "application/json", consumes = "application/json")
+    @GetMapping(value = "/getbyownerprincipal/{ownerPrincipal:.+}", produces = "application/json")
     @ResponseBody
     public List<NotificationDto> getByOwnerPrincipal(@PathVariable("ownerPrincipal") String ownerPrincipal){
         return notificationService.findByOwnerPrincipal(ownerPrincipal);

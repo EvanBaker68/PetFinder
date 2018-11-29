@@ -9,7 +9,7 @@ import java.util.List;
 import java.util.Optional;
 
 @RestController
-@RequestMapping(value = "/date")
+@RequestMapping(value = "/api/date")
 public class DateEndpoint {
     @Autowired
     DateService dateService;
@@ -17,6 +17,7 @@ public class DateEndpoint {
     @GetMapping(value = "/{id}", produces = "application/json")
     @ResponseBody
     public DateDto getDate(@PathVariable("id") Long id) { return dateService.findDate(id);}
+
 
     @PostMapping(value = "/add-date", produces = "application/json", consumes = "application/json")
     @ResponseBody

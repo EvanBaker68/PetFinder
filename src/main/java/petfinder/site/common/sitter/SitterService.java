@@ -20,8 +20,10 @@ public class SitterService {
 
     public SitterDto findSitter(String principal) {
         Optional<SitterDto> dummy = sitterDao.findSitter(principal);
-        SitterDto temp = dummy.get();
-        return temp;
+        if(dummy.isPresent()) {
+            return dummy.get();
+        }
+        return null;
     }
 
     public List<SitterDto> findSitterInCityWithRating(String city){

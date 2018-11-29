@@ -35,8 +35,6 @@ class FormDialog extends React.Component {
 			id: props.id,
             value: 0
         };
-
-        //load sitter information
     }
 
     handleClickOpen = () => {
@@ -46,9 +44,8 @@ class FormDialog extends React.Component {
     handleClose = () => {
         this.setState({ open: false });
 
-		console.log('jfdklsjfaklafdskl;');
 		console.log(this.state.principal);
-		axios.get('/sitter/' + this.state.principal, this.state.principal).then(
+		axios.get('/api/sitter/' + this.state.principal, this.state.principal).then(
 			res => {
 				console.log(res);
 				const sitter = res;
@@ -56,8 +53,9 @@ class FormDialog extends React.Component {
 				sitter.rating += this.state.value;
 				sitter.ratingCount += 1;
 				sitter.rating /= sitter.ratingCount;
+                sitter.rating = Math.round( sitter.rating * 10 ) / 10;
 
-				axios.post('/sitter/add-sitter', sitter)
+				axios.post('/api/sitter/add-sitter', sitter)
 					.then(res => {
 						console.log(res);
 						console.log(res.data);
@@ -69,19 +67,33 @@ class FormDialog extends React.Component {
 			.catch(error => this.setState({error}));
 
 
-		axios.get('/booking/' + this.state.id, this.state.id)
+		axios.get('/api/booking/' + this.state.id, this.state.id)
 			.then(res => {
 				var booking = res;
 				booking.isRatedByOwner = true;
 				booking.scoreByOwner = this.state.value;
 
-				axios.post('/booking/add-booking', booking)
+				axios.post('/api/booking/add-booking', booking)
 					.then(res => {
 						console.log(res);
 					})
 					.catch(error => {
 						console.log(error.response);
 					});
+
+
+				let message = booking.ownerPrincipal + ' rated you a ' + this.state.value + ' out of 5.';
+
+				var notification = {
+					message: message,
+					sitterPrincipal: booking.sitterPrincipal
+				};
+
+				axios.post('/notification/add-notification/', notification)
+					.then(res => {
+						console.log(res);
+					});
+
 			}).then(response => console.log(response))
 			.catch(error => this.setState({error}));
 
@@ -118,7 +130,6 @@ class FormDialog extends React.Component {
                         <Rating
                             onChange={(value) => {this.setState({value: value});}}
                             initialRating={this.state.value}
-                            // value={5}
                         />
                         <Button onClick={this.handleClose} >Done</Button>
                     </div>

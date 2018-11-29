@@ -14,7 +14,7 @@ import Badge from '@material-ui/core/Badge';
 import MenuIcon from '@material-ui/icons/Menu';
 import ChevronLeftIcon from '@material-ui/icons/ChevronLeft';
 import NotificationsIcon from '@material-ui/icons/Notifications';
-import { mainListItems, secondaryListItems } from 'js/components/dashboard/listItems';
+import MainListItems from 'js/components/dashboard/listItems';
 import SimpleTable from 'js/components/dashboard/simpleTable';
 import Input from '@material-ui/core/Input';
 import SearchIcon from '@material-ui/icons/Search';
@@ -113,7 +113,8 @@ class SearchPage extends React.Component {
             open: true,
             city: '',
             searched: false,
-            sitter: []
+            sitter: [],
+            recommended: []
         };
 
         //fill city with current owner information
@@ -141,8 +142,22 @@ class SearchPage extends React.Component {
                 this.setState({sitter: res});
             }).then(response => console.log(response))
 			.catch(error => this.setState({error}));
-            this.setState({searched: true});
     };
+
+    componentWillMount() {
+        axios.get('/api/user')
+            .then(res => {
+                const city = res.city;
+                axios.get('/api/user/getSittersInCity/' + city, city)
+                    .then(res =>{
+                        console.log(res);
+                        this.setState({sitter: res});
+                    }).then(response => console.log(response))
+                    .catch(error => this.setState({error}));
+                this.setState({searched: true});
+            }).then(response => console.log(response))
+            .catch(error => this.setState({error}));
+    }
 
     render() {
 
@@ -165,13 +180,25 @@ class SearchPage extends React.Component {
         const sitters = this.state.sitter;
         var sitterItems;
         if (sitters) {
-
              sitterItems = sitters.map((sitter) =>
                  (sitter.principal !== cookies.get('username')) &&
                 <div key={sitter.principal}>
-                    <li>{sitter.firstName}</li>
+                    <li>{sitter.firstName} {sitter.lastName}</li>
                     <SitterView principal={sitter.principal} name={sitter.firstName+' '+sitter.lastName}
                         city={sitter.city}/>
+                </div>
+            );
+        }
+
+        const recommended = this.state.recommended;
+        var recommendedItems;
+        if (recommended) {
+            recommendedItems = recommended.map((sitter) =>
+                (sitter.principal !== cookies.get('username')) &&
+                <div key={sitter.principal}>
+                    <li>{sitter.firstName}</li>
+                    <SitterView principal={sitter.principal} name={sitter.firstName+' '+sitter.lastName}
+                                city={sitter.city}/>
                 </div>
             );
         }
@@ -194,13 +221,18 @@ class SearchPage extends React.Component {
                             </IconButton>
                         </div>
                         <Divider />
-                        <List>{mainListItems}</List>
+                        <MainListItems/>
                     </Drawer>
                     <main className={classes.content}>
                         <div className={classes.appBarSpacer} />
+                        {!this.state.searched &&
+                            <ul>
+                                {recommendedItems}
+                            </ul>
+                        }
                         {this.state.searched &&
                         <div>
-                            <Typography variant="display1" align="center">Matched Sitters</Typography>
+                            <Typography variant="display1" align="center">Sitters in Your City</Typography>
                             <ul>
                                 {sitterItems}
                             </ul>

@@ -50,7 +50,6 @@ const styles = theme => ({
 });
 
 const cookies = new Cookies();
-var returnValue = '';
 
 class SignInForm extends React.Component{
 
@@ -59,38 +58,37 @@ class SignInForm extends React.Component{
 		sitter: false,
 		redirectOwner: false,
 		redirectSitter: false,
-		extraState: false
-		// callFunc: this.setRedirect
 	}
-
-
 
 	setowner = () => {
 		axios.get('/api/user')
 			.then(res => {
-				console.log('AAAAAAAA', res.sitter);
 				cookies.set('owner', res.owner);
 				cookies.set('sitter', res.sitter);
-				console.log('sitter button: ' + cookies.get('sitterButton'));
-				console.log('owner button: ' + cookies.get('ownerButton'));
-				console.log('OWNER: ', res.owner);
 
 				if(cookies.get('loggedIn') === 'true'){
 					if(res.owner === 'true'){
-						console.log('BARF');
 						this.setState({
 							redirectOwner: true
 						});
-						return <div><Redirect to='/ownerDash'/></div>;
-
 					}
 					else{
 						this.setState({owner: false});
-						console.log('owner is not true');
+                        cookies.set('loggedIn', 'false');
+                        cookies.set('sitter', '');
+                        cookies.set('owner', '');
+                        cookies.set('password', '');
+                        cookies.set('auth', '');
+                        cookies.set('authRefresh', '');
+                        cookies.set('username', '');
+                        cookies.set('password', '');
+                        cookies.set('ownerButton', '');
 						alert('This account is not registered as an owner.');
 					}
 				}
-				//this.setState({extraState: true});
+				else{
+					alert('This account is not registered.');
+				}
 
 			}).then(response => console.log(response))
 			.catch(error => this.setState({error}));
@@ -102,38 +100,37 @@ class SignInForm extends React.Component{
 
 
 	setsitter = () => {
-		// this.setState({
-		//     hasLoggedIn: true
-		// });
 		axios.get('/api/user')
 			.then(res => {
-				console.log('AAAAAAAA', res.sitter);
 				cookies.set('owner', res.owner);
 				cookies.set('sitter', res.sitter);
-				console.log('sitter button: ' + cookies.get('sitterButton'));
-				console.log('owner button: ' + cookies.get('ownerButton'));
-				console.log('SITTER: ', res.sitter);
 
 				if(cookies.get('loggedIn') === 'true'){
 					if(res.sitter === 'true'){
-						console.log('BARF');
 						this.setState({
 							redirectSitter: true
 						});
-						return <div><Redirect to='/ownerDash'/></div>;
-
 					}
 					else{
 						this.setState({sitter: false});
-						console.log('owner is not true');
+                        cookies.set('loggedIn', 'false');
+                        cookies.set('sitter', '');
+                        cookies.set('owner', '');
+                        cookies.set('password', '');
+                        cookies.set('auth', '');
+                        cookies.set('authRefresh', '');
+                        cookies.set('username', '');
+                        cookies.set('password', '');
+                        cookies.set('sitterButton', '');
 						alert('This account is not registered as a sitter.');
 					}
 				}
-				//this.setState({extraState: true});
+				else{
+					alert('This account is not registered.');
+				}
 
 			}).then(response => console.log(response))
 			.catch(error => this.setState({error}));
-
 
 		cookies.set('ownerButton', 'false');
 		cookies.set('sitterButton', 'true');
@@ -147,26 +144,9 @@ class SignInForm extends React.Component{
 		this.setState({owner: true});
 	}
 
-	// setRedirect = () => {
-	//     if(cookies.get('sitterButton') === 'true'){
-	//         this.setState({
-	//             redirectSitter: true
-	//         });
-	//     }
-	//     else if(cookies.get('ownerButton') === 'true'){
-	//         this.setState({
-	//             redirectOwner: true
-	//         });
-	//     }
-	// }
-
 	onSubmit = ({principal, password}) => {
-		console.log('in onSubmit');
-		console.log('redirectSitter: ' + this.state.redirectSitter);
-		console.log('redirectOwner: ' + this.state.redirectOwner);
 		this.props.authenticate(principal, password).then( () =>
 			{
-				console.log('MESSSSSAAAAGGEEEEE');
 				if(this.state.owner)
 					this.setowner();
 				else if(this.state.sitter)
@@ -182,99 +162,6 @@ class SignInForm extends React.Component{
 		let { handleSubmit, submitting } = this.props;
 		const redirectOwner = this.state.redirectOwner;
 		const redirectSitter = this.state.redirectSitter;
-		console.log('redirectSitter: ' + redirectOwner);
-		console.log('redirectOwner: ' + redirectSitter);
-
-		// if(this.state.hasLoggedIn) {
-		//     if (cookies.get('loggedIn') === 'true') {
-		//         axios.get('/api/user')
-		//             .then(res => {
-		//                 console.log('AAAAAAAA', res.sitter);
-		//                 cookies.set('owner', res.owner);
-		//                 cookies.set('sitter', res.sitter);
-		//                 console.log('sitter button: ' + cookies.get('sitterButton'));
-		//                 console.log('owner button: ' + cookies.get('ownerButton'));
-		//
-		//                 //this.setState({extraState: true});
-		//
-		//             }).then(response => console.log(response))
-		//         /*.then(res => {
-		//             console.log('inside of the then clause');
-		//             if (cookies.get('ownerButton') === 'true') {
-		//                 if (cookies.get('owner') === 'true') {
-		//                     console.log('owner is true');
-		//
-		//                     return <div><Redirect to='/ownerDash'/></div>;
-		//                     //this.props.history.push({ pathname: '/ownerDash',});
-		//                 }
-		//                 else {
-		//                     console.log('owner is not true');
-		//                     alert('This account is not registered as an owner.');
-		//                     //this.setState({owner: false});
-		//                     //cookies.set('ownerButton', 'false');
-		//                 }
-		//             }
-		//             else if(cookies.get('sitterButton') === 'true') {
-		//                 if (cookies.get('sitter') === 'true') {
-		//                     console.log('sitter is true');
-		//
-		//                     return <div><Redirect to='/sitterDash'/></div>;
-		//                     //this.props.history.push({ pathname: '/sitterDash',});
-		//                 }
-		//                 else {
-		//                     alert('This account is not registered as a sitter.');
-		//                     console.log('sitter is not true');
-		//                     console.log('BBBBBBBBBB', cookies.get('sitter'));
-		//                     //this.setState({sitter: false});
-		//                     //cookies.set('sitterButton', 'false');
-		//                 }
-		//             }
-		//             else {
-		//                 console.log('Neither state.sitter nor state.owner is true');
-		//                 alert('This account does not exist 1.');
-		//                 cookies.set('loggedIn', 'false');
-		//             }
-		//         })*/
-		//             .catch(error => this.setState({error}));
-		//
-		//         if (cookies.get('ownerButton') === 'true') {
-		//             if (cookies.get('owner') === 'true') {
-		//                 console.log('owner is true');
-		//
-		//                 return <div><Redirect to='/ownerDash'/></div>;
-		//             }
-		//             else {
-		//                 console.log('owner is not true');
-		//                 alert('This account is not registered as an owner.');
-		//                 //this.setState({owner: false});
-		//                 //cookies.set('ownerButton', 'false');
-		//             }
-		//         }
-		//         else if(cookies.get('sitterButton') === 'true') {
-		//             if (cookies.get('sitter') === 'true') {
-		//                 console.log('sitter is true');
-		//
-		//                 return <div><Redirect to='/sitterDash'/></div>;
-		//             }
-		//             else {
-		//                 alert('This account is not registered as a sitter.');
-		//                 console.log('sitter is not true');
-		//                 console.log('BBBBBBBBBB', cookies.get('sitter'));
-		//                 //this.setState({sitter: false});
-		//                 //cookies.set('sitterButton', 'false');
-		//             }
-		//         }
-		//         else {
-		//             console.log('Neither state.sitter nor state.owner is true');
-		//             alert('This account does not exist 1.');
-		//             cookies.set('loggedIn', 'false');
-		//         }
-		//
-		//     }
-		//     else {
-		//         console.log('loggedIn = FALSE');
-		//     }
-		// }
 
 		return (
 
@@ -349,6 +236,5 @@ SignInForm = connect(
 SignInForm.propTypes = {
 	classes: PropTypes.object.isRequired,
 };
-
 
 export default withStyles(styles)(SignInForm);

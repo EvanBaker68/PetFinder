@@ -31,14 +31,15 @@ class RequestTable extends React.Component {
         name: '',
         bookings: [],
         load: true,
-		loaded: false
+		loaded: false,
+		reload: false
     };
 
 	componentDidMount() {
 		data = [];
 		const cookies = new Cookies();
 
-		axios.get('/booking/sitter/' + cookies.get('username'), cookies.get('username'))
+		axios.get('/api/booking/sitter/' + cookies.get('username'), cookies.get('username'))
 			.then(res => {
 			    console.log('Results: ', res);
 				this.setState({
@@ -85,35 +86,75 @@ class RequestTable extends React.Component {
 	}
 
 	cancelBooking(id) {
-		axios.get('/booking/' + id, id)
+		axios.get('/api/booking/' + id, id)
 			.then(res => {
 				var booking = res;
+
 				booking.status = 'canceled';
-				axios.post('/booking/add-booking', booking)
+				axios.post('/api/booking/add-booking', booking)
 					.then(res => {
 						console.log(res);
 					})
 					.catch(error => {
 						console.log(error.response);
 					});
-			}).then(response => console.log(response))
+
+				const cookies = new Cookies();
+                let message = booking.sitterPrincipal + ' has canceled the booking starting at ' + new Date(booking.startDate);
+                var notification = {
+                    message: message,
+					sitterPrincipal: booking.sitterPrincipal,
+					ownerPrincipal: booking.ownerPrincipal
+                };
+
+                axios.post('/notification/add-notification', notification)
+                    .then(res => {
+                        console.log(res);
+                    })
+                    .catch(error => {
+                        console.log(res);
+                    });
+
+            }).then(response => console.log(response))
 			.catch(error => this.setState({error}));
+
+		this.setState({ reload: true });
+
 	}
 
 	approveBooking(id) {
-		axios.get('/booking/' + id, id)
+		axios.get('/api/booking/' + id, id)
 			.then(res => {
 				var booking = res;
-				booking.status = 'past';
-				axios.post('/booking/add-booking', booking)
+				booking.status = 'approved';
+
+				axios.post('/api/booking/add-booking', booking)
 					.then(res => {
 						console.log(res);
 					})
 					.catch(error => {
 						console.log(error.response);
 					});
+
+                let message = booking.sitterPrincipal + ' has approved the booking starting at ' + new Date(booking.startDate);
+
+                var notification = {
+                    message: message,
+					sitterPrincipal: booking.sitterPrincipal,
+					ownerPrincipal: booking.ownerPrincipal
+                };
+
+                axios.post('/notification/add-notification', notification)
+                    .then(res => {
+                        console.log(res);
+                    })
+                    .catch(error => {
+                        console.log(res);
+                    });
 			}).then(response => console.log(response))
 			.catch(error => this.setState({error}));
+
+		this.setState({ reload: true });
 	}
 
 render() {
@@ -121,8 +162,6 @@ render() {
 
     const { bookings } = this.state;
 	const loaded = this.state.loaded;
-
-    console.log('fdaskjlafsdjkladsdfs',data);
 
 
 	return (
@@ -142,13 +181,21 @@ render() {
                 <TableBody>
                     {data.map(n => {
                         console.log('NAME:', n.name);
+                        //PLAY WITH THIS
+                        var newStartDate = new Date(n.startDate);
+						var newEndDate = new Date(n.endDate);
+						var newnewStartDate = new Date(newStartDate.getTime() - (360 * 60000));
+						var newnewEndDate = new Date(newEndDate.getTime() - (360 * 60000));
+						// console.log('NEWDATE: ', newnewDate);
+
+                        // newDate.setHours(n.startDate.getHours() -6);
                         return (
                             <TableRow key={n.id}>
                                 <TableCell component="th" scope="row">
                                     {n.name}
                                 </TableCell>
-                                <TableCell>{n.startDate.toLocaleString()}</TableCell>
-                                <TableCell>{n.endDate.toLocaleString()}</TableCell>
+                                <TableCell>{newnewStartDate.toLocaleString()}</TableCell>
+                                <TableCell>{newnewEndDate.toLocaleString()}</TableCell>
 								<TableCell>{n.status}</TableCell>
                                 <TableCell>
                                     <Button
