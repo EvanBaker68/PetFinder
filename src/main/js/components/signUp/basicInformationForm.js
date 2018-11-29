@@ -56,6 +56,11 @@ class OutlinedTextFields extends React.Component {
     };
 
 	handleNext = () => {
+        if (!this.validateForm()) {
+            //return if not valid
+            return;
+        }
+
 		const cookies = new Cookies();
 		const user = {
 			principal: cookies.get('username'),
@@ -125,6 +130,37 @@ class OutlinedTextFields extends React.Component {
                 });
             }).then(response => console.log(response))
             .catch(error => this.setState({error}));
+    }
+
+    validateForm() {
+	    let hasErrors = false;
+
+	    if(!(/^[a-zA-Z]+$/.test(this.state.firstName))) {
+	        hasErrors = true;
+            alert('Invalid first name.');
+        }
+
+        if(!(/^[a-zA-Z]+$/.test(this.state.lastName))) {
+	        hasErrors = true;
+	        alert('Invalid last name.');
+        }
+
+        if(!(/^[a-zA-Z]+$/.test(this.state.city))) {
+	        hasErrors = true;
+	        alert('Invalid city.');
+        }
+
+        if(!(/^\(\d{3}\)\s\d{3}-\d{4}$/.test(this.state.phoneNumber))) {
+	        hasErrors = true;
+	        alert('Invalid phone number: please enter number with the following format:\n(000) 000-0000');
+        }
+
+        if(!(/^[a-zA-Z0-9.\s]+$/.test(this.state.address))) {
+            hasErrors = true;
+            alert('Please enter an address.');
+        }
+
+	    return !hasErrors;
     }
 
 	render() {
