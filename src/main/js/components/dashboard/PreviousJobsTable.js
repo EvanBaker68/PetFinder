@@ -14,13 +14,13 @@ import axios from 'axios/index';
 import Comment from 'js/components/ratings/OwnerComment';
 
 const styles = {
-    root: {
-        width: '100%',
-        overflowX: 'auto',
-    },
-    table: {
-        minWidth: 700,
-    },
+	root: {
+		width: '100%',
+		overflowX: 'auto',
+	},
+	table: {
+		minWidth: 700,
+	},
 };
 
 let data = [];
@@ -33,8 +33,7 @@ class SimpleTable extends React.Component{
 		name: '',
 		bookings: [],
 		load: true,
-		loaded: false,
-		reload: false
+		loaded: false
 	};
 
 	componentDidMount() {
@@ -84,16 +83,6 @@ class SimpleTable extends React.Component{
 			.catch(error => this.setState({error}));
 	}
 
-	handler = () => {
-		console.log('BARF');
-		if(this.state.reload){
-			this.setState({ reload: false });
-		}
-		else{
-			this.setState({ reload: true });
-		}
-	}
-
 
 	createData = (id, name, principal, startDate, endDate, rating) => {
 		return { id, name, principal, startDate, endDate, rating};
@@ -117,13 +106,13 @@ class SimpleTable extends React.Component{
 				var newnewStartDate = new Date(newStartDate.getTime() - (360 * 60000));
 				var newnewEndDate = new Date(newEndDate.getTime() - (360 * 60000));
 
-                let message = booking.sitterPrincipal + ' has canceled the booking on ' + new Date(booking.startDate);
-                var notification = {
-                    message: message,
+				let message = booking.sitterPrincipal + ' has canceled the booking on ' + new Date(booking.startDate);
+				var notification = {
+					message: message,
 					sitterPrincipal: booking.sitterPrincipal,
 					ownerPrincipal: booking.ownerPrincipal
-                };
-                //axois.post();
+				};
+				//axois.post();
 			}).then(response => console.log(response))
 			.catch(error => this.setState({error}));
 	}
@@ -144,45 +133,8 @@ class SimpleTable extends React.Component{
 			.catch(error => this.setState({error}));
 	}
 
-    render() {
+	render() {
 
-		axios.get('/api/booking/sitter/' + cookies.get('username'), cookies.get('username'))
-			.then(res => {
-				console.log('Results: ', res);
-				this.setState({
-					bookings: res});
-				if(this.state.bookings)
-				{this.state.bookings.map(booking => {
-
-					console.log('BOOKING: ', booking);
-					const startDate = new Date(booking.startDate);
-					const endDate = new Date(booking.finishDate);
-					const status = booking.status;
-					const id = booking.id;
-					const rating = booking.scoreBySitter;
-					const ownerPrincipal = booking.ownerPrincipal;
-
-					console.log('startDate: ', startDate);
-					console.log('endDate: ', endDate);
-
-					if(booking.sitterPrincipal === cookies.get('username')
-						&& booking.status === 'approved' && (endDate < new Date()))
-						axios.get('/api/user/' + ownerPrincipal, ownerPrincipal)
-							.then(res => {
-								console.log('name: ', res.firstName);
-								console.log('startDate', startDate);
-								console.log('endDate', endDate);
-								console.log('status', status);
-								console.log('data1:',data);
-								name = res.firstName + ' ' + res.lastName;
-								console.log('name2: ', name);
-
-								data.push(this.createData(id, name, ownerPrincipal, startDate, endDate, rating));
-							}).then(response => console.log(response))
-							.catch(error => this.setState({error}));
-
-
-				});}
 
 		const {classes} = this.props;
 		console.log('Data: ', data);
@@ -193,7 +145,7 @@ class SimpleTable extends React.Component{
 					<TableHead>
 						<TableRow>
 							<TableCell>Owner</TableCell>
-                            <TableCell>Start Date</TableCell>
+							<TableCell>Start Date</TableCell>
 							<TableCell>End Date</TableCell>
 							<TableCell>Rate Owner</TableCell>
 						</TableRow>
@@ -214,10 +166,9 @@ class SimpleTable extends React.Component{
 									<TableCell>{newnewStartDate.toLocaleString()}</TableCell>
 									<TableCell>{newnewEndDate.toLocaleString()}</TableCell>
 									<TableCell>
-                                        {n.rating == null &&
-                                        	<RateOwner name={n.name} principal={n.principal} id={n.id}
-											handler={this.handler}/>
-                                        }
+										{n.rating == null &&
+										<RateOwner name={n.name} principal={n.principal} id={n.id}/>
+										}
 									</TableCell>
 								</TableRow>
 							);
@@ -230,7 +181,7 @@ class SimpleTable extends React.Component{
 }
 
 SimpleTable.propTypes = {
-    classes: PropTypes.object.isRequired,
+	classes: PropTypes.object.isRequired,
 };
 
 export default withStyles(styles)(SimpleTable);
