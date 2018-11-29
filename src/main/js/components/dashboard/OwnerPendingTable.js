@@ -31,7 +31,8 @@ class OwnerPendingTable extends React.Component {
         super(props);
         this.state = {
             bookings: null,
-            loaded: false
+            loaded: false,
+            reload: false
         };
         //axios.get('/booking/getUpcoming', cookies.username)
         //this.setSate(bookings: createData(...))
@@ -55,27 +56,17 @@ class OwnerPendingTable extends React.Component {
                     const id = booking.id;
                     const sitterPrincipal = booking.sitterPrincipal;
 
-                    console.log('startDate: ', startDate);
-                    console.log('endDate: ', endDate);
-
                     if(booking.ownerPrincipal === cookies.get('username')
                         && booking.status === 'pending')
                         axios.get('/api/user/' + sitterPrincipal, sitterPrincipal)
                             .then(res => {
-                                console.log('name: ', res.firstName);
-                                console.log('startDate', startDate);
-                                console.log('endDate', endDate);
-                                console.log('status', status);
-                                console.log('data1:',data);
+
                                 name = res.firstName + ' ' + res.lastName;
-                                console.log('name2: ', name);
 
                                 data.push(this.createData(id, name, startDate, endDate, status));
                                 this.setState({loaded: true});
                             }).then(response => console.log(response))
                             .catch(error => this.setState({error}));
-
-
                 });}
 
             }).then(response => console.log(response))
@@ -93,14 +84,56 @@ class OwnerPendingTable extends React.Component {
                 booking.status = 'canceled';
                 axios.post('/booking/add-booking', booking)
                     .then(res => {
-                        console.log(res);
+
+						data = [];
+						const cookies = new Cookies();
+
+						axios.get('/booking/owner/' + cookies.get('username'), cookies.get('username'))
+							.then(res => {
+								console.log('Results: ', res);
+								this.setState({
+									bookings: res});
+								if(this.state.bookings)
+								{this.state.bookings.map(booking => {
+
+									const startDate = new Date(booking.startDate);
+									const endDate = new Date(booking.finishDate);
+									const status = booking.status;
+									const id = booking.id;
+									const sitterPrincipal = booking.sitterPrincipal;
+
+									if(booking.ownerPrincipal === cookies.get('username')
+										&& booking.status === 'pending')
+										axios.get('/api/user/' + sitterPrincipal, sitterPrincipal)
+											.then(res => {
+
+												name = res.firstName + ' ' + res.lastName;
+
+												data.push(this.createData(id, name, startDate, endDate, status));
+
+											}).then(response => {
+											if(this.state.reload === false)
+												this.setState({ reload: true });
+											else
+												this.setState({ reload: false });
+											console.log(response);
+										})
+											.catch(error => this.setState({error}));
+								});}
+
+							}).then(response => console.log(response))
+							.catch(error => this.setState({error}));
+
+						console.log(res);
                     })
                     .catch(error => {
                         console.log(error.response);
                     });
             }).then(response => console.log(response))
             .catch(error => this.setState({error}));
-    }
+
+
+	}
 
     render() {
         const {classes} = this.props;
@@ -130,8 +163,8 @@ class OwnerPendingTable extends React.Component {
                                     <TableCell component="th" scope="row">
                                         {n.name}
                                     </TableCell>
-                                    <TableCell>{n.startDate.toLocaleString()}</TableCell>
-                                    <TableCell>{n.endDate.toLocaleString()}</TableCell>
+                                    <TableCell>{new Date(n.startDate.setHours(n.startDate.getHours() -6)).toLocaleString()}</TableCell>
+                                    <TableCell>{new Date(n.endDate.setHours(n.endDate.getHours() -6)).toLocaleString()}</TableCell>
                                     <TableCell>{n.status}</TableCell>
                                     <TableCell>
                                         <Button

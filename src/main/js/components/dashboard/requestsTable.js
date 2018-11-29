@@ -31,7 +31,8 @@ class RequestTable extends React.Component {
         name: '',
         bookings: [],
         load: true,
-		loaded: false
+		loaded: false,
+		reload: false
     };
 
 	componentDidMount() {
@@ -98,6 +99,9 @@ class RequestTable extends React.Component {
 					});
 			}).then(response => console.log(response))
 			.catch(error => this.setState({error}));
+
+		this.setState({ reload: true });
+
 	}
 
 	approveBooking(id) {
@@ -114,6 +118,8 @@ class RequestTable extends React.Component {
 					});
 			}).then(response => console.log(response))
 			.catch(error => this.setState({error}));
+
+		this.setState({ reload: true });
 	}
 
 render() {
@@ -147,8 +153,8 @@ render() {
                                 <TableCell component="th" scope="row">
                                     {n.name}
                                 </TableCell>
-                                <TableCell>{n.startDate.toLocaleString()}</TableCell>
-                                <TableCell>{n.endDate.toLocaleString()}</TableCell>
+                                <TableCell>{new Date(n.startDate.setHours(n.startDate.getHours() -6)).toLocaleString()}</TableCell>
+                                <TableCell>{new Date(n.endDate.setHours(n.endDate.getHours() -6)).toLocaleString()}</TableCell>
 								<TableCell>{n.status}</TableCell>
                                 <TableCell>
                                     <Button

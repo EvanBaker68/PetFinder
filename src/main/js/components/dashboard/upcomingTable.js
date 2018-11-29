@@ -129,8 +129,8 @@ class RequestTable extends React.Component {
 									<TableCell component="th" scope="row">
 										{n.name}
 									</TableCell>
-									<TableCell>{n.startDate.toLocaleString()}</TableCell>
-									<TableCell>{n.endDate.toLocaleString()}</TableCell>
+									<TableCell>{new Date(n.startDate.setHours(n.startDate.getHours() -6)).toLocaleString()}</TableCell>
+									<TableCell>{new Date(n.endDate.setHours(n.endDate.getHours() -6)).toLocaleString()}</TableCell>
 									<TableCell>{n.status}</TableCell>
 								</TableRow>
 							);
