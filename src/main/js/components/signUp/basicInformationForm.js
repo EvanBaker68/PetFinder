@@ -72,7 +72,8 @@ class OutlinedTextFields extends React.Component {
         this.props.register(user).then(res => {
             if(cookies.get('owner') === 'true') {
                 const owner = {
-                    principal: cookies.get('username').replace(/@/g, '%40'),
+                    principal: cookies.get('username'),
+                    rating: 0
                 };
                 axios.post('/api/owner/add-owner', owner)
                     .then(res => {
@@ -91,6 +92,8 @@ class OutlinedTextFields extends React.Component {
             else if(cookies.get('sitter') === 'true') {
                 const sitter = {
                     principal: cookies.get('username'),
+                    rate: 0,
+                    rating: 0
                 };
                 axios.post('/api/sitter/add-sitter', sitter)
                     .then(res => {

@@ -61,8 +61,6 @@ class ProfileForm extends React.Component {
 
 	componentDidMount() {
 		const cookies = new Cookies();
-		const username = cookies.get('username');
-		const password = cookies.get('password');
 
 		axios.get('/api/user')
 			.then(res => {
@@ -135,7 +133,7 @@ class ProfileForm extends React.Component {
 					className={classes.submit}
 					onClick={this.handleNext}
 				>
-					Save User Info
+					Update Info
 				</Button>
             </div>
         );
