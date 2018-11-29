@@ -135,17 +135,17 @@ class OutlinedTextFields extends React.Component {
     validateForm() {
 	    let hasErrors = false;
 
-	    if(!(/^[a-zA-Z]+$/.test(this.state.firstName))) {
+	    if(!(/^[a-zA-Z\s]+$/.test(this.state.firstName))) {
 	        hasErrors = true;
             alert('Invalid first name.');
         }
 
-        if(!(/^[a-zA-Z]+$/.test(this.state.lastName))) {
+        if(!(/^[a-zA-Z\s]+$/.test(this.state.lastName))) {
 	        hasErrors = true;
 	        alert('Invalid last name.');
         }
 
-        if(!(/^[a-zA-Z]+$/.test(this.state.city))) {
+        if(!(/^[a-zA-Z\s.]+$/.test(this.state.city))) {
 	        hasErrors = true;
 	        alert('Invalid city.');
         }

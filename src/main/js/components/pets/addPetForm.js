@@ -27,6 +27,11 @@ export default class FormDialog extends React.Component {
 	};
 
 	handleAddClose = () => {
+        if (!this.validateForm()) {
+            //return if not valid
+            return;
+        }
+
 		const cookies = new Cookies();
 		console.log(cookies.get('username'));
 		const pet = {
@@ -50,6 +55,32 @@ export default class FormDialog extends React.Component {
 			});
 		// this.props.handler();
 	};
+
+    validateForm() {
+        let hasErrors = false;
+
+        if(!(/^[a-zA-Z\s.]+$/.test(this.state.name))) {
+            hasErrors = true;
+            alert('Invalid name.');
+        }
+
+        if(!(/^[a-zA-Z\s.]+$/.test(this.state.dogBreed))) {
+            hasErrors = true;
+            alert('Invalid breed.');
+        }
+
+        if(!(/^[a-zA-Z\s.]+$/.test(this.state.petType))) {
+            hasErrors = true;
+            alert('Invalid pet type.');
+        }
+
+        if(!(/^[0-9]{1,3}$/.test(this.state.age)) || this.state.age <= 0) {
+            hasErrors = true;
+            alert('Invalid age: please enter whole numbers as ages');
+        }
+
+        return !hasErrors;
+    }
 
 	handleChange = name => event => {
 		this.setState({

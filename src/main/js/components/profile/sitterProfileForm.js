@@ -59,7 +59,7 @@ class ProfileForm extends React.Component {
     validateForm() {
         let hasErrors = false;
 
-        if(!(this.state.rate >= 0)) {
+        if(!(/^[0-9]+[.]?[0-9]{0,2}$/.test((this.state.rate).toString())) || !(this.state.rate >= 0)) {
             hasErrors = true;
             alert('Invalid rate.');
         }
@@ -76,7 +76,9 @@ class ProfileForm extends React.Component {
 		const cookies = new Cookies();
 		const sitter = {
 			principal: cookies.get('username'),
-            rate: this.state.rate
+            rate: this.state.rate,
+            rating: this.state.rating,
+            ratingCount: this.state.ratingCount
 		};
 		axios.post('/api/sitter/add-sitter', sitter)
 			.then(res => {
