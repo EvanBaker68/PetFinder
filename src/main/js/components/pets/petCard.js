@@ -37,7 +37,7 @@ class PetCard extends React.Component{
             isDeleted: true
 		};
 		console.log(this.state.name);
-		axios.post('/pet/add-pet', pet)
+		axios.post('/api/pet/add-pet', pet)
 			.then(res => {
 				console.log(res);
 				console.log(res.data);

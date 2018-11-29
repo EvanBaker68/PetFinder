@@ -33,7 +33,7 @@ class RequestTable extends React.Component {
             bookings: null,
             loaded: false
         };
-        //axios.get('/booking/getUpcoming', cookies.username)
+        //axios.get('/api/booking/getUpcoming', cookies.username)
         //this.setSate(bookings: createData(...))
     }
 
@@ -41,7 +41,7 @@ class RequestTable extends React.Component {
 		data = [];
 		const cookies = new Cookies();
 
-		axios.get('/booking/owner/' + cookies.get('username'), cookies.get('username'))
+		axios.get('/api/booking/owner/' + cookies.get('username'), cookies.get('username'))
 			.then(res => {
 				console.log('Results: ', res);
 				this.setState({
@@ -87,11 +87,11 @@ class RequestTable extends React.Component {
 	}
 
 	cancelBooking(id) {
-		axios.get('/booking/' + id, id)
+		axios.get('/api/booking/' + id, id)
 			.then(res => {
 				var booking = res;
 				booking.status = 'canceled';
-				axios.post('/booking/add-booking', booking)
+				axios.post('/api/booking/add-booking', booking)
 					.then(res => {
 						console.log(res);
 					})

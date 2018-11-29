@@ -127,7 +127,7 @@ class FormDialog extends React.Component {
         console.log(this.state.name);
         console.log(this.state.start);
         console.log(this.state.end);
-        axios.post('/booking/add-booking', booking)
+        axios.post('/api/booking/add-booking', booking)
             .then(res => {
                 console.log(res);
                 console.log(res.data);

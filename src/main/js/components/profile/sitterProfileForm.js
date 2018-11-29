@@ -60,7 +60,7 @@ class ProfileForm extends React.Component {
 			principal: cookies.get('username'),
 			numPets: this.state.numPets
 		};
-		axios.post('/sitter/add-sitter', sitter)
+		axios.post('/api/sitter/add-sitter', sitter)
 			.then(res => {
 				console.log(res);
 				console.log(res.data);
