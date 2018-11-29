@@ -5,3 +5,4 @@ out
 application.yml
 .gradle
 build/
+*.js
