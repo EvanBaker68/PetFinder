@@ -28,6 +28,7 @@ public class NotificationDao {
     public List<Optional<NotificationDto>> findByOwnerPrincipal(String ownerPrincipal) {
         QueryBuilder queryBuilder = QueryBuilders.matchPhraseQuery("ownerPrincipal", ownerPrincipal);
         SearchSourceBuilder searchSourceBuilder = new SearchSourceBuilder();
+        searchSourceBuilder.size(100);
         searchSourceBuilder.query(queryBuilder);
         return repository.search(searchSourceBuilder).stream().map(Optional::ofNullable).collect(Collectors.toList());
     }

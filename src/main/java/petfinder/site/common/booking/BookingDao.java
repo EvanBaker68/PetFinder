@@ -39,6 +39,7 @@ public class BookingDao {
         SearchRequest searchRequest = new SearchRequest();
         QueryBuilder queryBuilder = QueryBuilders.matchPhraseQuery("sitterPrincipal", sitterPrincipal);
         SearchSourceBuilder searchSourceBuilder = new SearchSourceBuilder();
+        searchSourceBuilder.size(100);
         searchSourceBuilder.query(queryBuilder);
         return repository.search(searchSourceBuilder).stream().map(Optional::ofNullable).collect(Collectors.toList());
     }

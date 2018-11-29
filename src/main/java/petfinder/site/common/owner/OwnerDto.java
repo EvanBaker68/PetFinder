@@ -32,7 +32,10 @@ public class OwnerDto implements Momento<String> {
         return rating;
     }
 
-    public void setRating(double rating) {
+    public void setRating(double rating) throws IllegalArgumentException {
+        if(rating < 0){
+            throw new IllegalArgumentException("setRating was given a negative");
+        }
         this.rating = rating;
     }
 
@@ -48,7 +51,10 @@ public class OwnerDto implements Momento<String> {
         return isDeleted;
     }
 
-    public void setDeleted(Boolean deleted) {
+    public void setDeleted(Boolean deleted) throws IllegalArgumentException{
+        if(deleted == null){
+            throw new IllegalArgumentException("setDeleted given a null");
+        }
         isDeleted = deleted;
     }
 
