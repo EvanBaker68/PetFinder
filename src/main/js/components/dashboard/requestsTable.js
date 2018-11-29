@@ -89,6 +89,7 @@ class RequestTable extends React.Component {
 		axios.get('/api/booking/' + id, id)
 			.then(res => {
 				var booking = res;
+
 				booking.status = 'canceled';
 				axios.post('/api/booking/add-booking', booking)
 					.then(res => {
@@ -97,10 +98,13 @@ class RequestTable extends React.Component {
 					.catch(error => {
 						console.log(error.response);
 					});
-                let message = booking.sitterPrincipal + ' has canceled the booking on ' + booking.startDate;
+
+				const cookies = new Cookies();
+                let message = booking.sitterPrincipal + ' has canceled the booking starting at ' + new Date(booking.startDate);
                 var notification = {
                     message: message,
-                    ownerPrincipal: booking.ownerPrincipal
+					sitterPrincipal: booking.sitterPrincipal,
+					ownerPrincipal: booking.ownerPrincipal
                 };
 
                 axios.post('/notification/add-notification', notification)
@@ -132,11 +136,12 @@ class RequestTable extends React.Component {
 						console.log(error.response);
 					});
 
-                let message = booking.sitterPrincipal + ' has approved the booking starting at ' + booking.startDate;
+                let message = booking.sitterPrincipal + ' has approved the booking starting at ' + new Date(booking.startDate);
 
                 var notification = {
                     message: message,
-                    ownerPrincipal: booking.ownerPrincipal
+					sitterPrincipal: booking.sitterPrincipal,
+					ownerPrincipal: booking.ownerPrincipal
                 };
 
                 axios.post('/notification/add-notification', notification)

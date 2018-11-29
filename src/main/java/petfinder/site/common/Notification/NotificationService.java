@@ -10,25 +10,25 @@ import java.util.stream.Collectors;
 @Service
 public class NotificationService {
     @Autowired
-    NotoficationDao notoficationDao;
+    NotificationDao notificationDao;
 
     public NotificationDto findNotificationById(Long id){
-        Optional<NotificationDto> notificationDto = notoficationDao.findById(id);
+        Optional<NotificationDto> notificationDto = notificationDao.findById(id);
         if(notificationDto.isPresent()){
             return notificationDto.get();
         }
         return null;
     }
     public List<NotificationDto> findBySitterPrincipal(String sitterPrincipal){
-        System.out.println("finding sitter: "+sitterPrincipal);
-        return notoficationDao.findBySitterPrincipal(sitterPrincipal).stream().filter(Optional::isPresent).map(Optional::get).collect(Collectors.toList());
+        System.out.println("finding sitter: "+ sitterPrincipal);
+        return notificationDao.findBySitterPrincipal(sitterPrincipal).stream().filter(Optional::isPresent).map(Optional::get).collect(Collectors.toList());
     }
 
-    public List<NotificationDto> findByOwnerPrincipal(String sitterPrincipal){
-        return notoficationDao.findByOwnerPrincipal(sitterPrincipal).stream().filter(Optional::isPresent).map(Optional::get).collect(Collectors.toList());
+    public List<NotificationDto> findByOwnerPrincipal(String ownerPrincipal){
+        return notificationDao.findByOwnerPrincipal(ownerPrincipal).stream().filter(Optional::isPresent).map(Optional::get).collect(Collectors.toList());
     }
 
     public void saveNotification(NotificationDto notificationDto){
-        notoficationDao.save(notificationDto);
+        notificationDao.save(notificationDto);
     }
 }

@@ -82,6 +82,26 @@ class OwnerPendingTable extends React.Component {
 			.then(res => {
 				var booking = res;
 				booking.status = 'canceled';
+
+				// var newStartDate = booking.startDate;
+				// var theDate = new Date(newStartDate.setHours(newStartDate.getHours() -6)).toLocaleString();
+				let message = booking.ownerPrincipal + ' has canceled the booking starting at ' + booking.startDate;
+
+				var notification = {
+					message: message,
+					sitterPrincipal: booking.sitterPrincipal,
+					ownerPrincipal: booking.ownerPrincipal
+				};
+
+				axios.post('/notification/add-notification', notification)
+					.then(res => {
+						console.log(res);
+					})
+					.catch(error => {
+						console.log(res);
+					});
+
+
 				axios.post('/api/booking/add-booking', booking)
 					.then(res => {
 
@@ -131,7 +151,6 @@ class OwnerPendingTable extends React.Component {
 					});
 			}).then(response => console.log(response))
 			.catch(error => this.setState({error}));
-
 
 	}
 

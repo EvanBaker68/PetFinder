@@ -70,6 +70,46 @@ class NavBar extends React.Component {
 			);
 		}
 
+		else if (cookies.get('owner') == 'true' && cookies.get('sitter') == 'true') {
+			return (
+				<div className={classes.root}>
+					<AppBar position="static" style={{background: 'transparent', boxShadow: 'none'}}>
+						<Toolbar>
+							<Typography variant="display1" color="inherit" className={classes.grow}>
+								Pet.ty
+							</Typography>
+							<Link to="/ownerDash">
+								{/*<Link to="/register">*/}
+								<Button
+									variant="contained"
+									color="secondary"
+									className={classes.button}>
+									Owner Dashboard
+								</Button>
+							</Link>
+							<Link to="/sitterDash">
+								{/*<Link to="/register">*/}
+								<Button
+									variant="contained"
+									color="secondary"
+									className={classes.button}>
+									Sitter Dashboard
+								</Button>
+							</Link>
+							<Button
+								variant="contained"
+								color="secondary"
+								className={classes.button}
+								onClick={this.onLogout}>
+
+								Log Out
+							</Button>
+						</Toolbar>
+					</AppBar>
+				</div>
+			);
+		}
+
 		else if (cookies.get('owner') == 'true') {
 			return (
 				<div className={classes.root}>

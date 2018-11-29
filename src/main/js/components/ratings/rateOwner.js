@@ -81,7 +81,19 @@ class FormDialog extends React.Component {
 					.catch(error => {
 						console.log(error.response);
 					});
-                let message = booking.sitterPrincipal + ' rated you ' + this.state.value;
+
+				let message = booking.sitterPrincipal + ' rated you a ' + this.state.value + ' out of 5.';
+
+				var notification = {
+					message: message,
+					ownerPrincipal: booking.ownerPrincipal
+				};
+
+				axios.post('/notification/add-notification/', notification)
+					.then(res => {
+						console.log(res);
+					});
+
 			}).then(response => console.log(response))
 			.catch(error => this.setState({error}));
 

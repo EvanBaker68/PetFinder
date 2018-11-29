@@ -9,7 +9,7 @@ public class NotificationDto implements Identifiable {
     private Long id;
     private String sitterPrincipal;
     private String ownerPrincipal;
-    private Boolean isDeleted;
+    private Boolean isDeleted = false;
     private String message;
 
 

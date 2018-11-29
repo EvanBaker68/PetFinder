@@ -125,11 +125,12 @@ class FormDialog extends React.Component {
 			petId: this.state.id
         };
 
-        let message = booking.ownerPrincipal + ' has requested a booking starting at ' + booking.startDate;
+        let message = booking.ownerPrincipal + ' has requested a booking starting at ' + new Date(booking.startDate);
 
         var notification = {
             message: message,
-            sitterPrincipal: booking.sitterPrincipal
+			sitterPrincipal: booking.sitterPrincipal,
+			ownerPrincipal: booking.ownerPrincipal
         };
 
         axios.post('/notification/add-notification/', notification)

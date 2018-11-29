@@ -50,14 +50,28 @@ class FormDialog extends React.Component {
     componentDidMount() {
 
         const cookies = new Cookies();
+        var array1 = [];
+        var array2 = [];
+        axios.get('/notification/getbysitterprincipal/' + cookies.get('username'), cookies.get('username'))
+            .then(res => {
+                console.log('SITTERRES: ', res);
+                array1 = res;
 
-        // axios.get('/notification/getbysitterprincipal/' + cookies.get('username'), cookies.get('username'))
-        //     .then(res => {
-        //         this.setState( {
-        //             notifications: res.data
-        //         });
-		//
-        //     });
+            }).then(() => {
+
+			axios.get('/notification/getbyownerprincipal/' + cookies.get('username'), cookies.get('username'))
+				.then(res => {
+					console.log('OWNERRES: ', res);
+					array2 = res;
+					console.log('ARRAY1: ', array1);
+					console.log('ARRAY2: ', array2);
+					array1.push.apply(array1, array2);
+					this.setState({ notifications: array1 });
+				});
+        });
+
+
+
         // axios.get('/api/booking/sitter/' + cookies.get('username'), cookies.get('username'))
         //     .then(res => {
         //         console.log(res);
@@ -126,7 +140,7 @@ class FormDialog extends React.Component {
         return (
             <div>
                 <IconButton color="inherit" onClick={this.handleClickOpen}>
-                    <Badge badgeContent={2} color="secondary">
+                    <Badge badgeContent={'!'} color="secondary">
                         <NotificationsIcon/>
                     </Badge>
                 </IconButton>

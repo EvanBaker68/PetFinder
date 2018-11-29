@@ -13,7 +13,7 @@ import java.util.Optional;
 import java.util.stream.Collectors;
 
 @Repository
-public class NotoficationDao {
+public class NotificationDao {
     @Autowired
     private NotificationElasticSearchRepository repository;
 
@@ -26,28 +26,17 @@ public class NotoficationDao {
     }
 
     public List<Optional<NotificationDto>> findByOwnerPrincipal(String ownerPrincipal) {
+        QueryBuilder queryBuilder = QueryBuilders.matchPhraseQuery("ownerPrincipal", ownerPrincipal);
         SearchSourceBuilder searchSourceBuilder = new SearchSourceBuilder();
-        String queryString = "";
-        queryString = String.format("notification.ownerPrincipal=\"%s\"", ownerPrincipal.replace("\"", ""));
-
-        searchSourceBuilder.query(QueryBuilders.queryStringQuery(queryString));
-
-
-        return repository.search(searchSourceBuilder).stream().map(Optional::ofNullable)
-                .collect(Collectors.toList());
+        searchSourceBuilder.query(queryBuilder);
+        return repository.search(searchSourceBuilder).stream().map(Optional::ofNullable).collect(Collectors.toList());
     }
 
     public List<Optional<NotificationDto>> findBySitterPrincipal(String sitterPrincipal){
+        QueryBuilder queryBuilder = QueryBuilders.matchPhraseQuery("sitterPrincipal", sitterPrincipal);
         SearchSourceBuilder searchSourceBuilder = new SearchSourceBuilder();
-        String queryString = "";
-        queryString = String.format("notification.sitterPrincipal=\"%s\"", sitterPrincipal.replace("\"", ""));
-
-        searchSourceBuilder.query(QueryBuilders.queryStringQuery(queryString));
-
-        //TODO: add thrown exception
-
-        return repository.search(searchSourceBuilder).stream().map(Optional::ofNullable)
-                .collect(Collectors.toList());
+        searchSourceBuilder.query(queryBuilder);
+        return repository.search(searchSourceBuilder).stream().map(Optional::ofNullable).collect(Collectors.toList());
     }
 
 }
