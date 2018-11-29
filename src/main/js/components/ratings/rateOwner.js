@@ -55,6 +55,7 @@ class FormDialog extends React.Component {
 				owner.rating += this.state.value;
 				owner.ratingCount += 1;
 				owner.rating /= owner.ratingCount;
+				owner.rating = Math.round( owner.rating * 10 ) / 10;
 
 				axios.post('/api/owner/add-owner', owner)
 					.then(res => {

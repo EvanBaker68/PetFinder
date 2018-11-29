@@ -86,6 +86,10 @@ class SignInForm extends React.Component{
 						alert('This account is not registered as an owner.');
 					}
 				}
+				else{
+					alert('This account is not registered.');
+				}
+
 			}).then(response => console.log(response))
 			.catch(error => this.setState({error}));
 
@@ -120,6 +124,9 @@ class SignInForm extends React.Component{
                         cookies.set('sitterButton', '');
 						alert('This account is not registered as a sitter.');
 					}
+				}
+				else{
+					alert('This account is not registered.');
 				}
 
 			}).then(response => console.log(response))

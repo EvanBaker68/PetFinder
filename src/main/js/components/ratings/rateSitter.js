@@ -35,8 +35,6 @@ class FormDialog extends React.Component {
 			id: props.id,
             value: 0
         };
-
-        //load sitter information
     }
 
     handleClickOpen = () => {
@@ -46,7 +44,6 @@ class FormDialog extends React.Component {
     handleClose = () => {
         this.setState({ open: false });
 
-		console.log('jfdklsjfaklafdskl;');
 		console.log(this.state.principal);
 		axios.get('/api/sitter/' + this.state.principal, this.state.principal).then(
 			res => {
@@ -56,6 +53,7 @@ class FormDialog extends React.Component {
 				sitter.rating += this.state.value;
 				sitter.ratingCount += 1;
 				sitter.rating /= sitter.ratingCount;
+                sitter.rating = Math.round( sitter.rating * 10 ) / 10;
 
 				axios.post('/api/sitter/add-sitter', sitter)
 					.then(res => {
@@ -120,7 +118,6 @@ class FormDialog extends React.Component {
                         <Rating
                             onChange={(value) => {this.setState({value: value});}}
                             initialRating={this.state.value}
-                            // value={5}
                         />
                         <Button onClick={this.handleClose} >Done</Button>
                     </div>

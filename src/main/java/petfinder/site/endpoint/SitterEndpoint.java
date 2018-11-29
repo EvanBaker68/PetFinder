@@ -47,14 +47,8 @@ public class SitterEndpoint {
     @GetMapping(value = "/get-dates/{sitterPrincipal:.+}", produces = "application/json")
     @ResponseBody
     public List<DateDto> getDates(@PathVariable("sitterPrincipal") String sitterPrincipal) {
-        if (sitterPrincipal.equals(SecurityContextHolder.getContext().getAuthentication().getName())) {
             return dateService.findDateBySitter(sitterPrincipal);
-        }
-        else {
-            List<DateDto> returnList = new ArrayList<>();
 
-            return returnList;
-        }
     }
 
 
