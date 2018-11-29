@@ -111,8 +111,23 @@ class FormDialog extends React.Component {
 			.catch(error => this.setState({error}));
 	}
 
+    validateForm() {
+        let hasErrors = false;
+
+        if(this.state.start > this.state.end) {
+            hasErrors = true;
+            alert('Make sure your end date comes after your start date!');
+        }
+
+        return !hasErrors;
+    }
 
     saveBooking = () => {
+        if (!this.validateForm()) {
+            //return if not valid
+            return;
+        }
+
         const cookies = new Cookies();
         console.log(cookies.get('username'));
         const booking = {
