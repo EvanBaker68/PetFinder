@@ -124,13 +124,19 @@ class RequestTable extends React.Component {
 					<TableBody>
 						{/*change data to this.state.bookings*/}
 						{data.map(n => {
+
+							var newStartDate = new Date(n.startDate);
+							var newEndDate = new Date(n.endDate);
+							var newnewStartDate = new Date(newStartDate.getTime() - (360 * 60000));
+							var newnewEndDate = new Date(newEndDate.getTime() - (360 * 60000));
+
 							return (
 								<TableRow key={n.id}>
 									<TableCell component="th" scope="row">
 										{n.name}
 									</TableCell>
-									<TableCell>{new Date(n.startDate.setHours(n.startDate.getHours() -6)).toLocaleString()}</TableCell>
-									<TableCell>{new Date(n.endDate.setHours(n.endDate.getHours() -6)).toLocaleString()}</TableCell>
+									<TableCell>{newnewStartDate.toLocaleString()}</TableCell>
+									<TableCell>{newnewEndDate.toLocaleString()}</TableCell>
 									<TableCell>{n.status}</TableCell>
 								</TableRow>
 							);

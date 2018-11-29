@@ -140,7 +140,10 @@ class FormDialog extends React.Component {
 			petId: this.state.id
         };
 
-        let message = booking.ownerPrincipal + ' has requested a booking starting at ' + new Date(booking.startDate);
+		var newStartDate = new Date(booking.startDate);
+		var newnewStartDate = new Date(newStartDate.getTime() - (360 * 60000));
+
+        let message = booking.ownerPrincipal + ' has requested a booking starting at ' + newnewStartDate;
 
         var notification = {
             message: message,

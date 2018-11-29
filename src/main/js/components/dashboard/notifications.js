@@ -117,8 +117,44 @@ class FormDialog extends React.Component {
         this.setState({ open: false });
     };
 
-    handleCancel = () => {
-        //remove notification
+    handleCancel = (notification) => {
+
+        const theNotification = {
+            // isDelete: notifi
+        };
+
+        console.log('NOTIFICATION', notification);
+        notification.deleted = true;
+		console.log('NEW NOTIFICATION', notification);
+
+		//
+		axios.post('/notification/add-notification/', notification)
+			.then(res => {
+				console.log(res);
+				const cookies = new Cookies();
+				var array1 = [];
+				var array2 = [];
+				axios.get('/notification/getbysitterprincipal/' + cookies.get('username'), cookies.get('username'))
+					.then(res => {
+						console.log('SITTERRES: ', res);
+						array1 = res;
+
+					}).then(() => {
+
+					axios.get('/notification/getbyownerprincipal/' + cookies.get('username'), cookies.get('username'))
+						.then(res => {
+							console.log('OWNERRES: ', res);
+							array2 = res;
+							console.log('ARRAY1: ', array1);
+							console.log('ARRAY2: ', array2);
+							array1.push.apply(array1, array2);
+							this.setState({ notifications: array1 });
+						});
+				});
+			});
+
+
+
     };
 
     render() {
@@ -129,7 +165,7 @@ class FormDialog extends React.Component {
             list = notifications.map(notification => {
                 return (
                     <li>{notification.message}
-                        <IconButton color="inherit" onClick={this.handleCancel}>
+                        <IconButton color="inherit" onClick={this.handleCancel.bind(this, notification)}>
                             <CancelIcon/>
                         </IconButton>
                     </li>

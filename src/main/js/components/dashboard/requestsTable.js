@@ -100,7 +100,11 @@ class RequestTable extends React.Component {
 					});
 
 				const cookies = new Cookies();
-                let message = booking.sitterPrincipal + ' has canceled the booking starting at ' + new Date(booking.startDate);
+
+				var newStartDate = new Date(booking.startDate);
+				var newnewStartDate = new Date(newStartDate.getTime() - (360 * 60000));
+
+                let message = booking.sitterPrincipal + ' has canceled the booking starting at ' + newnewStartDate;
                 var notification = {
                     message: message,
 					sitterPrincipal: booking.sitterPrincipal,
@@ -136,7 +140,11 @@ class RequestTable extends React.Component {
 						console.log(error.response);
 					});
 
-                let message = booking.sitterPrincipal + ' has approved the booking starting at ' + new Date(booking.startDate);
+
+				var newStartDate = new Date(booking.startDate);
+				var newnewStartDate = new Date(newStartDate.getTime() - (360 * 60000));
+
+                let message = booking.sitterPrincipal + ' has approved the booking starting at ' + newnewStartDate;
 
                 var notification = {
                     message: message,

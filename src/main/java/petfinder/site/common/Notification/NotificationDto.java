@@ -23,7 +23,7 @@ public class NotificationDto implements Identifiable {
     public NotificationDto() {
         Random randomno = new Random();
 
-        Long randomId = randomno.nextLong();
+        Long randomId = randomno.nextLong()%1000000;
         this.id = randomId;
     }
 

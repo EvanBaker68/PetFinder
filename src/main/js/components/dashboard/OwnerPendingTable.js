@@ -83,9 +83,9 @@ class OwnerPendingTable extends React.Component {
 				var booking = res;
 				booking.status = 'canceled';
 
-				// var newStartDate = booking.startDate;
-				// var theDate = new Date(newStartDate.setHours(newStartDate.getHours() -6)).toLocaleString();
-				let message = booking.ownerPrincipal + ' has canceled the booking starting at ' + booking.startDate;
+				var newStartDate = new Date(booking.startDate);
+				var newnewStartDate = new Date(newStartDate.getTime() - (360 * 60000));
+				let message = booking.ownerPrincipal + ' has canceled the booking starting at ' + newnewStartDate;
 
 				var notification = {
 					message: message,
@@ -177,13 +177,19 @@ class OwnerPendingTable extends React.Component {
 					<TableBody>
 						{/*change data to this.state.bookings*/}
 						{data.map(n => {
+
+							var newStartDate = new Date(n.startDate);
+							var newEndDate = new Date(n.endDate);
+							var newnewStartDate = new Date(newStartDate.getTime() - (360 * 60000));
+							var newnewEndDate = new Date(newEndDate.getTime() - (360 * 60000));
+
 							return (
 								<TableRow key={n.id}>
 									<TableCell component="th" scope="row">
 										{n.name}
 									</TableCell>
-									<TableCell>{new Date(n.startDate.setHours(n.startDate.getHours() -6)).toLocaleString()}</TableCell>
-									<TableCell>{new Date(n.endDate.setHours(n.endDate.getHours() -6)).toLocaleString()}</TableCell>
+									<TableCell>{newnewStartDate.toLocaleString()}</TableCell>
+									<TableCell>{newnewEndDate.toLocaleString()}</TableCell>
 									<TableCell>{n.status}</TableCell>
 									<TableCell>
 										<Button
