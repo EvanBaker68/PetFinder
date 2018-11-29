@@ -16,4 +16,3 @@ test:
   script:
     - ./gradlew test
   artifacts:
-  reports:
