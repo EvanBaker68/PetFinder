@@ -11,7 +11,7 @@ import * as Users from 'js/users';
 import Button from '@material-ui/core/Button';
 import * as Bessemer from 'js/alloy/bessemer/components';
 import * as Validation from 'js/alloy/utils/validation';
-import FormControl from '@material-ui/core/es/FormControl/FormControl';
+import FormControl from '@material-ui/core/FormControl';
 import * as ReduxForm from 'redux-form';
 import {Redirect} from 'react-router-dom';
 
