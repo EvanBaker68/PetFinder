@@ -6,7 +6,6 @@ import Image2 from '../images/cat.jpeg';
 import Typography from '@material-ui/core/Typography';
 import NavBar from 'js/TestLogin';
 import teal from '@material-ui/core/colors/teal';
-import Comment from 'js/components/ratings/OwnerComment';
 
 const styles = {
 	paperContainer1: {
@@ -34,7 +33,9 @@ const styles = {
         alignItems: 'center',
     }
 };
-
+/*
+	home page component with picture backgrounds
+ */
 export default class HomePage extends React.Component{
 	render(){
 		return(

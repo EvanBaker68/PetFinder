@@ -1,8 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import classNames from 'classnames';
+import classNames from 'classnames'
 import { withStyles } from '@material-ui/core/styles';
-import MenuItem from '@material-ui/core/MenuItem';
 import TextField from '@material-ui/core/TextField';
 
 const styles = theme => ({
@@ -22,6 +21,9 @@ const styles = theme => ({
 	},
 });
 
+/*
+	text field component for owner specific information
+ */
 class OutlinedTextFields extends React.Component {
 	state = {
 		fistname: '',

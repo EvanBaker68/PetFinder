@@ -7,11 +7,9 @@ import TableCell from '@material-ui/core/TableCell';
 import TableHead from '@material-ui/core/TableHead';
 import TableRow from '@material-ui/core/TableRow';
 import Paper from '@material-ui/core/Paper';
-import Button from '@material-ui/core/Button';
 import RateOwner from 'js/components/ratings/rateOwner';
 import Cookies from 'universal-cookie';
 import axios from 'axios/index';
-import Comment from 'js/components/ratings/OwnerComment';
 
 const styles = {
 	root: {

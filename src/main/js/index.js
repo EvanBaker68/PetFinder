@@ -2,9 +2,7 @@ import React from 'react';
 import { HashRouter, Route } from 'react-router-dom';
 import * as Pages from 'js/pages';
 import Cookies from 'universal-cookie';
-import * as Users from 'js/users';
 import {connect} from 'react-redux';
-import * as ReduxForm from 'redux-form';
 export default class Index extends React.Component {
 
 	// authenticate = () => {
@@ -43,10 +41,6 @@ export default class Index extends React.Component {
 					<Route exact path="/sitterProfile" component={Pages.sitterProfile} />
 					<Route exact path="/sitterTimeTable" component={Pages.sitterTimeTable} />
 					<Route exact path="/search" component={Pages.searchForSitters} />
-					<Route exact path="/otherSitterProfile" component={Pages.otherSitterProfile} />
-					<Route exact path="/bookSitter" component={Pages.bookSitter} />
-					<Route exact path="/bookingConfirmation" component={Pages.confirmation} />
-					<Route exact path="/test" component={Pages.TestPage} />
 
 				</div>
 			</HashRouter>

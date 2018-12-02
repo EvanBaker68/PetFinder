@@ -1,5 +1,4 @@
 import React from 'react';
-import elasticsearch from 'elasticsearch';
 import axios from 'axios';
 
 export function authenticate(pet){

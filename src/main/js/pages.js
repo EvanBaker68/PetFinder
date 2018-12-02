@@ -1,4 +1,6 @@
-import _ from 'lodash';
+/*
+	This file contains the
+ */
 
 import React from 'react';
 import { Link } from 'react-router-dom';
@@ -83,22 +85,6 @@ export class LoginPage extends React.Component {
 		);
 	}
 }
-
-// export class LoginPage extends React.Component {
-// 	render() {
-// 		return (
-// 			<div className="container padded">
-// 				<div className="row">
-// 					<div className="col-6 offset-md-3">
-// 						<h2>Login</h2>
-// 						<hr />
-// 						<Login.LoginForm />
-// 					</div>
-// 				</div>
-// 			</div>
-// 		);
-// 	}
-// }
 
 
 class sitterDash extends React.Component {
@@ -204,19 +190,6 @@ export class bookSitter extends React.Component {
 				Select the day(s) and pet(s) you would like to request a sitter for.
 
 				<li><Link to="/bookingConfirmation">Confirm the booking</Link></li>
-			</div>
-		);
-	}
-
-}
-
-export class confirmation extends React.Component {
-	render() {
-		return (
-			<div className="container padded">
-				Your request has be sent to [Name]
-
-				<li><Link to="/">Home</Link></li>
 			</div>
 		);
 	}
