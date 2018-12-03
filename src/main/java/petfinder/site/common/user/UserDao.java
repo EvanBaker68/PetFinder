@@ -18,10 +18,6 @@ public class UserDao {
 	@Autowired
 	private UserElasticSearchRepository repository;
 
-<<<<<<< HEAD
-
-=======
->>>>>>> 18c4b21a9d3ba72a61534ef984adc6ef760c0a09
 	public Optional<UserAuthenticationDto> findUser(String id) {
 		//I commented out the UserAuthenticationDt0.class, IDK why it was there
 		return repository.find(id/*, UserAuthenticationDto.class*/);
