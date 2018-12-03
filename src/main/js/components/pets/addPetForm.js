@@ -33,7 +33,7 @@ export default class FormDialog extends React.Component {
         }
 
 		const cookies = new Cookies();
-		console.log(cookies.get('username'));
+
 		const pet = {
 			id: (((1+Math.random())*0x10000)|0),
 			ownerPrincipal: cookies.get('username'),
@@ -53,7 +53,6 @@ export default class FormDialog extends React.Component {
 			.catch(error => {
 				console.log(error.response);
 			});
-		// this.props.handler();
 	};
 
     validateForm() {

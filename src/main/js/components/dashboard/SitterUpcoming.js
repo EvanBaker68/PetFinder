@@ -40,7 +40,6 @@ class SitterUpcomingTable extends React.Component {
 
 		axios.get('/api/booking/sitter/' + cookies.get('username'), cookies.get('username'))
 			.then(res => {
-				console.log('Results: ', res);
 				this.setState({
 					bookings: res});
 				if(this.state.bookings)
@@ -52,20 +51,11 @@ class SitterUpcomingTable extends React.Component {
 					const id = booking.id;
 					const ownerPrincipal = booking.ownerPrincipal;
 
-					console.log('startDate: ', startDate);
-					console.log('endDate: ', endDate);
-
 					if(booking.sitterPrincipal === cookies.get('username')
 						&& booking.status === 'approved'  && (endDate >= new Date()))
 						axios.get('/api/user/' + ownerPrincipal, ownerPrincipal)
 							.then(res => {
-								console.log('name: ', res.firstName);
-								console.log('startDate', startDate);
-								console.log('endDate', endDate);
-								console.log('status', status);
-								console.log('data1:',data);
 								name = res.firstName + ' ' + res.lastName;
-								console.log('name2: ', name);
 
 								data.push(this.createData(id, name, startDate, endDate, status));
 								this.setState({loaded: true});
@@ -142,7 +132,6 @@ class SitterUpcomingTable extends React.Component {
 							var newnewStartDate = new Date(newStartDate.getTime() - (360 * 60000));
 							var newnewEndDate = new Date(newEndDate.getTime() - (360 * 60000));
 
-							console.log('NAME:', n.name);
 							return (
 								<TableRow key={n.id}>
 									<TableCell component="th" scope="row">

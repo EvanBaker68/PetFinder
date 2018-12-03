@@ -47,12 +47,10 @@ class SimpleTable extends React.Component {
 
 		axios.get('/api/booking/owner/' + cookies.get('username'), cookies.get('username'))
 			.then(res => {
-				console.log('Results: ', res);
 				this.setState({
 					bookings: res});
 				if(this.state.bookings)
 				{this.state.bookings.map(booking => {
-					console.log('BOOKING: ', booking);
 
 					const startDate = new Date(booking.startDate);
 					const endDate = new Date(booking.finishDate);
@@ -63,16 +61,12 @@ class SimpleTable extends React.Component {
 					const ratedByOwner = booking.isRatedByOwner;
 					const rating = booking.scoreByOwner;
 
-					console.log('startDate: ', startDate);
-					console.log('endDate: ', endDate);
-
 					if(booking.ownerPrincipal === cookies.get('username')
 						&& booking.status === 'approved' && (endDate < new Date()))
 						axios.get('/api/user/' + sitterPrincipal, sitterPrincipal)
 							.then(res => {
 								const city = res.city;
 								name = res.firstName + ' ' + res.lastName;
-								console.log('name2: ', name);
 
 								data.push(this.createData(id, name, sitterPrincipal, city, startDate, endDate, ratedByOwner, rating));
 								this.setState({loaded: true});
@@ -87,7 +81,6 @@ class SimpleTable extends React.Component {
 	}
 
 	handler = () => {
-		console.log('BARF');
 		if(this.state.reload){
 			this.setState({ reload: false });
 		}
@@ -109,7 +102,6 @@ class SimpleTable extends React.Component {
     render() {
 
 		const {classes} = this.props;
-		console.log('Data: ', data);
 
 		return (
 			<Paper className={classes.root}>

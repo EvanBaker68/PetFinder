@@ -46,7 +46,6 @@ class FormDialog extends React.Component {
 	handleClose = () => {
 		this.setState({ open: false });
 
-		console.log(this.state.principal);
 		axios.get('/api/owner/' + this.state.principal, this.state.principal).then(
 			res => {
 				console.log(res);

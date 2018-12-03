@@ -44,7 +44,6 @@ class FormDialog extends React.Component {
     handleClose = () => {
         this.setState({ open: false });
 
-		console.log(this.state.principal);
 		axios.get('/api/sitter/' + this.state.principal, this.state.principal).then(
 			res => {
 				console.log(res);
@@ -112,10 +111,7 @@ class FormDialog extends React.Component {
     }
 
     render() {
-        //num should eventually b sitter details
-        //const principal = this.state.principal;
         const { classes } = this.props;
-        const star = Star;
 
         return (
             <div>

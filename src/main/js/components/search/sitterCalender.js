@@ -20,10 +20,9 @@ export default class Calender extends React.Component
         };
 
 		const cookies = new Cookies();
-		console.log('PRINICPAL: ', this.props.principal);
+
 		axios.get('/api/sitter/get-dates/' + this.props.principal, this.props.principal)
 			.then(res => {
-			    console.log('SITTER DATES: ', res);
 				this.setState({
 					dates: res,
 					loaded: true

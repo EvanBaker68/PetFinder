@@ -34,8 +34,6 @@ class OwnerPendingTable extends React.Component {
 			loaded: false,
 			reload: false
 		};
-		//axios.get('/api/booking/getUpcoming', cookies.username)
-		//this.setSate(bookings: createData(...))
 	}
 
 	componentDidMount() {
@@ -44,7 +42,6 @@ class OwnerPendingTable extends React.Component {
 
 		axios.get('/api/booking/owner/' + cookies.get('username'), cookies.get('username'))
 			.then(res => {
-				console.log('Results: ', res);
 				this.setState({
 					bookings: res});
 				if(this.state.bookings)
@@ -110,7 +107,6 @@ class OwnerPendingTable extends React.Component {
 
 						axios.get('/api/booking/owner/' + cookies.get('username'), cookies.get('username'))
 							.then(res => {
-								console.log('Results: ', res);
 								this.setState({
 									bookings: res});
 								if(this.state.bookings)
@@ -157,8 +153,6 @@ class OwnerPendingTable extends React.Component {
 	render() {
 		const {classes} = this.props;
 		const loaded = this.state.loaded;
-
-		console.log('DATAAAAA: ', data);
 
 		return (
 			<Paper className={classes.root}>

@@ -17,12 +17,9 @@ export default class Calender extends React.Component
         };
 
         const cookies = new Cookies();
-		console.log('PRINCIPAL: ', cookies.get('username'));
 
 		axios.get('/api/sitter/get-dates/' + cookies.get('username'), cookies.get('username'))
             .then(res => {
-				console.log('SITTER DATES: ', res);
-
 				this.setState({
                     dates: res,
                     loaded: true
@@ -34,15 +31,6 @@ export default class Calender extends React.Component
 		const cookies = new Cookies();
 		var a = Math.random();
 		this.state.selectedDates.forEach((date) => {
-			// const date = {
-			// 	startDate: start,
-			// 	endDate: end,
-			// 	sitterPrincipal: cookies.get('username'),
-			// };
-			console.log('startDate: ' + date.startDate);
-			console.log('endDate: ' + date.endDate);
-
-
 			axios.post('/api/sitter/add-date', date)
                     .then(res => {
                         console.log('Posting new dates');
@@ -60,21 +48,11 @@ export default class Calender extends React.Component
         const startD = this.state.start;
         const endD = this.state.end;
         const loaded = this.state.loaded;
-        console.log(endD);
+
         var datesList;
         var theArray = [];
         var start;
         var end;
-
-
-        // {datesList = dates.map(date => {
-        //     const { startDate, endDate } = date;
-        //     start = startDate;
-        //     end = endDate;
-        //     console.log(startDate);
-        //     console.log(endDate);
-        //     }
-        //     );}
 
 		if(dates)
 		{dates.forEach(({startDate, endDate}) => {
@@ -82,7 +60,6 @@ export default class Calender extends React.Component
 		        {start: new Date(startDate), end: new Date(endDate)});
 			});
 		}
-
 
         if (loaded === true) {
             return (
@@ -108,8 +85,6 @@ export default class Calender extends React.Component
 
                         let array = [];
                         selections.forEach(({start, end}) => {
-                            console.log('start: ' + start);
-                            console.log('end: ', end);
                             const cookies = new Cookies();
                             const date = {
                                 startDate: start,
@@ -123,7 +98,7 @@ export default class Calender extends React.Component
 						});
                     }}
                     onEventsRequested={({calendarId, start, end, callback}) => {
-                        //loadMoreEvents(calendarId, start, end).then(callback);
+
                     }}
                     initialSelections={theArray
                     }

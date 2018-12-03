@@ -43,7 +43,6 @@ class RequestTable extends React.Component {
 
 		axios.get('/api/booking/owner/' + cookies.get('username'), cookies.get('username'))
 			.then(res => {
-				console.log('Results: ', res);
 				this.setState({
 					bookings: res});
 				if(this.state.bookings)
@@ -55,20 +54,11 @@ class RequestTable extends React.Component {
 					const id = booking.id;
 					const sitterPrincipal = booking.sitterPrincipal;
 
-					console.log('startDate: ', startDate);
-					console.log('endDate: ', endDate);
-
 					if(booking.ownerPrincipal === cookies.get('username')
 					&& booking.status === 'approved' && (endDate >= new Date()))
 						axios.get('/api/user/' + sitterPrincipal, sitterPrincipal)
 							.then(res => {
-								console.log('name: ', res.firstName);
-								console.log('startDate', startDate);
-								console.log('endDate', endDate);
-								console.log('status', status);
-								console.log('data1:',data);
 								name = res.firstName + ' ' + res.lastName;
-								console.log('name2: ', name);
 
 								data.push(this.createData(id, name, startDate, endDate, status));
 								this.setState({loaded: true});
@@ -106,8 +96,6 @@ class RequestTable extends React.Component {
         const {classes} = this.props;
 		const loaded = this.state.loaded;
 
-		console.log('DATAAAAA: ', data);
-
 		return (
             <Paper className={classes.root}>
                 <Table className={classes.table}>
@@ -122,7 +110,6 @@ class RequestTable extends React.Component {
 					{loaded &&
 
 					<TableBody>
-						{/*change data to this.state.bookings*/}
 						{data.map(n => {
 
 							var newStartDate = new Date(n.startDate);

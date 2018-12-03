@@ -41,7 +41,6 @@ class RequestTable extends React.Component {
 
 		axios.get('/api/booking/sitter/' + cookies.get('username'), cookies.get('username'))
 			.then(res => {
-			    console.log('Results: ', res);
 				this.setState({
 					bookings: res});
 				if(this.state.bookings)
@@ -53,26 +52,16 @@ class RequestTable extends React.Component {
 					const id = booking.id;
 					const ownerPrincipal = booking.ownerPrincipal;
 
-					console.log('startDate: ', startDate);
-					console.log('endDate: ', endDate);
-
 					if(booking.sitterPrincipal === cookies.get('username')
 					&& booking.status === 'pending')
 					axios.get('/api/user/' + ownerPrincipal, ownerPrincipal)
 						.then(res => {
-							console.log('name: ', res.firstName);
-							console.log('startDate', startDate);
-							console.log('endDate', endDate);
-							console.log('status', status);
-							console.log('data1:',data);
 							name = res.firstName + ' ' + res.lastName;
-							console.log('name2: ', name);
 
 							data.push(this.createData(id, name, startDate, endDate, status));
 							this.setState({loaded: true});
 						}).then(response => console.log(response))
 						.catch(error => this.setState({error}));
-
 
 				});}
 
@@ -98,8 +87,6 @@ class RequestTable extends React.Component {
 					.catch(error => {
 						console.log(error.response);
 					});
-
-				const cookies = new Cookies();
 
 				var newStartDate = new Date(booking.startDate);
 				var newnewStartDate = new Date(newStartDate.getTime() - (360 * 60000));
@@ -188,15 +175,11 @@ render() {
                 {loaded &&
                 <TableBody>
                     {data.map(n => {
-                        console.log('NAME:', n.name);
-                        //PLAY WITH THIS
                         var newStartDate = new Date(n.startDate);
 						var newEndDate = new Date(n.endDate);
 						var newnewStartDate = new Date(newStartDate.getTime() - (360 * 60000));
 						var newnewEndDate = new Date(newEndDate.getTime() - (360 * 60000));
-						// console.log('NEWDATE: ', newnewDate);
 
-                        // newDate.setHours(n.startDate.getHours() -6);
                         return (
                             <TableRow key={n.id}>
                                 <TableCell component="th" scope="row">
