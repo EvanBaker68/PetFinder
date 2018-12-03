@@ -33,7 +33,7 @@ public class UserDto implements Momento<String> {
     public String getCity(){
         return city;
     }
-    private UserDto() {
+    public UserDto() {
 
     }
 
