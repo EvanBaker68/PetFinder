@@ -101,7 +101,7 @@ class SimpleTable extends React.Component {
                     sitterPrincipal: booking.sitterPrincipal,
                     ownerPrincipal: booking.ownerPrincipal
                 };
-                //axois.post();
+
             }).then(response => console.log(response))
             .catch(error => this.setState({error}));
     }
