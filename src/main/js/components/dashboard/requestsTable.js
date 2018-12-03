@@ -77,6 +77,7 @@ class RequestTable extends React.Component {
     }
 
     cancelBooking(id) {
+
         axios.get('/api/booking/' + id, id)
             .then(res => {
                 var booking = res;
@@ -84,7 +85,45 @@ class RequestTable extends React.Component {
                 booking.status = 'canceled';
                 axios.post('/api/booking/add-booking', booking)
                     .then(res => {
-                        console.log(res);
+                        data = [];
+                        const cookies = new Cookies();
+
+                        axios.get('/api/booking/sitter/' + cookies.get('username'), cookies.get('username'))
+                            .then(res => {
+                                this.setState({
+                                    bookings: res
+                                });
+                                if (this.state.bookings) {
+                                    this.state.bookings.map(booking => {
+
+                                        const startDate = new Date(booking.startDate);
+                                        const endDate = new Date(booking.finishDate);
+                                        const status = booking.status;
+                                        const id = booking.id;
+                                        const ownerPrincipal = booking.ownerPrincipal;
+
+                                        if (booking.sitterPrincipal === cookies.get('username')
+                                            && booking.status === 'pending')
+                                            axios.get('/api/user/' + ownerPrincipal, ownerPrincipal)
+                                                .then(res => {
+                                                    name = res.firstName + ' ' + res.lastName;
+
+                                                    data.push(this.createData(id, name, startDate, endDate, status));
+                                                    this.setState({loaded: true});
+                                                }).then(response => {
+                                                if (this.state.reload === false)
+                                                    this.setState({reload: true});
+                                                else
+                                                    this.setState({reload: false});
+                                                console.log(response);
+                                            })
+                                                .catch(error => this.setState({error}));
+
+                                    });
+                                }
+
+                            }).then(response => console.log(response))
+                            .catch(error => this.setState({error}));
                     })
                     .catch(error => {
                         console.log(error.response);
@@ -116,6 +155,7 @@ class RequestTable extends React.Component {
     }
 
     approveBooking(id) {
+
         axios.get('/api/booking/' + id, id)
             .then(res => {
                 var booking = res;
@@ -123,7 +163,45 @@ class RequestTable extends React.Component {
 
                 axios.post('/api/booking/add-booking', booking)
                     .then(res => {
-                        console.log(res);
+                        data = [];
+                        const cookies = new Cookies();
+
+                        axios.get('/api/booking/sitter/' + cookies.get('username'), cookies.get('username'))
+                            .then(res => {
+                                this.setState({
+                                    bookings: res
+                                });
+                                if (this.state.bookings) {
+                                    this.state.bookings.map(booking => {
+
+                                        const startDate = new Date(booking.startDate);
+                                        const endDate = new Date(booking.finishDate);
+                                        const status = booking.status;
+                                        const id = booking.id;
+                                        const ownerPrincipal = booking.ownerPrincipal;
+
+                                        if (booking.sitterPrincipal === cookies.get('username')
+                                            && booking.status === 'pending')
+                                            axios.get('/api/user/' + ownerPrincipal, ownerPrincipal)
+                                                .then(res => {
+                                                    name = res.firstName + ' ' + res.lastName;
+
+                                                    data.push(this.createData(id, name, startDate, endDate, status));
+                                                    this.setState({loaded: true});
+                                                }).then(response => {
+                                                if (this.state.reload === false)
+                                                    this.setState({reload: true});
+                                                else
+                                                    this.setState({reload: false});
+                                                console.log(response);
+                                            })
+                                                .catch(error => this.setState({error}));
+
+                                    });
+                                }
+
+                            }).then(response => console.log(response))
+                            .catch(error => this.setState({error}));
                     })
                     .catch(error => {
                         console.log(error.response);
