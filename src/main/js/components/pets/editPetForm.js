@@ -16,7 +16,7 @@ export default class FormDialog extends React.Component {
         name: '',
         age: 0,
         id: 0,
-		petType: '',
+        petType: '',
         dogBreed: '',
         ownerPrincipal: '',
         pets: []
@@ -27,57 +27,57 @@ export default class FormDialog extends React.Component {
     }
 
     componentDidMount() {
-		let { name, age, id, dogBreed, petType, ownerPrincipal } = this.props;
-		const endpoint = '/pet/' + id;
+        let {name, age, id, dogBreed, petType, ownerPrincipal} = this.props;
 
-		axios.get('/api/pet/' + id, id)
-			.then(res => {
-				this.setState({
-				name: res.name,
-                age: res.age,
-                dogBreed: res.dogBreed,
-                id: res.id,
-                ownerPrincipal: res.ownerPrincipal,
-				petType: res.petType});
-			}).then(response => console.log(response))
-			.catch(error => this.setState({error}));
-	}
+        axios.get('/api/pet/' + id, id)
+            .then(res => {
+                this.setState({
+                    name: res.name,
+                    age: res.age,
+                    dogBreed: res.dogBreed,
+                    id: res.id,
+                    ownerPrincipal: res.ownerPrincipal,
+                    petType: res.petType
+                });
+            }).then(response => console.log(response))
+            .catch(error => this.setState({error}));
+    }
 
 
     handleClickOpen = () => {
-        this.setState({ open: true });
+        this.setState({open: true});
     };
 
     handleClose = () => {
-        this.setState({ open: false });
+        this.setState({open: false});
     };
 
-	handleSaveClose = () => {
-		const cookies = new Cookies();
-		const pet = {
-			id: this.state.id,
-			ownerPrincipal: cookies.get('username'),
-			name: this.state.name,
-			petType: this.state.petType,
-			dogBreed: this.state.dogBreed,
-			age: this.state.age
-		};
-		axios.post('/api/pet/add-pet', pet)
-			.then(res => {
-				console.log(res);
-				console.log(res.data);
-				this.setState({open: false});
-			})
-			.catch(error => {
-				console.log(error.response);
-			});
-	};
+    handleSaveClose = () => {
+        const cookies = new Cookies();
+        const pet = {
+            id: this.state.id,
+            ownerPrincipal: cookies.get('username'),
+            name: this.state.name,
+            petType: this.state.petType,
+            dogBreed: this.state.dogBreed,
+            age: this.state.age
+        };
+        axios.post('/api/pet/add-pet', pet)
+            .then(res => {
+                console.log(res);
+                console.log(res.data);
+                this.setState({open: false});
+            })
+            .catch(error => {
+                console.log(error.response);
+            });
+    };
 
-	handleChange = name => event => {
-		this.setState({
-			[name]: event.target.value,
-		});
-	};
+    handleChange = name => event => {
+        this.setState({
+            [name]: event.target.value,
+        });
+    };
 
     render() {
         return (
@@ -85,9 +85,9 @@ export default class FormDialog extends React.Component {
             <div>
                 <ul>
                     <li>{this.state.name}</li>
-					<li>{this.state.petType}</li>
-					<li>{this.state.dogBreed}</li>
-					<li>{this.state.age} years old</li>
+                    <li>{this.state.petType}</li>
+                    <li>{this.state.dogBreed}</li>
+                    <li>{this.state.age} years old</li>
                 </ul>
                 <Button color="secondary" variant="contained" onClick={this.handleClickOpen}>Edit</Button>
                 <Dialog
@@ -100,45 +100,45 @@ export default class FormDialog extends React.Component {
                         <DialogContentText>
                             Change {this.state.name}'s details
                         </DialogContentText>
-						<TextField
-							autoFocus
-							margin="dense"
-							id="name"
-							label="Name"
-							value={this.state.name}
-							onChange={this.handleChange('name')}
-							fullWidth
-						/>
-						<TextField
-							autoFocus
-							margin="dense"
-							id="petType"
-							label="Type of Pet"
-							type="petType"
-							value={this.state.petType}
-							onChange={this.handleChange('petType')}
-							fullWidth
-						/>
-						<TextField
-							autoFocus
-							margin="dense"
-							id="dogBreed"
-							label="Breed"
-							type="dogBreed"
-							value={this.state.dogBreed}
-							onChange={this.handleChange('dogBreed')}
-							fullWidth
-						/>
-						<TextField
-							autoFocus
-							margin="dense"
-							id="age"
-							label="Age"
-							type="age"
-							value={this.state.age}
-							onChange={this.handleChange('age')}
-							fullWidth
-						/>
+                        <TextField
+                            autoFocus
+                            margin="dense"
+                            id="name"
+                            label="Name"
+                            value={this.state.name}
+                            onChange={this.handleChange('name')}
+                            fullWidth
+                        />
+                        <TextField
+                            autoFocus
+                            margin="dense"
+                            id="petType"
+                            label="Type of Pet"
+                            type="petType"
+                            value={this.state.petType}
+                            onChange={this.handleChange('petType')}
+                            fullWidth
+                        />
+                        <TextField
+                            autoFocus
+                            margin="dense"
+                            id="dogBreed"
+                            label="Breed"
+                            type="dogBreed"
+                            value={this.state.dogBreed}
+                            onChange={this.handleChange('dogBreed')}
+                            fullWidth
+                        />
+                        <TextField
+                            autoFocus
+                            margin="dense"
+                            id="age"
+                            label="Age"
+                            type="age"
+                            value={this.state.age}
+                            onChange={this.handleChange('age')}
+                            fullWidth
+                        />
                     </DialogContent>
                     <DialogActions>
                         <Button onClick={this.handleClose} color="primary">
@@ -155,8 +155,8 @@ export default class FormDialog extends React.Component {
 }
 
 FormDialog.propTypes = {
-	name: PropTypes.string,
-	age: PropTypes.number,
-	type: PropTypes.string,
-	breed: PropTypes.string,
+    name: PropTypes.string,
+    age: PropTypes.number,
+    type: PropTypes.string,
+    breed: PropTypes.string,
 };

@@ -8,24 +8,24 @@ import NavBar from 'js/TestLogin';
 import teal from '@material-ui/core/colors/teal';
 
 const styles = {
-	paperContainer1: {
-		backgroundImage: `url(${Image})`,
-		paddingRight: 24,
-		alignItems: 'center',
-		height: 500
-	},
+    paperContainer1: {
+        backgroundImage: `url(${Image})`,
+        paddingRight: 24,
+        alignItems: 'center',
+        height: 500
+    },
     paperContainer2: {
         backgroundImage: `url(${Image2})`,
         paddingRight: 24,
         alignItems: 'center',
         height: 500
     },
-	aboutContainer: {
-		backgroundColor: 'teal',
-		paddingRight: 0,
-		height: 400,
-		alignItems: 'center',
-	},
+    aboutContainer: {
+        backgroundColor: 'teal',
+        paddingRight: 0,
+        height: 400,
+        alignItems: 'center',
+    },
     aboutContainer2: {
         backgroundColor: '#ffe082',
         paddingRight: 0,
@@ -36,30 +36,30 @@ const styles = {
 /*
 	home page component with picture backgrounds
  */
-export default class HomePage extends React.Component{
-	render(){
-		return(
-			<div>
-				<Paper style={styles.paperContainer1}>
-					<NavBar />
-				</Paper>
-				<Paper style={styles.aboutContainer}>
-					<Grid alignContent="center">
-						<Typography variant="display1" color="secondary" align="center">
-							Why Pet.ty?
-						</Typography>
-					</Grid>
-					<Grid>
-						<Typography variant="body1" align="center" >
-							Pet.ty is a pet matching service designed to match pet
-							owners and pet sitter together. Unlike other services we
-							consider location, time and experience when matching.
-						</Typography>
-					</Grid>
-				</Paper>
-				<Paper style={styles.paperContainer2}/>
-				<Paper style={styles.aboutContainer2}/>
-			</div>
-		);
-	}
+export default class HomePage extends React.Component {
+    render() {
+        return (
+            <div>
+                <Paper style={styles.paperContainer1}>
+                    <NavBar/>
+                </Paper>
+                <Paper style={styles.aboutContainer}>
+                    <Grid alignContent="center">
+                        <Typography variant="display1" color="secondary" align="center">
+                            Why Pet.ty?
+                        </Typography>
+                    </Grid>
+                    <Grid>
+                        <Typography variant="body1" align="center">
+                            Pet.ty is a pet matching service designed to match pet
+                            owners and pet sitter together. Unlike other services we
+                            consider location, time and experience when matching.
+                        </Typography>
+                    </Grid>
+                </Paper>
+                <Paper style={styles.paperContainer2}/>
+                <Paper style={styles.aboutContainer2}/>
+            </div>
+        );
+    }
 }

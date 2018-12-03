@@ -1,6 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { withStyles } from '@material-ui/core/styles';
+import {withStyles} from '@material-ui/core/styles';
 import TextField from '@material-ui/core/TextField';
 import Cookies from 'universal-cookie';
 import axios from 'axios/index';
@@ -35,24 +35,24 @@ class OutlinedTextFields extends React.Component {
         });
     };
 
-	handleAddClose = () => {
-		const cookies = new Cookies();
-		const sitter = {
-			principal: cookies.get('username'),
-			rate: this.state.rate
-		};
-		axios.post('/api/sitter/add-sitter', sitter)
-			.then(res => {
-				console.log(res);
-				console.log(res.data);
-			})
-			.catch(error => {
-				console.log(error.response);
-			});
-	};
+    handleAddClose = () => {
+        const cookies = new Cookies();
+        const sitter = {
+            principal: cookies.get('username'),
+            rate: this.state.rate
+        };
+        axios.post('/api/sitter/add-sitter', sitter)
+            .then(res => {
+                console.log(res);
+                console.log(res.data);
+            })
+            .catch(error => {
+                console.log(error.response);
+            });
+    };
 
     render() {
-        const { classes } = this.props;
+        const {classes} = this.props;
 
         return (
             <form className={classes.container} noValidate autoComplete="off">
@@ -65,10 +65,10 @@ class OutlinedTextFields extends React.Component {
                     margin="normal"
                     variant="standard"
                 />
-				<Link to="/sitterDash">
-					<Button onClick={this.handleAddClose}
+                <Link to="/sitterDash">
+                    <Button onClick={this.handleAddClose}
                             color="secondary">Next</Button>
-				</Link>
+                </Link>
             </form>
         );
     }

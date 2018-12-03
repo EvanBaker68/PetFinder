@@ -1,6 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { withStyles } from '@material-ui/core/styles';
+import {withStyles} from '@material-ui/core/styles';
 import InputLabel from '@material-ui/core/InputLabel';
 import MenuItem from '@material-ui/core/MenuItem';
 import FormControl from '@material-ui/core/FormControl';
@@ -27,11 +27,11 @@ class SimpleSelect extends React.Component {
     };
 
     handleChange = event => {
-        this.setState({ [event.target.name]: event.target.value });
+        this.setState({[event.target.name]: event.target.value});
     };
 
     render() {
-        const { classes } = this.props;
+        const {classes} = this.props;
 
         return (
             <form className={classes.root} autoComplete="off">
