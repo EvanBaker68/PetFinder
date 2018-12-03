@@ -9,7 +9,7 @@ import SwapIcon from '@material-ui/icons/SwapHorizontalCircle';
 import Cookies from 'universal-cookie';
 import PropTypes from 'prop-types';
 
-import { Link } from 'react-router-dom';
+import {Link} from 'react-router-dom';
 import {withStyles} from '@material-ui/core/styles/index';
 
 const styles = theme => ({
@@ -19,6 +19,7 @@ const styles = theme => ({
 });
 
 const cookies = new Cookies();
+
 class SitterMenuList extends React.Component {
 
     render() {
@@ -28,25 +29,25 @@ class SitterMenuList extends React.Component {
                 <Link to="sitterDash">
                     <ListItem button>
                         <ListItemIcon>
-                            <DashIcon />
+                            <DashIcon/>
                         </ListItemIcon>
-                        <ListItemText primary="Dashboard" />
+                        <ListItemText primary="Dashboard"/>
                     </ListItem>
                 </Link>
                 <Link to="/sitterProfile">
                     <ListItem button>
                         <ListItemIcon>
-                            <ProfileIcon />
+                            <ProfileIcon/>
                         </ListItemIcon>
-                        <ListItemText primary="Profile" />
+                        <ListItemText primary="Profile"/>
                     </ListItem>
                 </Link>
                 <Link to="/sitterTimeTable">
                     <ListItem button>
                         <ListItemIcon>
-                            <HistoryIcon />
+                            <HistoryIcon/>
                         </ListItemIcon>
-                        <ListItemText primary="Change Schedule" />
+                        <ListItemText primary="Change Schedule"/>
                     </ListItem>
                 </Link>
                 {cookies.get('owner') === 'true' &&

@@ -1,11 +1,8 @@
 package petfinder.site.common.user;
 
-import java.util.*;
 import java.util.stream.Collectors;
-import java.util.stream.Stream;
 import java.util.List;
 import java.util.Optional;
-import java.util.stream.Collectors;
 
 import org.elasticsearch.index.query.QueryBuilders;
 import org.elasticsearch.search.builder.SearchSourceBuilder;
@@ -23,11 +20,9 @@ public class UserDao {
 	private UserElasticSearchRepository repository;
 
 
-	// JOHN
 	public Optional<UserAuthenticationDto> findUser(String id) {
 		//I commented out the UserAuthenticationDt0.class, IDK why it was there
 		return repository.find(id/*, UserAuthenticationDto.class*/);
-		//return null;
 	}
 
 	public Optional<UserAuthenticationDto> findUserByPrincipal(String principal) {
@@ -43,5 +38,20 @@ public class UserDao {
 		repository.save(userAuthentication);
 	}
 
+
+	public List<Optional<UserAuthenticationDto>> findByCity(String city, String type) {
+		SearchSourceBuilder searchSourceBuilder = new SearchSourceBuilder();
+		String queryString = "";
+		if(type.equals("sitter")){
+			queryString = String.format("user.city=\"%s\"", city.replace("\"", ""));
+		} else if(type.equals("owner")){
+			queryString = String.format("user.city=\"%s\"&user.owner=\"true\"Z", city.replace("\"", ""));
+
+		}
+		searchSourceBuilder.query(QueryBuilders.queryStringQuery(queryString));
+
+		return repository.search(searchSourceBuilder).stream().map(Optional::ofNullable)
+				.collect(Collectors.toList());
+	}
 
 }

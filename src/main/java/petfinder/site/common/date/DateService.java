@@ -2,8 +2,6 @@ package petfinder.site.common.date;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import petfinder.site.common.pet.PetDto;
-import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
@@ -20,8 +18,6 @@ public class DateService {
         return dummy;
     }
 
-
-    //TODO: CHANGE THIS TO A LIST
     public List<DateDto> findDateBySitter(String sitterPrincipal) {
         List<Optional<DateDto>> dummy = dateDao.findDateBySitter(sitterPrincipal);
         List<DateDto> dateDto = dummy.stream().filter(Optional::isPresent).map(Optional::get).collect(Collectors.toList());
@@ -32,7 +28,4 @@ public class DateService {
         dateDao.saveDate(dateDto);
     }
 
-    public void deleteDates(String sitterPrincipal){
-
-    }
 }

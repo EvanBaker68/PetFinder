@@ -1,17 +1,12 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import classNames from 'classnames';
-import { withStyles } from '@material-ui/core/styles';
-import MenuItem from '@material-ui/core/MenuItem';
+import {withStyles} from '@material-ui/core/styles';
 import TextField from '@material-ui/core/TextField';
 import Cookies from 'universal-cookie';
 import axios from 'axios/index';
 import {connect} from 'react-redux';
 import * as Users from 'js/users';
 import Button from '@material-ui/core/Button';
-import * as Bessemer from 'js/alloy/bessemer/components';
-import * as Validation from 'js/alloy/utils/validation';
-import FormControl from '@material-ui/core/es/FormControl/FormControl';
 import * as ReduxForm from 'redux-form';
 import {Redirect} from 'react-router-dom';
 
@@ -55,27 +50,27 @@ class OutlinedTextFields extends React.Component {
         });
     };
 
-	handleNext = () => {
+    handleNext = () => {
         if (!this.validateForm()) {
             //return if not valid
             return;
         }
 
-		const cookies = new Cookies();
-		const user = {
-			principal: cookies.get('username'),
-			password: cookies.get('password'),
-			firstName: this.state.firstName,
-			lastName: this.state.lastName,
-			phoneNumber: this.state.phoneNumber,
-			city: this.state.city,
-			address: this.state.address,
-			sitter: cookies.get('sitter'),
-			owner: cookies.get('owner')
-		};
+        const cookies = new Cookies();
+        const user = {
+            principal: cookies.get('username'),
+            password: cookies.get('password'),
+            firstName: this.state.firstName,
+            lastName: this.state.lastName,
+            phoneNumber: this.state.phoneNumber,
+            city: this.state.city,
+            address: this.state.address,
+            sitter: cookies.get('sitter'),
+            owner: cookies.get('owner')
+        };
 
         this.props.register(user).then(res => {
-            if(cookies.get('owner') === 'true') {
+            if (cookies.get('owner') === 'true') {
                 const owner = {
                     principal: cookies.get('username'),
                     rating: 0
@@ -94,7 +89,7 @@ class OutlinedTextFields extends React.Component {
                         console.log(error.response);
                     });
             }
-            else if(cookies.get('sitter') === 'true') {
+            else if (cookies.get('sitter') === 'true') {
                 const sitter = {
                     principal: cookies.get('username'),
                     rate: 0,
@@ -115,7 +110,7 @@ class OutlinedTextFields extends React.Component {
                     });
             }
         });
-	}
+    }
 
     componentDidMount() {
 
@@ -133,38 +128,38 @@ class OutlinedTextFields extends React.Component {
     }
 
     validateForm() {
-	    let hasErrors = false;
+        let hasErrors = false;
 
-	    if(!(/^[a-zA-Z\s]+$/.test(this.state.firstName))) {
-	        hasErrors = true;
+        if (!(/^[a-zA-Z\s]+$/.test(this.state.firstName))) {
+            hasErrors = true;
             alert('Invalid first name.');
         }
 
-        if(!(/^[a-zA-Z\s]+$/.test(this.state.lastName))) {
-	        hasErrors = true;
-	        alert('Invalid last name.');
+        if (!(/^[a-zA-Z\s]+$/.test(this.state.lastName))) {
+            hasErrors = true;
+            alert('Invalid last name.');
         }
 
-        if(!(/^[a-zA-Z\s.]+$/.test(this.state.city))) {
-	        hasErrors = true;
-	        alert('Invalid city.');
+        if (!(/^[a-zA-Z\s.]+$/.test(this.state.city))) {
+            hasErrors = true;
+            alert('Invalid city.');
         }
 
-        if(!(/^\(\d{3}\)\s\d{3}-\d{4}$/.test(this.state.phoneNumber))) {
-	        hasErrors = true;
-	        alert('Invalid phone number: please enter number with the following format:\n(000) 000-0000');
+        if (!(/^\(\d{3}\)\s\d{3}-\d{4}$/.test(this.state.phoneNumber))) {
+            hasErrors = true;
+            alert('Invalid phone number: please enter number with the following format:\n(000) 000-0000');
         }
 
-        if(!(/^[a-zA-Z0-9.\s]+$/.test(this.state.address))) {
+        if (!(/^[a-zA-Z0-9.\s]+$/.test(this.state.address))) {
             hasErrors = true;
             alert('Please enter an address.');
         }
 
-	    return !hasErrors;
+        return !hasErrors;
     }
 
-	render() {
-        const { classes } = this.props;
+    render() {
+        const {classes} = this.props;
         const redirectOwner = this.state.redirectOwner;
         const redirectSitter = this.state.redirectSitter;
 
@@ -238,12 +233,10 @@ class OutlinedTextFields extends React.Component {
 OutlinedTextFields = ReduxForm.reduxForm({form: 'OutlinedTextFields'})(OutlinedTextFields);
 
 OutlinedTextFields = connect(
-	state => ({
-
-	}),
-	dispatch => ({
-		register: (user) => dispatch(Users.Actions.register(user))
-	})
+    state => ({}),
+    dispatch => ({
+        register: (user) => dispatch(Users.Actions.register(user))
+    })
 )(OutlinedTextFields);
 
 OutlinedTextFields.propTypes = {

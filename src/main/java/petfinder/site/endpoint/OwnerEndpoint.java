@@ -1,11 +1,9 @@
 package petfinder.site.endpoint;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.web.bind.annotation.*;
 import petfinder.site.common.owner.OwnerDto;
 import petfinder.site.common.owner.OwnerService;
-import java.util.Optional;
 
 @RestController
 @RequestMapping(value = "/api/owner")

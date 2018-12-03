@@ -1,27 +1,15 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import classNames from 'classnames';
-import { withStyles } from '@material-ui/core/styles';
+import {withStyles} from '@material-ui/core/styles';
 import CssBaseline from '@material-ui/core/CssBaseline';
 import Drawer from '@material-ui/core/Drawer';
-import AppBar from '@material-ui/core/AppBar';
-import Toolbar from '@material-ui/core/Toolbar';
-import List from '@material-ui/core/List';
 import Typography from '@material-ui/core/Typography';
 import Divider from '@material-ui/core/Divider';
 import IconButton from '@material-ui/core/IconButton';
-import Badge from '@material-ui/core/Badge';
-import MenuIcon from '@material-ui/icons/Menu';
 import ChevronLeftIcon from '@material-ui/icons/ChevronLeft';
-import NotificationsIcon from '@material-ui/icons/Notifications';
 import SitterMenuList from 'js/components/dashboard/SitterMenuList';
-import SimpleTable from 'js/components/dashboard/simpleTable';
-import Input from '@material-ui/core/Input';
-import SearchIcon from '@material-ui/icons/Search';
-import ProfileForm from 'js/components/profile/ProfileForm';
-import Paper from '@material-ui/core/Paper';
 import Image from 'js/images/homeDog.jpg';
-import Time from 'js/components/scheduling/timePicker';
 import Calender from 'js/components/scheduling/calender';
 import MenuBar from 'js/components/dashboard/MenuBar';
 
@@ -107,24 +95,24 @@ class Profile extends React.Component {
     };
 
     handleDrawerOpen = () => {
-        this.setState({ open: true });
+        this.setState({open: true});
     };
 
     handleDrawerClose = () => {
-        this.setState({ open: false });
+        this.setState({open: false});
     };
 
     render() {
-        const { classes } = this.props;
+        const {classes} = this.props;
         let today = new Date();
         let day = today.getDate();
         let month = today.getMonth();
 
         return (
             <React.Fragment>
-                <CssBaseline />
+                <CssBaseline/>
                 <div className={classes.root}>
-					<MenuBar title='Search and Match'/>
+                    <MenuBar title='Search and Match'/>
                     <Drawer
                         variant="permanent"
                         classes={{
@@ -134,14 +122,14 @@ class Profile extends React.Component {
                     >
                         <div className={classes.toolbarIcon}>
                             <IconButton onClick={this.handleDrawerClose}>
-                                <ChevronLeftIcon />
+                                <ChevronLeftIcon/>
                             </IconButton>
                         </div>
-                        <Divider />
+                        <Divider/>
                         <SitterMenuList/>
                     </Drawer>
                     <main className={classes.content}>
-                        <div className={classes.appBarSpacer} />
+                        <div className={classes.appBarSpacer}/>
                         <Typography
                             variant="display1"
                             gutterBottom

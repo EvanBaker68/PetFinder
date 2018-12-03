@@ -25,17 +25,6 @@ public class BookingDao {
 
     public List<Optional<BookingDto>> findBookingBySitterPrincipal(String sitterPrincipal) {
 
-        /*SearchSourceBuilder searchSourceBuilder = new SearchSourceBuilder();
-        String queryString = "";
-        queryString = String.format("booking.sitterPrincipal=\"%s\"", sitterPrincipal.replace("\"", ""));
-
-        searchSourceBuilder.query(QueryBuilders.queryStringQuery(queryString));
-
-        //TODO: add thrown exception
-
-        return repository.search(searchSourceBuilder).stream().map(Optional::ofNullable)
-                .collect(Collectors.toList());*/
-
         SearchRequest searchRequest = new SearchRequest();
         QueryBuilder queryBuilder = QueryBuilders.matchPhraseQuery("sitterPrincipal", sitterPrincipal);
         SearchSourceBuilder searchSourceBuilder = new SearchSourceBuilder();

@@ -3,9 +3,6 @@ package petfinder.site.common.sitter;
 import alloy.util.Momento;
 import org.codehaus.jackson.annotate.JsonIgnore;
 
-import javax.swing.text.StyledEditorKit;
-import java.time.LocalDateTime;
-
 public class SitterDto implements Momento<String> {
 
     private String principal;
@@ -45,9 +42,7 @@ public class SitterDto implements Momento<String> {
     }
 
     public void setRate(Double rate) throws IllegalArgumentException{
-        if(rate == null){
-            throw new IllegalArgumentException("setRate\t given a null");
-        }else if(rate < 0){
+        if(rate < 0){
             throw new IllegalArgumentException("setRate\t given a bad value");
         }
         this.rate = rate;
@@ -56,9 +51,6 @@ public class SitterDto implements Momento<String> {
     public Boolean getDeleted() { return isDeleted; }
 
     public void setDeleted(Boolean deleted) throws IllegalArgumentException {
-        if(deleted == null){
-            throw new IllegalArgumentException("setDeleted\t was given a null");
-        }
         isDeleted = deleted;
     }
 

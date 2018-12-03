@@ -3,15 +3,13 @@ import IconButton from '@material-ui/core/IconButton/IconButton';
 import MenuIcon from '@material-ui/icons/Menu';
 import Typography from '@material-ui/core/Typography/Typography';
 import Button from '@material-ui/core/Button/Button';
-import Badge from '@material-ui/core/Badge/Badge';
 import AppBar from '@material-ui/core/AppBar/AppBar';
 import React from 'react';
 import classNames from 'classnames';
 import PropTypes from 'prop-types';
 import {withStyles} from '@material-ui/core';
-import NotificationsIcon from '@material-ui/icons/Notifications';
 import Notification from 'js/components/dashboard/notifications';
-import { Link } from 'react-router-dom';
+import {Link} from 'react-router-dom';
 
 const drawerWidth = 240;
 
@@ -103,55 +101,64 @@ class MenuBar extends React.Component {
     }
 
     handleDrawerOpen = () => {
-        this.setState({ open: true });
+        this.setState({open: true});
     };
 
     handleDrawerClose = () => {
-        this.setState({ open: false });
+        this.setState({open: false});
     };
 
     handleHome = () => {
-        this.setState({ redirect: true });
+        this.setState({redirect: true});
     };
 
+    handler = () => {
+        if (this.state.reload) {
+            this.setState({reload: false});
+        }
+        else {
+            this.setState({reload: true});
+        }
+    }
+
     render() {
-        const { classes } = this.props;
+        const {classes} = this.props;
         return (
-        <div>
-        <AppBar
-            position="absolute"
-            className={classNames(classes.appBar, this.state.open && classes.appBarShift)}
-        >
-            <Toolbar disableGutters={!this.state.open} className={classes.toolbar}>
-                <IconButton
-                    color="inherit"
-                    aria-label="Open drawer"
-                    onClick={this.handleDrawerOpen}
-                    className={classNames(
-                        classes.menuButton,
-                        this.state.open && classes.menuButtonHidden,
-                    )}
+            <div>
+                <AppBar
+                    position="absolute"
+                    className={classNames(classes.appBar, this.state.open && classes.appBarShift)}
                 >
-                    <MenuIcon/>
-                </IconButton>
-                <Typography variant="display2" color="inherit" noWrap className={classes.title}>
-                    {this.state.title}
-                </Typography>
-                <Link to="/">
-                <Button
-                    type="submit"
-                    variant="raised"
-                    color="secondary"
-                    className={classes.submit}
-                    onClick={this.handleHome}
-                >
-                    Home Page
-                </Button>
-                </Link>
-                <Notification/>
-            </Toolbar>
-        </AppBar>
-        </div>
+                    <Toolbar disableGutters={!this.state.open} className={classes.toolbar}>
+                        <IconButton
+                            color="inherit"
+                            aria-label="Open drawer"
+                            onClick={this.handleDrawerOpen}
+                            className={classNames(
+                                classes.menuButton,
+                                this.state.open && classes.menuButtonHidden,
+                            )}
+                        >
+                            <MenuIcon/>
+                        </IconButton>
+                        <Typography variant="display2" color="inherit" noWrap className={classes.title}>
+                            {this.state.title}
+                        </Typography>
+                        <Link to="/">
+                            <Button
+                                type="submit"
+                                variant="raised"
+                                color="secondary"
+                                className={classes.submit}
+                                onClick={this.handleHome}
+                            >
+                                Home Page
+                            </Button>
+                        </Link>
+                        <Notification handler={this.handler}/>
+                    </Toolbar>
+                </AppBar>
+            </div>
         );
     }
 }

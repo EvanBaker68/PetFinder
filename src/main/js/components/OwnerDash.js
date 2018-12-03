@@ -1,26 +1,17 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import classNames from 'classnames';
-import { withStyles } from '@material-ui/core/styles';
+import {withStyles} from '@material-ui/core/styles';
 import CssBaseline from '@material-ui/core/CssBaseline';
 import Drawer from '@material-ui/core/Drawer';
-import AppBar from '@material-ui/core/AppBar';
-import Toolbar from '@material-ui/core/Toolbar';
-import List from '@material-ui/core/List';
 import Typography from '@material-ui/core/Typography';
 import Divider from '@material-ui/core/Divider';
 import IconButton from '@material-ui/core/IconButton';
-import Badge from '@material-ui/core/Badge';
-import MenuIcon from '@material-ui/icons/Menu';
 import ChevronLeftIcon from '@material-ui/icons/ChevronLeft';
-import NotificationsIcon from '@material-ui/icons/Notifications';
 import MainListItems from 'js/components/dashboard/listItems';
 import SimpleTable from 'js/components/dashboard/simpleTable';
-import Input from '@material-ui/core/Input';
-import SearchIcon from '@material-ui/icons/Search';
 import UpcomingTable from 'js/components/dashboard/upcomingTable';
-import Button from '@material-ui/core/Button';
-import  { Redirect } from 'react-router-dom';
+import {Redirect} from 'react-router-dom';
 import Cookies from 'universal-cookie';
 import MenuBar from 'js/components/dashboard/MenuBar';
 import OwnerPendingTable from 'js/components/dashboard/OwnerPendingTable';
@@ -87,9 +78,9 @@ const styles = theme => ({
             width: theme.spacing.unit * 9,
         },
     },
-	submit: {
-		marginTop: theme.spacing.unit * 3,
-	},
+    submit: {
+        marginTop: theme.spacing.unit * 3,
+    },
     appBarSpacer: theme.mixins.toolbar,
     content: {
         flexGrow: 1,
@@ -105,35 +96,36 @@ const styles = theme => ({
     },
 });
 
+
+/*
+    Defines the user dashboard
+    Displays all relevant bookings
+ */
 class Dashboard extends React.Component {
     state = {
         open: true,
         redirect: false
     };
 
-    handleDrawerOpen = () => {
-        this.setState({ open: true });
-    };
-
     handleDrawerClose = () => {
-        this.setState({ open: false });
+        this.setState({open: false});
     };
 
     render() {
-        const { classes } = this.props;
+        const {classes} = this.props;
 
-		const cookies = new Cookies();
-		if( cookies.get('owner') !== 'true' ) {
-			return <div><Redirect to='/'/></div>;
-		}
+        const cookies = new Cookies();
+        if (cookies.get('owner') !== 'true') {
+            return <div><Redirect to='/'/></div>;
+        }
 
-		if( cookies.get('sitter') === 'true' && cookies.get('owner') === 'true'){
-		    console.log('fasdfadsjkl;');
+        if (cookies.get('sitter') === 'true' && cookies.get('owner') === 'true') {
+            console.log('fasdfadsjkl;');
         }
 
         return (
             <React.Fragment>
-                <CssBaseline />
+                <CssBaseline/>
                 <div className={classes.root}>
                     <MenuBar title='Owner Dash'/>
                     <Drawer
@@ -145,14 +137,14 @@ class Dashboard extends React.Component {
                     >
                         <div className={classes.toolbarIcon}>
                             <IconButton onClick={this.handleDrawerClose}>
-                                <ChevronLeftIcon />
+                                <ChevronLeftIcon/>
                             </IconButton>
                         </div>
-                        <Divider />
+                        <Divider/>
                         <MainListItems/>
                     </Drawer>
                     <main className={classes.content}>
-                        <div className={classes.appBarSpacer} />
+                        <div className={classes.appBarSpacer}/>
                         <Typography variant="display1" gutterBottom>
                             Pending Bookings
                         </Typography>
@@ -169,7 +161,7 @@ class Dashboard extends React.Component {
                             Previous Sitters
                         </Typography>
                         <div className={classes.tableContainer}>
-                            <SimpleTable />
+                            <SimpleTable/>
                         </div>
                     </main>
                 </div>

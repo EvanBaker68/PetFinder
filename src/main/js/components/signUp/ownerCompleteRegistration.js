@@ -1,20 +1,10 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { withStyles } from '@material-ui/core/styles';
-import Stepper from '@material-ui/core/Stepper';
-import Step from '@material-ui/core/Step';
-import StepLabel from '@material-ui/core/StepLabel';
-import StepContent from '@material-ui/core/StepContent';
-import Button from '@material-ui/core/Button';
+import {withStyles} from '@material-ui/core/styles';
 import Paper from '@material-ui/core/Paper';
 import Typography from '@material-ui/core/Typography';
 import BasicInfoFields from 'js/components/signUp/basicInformationForm';
-import OwnerInfoFields from 'js/components/signUp/ownerInformationForm';
-import {Link} from 'react-router-dom';
 import CssBaseline from '@material-ui/core/CssBaseline';
-import AddPet from 'js/components/pets/addPetForm';
-import Cookies from 'universal-cookie';
-import axios from 'axios/index';
 
 const styles = theme => ({
     root: {
@@ -53,11 +43,11 @@ const styles = theme => ({
 class OwnerCompleteRegistration extends React.Component {
 
     render() {
-        const { classes } = this.props;
+        const {classes} = this.props;
 
         return (
             <React.Fragment>
-                <CssBaseline />
+                <CssBaseline/>
                 <main className={classes.layout}>
                     <Paper className={classes.paper}>
                         <Typography variant="display1">Register</Typography>

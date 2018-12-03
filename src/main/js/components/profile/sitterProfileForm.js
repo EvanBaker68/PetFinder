@@ -1,8 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import classNames from 'classnames';
-import { withStyles } from '@material-ui/core/styles';
-import MenuItem from '@material-ui/core/MenuItem';
+import {withStyles} from '@material-ui/core/styles';
 import TextField from '@material-ui/core/TextField';
 import Typography from '@material-ui/core/Typography';
 import Button from '@material-ui/core/Button';
@@ -43,23 +41,24 @@ class ProfileForm extends React.Component {
         });
     };
 
-	componentDidMount() {
-		const cookies = new Cookies();
-		const principal = cookies.get('username');
+    componentDidMount() {
+        const cookies = new Cookies();
+        const principal = cookies.get('username');
 
-		axios.get('/api/sitter/' + principal, principal)
-			.then(res => {
-				this.setState({
-					rate: res.rate,
-					rating: res.rating});
-			}).then(response => console.log(response))
-			.catch(error => this.setState({error}));
-	}
+        axios.get('/api/sitter/' + principal, principal)
+            .then(res => {
+                this.setState({
+                    rate: res.rate,
+                    rating: res.rating
+                });
+            }).then(response => console.log(response))
+            .catch(error => this.setState({error}));
+    }
 
     validateForm() {
         let hasErrors = false;
 
-        if(!(/^[0-9]+[.]?[0-9]{0,2}$/.test((this.state.rate).toString())) || !(this.state.rate >= 0)) {
+        if (!(/^[0-9]+[.]?[0-9]{0,2}$/.test((this.state.rate).toString())) || !(this.state.rate >= 0)) {
             hasErrors = true;
             alert('Invalid rate.');
         }
@@ -67,35 +66,35 @@ class ProfileForm extends React.Component {
         return !hasErrors;
     }
 
-	handleAddClose = () => {
+    handleAddClose = () => {
         if (!this.validateForm()) {
             //return if not valid
             return;
         }
 
-		const cookies = new Cookies();
-		const sitter = {
-			principal: cookies.get('username'),
+        const cookies = new Cookies();
+        const sitter = {
+            principal: cookies.get('username'),
             rate: this.state.rate,
             rating: this.state.rating,
             ratingCount: this.state.ratingCount
-		};
-		axios.post('/api/sitter/add-sitter', sitter)
-			.then(res => {
-				console.log(res);
-				console.log(res.data);
-			})
-			.catch(error => {
-				console.log(error.response);
-			});
-	};
+        };
+        axios.post('/api/sitter/add-sitter', sitter)
+            .then(res => {
+                console.log(res);
+                console.log(res.data);
+            })
+            .catch(error => {
+                console.log(error.response);
+            });
+    };
 
     render() {
-        const { classes } = this.props;
-		const cookies = new Cookies();
-		if( cookies.get('sitter') !== 'true' ) {
-			return <div><Redirect to='/'/></div>;
-		}
+        const {classes} = this.props;
+        const cookies = new Cookies();
+        if (cookies.get('sitter') !== 'true') {
+            return <div><Redirect to='/'/></div>;
+        }
 
         return (
             <div>
@@ -104,7 +103,6 @@ class ProfileForm extends React.Component {
                         id="outlined-name"
                         label="Rate per hour"
                         className={classes.textField}
-                        //value={'$ ' + ((this.state.rate).toFixed(2)).toString()}
                         value={this.state.rate}
                         onChange={this.handleChange('rate')}
                         margin="normal"

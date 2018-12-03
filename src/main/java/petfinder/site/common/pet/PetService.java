@@ -1,6 +1,5 @@
 package petfinder.site.common.pet;
 
-import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;

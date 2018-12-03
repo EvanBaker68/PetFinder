@@ -1,15 +1,12 @@
 package petfinder.site.endpoint;
 
-import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.web.bind.annotation.*;
 import petfinder.site.common.date.DateDto;
 import petfinder.site.common.date.DateService;
 import petfinder.site.common.sitter.SitterService;
 import petfinder.site.common.sitter.SitterDto;
 
-import java.util.ArrayList;
 import java.util.List;
-import java.util.Optional;
 import org.springframework.beans.factory.annotation.Autowired;
 
 @RestController
@@ -57,7 +54,7 @@ public class SitterEndpoint {
     public List<SitterDto> getSittersByCity(@PathVariable("city") String city){
         return sitterService.findSitterInCityWithRating(city);
     }
-/**/
+
     @GetMapping(value = "/getsittersbycityrecommended/{city:.+}", produces = "application/json")
     @ResponseBody
     public List<SitterDto> getSittersByCityRecommended(@PathVariable("city") String city){

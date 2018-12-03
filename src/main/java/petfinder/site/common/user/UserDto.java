@@ -20,9 +20,6 @@ public class UserDto implements Momento<String> {
     private Boolean isDeleted = false;
 
 
-    //TODO: add owner and sitter to tell if the user can sign in as an owner or sitter,
-
-    //TODO: separate address into zip, city, state, and address
     private String phoneNumber;
     private String firstName;
     private String lastName;

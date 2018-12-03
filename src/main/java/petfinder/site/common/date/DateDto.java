@@ -20,8 +20,6 @@ public class DateDto implements Identifiable {
 
     public void setDeleted(Boolean deleted) { isDeleted = deleted; }
 
-
-
     public DateDto(Date startDate, Date endDate, String sitterPrincipal)throws IllegalArgumentException{
         this.startDate = startDate;
         this.endDate = endDate;

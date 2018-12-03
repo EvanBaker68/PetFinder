@@ -5,9 +5,6 @@ import org.springframework.web.bind.annotation.*;
 import petfinder.site.common.date.DateDto;
 import petfinder.site.common.date.DateService;
 
-import java.util.List;
-import java.util.Optional;
-
 @RestController
 @RequestMapping(value = "/api/date")
 public class DateEndpoint {
