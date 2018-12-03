@@ -7,7 +7,6 @@ import TableCell from '@material-ui/core/TableCell';
 import TableHead from '@material-ui/core/TableHead';
 import TableRow from '@material-ui/core/TableRow';
 import Paper from '@material-ui/core/Paper';
-import Button from '@material-ui/core/Button';
 import Cookies from 'universal-cookie';
 import axios from 'axios/index';
 
@@ -24,7 +23,6 @@ const styles = {
 var data = [];
 var name = '';
 
-//covert to component
 class RequestTable extends React.Component {
 
     constructor(props) {
@@ -33,8 +31,6 @@ class RequestTable extends React.Component {
             bookings: null,
             loaded: false
         };
-        //axios.get('/api/booking/getUpcoming', cookies.username)
-        //this.setSate(bookings: createData(...))
     }
 
 	componentDidMount() {

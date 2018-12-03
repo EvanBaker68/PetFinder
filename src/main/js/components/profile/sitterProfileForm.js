@@ -1,8 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import classNames from 'classnames';
 import { withStyles } from '@material-ui/core/styles';
-import MenuItem from '@material-ui/core/MenuItem';
 import TextField from '@material-ui/core/TextField';
 import Typography from '@material-ui/core/Typography';
 import Button from '@material-ui/core/Button';
@@ -104,7 +102,6 @@ class ProfileForm extends React.Component {
                         id="outlined-name"
                         label="Rate per hour"
                         className={classes.textField}
-                        //value={'$ ' + ((this.state.rate).toFixed(2)).toString()}
                         value={this.state.rate}
                         onChange={this.handleChange('rate')}
                         margin="normal"

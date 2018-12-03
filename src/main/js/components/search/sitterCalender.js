@@ -19,8 +19,6 @@ export default class Calender extends React.Component
             open: false
         };
 
-		const cookies = new Cookies();
-
 		axios.get('/api/sitter/get-dates/' + this.props.principal, this.props.principal)
 			.then(res => {
 				this.setState({
@@ -87,7 +85,7 @@ export default class Calender extends React.Component
 
                         }}
                         onEventsRequested={({calendarId, start, end, callback}) => {
-                            //loadMoreEvents(calendarId, start, end).then(callback);
+
                         }}
                         initialSelections={theArray}
                         height={400}

@@ -1,6 +1,5 @@
 import AvailableTimes from 'react-available-times';
 import React from 'react';
-import Button from '@material-ui/core/Button';
 import Cookies from 'universal-cookie';
 import axios from 'axios';
 
@@ -28,7 +27,6 @@ export default class Calender extends React.Component
     }
 
     onSave = () => {
-		const cookies = new Cookies();
 		var a = Math.random();
 		this.state.selectedDates.forEach((date) => {
 			axios.post('/api/sitter/add-date', date)

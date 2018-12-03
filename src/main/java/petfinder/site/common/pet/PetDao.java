@@ -1,22 +1,17 @@
 package petfinder.site.common.pet;
 
 import java.util.List;
-import java.util.Map;
 import java.util.Optional;
 import java.util.stream.Collectors;
 
-import org.elasticsearch.action.search.SearchRequest;
 import org.elasticsearch.client.RestHighLevelClient;
 import org.elasticsearch.index.query.QueryBuilders;
 import org.elasticsearch.search.builder.SearchSourceBuilder;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
-import com.google.common.collect.ImmutableMap;
-
 import alloy.elasticsearch.ElasticSearchClientProvider;
 import petfinder.site.elasticsearch.PetElasticsearchRepository;
-import petfinder.site.elasticsearch.PetfinderElasticSearchClientProvider;
 
 /**
  * Created by jlutteringer on 8/23/17.
@@ -40,15 +35,13 @@ public class PetDao {
 
 		searchSourceBuilder.query(QueryBuilders.queryStringQuery(queryString));
 
-		//TODO: add thrown exception
-
 		return petElasticsearchRepository.search(searchSourceBuilder).stream().map(Optional::ofNullable)
 				.collect(Collectors.toList());
 	}
 
 	public Optional<PetDto> findPetLowTech(Long id) {
 		RestHighLevelClient client = elasticSearchClientProvider.getClient();
-		// Use the client to make your search and manually parse the results
+
 		return Optional.empty();
 	}
 

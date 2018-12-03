@@ -3,13 +3,11 @@ import IconButton from '@material-ui/core/IconButton/IconButton';
 import MenuIcon from '@material-ui/icons/Menu';
 import Typography from '@material-ui/core/Typography/Typography';
 import Button from '@material-ui/core/Button/Button';
-import Badge from '@material-ui/core/Badge/Badge';
 import AppBar from '@material-ui/core/AppBar/AppBar';
 import React from 'react';
 import classNames from 'classnames';
 import PropTypes from 'prop-types';
 import {withStyles} from '@material-ui/core';
-import NotificationsIcon from '@material-ui/icons/Notifications';
 import Notification from 'js/components/dashboard/notifications';
 import { Link } from 'react-router-dom';
 

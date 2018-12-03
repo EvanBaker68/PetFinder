@@ -213,7 +213,6 @@ NavBar = connect(
 	}),
 	dispatch => ({
 		logout: () => dispatch(Users.Actions.logout())
-		// register: (user) => dispatch(Users.Actions.register(user))
 	})
 )(NavBar);
 

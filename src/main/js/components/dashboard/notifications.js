@@ -1,11 +1,5 @@
 import React from 'react';
-import Button from '@material-ui/core/Button';
-import TextField from '@material-ui/core/TextField';
 import Dialog from '@material-ui/core/Dialog';
-import Typography from '@material-ui/core/Button';
-import DialogActions from '@material-ui/core/DialogActions';
-import DialogContent from '@material-ui/core/DialogContent';
-import DialogContentText from '@material-ui/core/DialogContentText';
 import DialogTitle from '@material-ui/core/DialogTitle';
 import axios from 'axios';
 import Cookies from 'universal-cookie';
@@ -44,7 +38,6 @@ class FormDialog extends React.Component {
             end: new Date()
         };
 
-        //load sitter information
     }
 
     componentDidMount() {
@@ -70,38 +63,6 @@ class FormDialog extends React.Component {
 				});
         });
 
-
-
-        // axios.get('/api/booking/sitter/' + cookies.get('username'), cookies.get('username'))
-        //     .then(res => {
-        //         console.log(res);
-        //         this.setState({
-        //             bookings: res});
-        //         if(this.state.bookings)
-        //         {this.state.bookings.map(booking => {
-        //             const startDate = new Date(booking.startDate);
-        //             const endDate = new Date(booking.finishDate);
-        //             const status = booking.status;
-        //             const ownerPrincipal = booking.ownerPrincipal;
-		//
-        //             console.log('startDate: ', startDate);
-        //             console.log('endDate: ', endDate);
-		//
-        //             axios.get('/api/user/' + ownerPrincipal, ownerPrincipal)
-        //                 .then(res => {
-        //                     name = res.firstName + ' ' + res.lastName;
-        //                     console.log('name2: ', name);
-		//
-        //                     data.push(this.createData(name));
-        //                     this.setState({loaded: true});
-        //                 }).then(response => console.log(response))
-        //                 .catch(error => this.setState({error}));
-		//
-		//
-        //         });}
-		//
-        //     }).then(response => console.log(response))
-        //     .catch(error => this.setState({error}));
     }
 
 
@@ -120,14 +81,13 @@ class FormDialog extends React.Component {
     handleCancel = (notification) => {
 
         const theNotification = {
-            // isDelete: notifi
+
         };
 
         console.log('NOTIFICATION', notification);
         notification.deleted = true;
 		console.log('NEW NOTIFICATION', notification);
 
-		//
 		axios.post('/notification/add-notification/', notification)
 			.then(res => {
 				console.log(res);

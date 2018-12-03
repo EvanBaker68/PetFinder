@@ -24,7 +24,6 @@ const styles = {
 var data = [];
 var name = '';
 
-//covert to component
 class OwnerPendingTable extends React.Component {
 
 	constructor(props) {
@@ -169,7 +168,6 @@ class OwnerPendingTable extends React.Component {
 					{loaded &&
 
 					<TableBody>
-						{/*change data to this.state.bookings*/}
 						{data.map(n => {
 
 							var newStartDate = new Date(n.startDate);

@@ -19,9 +19,6 @@ export default class Form extends React.Component {
         });
     };
 
-
-
-
     onSubmit = (e) => {
         e.preventDefault();
         console.log(this.state);

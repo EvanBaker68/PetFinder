@@ -3,14 +3,11 @@ package petfinder.site.common.sitter;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import petfinder.site.common.strategey.Sort;
-import petfinder.site.strategy.ShellSort;
-import petfinder.site.strategy.ShellSort;
 
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
-import petfinder.site.strategy.*;
 
 @Service
 public class SitterService {

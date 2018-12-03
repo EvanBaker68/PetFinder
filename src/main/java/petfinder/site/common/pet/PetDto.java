@@ -7,7 +7,6 @@ public class PetDto implements Identifiable {
     private String ownerPrincipal;
     private String name;
     private String petType;
-    //private Boolean isDog;
     private String dogBreed;
     private Double age;
 
@@ -29,7 +28,6 @@ public class PetDto implements Identifiable {
         setOwnerPrincipal(ownerPrincipal);
         setName(name);
         setPetType(petType);
-        //setDog(isDog);
         setDogBreed(dogBreed);
         setAge(age);
     }
@@ -58,10 +56,6 @@ public class PetDto implements Identifiable {
         return petType;
     }
 
-    //public Boolean getDog() {
-    //    return isDog;
-    //}
-
     public String getDogBreed() {
         return dogBreed;
     }
@@ -70,14 +64,11 @@ public class PetDto implements Identifiable {
         return age;
     }
 
-
     public void setId(Long id) throws IllegalArgumentException{
-
         this.id = id;
     }
 
     public void setOwnerPrincipal(String ownerPrincipal) throws IllegalArgumentException{
-
         this.ownerPrincipal = ownerPrincipal;
     }
 
@@ -95,9 +86,6 @@ public class PetDto implements Identifiable {
         this.petType = petType;
     }
 
-    //public void setDog(Boolean dog) {
-    // isDog = dog;
-    //}
     public void setDogBreed(String dogBreed) throws IllegalArgumentException{
         if(dogBreed == null){
             throw new IllegalArgumentException("setDogBread\t was given a null");

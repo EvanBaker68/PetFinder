@@ -5,11 +5,6 @@ import Cookies from 'universal-cookie';
 import {connect} from 'react-redux';
 export default class Index extends React.Component {
 
-	// authenticate = () => {
-	// 	const cookies = new Cookies();
-	// 	this.props.setAuthentication(cookies.get('auth'));
-	// }
-
     constructor(props){
         super(props);
         const cookies = new Cookies();
@@ -47,7 +42,6 @@ Index = connect(
 
 	}),
 	dispatch => ({
-		// setAuthentication: (authentication) => dispatch(Users.Actions.setAuthentication(authentication))
-		// refresh: () => dispatch(Users.Actions.refreshUser())
+
 	})
 )(Index);

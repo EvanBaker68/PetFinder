@@ -85,12 +85,10 @@ class RegisterForm extends React.Component{
     }
 
     setSitterState = () => {
-        //this.setState({sitter: true});
         cookies.set('sitterButton', 'true');
     }
 
     setOwnerState = () => {
-        //this.setState({owner: true});
         cookies.set('ownerButton', 'true');
     }
 

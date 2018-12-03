@@ -1,17 +1,12 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import classNames from 'classnames';
 import { withStyles } from '@material-ui/core/styles';
-import MenuItem from '@material-ui/core/MenuItem';
 import TextField from '@material-ui/core/TextField';
 import Cookies from 'universal-cookie';
 import axios from 'axios/index';
 import {connect} from 'react-redux';
 import * as Users from 'js/users';
 import Button from '@material-ui/core/Button';
-import * as Bessemer from 'js/alloy/bessemer/components';
-import * as Validation from 'js/alloy/utils/validation';
-import FormControl from '@material-ui/core/FormControl';
 import * as ReduxForm from 'redux-form';
 import {Redirect} from 'react-router-dom';
 

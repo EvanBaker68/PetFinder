@@ -4,29 +4,17 @@ import classNames from 'classnames';
 import { withStyles } from '@material-ui/core/styles';
 import CssBaseline from '@material-ui/core/CssBaseline';
 import Drawer from '@material-ui/core/Drawer';
-import AppBar from '@material-ui/core/AppBar';
-import Toolbar from '@material-ui/core/Toolbar';
-import List from '@material-ui/core/List';
 import Typography from '@material-ui/core/Typography';
 import Divider from '@material-ui/core/Divider';
 import IconButton from '@material-ui/core/IconButton';
-import Badge from '@material-ui/core/Badge';
-import MenuIcon from '@material-ui/icons/Menu';
 import ChevronLeftIcon from '@material-ui/icons/ChevronLeft';
-import NotificationsIcon from '@material-ui/icons/Notifications';
 import MainListItems from 'js/components/dashboard/listItems';
-import SimpleTable from 'js/components/dashboard/simpleTable';
-import Input from '@material-ui/core/Input';
-import SearchIcon from '@material-ui/icons/Search';
-import ProfileForm from 'js/components/profile/ProfileForm';
-import Paper from '@material-ui/core/Paper';
 import TextField from '@material-ui/core/TextField/TextField';
 import Button from '@material-ui/core/Button/Button';
 import SitterView from 'js/components/search/siiterProfileView';
 import axios from 'axios';
 import Cookies from 'universal-cookie';
 import {Redirect} from 'react-router-dom';
-import Chip from '@material-ui/core/Chip';
 import MenuBar from 'js/components/dashboard/MenuBar';
 
 
@@ -116,8 +104,6 @@ class SearchPage extends React.Component {
             sitter: [],
             recommended: []
         };
-
-        //fill city with current owner information
     }
 
     handleChange = name => event => {
@@ -168,15 +154,7 @@ class SearchPage extends React.Component {
 
 
 		const { classes } = this.props;
-        // const numbers = [1, 2, 3, 4, 5];
-        // const listItems = numbers.map((number) =>
-        //     <div key={number.toString()}>
-        //         <li>{number}</li>
-        //         <SitterView num={number}/>
-        //     </div>
-        // );
 
-        //this will replace lisitems and num
         const sitters = this.state.sitter;
         var sitterItems;
         if (sitters) {

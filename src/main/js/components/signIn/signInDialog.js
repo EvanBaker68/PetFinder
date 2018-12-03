@@ -6,11 +6,8 @@ import DialogActions from '@material-ui/core/DialogActions';
 import DialogContent from '@material-ui/core/DialogContent';
 import DialogContentText from '@material-ui/core/DialogContentText';
 import DialogTitle from '@material-ui/core/DialogTitle';
-import Cookies from 'universal-cookie';
+
 export default class FormDialog extends React.Component {
-    //ComponentDidMount to check if they are logged in
-
-
 
     state = {
         open: false,

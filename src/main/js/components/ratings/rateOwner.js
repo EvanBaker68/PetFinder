@@ -1,14 +1,8 @@
 import React from 'react';
 import Button from '@material-ui/core/Button';
-import TextField from '@material-ui/core/TextField';
 import Dialog from '@material-ui/core/Dialog';
-import Typography from '@material-ui/core/Button';
-import DialogActions from '@material-ui/core/DialogActions';
-import DialogContent from '@material-ui/core/DialogContent';
-import DialogContentText from '@material-ui/core/DialogContentText';
 import DialogTitle from '@material-ui/core/DialogTitle';
 import axios from 'axios';
-import Cookies from 'universal-cookie';
 import {withStyles} from '@material-ui/core';
 import Rating from 'react-rating';
 import Star from '@material-ui/icons/Star';
@@ -35,8 +29,6 @@ class FormDialog extends React.Component {
 			id: props.id,
 			value: 0
 		};
-
-		//load sitter information
 	}
 
 	handleClickOpen = () => {
@@ -110,8 +102,6 @@ class FormDialog extends React.Component {
 	}
 
 	render() {
-		//num should eventually b owner details
-		//const principal = this.state.principal;
 		const { classes } = this.props;
 		const star = Star;
 
@@ -128,7 +118,6 @@ class FormDialog extends React.Component {
 						<Rating
 							onChange={(value) => {this.setState({value: value});}}
                             initialRating={this.state.value}
-							// value={5}
 						/>
 						<Button onClick={this.handleClose} >Done</Button>
 					</div>

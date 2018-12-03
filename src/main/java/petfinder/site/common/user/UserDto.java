@@ -19,11 +19,6 @@ public class UserDto implements Momento<String> {
     private String owner;
     private Boolean isDeleted = false;
 
-
-    //TODO: add owner and sitter to tell if the user can sign in as an owner or sitter,
-    //and a cookie will be set to be used for the switch to owner/sitter button on the dash
-
-    //TODO: separate address into zip, city, state, and address
     private String phoneNumber;
     private String firstName;
     private String lastName;

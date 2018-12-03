@@ -3,9 +3,6 @@ package petfinder.site.common.sitter;
 import alloy.util.Momento;
 import org.codehaus.jackson.annotate.JsonIgnore;
 
-import javax.swing.text.StyledEditorKit;
-import java.time.LocalDateTime;
-
 public class SitterDto implements Momento<String> {
 
     private String principal;
