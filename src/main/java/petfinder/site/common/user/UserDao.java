@@ -9,7 +9,6 @@ import org.elasticsearch.search.builder.SearchSourceBuilder;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 import petfinder.site.elasticsearch.UserElasticSearchRepository;
-import petfinder.site.elasticsearch.UserInfoElasticSearchRepository;
 
 /**
  * Created by jlutteringer on 8/23/17.
@@ -19,7 +18,10 @@ public class UserDao {
 	@Autowired
 	private UserElasticSearchRepository repository;
 
+<<<<<<< HEAD
 
+=======
+>>>>>>> 18c4b21a9d3ba72a61534ef984adc6ef760c0a09
 	public Optional<UserAuthenticationDto> findUser(String id) {
 		//I commented out the UserAuthenticationDt0.class, IDK why it was there
 		return repository.find(id/*, UserAuthenticationDto.class*/);
@@ -37,7 +39,6 @@ public class UserDao {
 	public void save(UserAuthenticationDto userAuthentication) {
 		repository.save(userAuthentication);
 	}
-
 
 	public List<Optional<UserAuthenticationDto>> findByCity(String city, String type) {
 		SearchSourceBuilder searchSourceBuilder = new SearchSourceBuilder();
