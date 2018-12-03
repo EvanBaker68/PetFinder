@@ -16,5 +16,3 @@ test:
   script:
   - ./gradlew test
   artifacts:
-    reports:
-      junit: build/test-results/test/TEST-*.xml
