@@ -63,39 +63,30 @@ class SignInForm extends React.Component {
     setowner = () => {
         axios.get('/api/user')
             .then(res => {
-                if (cookies.get('loggedIn') === 'true') {
-                    cookies.set('owner', res.owner);
-                    cookies.set('sitter', res.sitter);
+                cookies.set('owner', res.owner);
+                cookies.set('sitter', res.sitter);
 
-                    if (res.owner === 'true') {
-                        this.setState({
-                            redirectOwner: true
-                        });
-                    }
-                    else {
-                        this.setState({owner: false});
-                        cookies.set('loggedIn', 'false');
-                        cookies.set('sitter', '');
-                        cookies.set('owner', '');
-                        cookies.set('password', '');
-                        cookies.set('auth', '');
-                        cookies.set('authRefresh', '');
-                        cookies.set('username', '');
-                        cookies.set('password', '');
-                        cookies.set('ownerButton', '');
-                        alert('This account is not registered as an owner.');
-                    }
+                if (res.owner === 'true') {
+                    this.setState({
+                        redirectOwner: true
+                    });
                 }
                 else {
-                    alert('This account is not registered.');
+                    this.setState({owner: false});
+                    cookies.set('loggedIn', 'false');
+                    cookies.set('sitter', '');
+                    cookies.set('owner', '');
+                    cookies.set('password', '');
+                    cookies.set('auth', '');
+                    cookies.set('authRefresh', '');
+                    cookies.set('username', '');
+                    cookies.set('password', '');
+                    alert('This account is not registered as an owner.');
                 }
 
             }).then(response => console.log(response))
             .catch(error => this.setState({error}));
 
-
-        cookies.set('ownerButton', 'false');
-        cookies.set('sitterButton', 'true');
     }
 
 
@@ -105,35 +96,27 @@ class SignInForm extends React.Component {
                 cookies.set('owner', res.owner);
                 cookies.set('sitter', res.sitter);
 
-                if (cookies.get('loggedIn') === 'true') {
-                    if (res.sitter === 'true') {
-                        this.setState({
-                            redirectSitter: true
-                        });
-                    }
-                    else {
-                        this.setState({sitter: false});
-                        cookies.set('loggedIn', 'false');
-                        cookies.set('sitter', '');
-                        cookies.set('owner', '');
-                        cookies.set('password', '');
-                        cookies.set('auth', '');
-                        cookies.set('authRefresh', '');
-                        cookies.set('username', '');
-                        cookies.set('password', '');
-                        cookies.set('sitterButton', '');
-                        alert('This account is not registered as a sitter.');
-                    }
+                if (res.sitter === 'true') {
+                    this.setState({
+                        redirectSitter: true
+                    });
                 }
                 else {
-                    alert('This account is not registered.');
+                    this.setState({sitter: false});
+                    cookies.set('loggedIn', 'false');
+                    cookies.set('sitter', '');
+                    cookies.set('owner', '');
+                    cookies.set('password', '');
+                    cookies.set('auth', '');
+                    cookies.set('authRefresh', '');
+                    cookies.set('username', '');
+                    cookies.set('password', '');
+                    alert('This account is not registered as a sitter.');
                 }
 
             }).then(response => console.log(response))
             .catch(error => this.setState({error}));
 
-        cookies.set('ownerButton', 'false');
-        cookies.set('sitterButton', 'true');
     }
 
     setSitterState = () => {
@@ -146,10 +129,15 @@ class SignInForm extends React.Component {
 
     onSubmit = ({principal, password}) => {
         this.props.authenticate(principal, password).then(() => {
+            if(cookies.get('loggedIn') === 'true') {
                 if (this.state.owner)
                     this.setowner();
                 else if (this.state.sitter)
                     this.setsitter();
+            }
+            else {
+                alert('This account is not registered.');
+            }
             }
         );
 
