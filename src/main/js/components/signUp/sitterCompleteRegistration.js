@@ -1,6 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { withStyles } from '@material-ui/core/styles';
+import {withStyles} from '@material-ui/core/styles';
 import Paper from '@material-ui/core/Paper';
 import Typography from '@material-ui/core/Typography';
 import CssBaseline from '@material-ui/core/CssBaseline/CssBaseline';
@@ -39,6 +39,7 @@ const styles = theme => ({
         },
     },
 });
+
 class SitterCompleteRegistration extends React.Component {
     state = {
         activeStep: 0,
@@ -51,11 +52,11 @@ class SitterCompleteRegistration extends React.Component {
     };
 
     render() {
-        const { classes } = this.props;
+        const {classes} = this.props;
 
         return (
             <React.Fragment>
-                <CssBaseline />
+                <CssBaseline/>
                 <main className={classes.layout}>
                     <Paper className={classes.paper}>
                         <Typography variant="display1">Register</Typography>

@@ -5,7 +5,7 @@ import Paper from '@material-ui/core/Paper';
 import Typography from '@material-ui/core/Typography';
 import withStyles from '@material-ui/core/styles/withStyles';
 import PropTypes from 'prop-types';
-import { Redirect } from 'react-router-dom';
+import {Redirect} from 'react-router-dom';
 import {connect} from 'react-redux';
 import * as Users from 'js/users';
 import blue from '@material-ui/core/colors/blueGrey';
@@ -17,63 +17,63 @@ import Cookies from 'universal-cookie';
 import axios from 'axios/index';
 
 const styles = theme => ({
-	layout: {
-		backgroundImage: `url(${Image})`,
-		width: 'auto',
-		display: 'block',
-		marginLeft: theme.spacing.unit * 3,
-		marginRight: theme.spacing.unit * 3,
-		[theme.breakpoints.up(400 + theme.spacing.unit * 3 * 2)]: {
-			width: 400,
-			marginLeft: 'auto',
-			marginRight: 'auto',
-		},
-	},
-	paper: {
-		marginTop: theme.spacing.unit * 8,
-		display: 'flex',
-		flexDirection: 'column',
-		alignItems: 'center',
-		padding: `${theme.spacing.unit * 2}px ${theme.spacing.unit * 3}px ${theme.spacing.unit * 3}px`,
-	},
-	avatar: {
-		margin: theme.spacing.unit,
-		backgroundColor: blue,
-	},
-	form: {
-		width: '100%', // Fix IE11 issue.
-		marginTop: theme.spacing.unit,
-	},
-	submit: {
-		marginTop: theme.spacing.unit * 3,
-	},
+    layout: {
+        backgroundImage: `url(${Image})`,
+        width: 'auto',
+        display: 'block',
+        marginLeft: theme.spacing.unit * 3,
+        marginRight: theme.spacing.unit * 3,
+        [theme.breakpoints.up(400 + theme.spacing.unit * 3 * 2)]: {
+            width: 400,
+            marginLeft: 'auto',
+            marginRight: 'auto',
+        },
+    },
+    paper: {
+        marginTop: theme.spacing.unit * 8,
+        display: 'flex',
+        flexDirection: 'column',
+        alignItems: 'center',
+        padding: `${theme.spacing.unit * 2}px ${theme.spacing.unit * 3}px ${theme.spacing.unit * 3}px`,
+    },
+    avatar: {
+        margin: theme.spacing.unit,
+        backgroundColor: blue,
+    },
+    form: {
+        width: '100%', // Fix IE11 issue.
+        marginTop: theme.spacing.unit,
+    },
+    submit: {
+        marginTop: theme.spacing.unit * 3,
+    },
 });
 
 const cookies = new Cookies();
 
-class SignInForm extends React.Component{
+class SignInForm extends React.Component {
 
-	state = {
-		owner: false,
-		sitter: false,
-		redirectOwner: false,
-		redirectSitter: false,
-	}
+    state = {
+        owner: false,
+        sitter: false,
+        redirectOwner: false,
+        redirectSitter: false,
+    }
 
-	setowner = () => {
-		axios.get('/api/user')
-			.then(res => {
-				cookies.set('owner', res.owner);
-				cookies.set('sitter', res.sitter);
+    setowner = () => {
+        axios.get('/api/user')
+            .then(res => {
+                if (cookies.get('loggedIn') === 'true') {
+                    cookies.set('owner', res.owner);
+                    cookies.set('sitter', res.sitter);
 
-				if(cookies.get('loggedIn') === 'true'){
-					if(res.owner === 'true'){
-						this.setState({
-							redirectOwner: true
-						});
-					}
-					else{
-						this.setState({owner: false});
+                    if (res.owner === 'true') {
+                        this.setState({
+                            redirectOwner: true
+                        });
+                    }
+                    else {
+                        this.setState({owner: false});
                         cookies.set('loggedIn', 'false');
                         cookies.set('sitter', '');
                         cookies.set('owner', '');
@@ -83,36 +83,36 @@ class SignInForm extends React.Component{
                         cookies.set('username', '');
                         cookies.set('password', '');
                         cookies.set('ownerButton', '');
-						alert('This account is not registered as an owner.');
-					}
-				}
-				else{
-					alert('This account is not registered.');
-				}
+                        alert('This account is not registered as an owner.');
+                    }
+                }
+                else {
+                    alert('This account is not registered.');
+                }
 
-			}).then(response => console.log(response))
-			.catch(error => this.setState({error}));
-
-
-		cookies.set('ownerButton', 'false');
-		cookies.set('sitterButton', 'true');
-	}
+            }).then(response => console.log(response))
+            .catch(error => this.setState({error}));
 
 
-	setsitter = () => {
-		axios.get('/api/user')
-			.then(res => {
-				cookies.set('owner', res.owner);
-				cookies.set('sitter', res.sitter);
+        cookies.set('ownerButton', 'false');
+        cookies.set('sitterButton', 'true');
+    }
 
-				if(cookies.get('loggedIn') === 'true'){
-					if(res.sitter === 'true'){
-						this.setState({
-							redirectSitter: true
-						});
-					}
-					else{
-						this.setState({sitter: false});
+
+    setsitter = () => {
+        axios.get('/api/user')
+            .then(res => {
+                cookies.set('owner', res.owner);
+                cookies.set('sitter', res.sitter);
+
+                if (cookies.get('loggedIn') === 'true') {
+                    if (res.sitter === 'true') {
+                        this.setState({
+                            redirectSitter: true
+                        });
+                    }
+                    else {
+                        this.setState({sitter: false});
                         cookies.set('loggedIn', 'false');
                         cookies.set('sitter', '');
                         cookies.set('owner', '');
@@ -122,119 +122,116 @@ class SignInForm extends React.Component{
                         cookies.set('username', '');
                         cookies.set('password', '');
                         cookies.set('sitterButton', '');
-						alert('This account is not registered as a sitter.');
-					}
-				}
-				else{
-					alert('This account is not registered.');
-				}
+                        alert('This account is not registered as a sitter.');
+                    }
+                }
+                else {
+                    alert('This account is not registered.');
+                }
 
-			}).then(response => console.log(response))
-			.catch(error => this.setState({error}));
+            }).then(response => console.log(response))
+            .catch(error => this.setState({error}));
 
-		cookies.set('ownerButton', 'false');
-		cookies.set('sitterButton', 'true');
-	}
+        cookies.set('ownerButton', 'false');
+        cookies.set('sitterButton', 'true');
+    }
 
-	setSitterState = () => {
-		this.setState({sitter: true});
-	}
+    setSitterState = () => {
+        this.setState({sitter: true});
+    }
 
-	setOwnerState = () => {
-		this.setState({owner: true});
-	}
+    setOwnerState = () => {
+        this.setState({owner: true});
+    }
 
-	onSubmit = ({principal, password}) => {
-		this.props.authenticate(principal, password).then( () =>
-			{
-				if(this.state.owner)
-					this.setowner();
-				else if(this.state.sitter)
-					this.setsitter();
-			}
-		);
+    onSubmit = ({principal, password}) => {
+        this.props.authenticate(principal, password).then(() => {
+                if (this.state.owner)
+                    this.setowner();
+                else if (this.state.sitter)
+                    this.setsitter();
+            }
+        );
 
-	};
+    };
 
-	render() {
+    render() {
 
-		const { classes } = this.props;
-		let { handleSubmit, submitting } = this.props;
-		const redirectOwner = this.state.redirectOwner;
-		const redirectSitter = this.state.redirectSitter;
+        const {classes} = this.props;
+        let {handleSubmit, submitting} = this.props;
+        const redirectOwner = this.state.redirectOwner;
+        const redirectSitter = this.state.redirectSitter;
 
-		return (
+        return (
 
-			<main className={classes.layout}>
-				{redirectSitter && <div><Redirect to='/sitterDash'/></div>}
-				{redirectOwner && <div><Redirect to='/ownerDash'/></div>}
-				<Paper className={classes.paper}>
-					<Typography variant="display1">SignIn</Typography>
-					<form className={classes.form}
-						  onSubmit={handleSubmit(form => this.onSubmit(form))}>
-						<FormControl margin="normal" required fullWidth>
-							<Bessemer.Field name="principal" friendlyName="email"
-											validators={[Validation.requiredValidator, Validation.emailValidator]}
-											autoComplete="email" autoFocus/>
-						</FormControl>
-						<FormControl margin="normal" required fullWidth>
-							<Bessemer.Field
-								name="password"
-								type="password"
-								friendlyName="password"
-								validators={[Validation.requiredValidator, Validation.passwordValidator]}
-								field={<input className="form-control" type="password" />}
-								autoComplete="current-password"
-							/>
-						</FormControl>
-						<div>
-							<Button
-								type="submit"
-								loading="submitting"
-								fullWidth
-								variant="raised"
-								color="secondary"
-								className={classes.submit}
-								onClick={this.setSitterState}
-							>
-								Continue as Pet Sitter
-							</Button>
-						</div>
+            <main className={classes.layout}>
+                {redirectSitter && <div><Redirect to='/sitterDash'/></div>}
+                {redirectOwner && <div><Redirect to='/ownerDash'/></div>}
+                <Paper className={classes.paper}>
+                    <Typography variant="display1">SignIn</Typography>
+                    <form className={classes.form}
+                          onSubmit={handleSubmit(form => this.onSubmit(form))}>
+                        <FormControl margin="normal" required fullWidth>
+                            <Bessemer.Field name="principal" friendlyName="email"
+                                            validators={[Validation.requiredValidator, Validation.emailValidator]}
+                                            autoComplete="email" autoFocus/>
+                        </FormControl>
+                        <FormControl margin="normal" required fullWidth>
+                            <Bessemer.Field
+                                name="password"
+                                type="password"
+                                friendlyName="password"
+                                validators={[Validation.requiredValidator, Validation.passwordValidator]}
+                                field={<input className="form-control" type="password"/>}
+                                autoComplete="current-password"
+                            />
+                        </FormControl>
+                        <div>
+                            <Button
+                                type="submit"
+                                loading="submitting"
+                                fullWidth
+                                variant="raised"
+                                color="secondary"
+                                className={classes.submit}
+                                onClick={this.setSitterState}
+                            >
+                                Continue as Pet Sitter
+                            </Button>
+                        </div>
 
-						<div>
-							<Button
-								type="submit"
-								fullWidth
-								variant="raised"
-								color="primary"
-								className={classes.submit}
-								onClick={this.setOwnerState}
-							>
-								Continue as Pet Owner
-							</Button>
-						</div>
-					</form>
-				</Paper>
-			</main>
-		);
-	}
+                        <div>
+                            <Button
+                                type="submit"
+                                fullWidth
+                                variant="raised"
+                                color="primary"
+                                className={classes.submit}
+                                onClick={this.setOwnerState}
+                            >
+                                Continue as Pet Owner
+                            </Button>
+                        </div>
+                    </form>
+                </Paper>
+            </main>
+        );
+    }
 }
 
 SignInForm = ReduxForm.reduxForm({form: 'SignIn'})(SignInForm);
 
 
 SignInForm = connect(
-	state => ({
-
-	}),
-	dispatch => (
-		{
-			authenticate: (principal, password) => dispatch(Users.Actions.authenticate(principal, password))
-		})
+    state => ({}),
+    dispatch => (
+        {
+            authenticate: (principal, password) => dispatch(Users.Actions.authenticate(principal, password))
+        })
 )(SignInForm);
 
 SignInForm.propTypes = {
-	classes: PropTypes.object.isRequired,
+    classes: PropTypes.object.isRequired,
 };
 
 export default withStyles(styles)(SignInForm);

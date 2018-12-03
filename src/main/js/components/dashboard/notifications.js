@@ -52,67 +52,64 @@ class FormDialog extends React.Component {
 
             }).then(() => {
 
-			axios.get('/notification/getbyownerprincipal/' + cookies.get('username'), cookies.get('username'))
-				.then(res => {
-					console.log('OWNERRES: ', res);
-					array2 = res;
-					console.log('ARRAY1: ', array1);
-					console.log('ARRAY2: ', array2);
-					array1.push.apply(array1, array2);
-					this.setState({ notifications: array1 });
-				});
+            axios.get('/notification/getbyownerprincipal/' + cookies.get('username'), cookies.get('username'))
+                .then(res => {
+                    console.log('OWNERRES: ', res);
+                    array2 = res;
+                    console.log('ARRAY1: ', array1);
+                    console.log('ARRAY2: ', array2);
+                    array1.push.apply(array1, array2);
+                    this.setState({notifications: array1});
+                });
         });
 
     }
 
 
     createData = (name) => {
-        return { name};
+        return {name};
     }
 
     handleClickOpen = () => {
-        this.setState({ open: true });
+        this.setState({open: true});
     };
 
     handleClose = () => {
-        this.setState({ open: false });
+        this.setState({open: false});
     };
 
     handleCancel = (notification) => {
 
-        const theNotification = {
-
-        };
+        const theNotification = {};
 
         console.log('NOTIFICATION', notification);
         notification.deleted = true;
-		console.log('NEW NOTIFICATION', notification);
+        console.log('NEW NOTIFICATION', notification);
 
-		axios.post('/notification/add-notification/', notification)
-			.then(res => {
-				console.log(res);
-				const cookies = new Cookies();
-				var array1 = [];
-				var array2 = [];
-				axios.get('/notification/getbysitterprincipal/' + cookies.get('username'), cookies.get('username'))
-					.then(res => {
-						console.log('SITTERRES: ', res);
-						array1 = res;
+        axios.post('/notification/add-notification/', notification)
+            .then(res => {
+                console.log(res);
+                const cookies = new Cookies();
+                var array1 = [];
+                var array2 = [];
+                axios.get('/notification/getbysitterprincipal/' + cookies.get('username'), cookies.get('username'))
+                    .then(res => {
+                        console.log('SITTERRES: ', res);
+                        array1 = res;
 
-					}).then(() => {
+                    }).then(() => {
 
-					axios.get('/notification/getbyownerprincipal/' + cookies.get('username'), cookies.get('username'))
-						.then(res => {
-							console.log('OWNERRES: ', res);
-							array2 = res;
-							console.log('ARRAY1: ', array1);
-							console.log('ARRAY2: ', array2);
-							array1.push.apply(array1, array2);
-							this.setState({ notifications: array1 });
-						});
-				});
-			});
-
+                    axios.get('/notification/getbyownerprincipal/' + cookies.get('username'), cookies.get('username'))
+                        .then(res => {
+                            console.log('OWNERRES: ', res);
+                            array2 = res;
+                            console.log('ARRAY1: ', array1);
+                            console.log('ARRAY2: ', array2);
+                            array1.push.apply(array1, array2);
+                            this.setState({notifications: array1});
+                        });
+                });
+            });
 
 
     };

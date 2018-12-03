@@ -1,6 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { withStyles } from '@material-ui/core/styles';
+import {withStyles} from '@material-ui/core/styles';
 import TextField from '@material-ui/core/TextField';
 import Cookies from 'universal-cookie';
 import axios from 'axios/index';
@@ -35,35 +35,36 @@ class OutlinedTextFields extends React.Component {
         });
     };
 
-	handleAddClose = () => {
-		const cookies = new Cookies();
-		const owner = {
-			principal: cookies.get('username'),
+    handleAddClose = () => {
+        const cookies = new Cookies();
+        const owner = {
+            principal: cookies.get('username'),
             numPets: this.state.numPets
-		};
-		axios.post('/api/owner/add-owner', owner)
-			.then(res => {
-				console.log(res);
-				console.log(res.data);
-			})
-			.catch(error => {
-				console.log(error.response);
-			});
-	};
+        };
+        axios.post('/api/owner/add-owner', owner)
+            .then(res => {
+                console.log(res);
+                console.log(res.data);
+            })
+            .catch(error => {
+                console.log(error.response);
+            });
+    };
 
-	componentDidMount() {
-		const cookies = new Cookies();
-		axios.get('/api/owner/' + cookies.get('username').replace(/@/g, '%40'), cookies.get('username').replace(/@/g, '%40'))
-			.then(res => {
-				this.setState({
-					numPets: res.numPets});
-			}).then(response => console.log(response))
-			.catch(error => this.setState({error}));
-	}
+    componentDidMount() {
+        const cookies = new Cookies();
+        axios.get('/api/owner/' + cookies.get('username').replace(/@/g, '%40'), cookies.get('username').replace(/@/g, '%40'))
+            .then(res => {
+                this.setState({
+                    numPets: res.numPets
+                });
+            }).then(response => console.log(response))
+            .catch(error => this.setState({error}));
+    }
 
 
     render() {
-        const { classes } = this.props;
+        const {classes} = this.props;
 
         return (
             <form className={classes.container} noValidate autoComplete="off">
@@ -76,10 +77,10 @@ class OutlinedTextFields extends React.Component {
                     margin="normal"
                     variant="standard"
                 />
-				<Link to="/ownerDash">
-					<Button color="secondary"
-                    onClick={this.handleAddClose}>Next</Button>
-				</Link>
+                <Link to="/ownerDash">
+                    <Button color="secondary"
+                            onClick={this.handleAddClose}>Next</Button>
+                </Link>
             </form>
         );
     }

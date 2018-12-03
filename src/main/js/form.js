@@ -1,7 +1,7 @@
 import React from 'react';
 import axios from 'axios';
 
-export function authenticate(pet){
+export function authenticate(pet) {
     return axios.post('/api/pets');
 }
 
@@ -29,7 +29,7 @@ export default class Form extends React.Component {
             type: this.state.type,
         };
 
-        axios.post('/api/pets', { pet })
+        axios.post('/api/pets', {pet})
             .then(res => {
                 console.log(res);
                 console.long(res.data);
@@ -42,25 +42,25 @@ export default class Form extends React.Component {
         return (
             <form>
                 <input
-                name='id'
-                placeholder='id pwease'
-                value={this.state.id}
-                onChange={e => this.change(e)}/>
+                    name='id'
+                    placeholder='id pwease'
+                    value={this.state.id}
+                    onChange={e => this.change(e)}/>
 
                 <input
-                name='name'
-                placeholder='petName pwease'
-                value={this.state.name}
-                onChange={e => this.change(e)}/>
+                    name='name'
+                    placeholder='petName pwease'
+                    value={this.state.name}
+                    onChange={e => this.change(e)}/>
 
                 <input
-                name='type'
-                placeholder='petType pwease'
-                value={this.state.type}
-                onChange={e => this.change(e)}/>
+                    name='type'
+                    placeholder='petType pwease'
+                    value={this.state.type}
+                    onChange={e => this.change(e)}/>
                 >
 
-                <br />
+                <br/>
                 <button onClick={e => this.onSubmit(e)}>Submit</button>
             </form>
         );

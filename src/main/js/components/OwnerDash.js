@@ -1,7 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import classNames from 'classnames';
-import { withStyles } from '@material-ui/core/styles';
+import {withStyles} from '@material-ui/core/styles';
 import CssBaseline from '@material-ui/core/CssBaseline';
 import Drawer from '@material-ui/core/Drawer';
 import Typography from '@material-ui/core/Typography';
@@ -11,7 +11,7 @@ import ChevronLeftIcon from '@material-ui/icons/ChevronLeft';
 import MainListItems from 'js/components/dashboard/listItems';
 import SimpleTable from 'js/components/dashboard/simpleTable';
 import UpcomingTable from 'js/components/dashboard/upcomingTable';
-import  { Redirect } from 'react-router-dom';
+import {Redirect} from 'react-router-dom';
 import Cookies from 'universal-cookie';
 import MenuBar from 'js/components/dashboard/MenuBar';
 import OwnerPendingTable from 'js/components/dashboard/OwnerPendingTable';
@@ -78,9 +78,9 @@ const styles = theme => ({
             width: theme.spacing.unit * 9,
         },
     },
-	submit: {
-		marginTop: theme.spacing.unit * 3,
-	},
+    submit: {
+        marginTop: theme.spacing.unit * 3,
+    },
     appBarSpacer: theme.mixins.toolbar,
     content: {
         flexGrow: 1,
@@ -108,24 +108,24 @@ class Dashboard extends React.Component {
     };
 
     handleDrawerClose = () => {
-        this.setState({ open: false });
+        this.setState({open: false});
     };
 
     render() {
-        const { classes } = this.props;
+        const {classes} = this.props;
 
-		const cookies = new Cookies();
-		if( cookies.get('owner') !== 'true' ) {
-			return <div><Redirect to='/'/></div>;
-		}
+        const cookies = new Cookies();
+        if (cookies.get('owner') !== 'true') {
+            return <div><Redirect to='/'/></div>;
+        }
 
-		if( cookies.get('sitter') === 'true' && cookies.get('owner') === 'true'){
-		    console.log('fasdfadsjkl;');
+        if (cookies.get('sitter') === 'true' && cookies.get('owner') === 'true') {
+            console.log('fasdfadsjkl;');
         }
 
         return (
             <React.Fragment>
-                <CssBaseline />
+                <CssBaseline/>
                 <div className={classes.root}>
                     <MenuBar title='Owner Dash'/>
                     <Drawer
@@ -137,14 +137,14 @@ class Dashboard extends React.Component {
                     >
                         <div className={classes.toolbarIcon}>
                             <IconButton onClick={this.handleDrawerClose}>
-                                <ChevronLeftIcon />
+                                <ChevronLeftIcon/>
                             </IconButton>
                         </div>
-                        <Divider />
+                        <Divider/>
                         <MainListItems/>
                     </Drawer>
                     <main className={classes.content}>
-                        <div className={classes.appBarSpacer} />
+                        <div className={classes.appBarSpacer}/>
                         <Typography variant="display1" gutterBottom>
                             Pending Bookings
                         </Typography>
@@ -161,7 +161,7 @@ class Dashboard extends React.Component {
                             Previous Sitters
                         </Typography>
                         <div className={classes.tableContainer}>
-                            <SimpleTable />
+                            <SimpleTable/>
                         </div>
                     </main>
                 </div>

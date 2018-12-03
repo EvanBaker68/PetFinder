@@ -25,69 +25,71 @@ class FormDialog extends React.Component {
             num: props.number,
             principal: props.principal,
             name: props.name,
-			id: props.id,
+            id: props.id,
             value: 0
         };
     }
 
     handleClickOpen = () => {
-        this.setState({ open: true });
+        this.setState({open: true});
     };
 
     handleClose = () => {
-        this.setState({ open: false });
+        this.setState({open: false});
 
-		axios.get('/api/sitter/' + this.state.principal, this.state.principal).then(
-			res => {
-				console.log(res);
-				const sitter = res;
-				sitter.rating *= sitter.ratingCount;
-				sitter.rating += this.state.value;
-				sitter.ratingCount += 1;
-				sitter.rating /= sitter.ratingCount;
-                sitter.rating = Math.round( sitter.rating * 10 ) / 10;
+        axios.get('/api/sitter/' + this.state.principal, this.state.principal).then(
+            res => {
+                console.log(res);
+                const sitter = res;
+                sitter.rating *= sitter.ratingCount;
+                sitter.rating += this.state.value;
+                sitter.ratingCount += 1;
+                sitter.rating /= sitter.ratingCount;
+                sitter.rating = Math.round(sitter.rating * 10) / 10;
 
-				axios.post('/api/sitter/add-sitter', sitter)
-					.then(res => {
-						console.log(res);
-						console.log(res.data);
-					})
-					.then(response => console.log(response))
-					.catch(error => this.setState({error}));
-			}
-		).then(response => console.log(response))
-			.catch(error => this.setState({error}));
-
-
-		axios.get('/api/booking/' + this.state.id, this.state.id)
-			.then(res => {
-				var booking = res;
-				booking.isRatedByOwner = true;
-				booking.scoreByOwner = this.state.value;
-
-				axios.post('/api/booking/add-booking', booking)
-					.then(res => {
-						console.log(res);
-					})
-					.catch(error => {
-						console.log(error.response);
-					});
+                axios.post('/api/sitter/add-sitter', sitter)
+                    .then(res => {
+                        console.log(res);
+                        console.log(res.data);
+                    })
+                    .then(response => console.log(response))
+                    .catch(error => this.setState({error}));
+            }
+        ).then(response => console.log(response))
+            .catch(error => this.setState({error}));
 
 
-				let message = booking.ownerPrincipal + ' rated you a ' + this.state.value + ' out of 5.';
+        axios.get('/api/booking/' + this.state.id, this.state.id)
+            .then(res => {
+                var booking = res;
+                booking.isRatedByOwner = true;
+                booking.scoreByOwner = this.state.value;
 
-				var notification = {
-					message: message,
-					sitterPrincipal: booking.sitterPrincipal
-				};
+                axios.post('/api/booking/add-booking', booking)
+                    .then(res => {
+                        console.log(res);
+                    })
+                    .catch(error => {
+                        console.log(error.response);
+                    });
 
-				axios.post('/notification/add-notification/', notification)
-					.then(res => {
-						console.log(res);
-					});
 
-			}).then(() => {this.props.handler();}).then(response => console.log(response))
-			.catch(error => this.setState({error}));
+                let message = booking.ownerPrincipal + ' rated you a ' + this.state.value + ' out of 5.';
+
+                var notification = {
+                    message: message,
+                    sitterPrincipal: booking.sitterPrincipal
+                };
+
+                axios.post('/notification/add-notification/', notification)
+                    .then(res => {
+                        console.log(res);
+                    });
+
+            }).then(() => {
+            this.props.handler();
+        }).then(response => console.log(response))
+            .catch(error => this.setState({error}));
 
 
     };
@@ -99,7 +101,7 @@ class FormDialog extends React.Component {
     };
 
     render() {
-        const { classes } = this.props;
+        const {classes} = this.props;
 
         return (
             <div>
@@ -112,10 +114,12 @@ class FormDialog extends React.Component {
                     <DialogTitle id="form-dialog-title">Rate {this.state.name}</DialogTitle>
                     <div>
                         <Rating
-                            onChange={(value) => {this.setState({value: value});}}
+                            onChange={(value) => {
+                                this.setState({value: value});
+                            }}
                             initialRating={this.state.value}
                         />
-                        <Button onClick={this.handleClose} >Done</Button>
+                        <Button onClick={this.handleClose}>Done</Button>
                     </div>
                 </Dialog>
             </div>

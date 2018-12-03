@@ -1,56 +1,56 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { withStyles } from '@material-ui/core/styles';
+import {withStyles} from '@material-ui/core/styles';
 import TextField from '@material-ui/core/TextField';
 
 const styles = theme => ({
-	container: {
-		display: 'flex',
-		flexWrap: 'wrap',
-	},
-	textField: {
-		marginLeft: theme.spacing.unit,
-		marginRight: theme.spacing.unit,
-	},
-	dense: {
-		marginTop: 16,
-	},
-	menu: {
-		width: 200,
-	},
+    container: {
+        display: 'flex',
+        flexWrap: 'wrap',
+    },
+    textField: {
+        marginLeft: theme.spacing.unit,
+        marginRight: theme.spacing.unit,
+    },
+    dense: {
+        marginTop: 16,
+    },
+    menu: {
+        width: 200,
+    },
 });
 
 /*
 	text field component for owner specific information
  */
 class OutlinedTextFields extends React.Component {
-	state = {
-		fistname: '',
-		lastname: '',
-		address: '',
-		city: ''
-	};
+    state = {
+        fistname: '',
+        lastname: '',
+        address: '',
+        city: ''
+    };
 
-	handleChange = name => event => {
-		this.setState({
-			[name]: event.target.value,
-		});
-	};
+    handleChange = name => event => {
+        this.setState({
+            [name]: event.target.value,
+        });
+    };
 
-	render() {
-		const { classes } = this.props;
+    render() {
+        const {classes} = this.props;
 
-		return (
-			<form className={classes.container} noValidate autoComplete="off">
-				<TextField
-					id="outlined-name"
-					label="First Name"
-					className={classes.textField}
-					value={this.state.name}
-					onChange={this.handleChange('firstname')}
-					margin="normal"
-					variant="standard"
-		        />
+        return (
+            <form className={classes.container} noValidate autoComplete="off">
+                <TextField
+                    id="outlined-name"
+                    label="First Name"
+                    className={classes.textField}
+                    value={this.state.name}
+                    onChange={this.handleChange('firstname')}
+                    margin="normal"
+                    variant="standard"
+                />
                 <TextField
                     id="outlined-name"
                     label="Last Name"

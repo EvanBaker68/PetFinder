@@ -1,7 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import classNames from 'classnames';
-import { withStyles } from '@material-ui/core/styles';
+import {withStyles} from '@material-ui/core/styles';
 import CssBaseline from '@material-ui/core/CssBaseline';
 import Drawer from '@material-ui/core/Drawer';
 import Divider from '@material-ui/core/Divider';
@@ -49,10 +49,10 @@ const styles = theme => ({
         marginLeft: 12,
         marginRight: 36,
     },
-	divider: {
-	width: 5,
-	height: 50,
-	display: 'inline-block',
+    divider: {
+        width: 5,
+        height: 50,
+        display: 'inline-block',
     },
     menuButtonHidden: {
         display: 'none',
@@ -109,73 +109,75 @@ class PetPage extends React.Component {
         reload: false
     };
 
-    constructor(props){
-		super(props);
+    constructor(props) {
+        super(props);
 
-		this.stateChangeHandler = this.stateChangeHandler.bind(this);
+        this.stateChangeHandler = this.stateChangeHandler.bind(this);
     }
 
     componentDidMount() {
         const cookies = new Cookies();
 
-		axios.get('/api/pet/pets/' + cookies.get('username'), cookies.get('username'))
+        axios.get('/api/pet/pets/' + cookies.get('username'), cookies.get('username'))
             .then(res => {
                 this.setState({
                     pets: res
                 });
                 console.log(res);
             }).then(response => console.log(response))
-			.catch(error => this.setState({error}));
+            .catch(error => this.setState({error}));
     }
 
     handleDrawerOpen = () => {
-        this.setState({ open: true });
+        this.setState({open: true});
     };
 
     handleDrawerClose = () => {
-        this.setState({ open: false });
+        this.setState({open: false});
     };
 
     handler = () => {
-        if(this.state.reload === false)
-		this.setState({reload: true});
+        if (this.state.reload === false)
+            this.setState({reload: true});
         else
             this.setState({reload: false});
-	}
+    }
 
     stateChangeHandler = () => {
-		const cookies = new Cookies();
+        const cookies = new Cookies();
 
-		axios.get('/api/pet/pets/' + cookies.get('username'), cookies.get('username'))
-			.then(res => {
-				this.setState({
-					pets: res
-				});
-				console.log(res);
-			}).then(response => console.log(response))
-			.catch(error => this.setState({error}));
-		this.handler();
+        axios.get('/api/pet/pets/' + cookies.get('username'), cookies.get('username'))
+            .then(res => {
+                this.setState({
+                    pets: res
+                });
+                console.log(res);
+            }).then(response => console.log(response))
+            .catch(error => this.setState({error}));
+        this.handler();
     }
 
     render() {
-        const { classes } = this.props;
-        const { pets } = this.state;
+        const {classes} = this.props;
+        const {pets} = this.state;
 
         var petItems;
-        if(pets)
-		{petItems = pets.map(pet => {
-			const {name, age, dogBreed, petType, id} = pet;
-			return (
-				<div key={(((1+Math.random())*0x10000)|0)}>
-				<PetCard handler={this.stateChangeHandler} id={id} name={name} type={petType} breed={dogBreed} age={age}/>
-				</div>
-			);
-		});}
+        if (pets) {
+            petItems = pets.map(pet => {
+                const {name, age, dogBreed, petType, id} = pet;
+                return (
+                    <div key={(((1 + Math.random()) * 0x10000) | 0)}>
+                        <PetCard handler={this.stateChangeHandler} id={id} name={name} type={petType} breed={dogBreed}
+                                 age={age}/>
+                    </div>
+                );
+            });
+        }
 
         return (
 
             <React.Fragment>
-                <CssBaseline />
+                <CssBaseline/>
                 <div className={classes.root}>
 
                     <MenuBar title='Pets'/>
@@ -188,15 +190,15 @@ class PetPage extends React.Component {
                     >
                         <div className={classes.toolbarIcon}>
                             <IconButton onClick={this.handleDrawerClose}>
-                                <ChevronLeftIcon />
+                                <ChevronLeftIcon/>
                             </IconButton>
                         </div>
-                        <Divider />
+                        <Divider/>
                         <MainListItems/>
                     </Drawer>
                     <main className={classes.content}>
                         {petItems}
-						<div className={classes.divider}/>
+                        <div className={classes.divider}/>
                         <AddPet handler={this.stateChangeHandler}/>
                     </main>
                 </div>

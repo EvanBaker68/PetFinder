@@ -11,7 +11,7 @@ import SwapIcon from '@material-ui/icons/SwapHorizontalCircle';
 import PropTypes from 'prop-types';
 
 
-import { Link } from 'react-router-dom';
+import {Link} from 'react-router-dom';
 import Cookies from 'universal-cookie';
 import {withStyles} from '@material-ui/core/styles/index';
 
@@ -22,56 +22,57 @@ const styles = theme => ({
 });
 
 const cookies = new Cookies();
+
 class MainListItems extends React.Component {
 
     render() {
 
         return (
             <List>
-            <div>
-                <Link to="/search">
-                    <ListItem button>
-                        <ListItemIcon>
-                            <SearchIcon/>
-                        </ListItemIcon>
-                        <ListItemText primary="Search"/>
-                    </ListItem>
-                </Link>
-                <Link to="/Ownerpets">
-                    <ListItem button>
-                        <ListItemIcon>
-                            <FavoriteIcon/>
-                        </ListItemIcon>
-                        <ListItemText primary="Pets"/>
-                    </ListItem>
-                </Link>
-                <Link to="ownerDash">
-                    <ListItem button>
-                        <ListItemIcon>
-                            <HistoryIcon/>
-                        </ListItemIcon>
-                        <ListItemText primary="Dashboard"/>
-                    </ListItem>
-                </Link>
-                <Link to="/ownerProfile">
-                    <ListItem button>
-                        <ListItemIcon>
-                            <ProfileIcon/>
-                        </ListItemIcon>
-                        <ListItemText primary="Profile"/>
-                    </ListItem>
-                </Link>
-                {cookies.get('sitter') === 'true' &&
-                <Link to="/sitterDash">
-                    <ListItem button>
-                        <ListItemIcon>
-                            <SwapIcon/>
-                        </ListItemIcon>
-                        <ListItemText primary="Swap to Sitter"/>
-                    </ListItem>
-                </Link>
-                }
-            </div>
+                <div>
+                    <Link to="/search">
+                        <ListItem button>
+                            <ListItemIcon>
+                                <SearchIcon/>
+                            </ListItemIcon>
+                            <ListItemText primary="Search"/>
+                        </ListItem>
+                    </Link>
+                    <Link to="/Ownerpets">
+                        <ListItem button>
+                            <ListItemIcon>
+                                <FavoriteIcon/>
+                            </ListItemIcon>
+                            <ListItemText primary="Pets"/>
+                        </ListItem>
+                    </Link>
+                    <Link to="ownerDash">
+                        <ListItem button>
+                            <ListItemIcon>
+                                <HistoryIcon/>
+                            </ListItemIcon>
+                            <ListItemText primary="Dashboard"/>
+                        </ListItem>
+                    </Link>
+                    <Link to="/ownerProfile">
+                        <ListItem button>
+                            <ListItemIcon>
+                                <ProfileIcon/>
+                            </ListItemIcon>
+                            <ListItemText primary="Profile"/>
+                        </ListItem>
+                    </Link>
+                    {cookies.get('sitter') === 'true' &&
+                    <Link to="/sitterDash">
+                        <ListItem button>
+                            <ListItemIcon>
+                                <SwapIcon/>
+                            </ListItemIcon>
+                            <ListItemText primary="Swap to Sitter"/>
+                        </ListItem>
+                    </Link>
+                    }
+                </div>
             </List>
         );
     }

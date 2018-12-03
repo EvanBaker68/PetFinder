@@ -1,7 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import classNames from 'classnames';
-import { withStyles } from '@material-ui/core/styles';
+import {withStyles} from '@material-ui/core/styles';
 import CssBaseline from '@material-ui/core/CssBaseline';
 import Drawer from '@material-ui/core/Drawer';
 import Typography from '@material-ui/core/Typography';
@@ -95,24 +95,24 @@ class Profile extends React.Component {
     };
 
     handleDrawerOpen = () => {
-        this.setState({ open: true });
+        this.setState({open: true});
     };
 
     handleDrawerClose = () => {
-        this.setState({ open: false });
+        this.setState({open: false});
     };
 
     render() {
-        const { classes } = this.props;
+        const {classes} = this.props;
         let today = new Date();
         let day = today.getDate();
         let month = today.getMonth();
 
         return (
             <React.Fragment>
-                <CssBaseline />
+                <CssBaseline/>
                 <div className={classes.root}>
-					<MenuBar title='Search and Match'/>
+                    <MenuBar title='Search and Match'/>
                     <Drawer
                         variant="permanent"
                         classes={{
@@ -122,14 +122,14 @@ class Profile extends React.Component {
                     >
                         <div className={classes.toolbarIcon}>
                             <IconButton onClick={this.handleDrawerClose}>
-                                <ChevronLeftIcon />
+                                <ChevronLeftIcon/>
                             </IconButton>
                         </div>
-                        <Divider />
+                        <Divider/>
                         <SitterMenuList/>
                     </Drawer>
                     <main className={classes.content}>
-                        <div className={classes.appBarSpacer} />
+                        <div className={classes.appBarSpacer}/>
                         <Typography
                             variant="display1"
                             gutterBottom
