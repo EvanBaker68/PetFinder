@@ -22,8 +22,7 @@ public class UserDao {
 	@Autowired
 	private UserElasticSearchRepository repository;
 
-	@Autowired
-	private UserInfoElasticSearchRepository userInfoElasticSearchRepository;
+
 	// JOHN
 	public Optional<UserAuthenticationDto> findUser(String id) {
 		//I commented out the UserAuthenticationDt0.class, IDK why it was there
@@ -40,40 +39,9 @@ public class UserDao {
 		return repository.search(searchSourceBuilder).stream().findFirst();
 	}
 
-	/*public Optional<UserDto> findUserByPrincipal(String principal) {
-		SearchSourceBuilder searchSourceBuilder = new SearchSourceBuilder();
-		String queryString = String.format("user.principal=\"%s\"", principal.replace("\"", ""));
-		//return repository.search(searchSourceBuilder).stream().findFirst();
-	}*/
 	public void save(UserAuthenticationDto userAuthentication) {
 		repository.save(userAuthentication);
 	}
 
-	public void saveInfo(UserDto userDto) {
-		userInfoElasticSearchRepository.save(userDto);
-	}
-	public List<Optional<UserAuthenticationDto>> findByCity(String city, String type) {
-		Boolean sitter = false;
-		Boolean owner = false;
-		SearchSourceBuilder searchSourceBuilder = new SearchSourceBuilder();
-		String queryString = "";
-		if(type.equals("sitter")){
-			sitter = true;
-
-//			queryString = String.format("user.city=\"%s\"&user.sitter=\"true\"", city.replace("\"", ""));
-			queryString = String.format("user.city=\"%s\"", city.replace("\"", ""));
-		} else if(type.equals("owner")){
-			owner = true;
-//			queryString = String.format("user.city=\"%s\"&user.owner=\"true\"", city.replace("\"", ""));
-			queryString = String.format("user.city=\"%s\"&user.owner=\"true\"Z", city.replace("\"", ""));
-
-		}
-		searchSourceBuilder.query(QueryBuilders.queryStringQuery(queryString));
-
-		//TODO: add thrown exception
-
-		return repository.search(searchSourceBuilder).stream().map(Optional::ofNullable)
-				.collect(Collectors.toList());
-	}
 
 }
